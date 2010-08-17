@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+
+	<input-mapper>				
+		<mapping source="petId" target="flowScope.petId"
+			from="string" to="int" />
+		<mapping source="ownerId" target="flowScope.ownerId"
+			from="string" to="int" />										
+	</input-mapper>
+
+	<start-actions>
+			<action bean="myVisitDTOCreationAction" method="setupForm" />
+			<action bean="myVisitDTOCreationAction" method="precompilaForm" />
+	</start-actions>
+		
+	<start-state idref="editing" />
+	
+ 	<view-state id="editing" view="common/epiCreationForm">
+		<render-actions>		
+			<action bean="myVisitDTOCreationAction" method="setupForm" />
+			<action bean="myVisitDTOCreationAction" method="referenceData" />
+		</render-actions>
+		<transition on="save" to="save">
+			<action bean="myVisitDTOCreationAction" method="bindAndValidate" />
+			<action bean="myVisitDTOCreationAction" method="persisti" />
+		</transition>
+		<transition on="calculate" to="editing">
+			<action bean="myVisitDTOCreationAction" method="bindAndValidate" />
+		</transition>
+		<transition on="cancel" to="exit" />
+	</view-state>
+		 
+	<end-state id="save" view="externalRedirect:/owner.htm?ownerId=${flowScope.ownerId}" />
+	
+  <import resource="services-config.xml" />
+</flow>
+
+
+

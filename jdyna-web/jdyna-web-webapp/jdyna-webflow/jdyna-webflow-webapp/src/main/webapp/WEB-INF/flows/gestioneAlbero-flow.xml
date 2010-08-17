@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>			
+		<mapping source="pulsanteDiUscita" target="flowScope.pulsanteDiUscita"
+			from="boolean" to="boolean" />								
+		<mapping source="noExportingAlbero" target="flowScope.noExportingAlbero"/>		
+		<mapping source="id" target="flowScope.albero_id"
+			from="string" to="int" />								
+	</input-mapper>
+	
+
+	<start-state idref="riepilogo-albero" />
+ 			
+	<view-state id="riepilogo-albero" view="alberoClassificatorio/alberoDetailInFlow">
+		<render-actions>			
+			<action bean="gestioneAlberoDTOFlowManager" method="setupForm" />					
+			 <bean-action bean="applicationService" method="refresh">
+			<method-arguments>
+				<argument expression="${flowScope.albero}" parameter-type="it.cilea.osd.jdyna.model.AlberoClassificatorio"/>
+				<argument expression="'it.cilea.osd.jdyna.model.AlberoClassificatorio'" parameter-type="java.lang.Class"/>
+			</method-arguments>
+			<method-result name="albero" scope="flow" />
+			</bean-action>			
+			<evaluate-action expression="flowScope.albero.getTopClassificazioni()">
+				<evaluation-result name="padri" scope="flash"/>
+			</evaluate-action>
+			
+		</render-actions>
+		<transition on="modifica" to="edit-albero">			
+			<action bean="gestioneAlberoDTOFlowManager" method="bind" />						
+		</transition>	
+		<transition on="export" to="riepilogo-albero">			
+			<action bean="gestioneAlberoDTOFlowManager" method="bind" />
+			<action bean="gestioneAlberoDTOFlowManager" method="export" />						
+		</transition>	
+		<transition on="crea" to="riepilogo-albero">
+			<action bean="gestioneAlberoDTOFlowManager" method="bind" />
+			<action bean="gestioneAlberoDTOFlowManager" method="validate">
+				<attribute  name="validatorMethod"  value="validateTopLevel"></attribute>
+			</action>
+			<action bean="gestioneAlberoDTOFlowManager" method="persistiTopClassificazione"></action>						
+		</transition>
+		<transition on="edit" to="riepilogo-albero">
+			<action bean="gestioneAlberoDTOFlowManager" method="bindAndValidate" />		
+			<action bean="gestioneAlberoDTOFlowManager" method="persistiModificheClassificazione"></action>						
+		</transition>		
+		<transition on="eliminaClassificazione" to="elimina-classificazione">
+			<action bean="gestioneAlberoDTOFlowManager" method="bind" />
+		</transition>		
+		<transition on="close" to="close"/>
+	</view-state>
+		 
+    <view-state id="edit-albero" view="alberoClassificatorio/alberoFormInFlow">
+    	<render-actions>
+    	<action bean="gestioneAlberoDTOFlowManager" method="putBreadCrumbs" />
+    	</render-actions>
+    		<transition on="avanti" to="riepilogo-albero">
+ 		 	<action bean="gestioneAlberoDTOFlowManager" method="bindAndValidate">
+ 			 <attribute name="validatorMethod" value="validateNome" />
+ 		 	</action>
+ 		 	<action bean="gestioneAlberoDTOFlowManager" method="persistiAlbero"></action>
+ 		</transition>
+		<transition on="exit" to="riepilogo-albero" />		
+    </view-state>
+
+ 	<action-state id="elimina-classificazione">
+ 		<action bean="gestioneAlberoDTOFlowManager" method="eliminaClassificazione"/> 			
+ 		<transition on="success" to="riepilogo-albero"></transition>
+ 		<transition on="error" to="riepilogo-albero"></transition>
+ 	</action-state>
+ 	
+	<end-state id="finish" view="externalRedirect:/albero/list.htm"/>
+	<end-state id="close" />
+	
+	<output-mapper>		
+		<mapping source="${flowScope.albero}" target="albero" />			
+	</output-mapper>
+
+	<import resource="services-config.xml" />
+
+
+</flow>
+

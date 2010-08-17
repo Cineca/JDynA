@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.0.xsd">
+      	   
+	<bean id="baseFlowAction" abstract="true" 
+		class="it.cilea.osd.common.webflow.BaseFormAction">
+		<property name="applicationService" ref="applicationService"></property>		
+		<property name="customPropertyEditors">
+			<map>				
+				<entry key="it.cilea.osd.jdyna.model.PropertiesDefinition" value-ref="tipologiaProprietaEditor" />				
+				<entry key="it.cilea.jdyna.example.model.MyOwner" value-ref="myObjectEditor" />	
+				<entry key="it.cilea.osd.jdyna.model.AlberoClassificatorio" value-ref="alberoClassificatorioEditor"/>	
+				<entry key="it.cilea.osd.jdyna.model.Classificazione" value-ref="classificazioneEditor"/>
+				<entry key="it.cilea.osd.jdyna.model.Soggetto" value-ref="soggettoEditor"/>
+				<entry key="it.cilea.osd.jdyna.model.Soggettario" value-ref="soggettarioEditor"/>
+				<entry key="java.util.Date" value-ref="dateUtilEditor"/>
+			</map>
+		</property>
+	</bean>
+	
+	<bean id="anagraficaDTOAction" class="it.cilea.osd.jdyna.web.flow.AnagraficaDTOEditingAction">
+		<property name="realActions">
+			<map>
+				<entry key="myobject" value-ref="editAnagraficaMyObjectAction" />			
+			</map>
+		</property>
+		<property name="formObjectName">
+			<value>anagraficadto</value>
+		</property>
+	</bean>
+	
+	<bean id="editAnagraficaMyObjectAction" class="it.cilea.osd.jdyna.web.flow.RealAnagraficaDTOEditingAction">
+		<property name="applicationService">
+			<ref bean="applicationService"/>
+		</property>
+		<property name="formulaManager">
+			<ref bean="formulaManager"/>
+		</property>
+		<property name="clazzAnagraficaObject" value="it.cilea.jdyna.example.model.MyOwner" />
+		<property name="clazzArea" value="it.cilea.jdyna.example.model.AreaMyOwner" />
+	    <property name="clazzTipologiaProprieta" value="it.cilea.jdyna.example.anagrafica.myowner.PropertiesDefinitionMyOwner" />
+		<property name="baseDetailURL" value="myobject" />
+		<property name="formObjectClass">
+			<value>
+				it.cilea.osd.jdyna.dto.AnagraficaObjectAreaDTO
+			</value>
+		</property>
+	 	<property name="validator" ref="myObjectDTOValidator" />
+		<property name="formObjectName">
+			<value>anagraficadto</value>
+		</property>
+	</bean>
+	
+	
+	<bean id="myObjectDTOValidator" class="it.cilea.osd.jdyna.validator.AnagraficaObjectDTOAreaValidator">
+		<property name="applicationService" ref="applicationService" />		
+		<property name="clazzAnagraficaObject" value="it.cilea.jdyna.example.model.MyOwner" />
+		<property name="clazzArea" value="it.cilea.jdyna.example.model.AreaMyOwner" />
+	    <property name="clazzTipologiaProprieta" value="it.cilea.jdyna.example.anagrafica.myowner.PropertiesDefinitionMyOwner" />
+	</bean>
+	
+	<bean id="anagraficaDTOCreationAction" 
+		class="it.cilea.osd.jdyna.web.flow.AnagraficaDTOCreationAction" abstract="true">		
+		<property name="applicationService" ref="applicationService" />
+		<property name="formulaManager" ref="formulaManager" />		
+	</bean>
+	
+	<bean id="myObjectDTOCreationAction" 
+		class="it.cilea.jdyna.example.webui.flow.myowner.GestioneMyOwner" parent="anagraficaDTOCreationAction">
+		<property name="formObjectClass"
+			value="it.cilea.osd.jdyna.dto.AnagraficaObjectAreaDTO" />
+		<property name="formObjectScope" value="FLOW" />
+		<property name="formObjectName" value="anagraficadto"></property>				
+		<property name="validator">
+			<ref bean="myObjectDTOValidator"/>
+		</property>
+	</bean>
+	
+	<bean id="myVisitDTOCreationAction" 
+		class="it.cilea.jdyna.example.webui.flow.myvisit.GestioneMyVisit" parent="anagraficaDTOCreationAction">
+		<property name="formObjectClass"
+			value="it.cilea.osd.jdyna.dto.AnagraficaObjectAreaDTO" />
+		<property name="formObjectScope" value="FLOW" />
+		<property name="formObjectName" value="anagraficadto"></property>				
+		<property name="validator">
+			<ref bean="myVisitDTOValidator"/>
+		</property>
+	</bean>
+
+	<bean id="myVisitDTOValidator" class="it.cilea.osd.jdyna.validator.AnagraficaObjectDTOAreaValidator">
+		<property name="applicationService" ref="applicationService" />		
+		<property name="clazzAnagraficaObject" value="it.cilea.jdyna.example.model.MyVisit" />
+		<property name="clazzArea" value="it.cilea.jdyna.example.model.AreaMyVisit" />
+	    <property name="clazzTipologiaProprieta" value="it.cilea.jdyna.example.anagrafica.myvisit.PropertiesDefinitionMyVisit" />
+	</bean>
+	
+	<bean id="tipologiaProprietaFlowManager" parent="baseFlowAction"
+		class="it.cilea.osd.jdyna.web.flow.GestionePropertiesDefinition">
+		<property name="formObjectClass"
+			value="it.cilea.osd.jdyna.model.PropertiesDefinition" />		
+		<property name="formObjectScope" value="FLOW" />
+		<property name="formObjectName" value="tipologiaProprieta"></property>
+		<property name="validator">
+				<ref bean="tipologiaProprietaValidator"/>
+		</property>
+	</bean>
+	
+		<bean id="soggettarioFlowManager" parent="baseFlowAction"
+			class="it.cilea.osd.common.webflow.BaseFormAction">
+			<property name="formObjectClass"
+				value="it.cilea.osd.jdyna.model.Soggettario" />
+			<property name="formObjectScope" value="FLOW" />
+			<property name="formObjectName" value="soggettario"/>
+			<property name="validator">
+				<ref bean="soggettarioValidator"/>
+			</property>
+		</bean>
+		
+		<bean id="soggettoFlowManager" parent="baseFlowAction"
+			class="it.cilea.osd.jdyna.web.flow.GestioneSoggetto">
+			<property name="formObjectClass"
+				value="it.cilea.osd.jdyna.dto.DTOSoggetto" />
+			<property name="formObjectScope" value="FLOW" />
+			<property name="formObjectName" value="soggetto"/>
+			<property name="validator">
+				<ref bean="dtoSoggettoValidator"/>
+			</property>
+		</bean>
+	
+		<bean id="alberoDTOFlowManager" parent="baseFlowAction"
+			class="it.cilea.osd.jdyna.web.flow.GestioneNuovoAlberoDTO">
+			<property name="formObjectClass"
+				value="it.cilea.osd.jdyna.dto.DTOAlberoClassificatore" />
+			<property name="formObjectScope" value="FLOW" />
+			<property name="formObjectName" value="albero"/>
+			<property name="validator">
+				<ref bean="alberoValidator"/>
+			</property>
+		</bean>
+		
+		
+	
+		
+		<bean id="gestioneAlberoDTOFlowManager" parent="baseFlowAction"
+		class="it.cilea.osd.jdyna.web.flow.GestioneAlberoDTO">
+		<property name="formObjectClass"
+			value="it.cilea.osd.jdyna.dto.DTOGestioneAlberoClassificatore" />
+		<property name="formObjectScope" value="FLOW" />
+		<property name="formObjectName" value="gestioneAlbero"/>
+		<property name="validator">
+				<ref bean="classificazioneValidator"/>
+		</property>
+		<property name="exportUtils">
+				<ref bean="exportUtils"/>
+		</property>
+	</bean>
+	
+	<bean id="ricercaManager" class="it.cilea.osd.jdyna.web.flow.GestioneRicerca">
+	<constructor-arg ref="applicationService"/>
+	<constructor-arg ref="searchService"/>	
+	<property name="indexedClass">
+		<map>
+			<entry key="myobject" value="it.cilea.jdyna.example.model.MyOwner" />
+			<entry key="myvisit" value="it.cilea.jdyna.example.model.MyVisit" />
+		</map>
+	</property>	
+	</bean>
+</beans>

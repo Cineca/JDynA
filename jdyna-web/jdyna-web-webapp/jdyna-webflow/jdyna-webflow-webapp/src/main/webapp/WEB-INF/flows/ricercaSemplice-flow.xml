@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>	
+		<mapping source="classe" target="flowScope.classe" required="true"/>
+		<mapping source="query" target="flowScope.query" required="true"/>			
+	</input-mapper>
+ 
+	<start-state idref="set-jsp-si-anagrafica"/>
+
+	<action-state id="set-jsp-si-anagrafica">
+		<set attribute="page" value="'/ricerca/risultatiRicerca'" scope="flash"></set>
+		<transition to="displayResults"></transition>
+	</action-state>
+ 
+
+	<view-state id="displayResults" view="${flashScope.page}">
+		<render-actions>
+			<action bean="ricercaManager" method="ricercaSemplice"/>
+		</render-actions>
+		<transition on="indietro" to="exit"/>
+	</view-state>
+		
+    <end-state id="exit" view="externalRedirect:/myobject/list.htm" />
+
+    <import resource="services-config.xml" />
+
+</flow>
+
+
+

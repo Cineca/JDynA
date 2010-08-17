@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>
+		<mapping source="${areaId}" target="${flowScope.areaId}" 
+			from="java.lang.String" to="java.lang.Integer" required="true"/>
+		<mapping source="${id}" target="${flowScope.epiobject_id}" 
+			from="java.lang.String" to="java.lang.Integer" required="true"/>
+		<mapping source="${model}" target="${flowScope.model}" 
+			from="java.lang.String" to="java.lang.String" required="true"/>
+		<mapping source="${type}" target="${flowScope.type}" 
+			from="java.lang.String" to="java.lang.Integer"/>
+	</input-mapper>
+	
+	<start-state idref="editing" />		
+	
+	<view-state id="editing" view="/common/anagraficaFlowFormDTO">
+		<entry-actions>
+			<action bean="anagraficaDTOAction" method="getBaseDetailURL" />
+		</entry-actions>
+		<render-actions>
+			<action bean="anagraficaDTOAction" method="setupForm" />
+			<action bean="anagraficaDTOAction" method="referenceData" />
+		</render-actions>
+		<transition on="save" to="save">
+			<action bean="anagraficaDTOAction" method="bindAndValidate" />
+		</transition>
+		<transition on="change" to="save">
+			<action bean="anagraficaDTOAction" method="bindAndValidate" />
+			<set attribute="newAreaId" scope="flow" value="${requestParameters.newAreaId}"></set>
+		</transition>
+		<transition on="calculate" to="editing">
+			<action bean="anagraficaDTOAction" method="bindAndValidate" />
+		</transition>
+		<transition on="cancel" to="exit" />
+	</view-state>
+	
+	<action-state id="save">	
+		<action bean="anagraficaDTOAction" method="persisti"/>
+		<transition to="checkIfChangeArea" />
+	</action-state>
+		
+	<decision-state id="checkIfChangeArea">
+		<if test="${flowScope.newAreaId != null}" then="change-area" else="exit"/>
+	</decision-state>
+	
+	<end-state id="exit" view="externalRedirect:${flowScope.baseURL}/details.htm?id=${flowScope.epiobject_id}&amp;areaId=${flowScope.areaId}" />
+	<end-state id="change-area" view="externalRedirect:flusso.flow?_flowId=anagrafica-filiera-flow&amp;id=${flowScope.epiobject_id}&amp;areaId=${flowScope.newAreaId}&amp;model=${flowScope.model}" />
+
+	<import resource="services-config.xml" />
+</flow>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>
+		<input-attribute name="parent" required="false" scope="flow"/>
+		<mapping source="id" target="flowScope.soggettario_id"
+			from="string" to="int" />				
+	</input-mapper>
+	
+	<start-actions>		
+		<action bean="soggettarioFlowManager" method="setupForm" />
+	</start-actions>
+
+	<start-state idref="verifica-se-sottoflusso"/>
+		
+	<decision-state id="verifica-se-sottoflusso">
+		<if test="${flowScope.parent != null}" then="parent-bool" else="crea-soggettario"/>
+	</decision-state>		
+ 	
+ 	<action-state id="parent-bool">
+ 		<set attribute="parentbool" value="true" scope="flow"></set>
+ 		<transition to="crea-soggettario"></transition>
+ 	</action-state>	
+		 
+	<view-state id="crea-soggettario" view="/soggettario/soggettarioForm">	
+	<render-actions>
+		<action bean="soggettarioFlowManager" method="setupForm" />
+	</render-actions>	
+		<transition on="creaSoggetto" to="crea-soggetto">
+			<action bean="soggettarioFlowManager" method="bindAndValidate" />
+		</transition>
+		<transition on="salva" to="salva">
+			<action bean="soggettarioFlowManager" method="bindAndValidate" />
+		</transition>
+		<transition on="cancel" to="cancel">
+			<set attribute="previousViewState" value="'crea-soggettario'" scope="flow"/>
+		</transition>
+	</view-state>
+	
+	<subflow-state flow="nuovoSoggetto-flow" id="crea-soggetto">
+		<attribute-mapper>
+			<input-mapper>				
+				<mapping source="${flowScope.soggettario}" target="parent"/>	
+			</input-mapper>
+			<output-mapper>
+				<mapping source="soggettario" target="${flowScope.soggettario}"/>			
+			</output-mapper>
+		</attribute-mapper>	
+		<transition on="torna-controllo-flusso-parent" to="scegli-se-aggiungere-soggetti"/>
+		<transition on="cancel" to="scegli-se-aggiungere-soggetti"/>
+	</subflow-state>
+
+	<view-state id="scegli-se-aggiungere-soggetti" view="/soggettario/scegliSeContinuare">		
+		<transition on="avanti" to="crea-soggetto">
+			<action bean="soggettarioFlowManager" method="bindAndValidate" />			
+		</transition>
+		<transition on="salva" to="salva">
+			<action bean="soggettarioFlowManager" method="bindAndValidate" />			
+		</transition>		
+	</view-state>
+
+	<action-state id="salva">
+		<bean-action bean="applicationService" method="saveOrUpdate">
+			<method-arguments>
+			    <argument parameter-type="java.lang.Class" expression="'it.cilea.osd.jdyna.model.Soggettario'"/>
+				<argument expression="${flowScope.soggettario}"/>
+			</method-arguments>
+		</bean-action>
+		<transition to="verifica-parent-bool" />
+	</action-state>
+
+	<!--BEGIN Stati di servizio -->
+	<view-state id="cancel" view="cancel">
+		<transition on="conferma" to="verifica-parent-bool"/>
+		<transition on="restore" to="${flowScope.previousViewState}" />
+	</view-state>
+	
+	<decision-state id="verifica-parent-bool">
+		<if test="${flowScope.parentbool == true}" then="torna-controllo-flusso-parent" else="finish"/>
+	</decision-state>	
+	
+	<end-state id="finish" view="externalRedirect:/soggettario/list.htm" />
+	
+	<end-state id="torna-controllo-flusso-parent" />	
+	<!--END Stati di servizio -->
+	
+	<output-mapper>
+		<mapping source="${flowScope.soggettario}" target="soggettario" />			
+	</output-mapper>
+
+	  <import resource="services-config.xml" />
+
+
+</flow>
+
+
+

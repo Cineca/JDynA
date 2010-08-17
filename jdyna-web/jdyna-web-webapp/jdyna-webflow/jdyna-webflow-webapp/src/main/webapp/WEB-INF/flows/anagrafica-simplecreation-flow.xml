@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>				
+		<input-attribute name="model" scope="flow" required="true" />
+		<input-attribute name="identificatore" scope="flow" />
+		<input-attribute name="parent" scope="flow" />
+	</input-mapper>
+	
+	<start-actions>
+		<action bean="anagraficaDTOCreationAction" method="getView" />
+	</start-actions>
+	
+	<start-state idref="editing" />
+		
+	<view-state id="editing" view="${flowScope.view}}">
+		<entry-actions>
+			<action bean="anagraficaDTOCreationAction" method="precompilaForm" />
+		</entry-actions>
+		<render-actions>		
+			<action bean="anagraficaDTOAction" method="setupForm" />
+			<action bean="anagraficaDTOCreationAction" method="referenceData" />
+		</render-actions>
+		<transition on="save" to="save">
+			<action bean="anagraficaDTOCreationAction" method="bindAndValidate" />
+		</transition>
+		<transition on="calculate" to="editing">
+			<action bean="anagraficaDTOCreationAction" method="bindAndValidate" />
+		</transition>
+		<transition on="cancel" to="exit" />
+	</view-state>
+
+	<end-state id="exit" />
+	<end-state id="save">
+		<output-mapper>
+			<mapping source="${flowScope.anagraficadto}" to="anagraficadto"/>
+		</output-mapper>
+	</end-state>
+
+    <import resource="services-config.xml" />
+</flow>

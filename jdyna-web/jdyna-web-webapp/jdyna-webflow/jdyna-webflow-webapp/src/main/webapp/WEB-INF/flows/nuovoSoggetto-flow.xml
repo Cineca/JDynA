@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>
+		<input-attribute name="parent" required="false" scope="flow"/>
+		<mapping source="soggettoId" target="flowScope.soggetto_id"
+			from="string" to="int" />				
+	</input-mapper>
+	
+	<start-actions>		
+		<action bean="soggettoFlowManager" method="setupForm" />
+	</start-actions>
+
+	<start-state idref="crea-soggetto"/>
+		 
+	<view-state id="crea-soggetto" view="/soggettario/soggettoForm">	
+		<render-actions>
+			<action bean="soggettoFlowManager" method="setupForm" />
+		</render-actions>	
+		<transition on="salva" to="save">
+			<action bean="soggettoFlowManager" method="bindAndValidate" />
+		</transition>
+		<transition on="cancel" to="cancel"/>			
+		
+	</view-state>
+	
+	<action-state id="save">
+		<action bean="soggettoFlowManager" method="save">
+		</action>			
+		<transition to="torna-controllo-flusso-parent" />
+	</action-state>
+
+	<!--BEGIN Stati di servizio -->
+		
+		
+	<end-state id="torna-controllo-flusso-parent" />
+	<end-state id="cancel" />
+	<!--END Stati di servizio -->
+	
+	<output-mapper>
+		<mapping source="${flowScope.parent}" target="soggettario" />			
+	</output-mapper>
+
+	  <import resource="services-config.xml" />
+
+
+</flow>
+
+
+

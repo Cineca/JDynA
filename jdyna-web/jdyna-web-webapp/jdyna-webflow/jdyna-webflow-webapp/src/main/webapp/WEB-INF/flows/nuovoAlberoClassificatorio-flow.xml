@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+
+	<input-mapper>		
+		<mapping source="id" target="flowScope.albero_id"
+			from="string" to="int" />				
+	</input-mapper>
+	
+
+	<start-state idref="crea-albero" />
+ 			
+	<view-state id="crea-albero" view="/alberoClassificatorio/alberoForm">
+		<render-actions>
+			<action bean="alberoDTOFlowManager" method="setupForm" />
+			<action bean="alberoDTOFlowManager" method="putBreadCrumbs" />		
+		</render-actions>
+		<transition on="avanti" to="persisti">			
+			<action bean="alberoDTOFlowManager" method="bindAndValidate" />			
+		</transition>
+		<transition on="exit" to="finish">
+			<action bean="alberoDTOFlowManager" method="bindAndValidate" />
+			<action bean="alberoDTOFlowManager" method="persisti"></action>						
+		</transition>
+	</view-state>
+	 	 	
+ 	<action-state id="persisti">
+ 		<action bean="alberoDTOFlowManager" method="persisti"></action>
+ 		<transition to="finish">
+ 				<set attribute="noExportingAlbero" value="true" scope="flow"/>
+ 		</transition> 		
+ 	</action-state> 
+
+
+	<end-state id="finish" view="flowRedirect:gestioneAlbero-flow?id=${flowScope.albero_id}&amp;noExportingAlbero=${flowScope.noExportingAlbero}">	
+	
+	
+	
+	</end-state>
+	
+	<output-mapper>		
+		<mapping source="${flowScope.albero}" target="albero" />			
+	</output-mapper>
+	
+	<import resource="services-config.xml" />
+
+
+</flow>
+

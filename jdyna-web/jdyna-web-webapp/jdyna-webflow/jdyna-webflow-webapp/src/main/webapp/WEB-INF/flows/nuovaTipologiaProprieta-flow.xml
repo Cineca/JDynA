@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<flow xmlns="http://www.springframework.org/schema/webflow"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/webflow
+                          http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
+	
+	<input-mapper>
+		<input-attribute name="modelClass"/>		
+		<input-attribute name="path"/>		
+		<input-attribute name="parent" required="false" scope="flow"/>		
+		<input-attribute name="isSottoFlusso"/>	
+	</input-mapper>
+	
+	<start-actions>
+		<bean-action bean="tipologiaProprietaFlowManager" method="setTargetModel">
+			<method-arguments>
+				<argument expression="${flowScope.modelClass}" parameter-type="java.lang.Class"/>
+			</method-arguments>					
+		</bean-action>
+		<action bean="tipologiaProprietaFlowManager" method="createFormObject" />		
+	</start-actions>
+			
+	<start-state idref="verifica-se-sottoflusso" />
+	
+	<decision-state id="verifica-se-sottoflusso">
+		<if test="${flowScope.parent != null}" then="parent-bool" else="edit-tipologia"/>
+	</decision-state>		
+ 
+ 	<action-state id="parent-bool">
+ 		<set attribute="parentbool" value="true" scope="flow"></set> 		
+ 		<transition to="edit-tipologia"></transition>
+ 	</action-state>
+	
+	<view-state id="edit-tipologia" view="admin/tipologiaProprietaForm">	
+		<transition on="avanti" to="edit-widget">
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidateTP" />
+		</transition>
+		<transition on="cancel" to="cancel">
+		<set attribute="previousViewState" value="'edit-tipologia'" scope="flow"/>
+		</transition>
+	</view-state>
+	
+	
+	<!-- FIXME si dovrebbe modificare il modo in cui si popolano gli alberi o soggettari -->
+	<view-state id="edit-widget" view="admin/widgetForm">	
+		<render-actions>							
+			<bean-action bean="applicationService" method="getList">
+				<method-arguments>
+					<argument parameter-type="java.lang.Class"
+						expression="'it.cilea.osd.jdyna.model.AlberoClassificatorio'" />					
+				</method-arguments>
+				<method-result name="contenitori" scope="flash"/>
+			</bean-action>									
+			<bean-action bean="applicationService" method="getList">
+				<method-arguments>
+					<argument parameter-type="java.lang.Class"
+						expression="'it.cilea.osd.jdyna.model.Soggettario'" />					
+				</method-arguments>
+				<method-result name="soggettari" scope="flow"/>
+			</bean-action>		
+		</render-actions>
+				
+		<transition on="indietro" to="edit-tipologia" />
+		<transition on="save" to="verifica-se-sottoflusso-x-combo">		
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidate">
+				<attribute name="validatorMethod" value="validateWidget"></attribute>
+			</action>
+		</transition>		
+		<transition on="nuovoSoggettario" to="crea-soggettario">
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidate" >
+			<attribute name="validatorMethod" value="validateWidget"></attribute>
+			</action>
+		</transition>
+		<transition on="nuovoAlbero" to="crea-albero">
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidate" />
+			<set attribute="pulsanteDiUscita" value="true" scope="flow"></set>
+		</transition>
+		<transition on="nuovaSottoTipologia" to="crea-sotto-tipologie">
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidate" />
+		</transition>
+		
+		<transition on="cancellaSottoTipologia" to="edit-widget">
+			<action bean="tipologiaProprietaFlowManager" method="cancellaSottoTipologiaCombo" />
+			<action bean="tipologiaProprietaFlowManager" method="bindAndValidate" />
+		</transition>
+		
+		<transition on="cancel" to="cancel">
+		<set attribute="previousViewState" value="'edit-widget'" scope="flow"/>
+		</transition>
+	</view-state>
+	
+	<subflow-state flow="nuovoSoggettario-flow" id="crea-soggettario">
+		<attribute-mapper>
+			<input-mapper>				
+				<mapping source="${flowScope.tipologiaProprieta.rendering}" target="parent"/>	
+			</input-mapper>
+			<output-mapper>
+				<mapping source="soggettario" target="${flowScope.soggettario}"/>			
+			</output-mapper>
+		</attribute-mapper>		
+		<transition on="torna-controllo-flusso-parent" to="edit-widget">			
+		</transition>
+	</subflow-state>
+	
+	<subflow-state flow="nuovoAlberoClassificatorio-flow" id="crea-albero">
+		<attribute-mapper>
+			<input-mapper>				
+				<mapping source="${flowScope.pulsanteDiUscita}" target="pulsanteDiUscita"/>
+				<mapping source="${flowScope.tipologiaProprieta.rendering}" target="parent"/>					
+			</input-mapper>
+			<output-mapper>
+				<mapping source="albero" target="${flowScope.albero}"/>				
+			</output-mapper>
+		</attribute-mapper>	
+		<transition to="edit-widget">
+			<evaluate-action expression="flowScope.tipologiaProprieta.rendering.setAlberoClassificatorio(flowScope.albero)"></evaluate-action>			
+		</transition>		
+	</subflow-state>
+
+	<subflow-state flow="nuovaTipologiaProprieta-flow" id="crea-sotto-tipologie">
+		<attribute-mapper>
+			<input-mapper>			
+				<mapping source="${flowScope.tipologiaProprieta.rendering}" target="parent"/>				
+				<mapping source="${flowScope.path}" target="path"/>
+				<mapping source="${flowScope.modelClass}" target="modelClass"/>
+				<mapping source="'true'" target="isSottoFlusso"/>							
+			</input-mapper>			
+		</attribute-mapper>	
+		<transition on="exit-aggiungendo-sottoTipologie" to="edit-widget">			
+		</transition>		
+	</subflow-state>	
+	
+	
+	<view-state id="cancel" view="cancel">
+		<transition on="conferma" to="verifica-parent-bool"/>
+		<transition on="restore" to="${flowScope.previousViewState}" />
+	</view-state>
+	
+	
+	<action-state id="save">
+		<bean-action bean="applicationService" method="saveOrUpdate">
+			<method-arguments>
+				<argument parameter-type="java.lang.Class"
+					expression="${flowScope.modelClass}" />
+				<argument expression="${flowScope.tipologiaProprieta}" />
+			</method-arguments>
+		</bean-action>
+		<transition to="verifica-parent-bool"></transition>
+	</action-state>
+	
+	<decision-state id="verifica-parent-bool">
+		<if test="${flowScope.parentbool == true}" then="torna-controllo-flusso-parent" else="exit"/>
+	</decision-state>		
+		
+	<decision-state id="verifica-se-sottoflusso-x-combo">
+		<if test="${flowScope.isSottoFlusso != null and flowScope.isSottoFlusso == 'true'}" then="exit-aggiungendo-sottoTipologie" else="save"/>
+	</decision-state>
+		
+	<end-state id="exit-aggiungendo-sottoTipologie">
+	 <entry-actions>
+		<action bean="tipologiaProprietaFlowManager" method="addSottoTipologie"></action>
+	 </entry-actions>	
+	</end-state>	
+
+	<end-state id="torna-controllo-flusso-parent"></end-state>
+	<end-state id="exit" view="externalRedirect:admin/${flowScope.path}/tipologiaProprieta/details.htm?id=${flowScope.tipologiaProprieta.id}" />
+	
+	<import resource="services-config.xml" />
+</flow>
