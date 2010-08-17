@@ -1,0 +1,23 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <artifactId>jdyna</artifactId>
+    <groupId>jdyna</groupId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <groupId>jdyna</groupId>
+  <artifactId>extensions</artifactId>
+  <packaging>pom</packaging>
+  <version>0.0.1-SNAPSHOT</version>
+  <modules>
+  	<module>jdyna-date</module>
+  	<module>jdyna-nested</module>
+  	<module>jdyna-classification</module>
+  	<module>jdyna-subject</module>
+  	<module>jdyna-pointer</module>
+  	<module>jdyna-formula</module>
+  	<module>jdyna-number</module>
+  	<module>jdyna-boolean</module>
+  	<module>jdyna-checkradio</module>
+  </modules>
+</project>
