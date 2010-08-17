@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee
+		 http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+		version="2.0">
+
+	<tlib-version>1.0</tlib-version>
+
+<short-name>jdyna</short-name>
+<uri>jdynatags</uri>
+
+<tag-file>
+	<name>javascriptEvents</name>
+	<path>/META-INF/tags/javascriptEvents.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>edit</name>
+	<path>/META-INF/tags/edit.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>label</name>
+	<path>/META-INF/tags/label.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>text</name>
+	<path>/META-INF/tags/text.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>puntatore</name>
+	<path>/META-INF/tags/puntatore.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>classificazione</name>
+	<path>/META-INF/tags/classificazione.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>subject</name>
+	<path>/META-INF/tags/subject.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>date</name>
+	<path>/META-INF/tags/date.tag</path>
+</tag-file>
+
+
+<tag-file>
+	<name>textarea</name>
+	<path>/META-INF/tags/textarea.tag</path>
+</tag-file>
+
+
+
+<tag-file>
+	<name>checkbox</name>
+	<path>/META-INF/tags/checkbox.tag</path>
+</tag-file>
+
+
+<tag-file>
+	<name>radio</name>
+	<path>/META-INF/tags/radio.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>boolean</name>
+	<path>/META-INF/tags/boolean.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>formula</name>
+	<path>/META-INF/tags/formula.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>combo</name>
+	<path>/META-INF/tags/combo.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>display</name>
+	<path>/META-INF/tags/display.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>display-combo-inline</name>
+	<path>/META-INF/tags/display-combo-inline.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>validation</name>
+	<path>/META-INF/tags/validation.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>clear</name>
+	<path>/META-INF/tags/clear.tag</path>
+</tag-file>
+
+<tag-file>
+	<name>simpleselect</name>
+	<path>/META-INF/tags/simpleselect.tag</path>
+</tag-file>
+<tag-file>
+	<name>select</name>
+	<path>/META-INF/tags/select.tag</path>
+</tag-file>
+
+
+<tag-file>
+	<name>hidden</name>
+	<path>/META-INF/tags/hidden.tag</path>
+</tag-file>
+
+<function>
+	<description>Return object path from object/property path</description>
+	<name>getObjectPath</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getObjectFromPropertyPath(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return property name from property path.</description>
+	<name>getPropertyName</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getPropertyFromPropertyPath(java.lang.String)</function-signature>
+</function>
+<function>
+	<description>Trasforma una stringa in modo che sia utilizzabile all'interno di una chiamata javascript</description>
+	<name>escapeHTMLtoJavascript</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String escapeHTMLtoJavascript(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Trasforma una stringa in modo che sia utilizzabile all'interno di una chiamata javascript</description>
+	<name>escapeApici</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String escapeApici(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Ottiene una descrizione dell'oggetto passato come primo argomento calcolando l'espressione ognl passata come secondo argomento</description>
+	<name>getDisplayValue</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getDisplayValue(java.lang.Object,java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Ottiene il sotto-oggetto calcolando il path passato come secondo argomento utilizzando OGNL</description>
+	<name>getReferencedObject</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>Object getReferencedObject(java.lang.Object,java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Restituisce la classe effettiva puntata dal widget (i.e. contenuta in ValorePointer)</description>
+	<name>getTargetClass</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getTargetClass(it.cilea.osd.jdyna.widget.WidgetPointer)</function-signature>
+</function>
+
+<function>
+	<description>Return the ID of the subject from the "soggetto" string id:value</description>
+	<name>getSubject</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getSubject(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return the value in the subject from the "soggetto" string id:value</description>
+	<name>getSubjectValue</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getSubjectValue(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description></description>
+	<name>display</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String display(it.cilea.osd.jdyna.model.PropertiesDefinition, java.lang.Object)</function-signature>
+</function>
+
+<!-- <function>
+	<description>Verifica se nella stringa di configurazione è specificata l'utilizzo dell'ora nel calendario js</description>
+	<name>isTimeEnableInConfiguration</name>
+	<function-class>it.cilea.osd.common.util.triview.Utilities</function-class>
+	<function-signature>boolean isTimeEnableInConfiguration(java.lang.String)</function-signature>
+</function> -->
+<function>
+	<description>Estrae da una collection i suoi elementi, restituendo una stringa con gli elementi separati da una virgola</description>
+	<name>extractParameters</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String extractParameters(java.util.Collection)</function-signature>
+</function>
+<function>
+	<description>Genera l'md5 di una stringa passata in input. Utile per generare valori univoci e ammissibili per ancore e nomi variabili javascript</description>
+	<name>md5</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String md5(java.lang.String)</function-signature>
+</function>
+<function>
+	<description>Ottiene la stringa da utilizzare come query per la search di collisioni</description>
+	<name>getCollisioniQuery</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getCollisioniQuery(java.lang.String inputValue)</function-signature>
+</function>
+
+<function>
+	<description> Fa il replace dei doppi apici per l'autocompletamento </description>
+	<name>replaceApiciDoppi</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String replaceApiciDoppi(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return property path without id name from property path.</description>
+	<name>getPropertyPathNoId</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getPropertyPathNoIdFromPropertyPathId(java.lang.String)</function-signature>
+</function>
+<function>
+	<description>Usarla con i Set</description>
+	<name>isContained</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean isContained(java.lang.Object,java.util.Set)</function-signature>
+</function>
+<function>
+	<description>Usarla con le List</description>
+	<name>isContainedList</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean isContainedList(java.lang.Object,java.util.List)</function-signature>
+</function>	
+<function>
+	<description>Per il report produzione</description>
+	<name>filtraAnnoMese</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>java.util.List filtraAnnoMese(java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer,java.util.List)</function-signature>
+</function>	
+<function>
+	<description>Verifica se la mappa passata è null o contiene solo valori vuoti (null o collection di dimensione 0)</description>
+	<name>emptyMap</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean emptyMap(java.util.Map)</function-signature>
+</function>
+<function>
+	<description>Equivalente di nl2br di php. Sostituisce a /n /r o combinazioni il br </description>
+	<name>nl2br</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String nl2br(java.lang.String)</function-signature>
+</function>
+<function>
+	<description>InstanceOf java</description>
+	<name>instanceOf</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean instanceOf(java.lang.Object,java.lang.String)</function-signature>
+</function>
+
+</taglib>
