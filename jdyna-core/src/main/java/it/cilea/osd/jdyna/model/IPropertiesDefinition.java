@@ -2,8 +2,6 @@ package it.cilea.osd.jdyna.model;
 
 
 public interface IPropertiesDefinition {
-
-	public int compareTo(IPropertiesDefinition secondTip);
 	
 	public Class getAnagraficaHolderClass();
 	
@@ -17,4 +15,5 @@ public interface IPropertiesDefinition {
 	
 	public String getLabel();
 	
+	public int getPriority();
 }
