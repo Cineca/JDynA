@@ -4,23 +4,31 @@ import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-public class DecoratorPropertiesDefinition extends IContainable implements IPropertiesDefinition {
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
-	private PropertiesDefinition propertiesDefinition;
+@Entity
+@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class ADecoratorPropertiesDefinition<TP extends PropertiesDefinition> implements IPropertiesDefinition, IContainable {
+
+	@Id
+	private TP id;
 
 	@Override
 	public Class getAnagraficaHolderClass() {
-		return propertiesDefinition.getAnagraficaHolderClass();
+		return id.getAnagraficaHolderClass();
 	}
 
 	@Override
 	public Class getPropertyHolderClass() {
-		return propertiesDefinition.getPropertyHolderClass();
+		return id.getPropertyHolderClass();
 	}
 
 	@Override
 	public Integer getId() {
-		return propertiesDefinition.getId();
+		return id.getId();
 	}
 
 
@@ -32,27 +40,27 @@ public class DecoratorPropertiesDefinition extends IContainable implements IProp
 
 	@Override
 	public AWidget getRendering() {
-		return this.propertiesDefinition.getRendering();
+		return this.id.getRendering();
 	}
 
 	@Override
 	public String getShortName() {
-		return this.propertiesDefinition.getShortName();
+		return this.id.getShortName();
 	}
 
 	@Override
 	public boolean isMandatory() {
-		return this.propertiesDefinition.isMandatory();
+		return this.id.isMandatory();
 	}
 
 	@Override
 	public String getLabel() {
-		return this.propertiesDefinition.getLabel();
+		return this.id.getLabel();
 	}
 
 	@Override
 	public int getPriority() {
-		return this.propertiesDefinition.getPriority();
+		return this.id.getPriority();
 	}
 
 

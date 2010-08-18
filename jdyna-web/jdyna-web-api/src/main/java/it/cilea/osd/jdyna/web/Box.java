@@ -9,13 +9,18 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name="model_dyna_box")
-public class Box implements IPropertyHolder {
+@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public abstract class Box<C extends IContainable> implements IPropertyHolder<C> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -27,9 +32,9 @@ public class Box implements IPropertyHolder {
 	private String title;
 
 	/** Le proprietà da nascondere in questa area */
-	@ManyToMany
+	@ManyToMany(targetEntity=IContainable.class)
 	@JoinTable(name = "model_box_dyna_box2containable")
-	private List<IContainable> mask;
+	private List<C> mask;
 
 	// accessori e setter
 
@@ -76,11 +81,11 @@ public class Box implements IPropertyHolder {
 	 * @return lista di tipologie di proprietà non ammesse nell'area
 	 */
 
-	public List<IContainable> getMask() {
+	public List<C> getMask() {
 		return this.mask;
 	}
 
-	public void setMaschera(List<IContainable> mask) {
+	public void setMask(List<C> mask) {
 		this.mask = mask;
 	}
 

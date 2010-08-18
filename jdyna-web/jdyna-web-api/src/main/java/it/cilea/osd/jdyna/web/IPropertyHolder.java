@@ -5,11 +5,11 @@ import it.cilea.osd.common.model.Identifiable;
 import java.util.List;
 
 
-public interface IPropertyHolder extends Identifiable {
+public interface IPropertyHolder<C extends IContainable> extends Identifiable {
 	
 	public String getTitle();
 		
-	public List<IContainable> getMask();
+	public List<C> getMask();
 		
-	public void setMaschera(List<IContainable> mask);
+	public void setMask(List<C> mask);
 }
