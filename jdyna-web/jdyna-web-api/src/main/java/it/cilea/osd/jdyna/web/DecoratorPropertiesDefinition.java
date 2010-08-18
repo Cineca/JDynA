@@ -4,7 +4,7 @@ import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-public class DecoratorPropertiesDefinition implements IContainable, IPropertiesDefinition {
+public class DecoratorPropertiesDefinition extends IContainable implements IPropertiesDefinition {
 
 	private PropertiesDefinition propertiesDefinition;
 
@@ -16,11 +16,6 @@ public class DecoratorPropertiesDefinition implements IContainable, IPropertiesD
 	@Override
 	public Class getPropertyHolderClass() {
 		return propertiesDefinition.getPropertyHolderClass();
-	}
-
-	@Override
-	public int compareTo(IPropertiesDefinition secondTip) {
-		return propertiesDefinition.compareTo(secondTip);
 	}
 
 	@Override
@@ -53,6 +48,11 @@ public class DecoratorPropertiesDefinition implements IContainable, IPropertiesD
 	@Override
 	public String getLabel() {
 		return this.propertiesDefinition.getLabel();
+	}
+
+	@Override
+	public int getPriority() {
+		return this.propertiesDefinition.getPriority();
 	}
 
 

@@ -31,7 +31,7 @@ import it.cilea.osd.jdyna.web.IPropertyHolder;
 
 import java.util.List;
 
-public interface BoxDao<H extends IPropertyHolder> extends PaginableObjectDao<H,Integer> {
+public interface PropertyHolderDao<H extends IPropertyHolder> extends PaginableObjectDao<H,Integer> {
 	public List<IContainable> findContainable(Integer boxID);
 	public List<IContainable> findContainableOnCreation(Integer boxID);
 	public List<H> findBoxByContainable(IContainable tip);

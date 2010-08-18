@@ -4,6 +4,8 @@ import it.cilea.osd.common.model.Identifiable;
 
 
 
-public interface IContainable extends Identifiable, Comparable<IContainable> { 
-	public String getShortName();
+public abstract class IContainable implements Identifiable, Comparable<IContainable> { 
+
+	public abstract String getShortName();
+	
 }

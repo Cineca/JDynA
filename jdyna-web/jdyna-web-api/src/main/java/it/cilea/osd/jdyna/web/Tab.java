@@ -49,7 +49,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Tab extends IdentifiableObject {
+public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject {
 	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.TABLE)
@@ -104,10 +104,10 @@ public abstract class Tab extends IdentifiableObject {
 	 * @return lista di tipologie di proprietà non ammesse nell'area
 	 */
 	@Transient
-	public abstract List<IPropertyHolder> getMaschera();
+	public abstract List<H> getMask();
 	
 	@Transient
-	public abstract void setMaschera(List<IPropertyHolder> mascherate);
+	public abstract void setMask(List<H> mascherate);
 	
 	public int getPriority() {
 		return priority;
