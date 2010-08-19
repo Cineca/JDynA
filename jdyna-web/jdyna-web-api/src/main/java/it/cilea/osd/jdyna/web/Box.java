@@ -11,8 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -30,11 +28,6 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 	/** Etichetta mostrata come intestazione dell'area */
 	@Column(unique = true)
 	private String title;
-
-	/** Le proprietà da nascondere in questa area */
-	@ManyToMany(targetEntity=IContainable.class)
-	@JoinTable(name = "model_box_dyna_box2containable")
-	private List<C> mask;
 
 	// accessori e setter
 
@@ -81,12 +74,10 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 	 * @return lista di tipologie di proprietà non ammesse nell'area
 	 */
 
-	public List<C> getMask() {
-		return this.mask;
-	}
+	public abstract List<C> getMask();
+	
 
-	public void setMask(List<C> mask) {
-		this.mask = mask;
-	}
+	public abstract void setMask(List<C> mask);
+
 
 }
