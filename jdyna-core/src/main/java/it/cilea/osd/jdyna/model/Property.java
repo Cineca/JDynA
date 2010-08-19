@@ -38,6 +38,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.apache.commons.logging.Log;
@@ -65,7 +66,9 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	
 	/** chiave d'accesso primario */
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	//@GeneratedValue(strategy = GenerationType.TABLE)	
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROPERTY_SEQ")
+    @SequenceGenerator(name = "PROPERTY_SEQ", sequenceName = "PROPERTY_SEQ")
 	private Integer id;
 
 	/** Posizione */

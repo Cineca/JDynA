@@ -44,7 +44,9 @@ import javax.persistence.Transient;
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 public abstract class AValue<P> extends IdentifiableObject {
 	@Id
-	@GeneratedValue
+	//@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VALUES_SEQ")
+    @SequenceGenerator(name = "VALUES_SEQ", sequenceName = "VALUES_SEQ")
 	private Integer id;	
 	
 	@Basic

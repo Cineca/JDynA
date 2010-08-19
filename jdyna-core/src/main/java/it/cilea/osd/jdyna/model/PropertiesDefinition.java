@@ -71,7 +71,9 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	
 	/**Chiave primaria di accesso*/
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	//@GeneratedValue(strategy = GenerationType.TABLE)		
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROPERTIESDEFINITION_SEQ")
+    @SequenceGenerator(name = "PROPERTIESDEFINITION_SEQ", sequenceName = "PROPERTIESDEFINITION_SEQ")
 	private Integer id;
 	
 	/** intestazione tipologia*/

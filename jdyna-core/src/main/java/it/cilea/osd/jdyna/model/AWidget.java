@@ -37,6 +37,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.apache.commons.logging.Log;
@@ -60,7 +61,9 @@ public abstract class AWidget<AV extends AValue> extends IdentifiableObject {
 	
     /**Chiave primaria di accesso*/
 	@Id	
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	//@GeneratedValue(strategy = GenerationType.TABLE)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "WIDGET_SEQ")
+    @SequenceGenerator(name = "WIDGET_SEQ", sequenceName = "WIDGET_SEQ")
     private Integer id;
 	
 	@Deprecated
