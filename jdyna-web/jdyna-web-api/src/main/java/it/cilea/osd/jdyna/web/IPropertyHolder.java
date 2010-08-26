@@ -5,7 +5,7 @@ import it.cilea.osd.common.model.Identifiable;
 import java.util.List;
 
 
-public interface IPropertyHolder<C extends IContainable> extends Identifiable {
+public interface IPropertyHolder<C extends Containable> extends Identifiable {
 	
 	public String getTitle();
 		

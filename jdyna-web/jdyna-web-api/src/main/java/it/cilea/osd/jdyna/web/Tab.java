@@ -37,10 +37,14 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.OrderBy;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 /** Classe che gestisce un'area dell'Anagrafica 
  * @author pascarelli
@@ -52,19 +56,22 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject {
 	
 	@Id	
-	@GeneratedValue(strategy = GenerationType.TABLE)
-    /**Chiave primaria di accesso*/
+	//@GeneratedValue(strategy = GenerationType.TABLE)		
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAB_SEQ")
+    @SequenceGenerator(name = "TAB_SEQ", sequenceName = "TAB_SEQ")
+    @OrderBy(clause="priority")
+    /** Id primary key */
 	private Integer id;
 	
-	/**Etichetta mostrata come intestazione dell'area*/
+	/** tab label */
 	@Column(unique=true)
 	private String title;
 	
+	/** Priority level */
 	public int priority;
 
 	
-	// getter and setter 
-	
+	// getter and setter 	
 	public Integer getId() {
 		return id;
 	}
@@ -104,6 +111,7 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	 * @return lista di tipologie di proprietà non ammesse nell'area
 	 */
 	@Transient
+	@Sort(type=SortType.UNSORTED)
 	public abstract List<H> getMask();
 	
 	@Transient

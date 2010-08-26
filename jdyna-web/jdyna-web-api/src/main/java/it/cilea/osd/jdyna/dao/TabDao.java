@@ -26,13 +26,13 @@
 package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
+import it.cilea.osd.jdyna.web.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.Tab;
 
 import java.util.List;
 
-public interface TabDao<H extends IPropertyHolder> extends PaginableObjectDao<Tab,Integer> {
-	public List<H> findPropertyHolder(Integer tabID);
-	public List<Tab> findTabByHolder(IPropertyHolder holder);
-	public List<H> findPropertyHolderOnCreation();
+public interface TabDao<H extends IPropertyHolder<Containable>, T extends Tab<H>> extends PaginableObjectDao<T,Integer> {
+	public List<H> findPropertyHolderInTab(Integer tabId);
+	public List<T> findTabsByHolder(H holder);	
 }

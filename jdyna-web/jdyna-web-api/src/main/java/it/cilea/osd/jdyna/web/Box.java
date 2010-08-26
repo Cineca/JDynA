@@ -11,17 +11,23 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Sort;
+import org.hibernate.annotations.SortType;
 
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Box<C extends IContainable> implements IPropertyHolder<C> {
+public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.TABLE)
+	//@GeneratedValue(strategy = GenerationType.TABLE)		
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOX_SEQ")
+    @SequenceGenerator(name = "BOX_SEQ", sequenceName = "BOX_SEQ")
 	/**Chiave primaria di accesso*/
 	private Integer id;
 
@@ -73,10 +79,11 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 	 * @author bollini
 	 * @return lista di tipologie di proprietà non ammesse nell'area
 	 */
-
+	@Transient
+	@Sort(type=SortType.UNSORTED)
 	public abstract List<C> getMask();
 	
-
+	@Transient
 	public abstract void setMask(List<C> mask);
 
 
