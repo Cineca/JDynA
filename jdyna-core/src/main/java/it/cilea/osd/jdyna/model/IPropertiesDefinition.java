@@ -7,6 +7,8 @@ public interface IPropertiesDefinition {
 	
 	public Class getPropertyHolderClass();
 	
+	public Class getDecoratorClass();
+	
 	public AWidget getRendering();
 	
 	public String getShortName();

@@ -326,10 +326,9 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	@Transient
 	public abstract Class getPropertyHolderClass();
 	
-//	/** Il metodo restituisce la classe dell'area di riferimento della tipologia proprietà; 
-//	 * 	Ad esempio per l'oggetto TipologiaProprietaOpera restituisce AreaOpera.class
-//	 * */	
-//	@Transient
-//	public abstract Class getAreaHolderClass();
+	/** Il metodo restituisce il decorator di tipo contenibile per funzionalità web
+	 * */	
+	@Transient
+	public abstract Class getDecoratorClass();
 	
 }

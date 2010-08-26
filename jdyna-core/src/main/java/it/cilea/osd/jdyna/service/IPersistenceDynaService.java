@@ -26,7 +26,6 @@
 package it.cilea.osd.jdyna.service;
 
 import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.common.service.IEventService;
 import it.cilea.osd.common.service.IPersistenceService;
 import it.cilea.osd.jdyna.dao.MultiTypeDaoSupport;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
@@ -40,7 +39,7 @@ import it.cilea.osd.jdyna.model.TypeSupport;
 
 import java.util.List;
 
-public interface IPersistenceDynaService extends IPersistenceService, IEventService {
+public interface IPersistenceDynaService extends IPersistenceService {
 		
 
 //	/**

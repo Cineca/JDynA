@@ -40,7 +40,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 @Entity
-@Table(name="dyna_values")
+@Table(name="jdyna_values")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 public abstract class AValue<P> extends IdentifiableObject {
 	@Id

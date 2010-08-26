@@ -1,8 +1,6 @@
 package it.cilea.osd.jdyna.service;
 
-import it.cilea.osd.common.event.JPAEvent;
 import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.common.service.IEventService;
 import it.cilea.osd.jdyna.dto.DTOAutocomplete;
 import it.cilea.osd.jdyna.utils.CustomAnalyzer;
 import it.cilea.osd.jdyna.utils.Utils;
@@ -44,12 +42,6 @@ public class SearchService implements ISearchDynaService {
 	
 	private CustomAnalyzer customAnalyzer;
 	private HibernateTransactionManager hibernateTransactionManager;
-	private IEventService applicationService;
-			
-	public SearchService(IEventService applicationService) {
-		this.applicationService = applicationService;
-		applicationService.addSubscriber(this, JPAEvent.class);
-	}
 	
 	public CustomAnalyzer getCustomAnalyzer() {
 		return customAnalyzer;
@@ -344,11 +336,6 @@ public class SearchService implements ISearchDynaService {
 		//session.close();
 		
 		return result;
-	}
-
-	/** {@inheritDoc} */
-	public void receive(Class<JPAEvent> classeEvento, JPAEvent evento) {
-		// nothing action on receive event
 	}
 
 	/** {@inheritDoc} */

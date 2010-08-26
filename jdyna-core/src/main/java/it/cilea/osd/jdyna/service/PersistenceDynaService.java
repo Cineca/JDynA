@@ -30,7 +30,7 @@ import it.cilea.osd.common.dao.GenericDao;
 import it.cilea.osd.common.dao.IApplicationDao;
 import it.cilea.osd.common.dao.PaginableObjectDao;
 import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.common.service.CommonPersistenceService;
+import it.cilea.osd.common.service.PersistenceService;
 import it.cilea.osd.jdyna.dao.AnagraficaSupportDao;
 import it.cilea.osd.jdyna.dao.MultiTypeDaoSupport;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
@@ -57,7 +57,7 @@ import java.util.List;
  * @author pascarelli
  * 
  */
-public class PersistenceDynaService extends CommonPersistenceService implements
+public class PersistenceDynaService extends PersistenceService implements
 		IPersistenceDynaService {
 
 	protected IApplicationDao applicationDao;

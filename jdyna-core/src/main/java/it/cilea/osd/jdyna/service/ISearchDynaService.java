@@ -1,7 +1,5 @@
 package it.cilea.osd.jdyna.service;
 
-import it.cilea.osd.common.event.ISubscriber;
-import it.cilea.osd.common.event.JPAEvent;
 import it.cilea.osd.jdyna.dto.DTOAutocomplete;
 
 import java.io.IOException;
@@ -9,7 +7,7 @@ import java.util.List;
 
 import org.apache.lucene.queryParser.ParseException;
 
-public interface ISearchDynaService extends ISubscriber<JPAEvent> {
+public interface ISearchDynaService {
 	
 	/**
 	 * Ricerca per autocompletamento usato nelle jsp con ajaxtag.

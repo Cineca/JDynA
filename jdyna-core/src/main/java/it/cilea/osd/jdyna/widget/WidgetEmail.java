@@ -54,7 +54,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
  * 
  */
 @Entity
-@Table(name="dyna_widget_email")
+@Table(name="jdyna_widget_email")
 @NamedQueries( {  
 	@NamedQuery(name = "WidgetEmail.findAll", query = "from WidgetEmail order by id")
  } )

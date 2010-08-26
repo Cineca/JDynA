@@ -50,7 +50,7 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
  *
  */
 @Entity
-@Table(name="dyna_widget_testo")
+@Table(name="jdyna_widget_text")
 public class WidgetTesto extends AWidget {
 	/** segnalazione di corrispondenze*/
 	@Column (nullable=true)
