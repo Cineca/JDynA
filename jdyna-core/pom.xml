@@ -15,17 +15,17 @@
 
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring</artifactId>		
+			<artifactId>spring</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>			
+			<artifactId>hibernate-core</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search</artifactId>			
+			<artifactId>hibernate-search</artifactId>
 		</dependency>
 
 
@@ -63,6 +63,12 @@
 		<dependency>
 			<groupId>jdom</groupId>
 			<artifactId>jdom</artifactId>
+		</dependency>
+
+		
+		<dependency>
+			<groupId>commons-cilea-genericdao</groupId>
+			<artifactId>commons-cilea-genericdao</artifactId>
 		</dependency>
 	</dependencies>
 </project>
