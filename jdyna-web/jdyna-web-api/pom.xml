@@ -14,8 +14,11 @@
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-webflow</artifactId>
 			<version>1.0.4</version>
-			<type>jar</type>
-			<scope>compile</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-cilea-webapi</groupId>
+			<artifactId>commons-cilea-webapi</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 
