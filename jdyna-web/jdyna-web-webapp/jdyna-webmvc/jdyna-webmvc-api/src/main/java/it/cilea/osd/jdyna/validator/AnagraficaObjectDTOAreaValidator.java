@@ -10,7 +10,7 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
 import it.cilea.osd.jdyna.util.ValidationMessage;
-import it.cilea.osd.jdyna.web.DecoratorPropertiesDefinition;
+import it.cilea.osd.jdyna.web.ADecoratorPropertiesDefinition;
 import it.cilea.osd.jdyna.web.IBoxService;
 import it.cilea.osd.jdyna.web.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
@@ -56,7 +56,7 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 	public void validate(AnagraficaObjectDTO dto, Errors errors,
 			List<IContainable> tipologieDaValidare, String propertyPathPrefix) {
 		for (IContainable t : tipologieDaValidare) {
-			IPropertiesDefinition tipologia = (DecoratorPropertiesDefinition)t;
+			IPropertiesDefinition tipologia = (ADecoratorPropertiesDefinition)t;
 			AWidget widget = tipologia.getRendering();
 
 			int sizeDTO = 0;
