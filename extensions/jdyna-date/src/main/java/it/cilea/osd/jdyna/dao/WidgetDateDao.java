@@ -26,8 +26,8 @@
 package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
-import it.cilea.osd.jdyna.widget.WidgetData;
+import it.cilea.osd.jdyna.widget.WidgetDate;
 
-public interface WidgetDataDao extends PaginableObjectDao<WidgetData,Integer> {
+public interface WidgetDateDao extends PaginableObjectDao<WidgetDate,Integer> {
 	
 }

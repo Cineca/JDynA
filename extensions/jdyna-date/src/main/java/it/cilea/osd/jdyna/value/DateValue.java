@@ -38,7 +38,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 @Entity
-@DiscriminatorValue(value="data")
+@DiscriminatorValue(value="date")
 public class DateValue extends AValue<Date> {	
 	@Temporal(value=TemporalType.TIMESTAMP)
 	@Column(name="dateValue")

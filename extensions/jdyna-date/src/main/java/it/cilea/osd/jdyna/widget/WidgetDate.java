@@ -53,11 +53,11 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
  * 
  */
 @Entity
-@Table(name="dyna_widget_data")
+@Table(name="jdyna_widget_date")
 @NamedQueries( {  
-	@NamedQuery(name = "WidgetData.findAll", query = "from WidgetData order by id")
+	@NamedQuery(name = "WidgetDate.findAll", query = "from WidgetDate order by id")
     })
-public class WidgetData extends AWidget {
+public class WidgetDate extends AWidget {
 		
 	private Integer minYear;
 	private Integer maxYear;
@@ -66,7 +66,7 @@ public class WidgetData extends AWidget {
 	private boolean time;
 		
 	
-	public long toMilliSecondi(int anno, int mese, int giorno) {
+	public long toMilliSeconds(int anno, int mese, int giorno) {
 		
 		GregorianCalendar data = new GregorianCalendar(anno,mese,giorno);
 		Date d1 = data.getTime();
