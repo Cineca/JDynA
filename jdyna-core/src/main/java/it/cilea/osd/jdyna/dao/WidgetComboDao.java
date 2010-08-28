@@ -29,5 +29,5 @@ import it.cilea.osd.common.dao.PaginableObjectDao;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 public interface WidgetComboDao extends PaginableObjectDao<WidgetCombo,Integer> {
-
+	public WidgetCombo findComboByChild(Integer childId);
 }
