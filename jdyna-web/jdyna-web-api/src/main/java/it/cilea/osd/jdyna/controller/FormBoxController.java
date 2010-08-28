@@ -26,7 +26,7 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 	/**
      * the applicationService for query the Tab db, injected by Spring IoC
      */
-	protected ITabService<H, T> applicationService;
+	protected ITabService applicationService;
 	
 	private Class<H> boxClass;
 
@@ -42,12 +42,14 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 
 		Map<String, Object> map = new HashMap<String, Object>();
 		String paramId = request.getParameter("id");
+		
 		List<IContainable> owneredContainables = new LinkedList<IContainable>();
 		List<IContainable> containables = applicationService.findAllContainables(tpClass);
 		if (paramId != null) {
 			Integer id = Integer.parseInt(paramId);
 			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
-		} 
+		}
+		
 		map.put("containablesList", containables);
 		map.put("owneredContainables", owneredContainables);
 		return map;
@@ -76,7 +78,7 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		super.onBind(request, command);
 	}
 
-	public void setApplicationService(ITabService<H, T> applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 

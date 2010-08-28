@@ -25,7 +25,7 @@ import org.springframework.web.servlet.ModelAndView;
 public abstract class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP extends PropertiesDefinition, DTP extends ADecoratorPropertiesDefinition<TP>, H extends IPropertyHolder<Containable>, T extends Tab<H>>
 		extends BaseFormController {
 
-	private ITabService<H, T> applicationService;
+	private ITabService applicationService;
 	
 	private Class<TP> targetModel;
 	private Class<W> renderingModel;
@@ -75,11 +75,11 @@ public abstract class FormDecoratorPropertiesDefinitionController<W extends AWid
 		return new ModelAndView(getSuccessView());
 	}
 
-	public void setApplicationService(ITabService<H, T> applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
-	public ITabService<H, T> getApplicationService() {
+	public ITabService getApplicationService() {
 		return applicationService;
 	}
 }

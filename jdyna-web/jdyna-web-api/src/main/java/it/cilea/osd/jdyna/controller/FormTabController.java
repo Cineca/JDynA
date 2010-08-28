@@ -23,7 +23,9 @@ public abstract class FormTabController<H extends IPropertyHolder<Containable>, 
 	/**
 	 * the applicationService for query the Tab db, injected by Spring IoC
 	 */
-	protected ITabService<H, T> applicationService;
+	protected ITabService applicationService;
+
+
 
 	private Class<T> tabClass;
 
@@ -75,7 +77,7 @@ public abstract class FormTabController<H extends IPropertyHolder<Containable>, 
 		return new ModelAndView(getSuccessView());
 	}
 	
-	public void setApplicationService(ITabService<H, T> applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 

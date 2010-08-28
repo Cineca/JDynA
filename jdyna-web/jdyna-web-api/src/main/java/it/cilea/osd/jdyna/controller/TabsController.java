@@ -27,7 +27,7 @@ public abstract class TabsController<H extends IPropertyHolder<Containable>, T e
 	
 	private Class<T> tabsClass;
 	
-	private ITabService<H, T> applicationService;
+	private ITabService applicationService;
 	
 	
 	public TabsController(Class<T> tabsClass) {
@@ -66,7 +66,7 @@ public abstract class TabsController<H extends IPropertyHolder<Containable>, T e
 	}
 	
 
-	private ModelAndView handleDelete(HttpServletRequest request) {
+	protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		String tabId = request.getParameter("id");
 		Integer paramTypeTabId = Integer.valueOf(tabId);
@@ -90,12 +90,12 @@ public abstract class TabsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 
-	public void setApplicationService(ITabService<H, T> applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
 
-	public ITabService<H, T> getApplicationService() {
+	public ITabService getApplicationService() {
 		return applicationService;
 	}
 }

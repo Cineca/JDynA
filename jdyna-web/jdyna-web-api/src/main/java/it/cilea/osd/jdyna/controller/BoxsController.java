@@ -28,7 +28,7 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 	
 	private Class<H> boxClass;
 	
-	private ITabService<H, T> applicationService;
+	private ITabService applicationService;
 	
 	
 	public BoxsController(Class<H> boxClass) {
@@ -90,12 +90,12 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 
-	public void setApplicationService(ITabService<H, T> applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
 
-	public ITabService<H, T> getApplicationService() {
+	public ITabService getApplicationService() {
 		return applicationService;
 	}
 }

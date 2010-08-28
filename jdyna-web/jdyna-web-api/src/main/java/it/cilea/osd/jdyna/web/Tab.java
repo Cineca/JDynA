@@ -69,8 +69,13 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	
 	/** Priority level */
 	public int priority;
-
 	
+	/**
+	 * Mandatory level 
+	 */
+	public boolean mandatory;
+	
+
 	// getter and setter 	
 	public Integer getId() {
 		return id;
@@ -123,6 +128,11 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	public void setPriority(int priorita) {
 		this.priority = priorita;
 	}
-	
+	public boolean isMandatory() {
+		return mandatory;
+	}
+	public void setMandatory(boolean mandatory) {
+		this.mandatory = mandatory;
+	}
 	
 }

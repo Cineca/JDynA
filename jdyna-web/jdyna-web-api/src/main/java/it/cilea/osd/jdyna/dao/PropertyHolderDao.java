@@ -34,7 +34,7 @@ import java.util.List;
 public interface PropertyHolderDao<H extends IPropertyHolder> extends PaginableObjectDao<H,Integer> {
 	public List<IContainable> findContainableByHolder(Integer boxID);
 	public List<IContainable> findContainableOnCreation(Integer boxID);
-	public List<H> findBoxByContainable(IContainable tip);
+	public List<H> findHolderByContainable(IContainable tip);
 	public List<IContainable> findValoriOnCreation();
 	public List<IContainable> findContainableWithRenderingFormula(Integer boxID);
 }

@@ -7,6 +7,7 @@ import it.cilea.osd.jdyna.web.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +23,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
     private Class<TP> targetModel;
     private Class<H> holderModel;
     
-	protected ITabService<H, T> applicationService;
+	protected ITabService applicationService;
 
 
 	public DecoratorPropertiesDefinitionController(Class<TP> targetModel, Class<H> holderModel)
@@ -31,7 +32,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
         this.holderModel = holderModel;
     }
 
-    public void setApplicationService(ITabService<H, T> applicationService) {
+    public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
@@ -69,30 +70,35 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 
 	private ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		String paramOTipologiaProprietaId = request.getParameter("id");
+		String paramOTipologiaProprietaId = request.getParameter("pDId");
+		String boxId = request.getParameter("boxId");
 		Integer tipologiaProprietaId = Integer.decode(paramOTipologiaProprietaId);
 		
 		try {
 
-			PropertiesDefinition tip = applicationService.get(targetModel, tipologiaProprietaId);
+			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
 			
 			//cancello tutte le proprietà salvate in passato
 			applicationService.deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
 			//cancello se fanno parte di qualche property holder		
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
 			applicationService.deleteContainableInPropertyHolder(holderModel,containable);
-			//cancello il decorator e in cascata la tipologia di proprieta
-			applicationService.delete(tip.getDecoratorClass(), (Containable)containable);
-		} catch (Exception ecc) {
-
-			return new ModelAndView(errorView, model);
+			//cancello il decorator e in cascata la tipologia di proprieta		
+			if(!tip.isTopLevel())
+			{				
+				WidgetCombo wc = applicationService.findComboByChild(targetModel, tip);	
+				wc.getSottoTipologie().remove(tip);			
+			}	
+			applicationService.delete(tip.getDecoratorClass(), containable.getId());
+			
+			saveMessage(request, getText("action.propertiesdefinition.deleted", request
+					.getLocale()));
+		} catch (Exception ecc) {			
+			saveMessage(request, getText("action.propertiesdefinition.deleted.noSuccess", request
+					.getLocale()));			
 		}
 		
-		
-		saveMessage(request, getText("action.tipologiaProprietaOpera.deleted", request
-				.getLocale()));
-		
-		
-		return new ModelAndView(listView, model);
+		return new ModelAndView(listView+"?id="+boxId, model);
 	}
 }
+

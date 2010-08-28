@@ -6,18 +6,19 @@ import it.cilea.osd.jdyna.dao.PropertyHolderDao;
 import it.cilea.osd.jdyna.dao.TabDao;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.PersistenceDynaService;
+import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.LinkedList;
 import java.util.List;
 
 //TODO
-public abstract class TabService<H extends IPropertyHolder<Containable>, T extends Tab<H>> extends PersistenceDynaService implements
-		ITabService<H, T> {
+public abstract class TabService extends PersistenceDynaService implements
+		ITabService {
 	
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<H> findPropertyHolderInTab(Class<T> classTab, Integer tabId) {
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<H> findPropertyHolderInTab(Class<T> classTab, Integer tabId) {
 		log.debug("Call findPropertyHolderInTab with id " + tabId);
 
 		if (tabId == null) {
@@ -35,7 +36,7 @@ public abstract class TabService<H extends IPropertyHolder<Containable>, T exten
 	/**
 	 * {@inheritDoc}
 	 */
-	public void deletePropertyHolderInTabs(Class<T> classTab, H holder) {
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deletePropertyHolderInTabs(Class<T> classTab, H holder) {
 		TabDao<H, T> tabDao = (TabDao<H,T>) getDaoByModel(classTab);
 		// trovo le aree dove è mascherata la tipologia di proprietà e rompo
 		// l'associazione
@@ -48,7 +49,7 @@ public abstract class TabService<H extends IPropertyHolder<Containable>, T exten
 	/**
 	 * {@inheritDoc}
 	 */
-	public List<IContainable> findContainableInPropertyHolder(
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<IContainable> findContainableInPropertyHolder(
 			Class<H> boxClass, Integer boxID) {
 		log.debug("Chiamato findContainable in box con arg: " + boxClass
 				+ "  " + boxID);
@@ -89,9 +90,9 @@ public abstract class TabService<H extends IPropertyHolder<Containable>, T exten
 	/**
 	 * {@inheritDoc}
 	 */
-	public void deleteContainableInPropertyHolder(Class<H> clazzH, IContainable containable) {
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deleteContainableInPropertyHolder(Class<H> clazzH, IContainable containable) {
 		PropertyHolderDao<H> modelDao = (PropertyHolderDao<H>) getDaoByModel(clazzH);
-		List<H> boxs = modelDao.findBoxByContainable(containable);
+		List<H> boxs = modelDao.findHolderByContainable(containable);
 		for (H box : boxs) {
 			box.getMask().remove(containable);
 		}
@@ -104,5 +105,25 @@ public abstract class TabService<H extends IPropertyHolder<Containable>, T exten
 		IContainable result = modelDao.uniqueContainableByDecorable(decorable);
 		return result;
 	}
+
+	
+	@Override
+	public <TP extends PropertiesDefinition> WidgetCombo findComboByChild(
+			Class<TP> clazz, TP tip) {
+		PropertiesDefinitionDao<TP> dao = (PropertiesDefinitionDao<TP>) getDaoByModel(clazz);
+		return (WidgetCombo)dao.uniqueTipologiaProprietaCombo(tip).getRendering();
+		
+		
+	}
+
+	@Override
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByTitle(Class<T> clazzTab,
+			String title) {
+		TabDao<H, T> tabDao = (TabDao<H,T>) getDaoByModel(clazzTab);
+		return tabDao.uniqueTabByTitle(title);
+	}
+
+
+
 
 }
