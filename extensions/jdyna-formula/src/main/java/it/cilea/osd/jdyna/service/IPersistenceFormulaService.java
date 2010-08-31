@@ -1,13 +1,13 @@
 package it.cilea.osd.jdyna.service;
 
-import it.cilea.osd.common.event.JPAEvent;
+import it.cilea.osd.jdyna.event.JPAEvent;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 
 import java.util.Set;
 
-public interface IPersistenceFormulaService extends IPersistenceDynaService {
+public interface IPersistenceFormulaService extends IPersistenceDynaService, IEventService {
 
 	/**
 	 * Trova gli oggetti da ricalcolare utilizzando le informazioni clazz e id

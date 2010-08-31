@@ -1,7 +1,10 @@
 package it.cilea.osd.jdyna.service;
 
-import it.cilea.osd.common.event.JPAEvent;
 import it.cilea.osd.jdyna.dao.OggettoDaRicalcolareDao;
+import it.cilea.osd.jdyna.event.GestoreEventi;
+import it.cilea.osd.jdyna.event.IEvent;
+import it.cilea.osd.jdyna.event.ISubscriber;
+import it.cilea.osd.jdyna.event.JPAEvent;
 import it.cilea.osd.jdyna.model.AnagraficaObject;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -12,10 +15,50 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class PersistenceFormulaService extends PersistenceDynaService implements IPersistenceFormulaService {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+public class PersistenceFormulaService extends PersistenceDynaService implements IPersistenceFormulaService, IEventService {
 
 	
 	protected OggettoDaRicalcolareDao oggettoDaRicalcolareDao;
+	
+    private GestoreEventi gestoreEventi;
+    
+    private boolean flagGestoreEventi;
+    
+    protected final Log log = LogFactory.getLog(getClass());
+    
+	{
+		log.debug("inizializzazione classe BASEApplicationService");
+	}
+	
+    public GestoreEventi getGestoreEventi() {
+		return gestoreEventi;
+	}
+
+
+	public void setGestoreEventi(GestoreEventi gestoreEventi) {
+		this.gestoreEventi = gestoreEventi;		
+	}
+	
+	   /**
+	 * {@inheritDoc}
+	 */
+	public <E extends IEvent> void addSubscriber(ISubscriber<E> subscriber,
+			Class<E> eventClass) {
+		getGestoreEventi().addSubscriber(subscriber, eventClass);
+	}
+
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public <E extends IEvent> void removeSubscriber(ISubscriber<E> subscriber,
+			Class<E> eventClass) {
+		getGestoreEventi().removeSubscriber(subscriber, eventClass);
+	}
+	
 	
 	/** Metodo di inizializzazione dei generics dao utilizzati direttamente in modo tale da non doverli sempre 
 	 *  prendere dalla mappa dei dao */
