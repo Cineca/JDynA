@@ -25,8 +25,8 @@
  */
 package it.cilea.osd.jdyna.util;
 
-import it.cilea.osd.common.event.JPAEvent;
 import it.cilea.osd.common.model.Identifiable;
+import it.cilea.osd.jdyna.event.JPAEvent;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -35,10 +35,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-import javax.persistence.UniqueConstraint;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;

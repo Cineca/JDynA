@@ -25,9 +25,9 @@
  */
 package it.cilea.osd.jdyna.util;
 
-import it.cilea.osd.common.event.ISubscriber;
-import it.cilea.osd.common.event.JPAEvent;
 import it.cilea.osd.common.model.Identifiable;
+import it.cilea.osd.jdyna.event.ISubscriber;
+import it.cilea.osd.jdyna.event.JPAEvent;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
