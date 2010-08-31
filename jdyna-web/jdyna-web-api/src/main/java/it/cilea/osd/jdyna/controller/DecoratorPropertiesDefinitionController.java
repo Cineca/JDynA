@@ -72,6 +72,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 		Map<String, Object> model = new HashMap<String, Object>();
 		String paramOTipologiaProprietaId = request.getParameter("pDId");
 		String boxId = request.getParameter("boxId");
+		String tabId = request.getParameter("tabId");
 		Integer tipologiaProprietaId = Integer.decode(paramOTipologiaProprietaId);
 		
 		try {
@@ -98,7 +99,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 					.getLocale()));			
 		}
 		
-		return new ModelAndView(listView+"?id="+boxId, model);
+		return new ModelAndView(listView+"?id="+boxId+"&tabId="+tabId, model);
 	}
 }
 

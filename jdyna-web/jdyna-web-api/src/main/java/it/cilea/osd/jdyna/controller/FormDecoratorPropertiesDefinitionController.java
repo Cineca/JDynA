@@ -39,8 +39,10 @@ public abstract class FormDecoratorPropertiesDefinitionController<W extends AWid
 	@Override
 	protected Map referenceData(HttpServletRequest request) throws Exception {
 		Map<String, Object> map = new HashMap<String, Object>();
-		String paramId = request.getParameter("boxId");
-		map.put("boxId", paramId);
+		String paramBoxId = request.getParameter("boxId");
+		String paramTabId = request.getParameter("tabId");
+		map.put("tabId", paramTabId);
+		map.put("boxId", paramBoxId);
 		return map;
 	}
 	

@@ -71,12 +71,6 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		return box;
 	}
 	
-	@Override
-	protected void onBind(HttpServletRequest request, Object command)
-			throws Exception {
-		// TODO Auto-generated method stub
-		super.onBind(request, command);
-	}
 
 	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
