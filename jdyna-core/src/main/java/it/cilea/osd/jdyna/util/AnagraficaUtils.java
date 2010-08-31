@@ -348,7 +348,7 @@ public class AnagraficaUtils {
 		Object oggetto = importBean.getValore();
 		
 		//recupero da db la tipologia di proprieta
-		TP tipologiaDaImportare = (TP)applicationService.findTipologiaProprietaByShortName(anagraficaObject.getClassPropertiesDefinition(), shortName);
+		TP tipologiaDaImportare = (TP)applicationService.findPropertiesDefinitionByShortName(anagraficaObject.getClassPropertiesDefinition(), shortName);
 		
 		if (tipologiaDaImportare == null){
 			throw new IllegalArgumentException("Lo shortname indicato: "
@@ -419,7 +419,7 @@ public class AnagraficaUtils {
 		String shortName = importBean.getShortname();
 		Object oggetto = importBean.getValore();
 		
-		TP tipologiaDaImportareInCombo = (TP)applicationService.findTipologiaProprietaByShortName(anagraficaObject.getClassPropertiesDefinition(), shortName);
+		TP tipologiaDaImportareInCombo = (TP)applicationService.findPropertiesDefinitionByShortName(anagraficaObject.getClassPropertiesDefinition(), shortName);
 		PropertyEditor pe = tipologiaDaImportareInCombo.getRendering()
 		.getImportPropertyEditor(applicationService);
 		

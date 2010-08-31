@@ -88,7 +88,7 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	 * @param shortName - il codice univoco della tipologia di proprieta
 	 * @return la tipologia di proprieta per quello shortname
 	 */
-	public <T extends PropertiesDefinition> T findTipologiaProprietaByShortName(
+	public <T extends PropertiesDefinition> T findPropertiesDefinitionByShortName(
 			Class<T> clazz, String shortName);
 
 

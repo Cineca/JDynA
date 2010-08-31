@@ -6,7 +6,14 @@ import it.cilea.osd.jdyna.service.ValidatorService.ValidationResult;
 public interface IValidatorDynaService {
 	
 
-	/** validazione shortname delle tipologia proprieta */
-	public ValidationResult controllaShortName(Class clazz,PropertiesDefinition metadato);
+
+	/**
+	 * Properties definition shortname validation
+	 *  
+	 * @param clazz
+	 * @param metadato
+	 * @return
+	 */
+	public ValidationResult checkShortName(Class clazz,PropertiesDefinition metadato);
 
 }

@@ -29,7 +29,7 @@ public class ConfigurazioneTipologiaProprietaEditor<TP extends PropertiesDefinit
 		}
 		else
 		{
-			setValue(applicationService.findTipologiaProprietaByShortName(clazz,text));
+			setValue(applicationService.findPropertiesDefinitionByShortName(clazz,text));
 		}
 	}
 

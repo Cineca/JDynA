@@ -141,7 +141,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	/**
 	 * {@inheritDoc}
 	 */
-	public <T extends PropertiesDefinition> T findTipologiaProprietaByShortName(
+	public <T extends PropertiesDefinition> T findPropertiesDefinitionByShortName(
 			Class<T> clazz, String shortName) {
 		return ((PropertiesDefinitionDao<T>) getDaoByModel(clazz))
 				.uniqueByShortName(shortName);
@@ -166,7 +166,7 @@ public class PersistenceDynaService extends PersistenceService implements
 		return results;
 	}
 
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

@@ -74,13 +74,20 @@ public class ValidatorService implements IValidatorDynaService {
 	}
 
 
-	/** validazione shortname delle tipologia proprieta */
-	public ValidationResult controllaShortName(Class clazz,PropertiesDefinition metadato) {
+	/**
+	 * {@inheritDoc}
+	 */
+	public ValidationResult checkShortName(Class clazz,PropertiesDefinition metadato) {
 		if(metadato.getId()==null || !applicationService.exist(metadato.getClass(), metadato.getId())) {
-			if(applicationService.findTipologiaProprietaByShortName(clazz, metadato.getShortName())!=null)
-				return new ValidationResult("error.message.fallita.validazione.shortname",false,"Error");
+			if(applicationService.findPropertiesDefinitionByShortName(clazz, metadato.getShortName())!=null)
+				return new ValidationResult("error.message.validation.shortname",false,"Error");
 		}
 		return new ValidationResult();
+	}
+
+
+	public IPersistenceDynaService getApplicationService() {
+		return applicationService;
 	}
 
 }

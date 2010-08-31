@@ -88,7 +88,7 @@ public class Anagrafica4ViewNullHandler<P extends Property<TP>, TP extends Prope
 			log.error(e);
 			throw new RuntimeException(e);
 		}
-		TP tp = applicationService.findTipologiaProprietaByShortName(a4v.getClassTipologiaProprieta(), (String) arg2);
+		TP tp = applicationService.findPropertiesDefinitionByShortName(a4v.getClassTipologiaProprieta(), (String) arg2);
 		propTmp.setTypo(tp);
 		propTmp.setValue(tp.getRendering().getInstanceValore());
 		propTmp.getValue().setOggetto(propTmp.getValue().getDefaultValue());
