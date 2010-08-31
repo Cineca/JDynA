@@ -2,10 +2,13 @@ package it.cilea.osd.jdyna.web.controller;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.jdyna.model.AlberoClassificatorio;
-import it.cilea.osd.jdyna.model.Soggettario;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Soggettario;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
+import it.cilea.osd.jdyna.web.Containable;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Tab;
 
 import java.util.HashMap;
 import java.util.List;
@@ -16,17 +19,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class PropertiesDefinitionController<T extends PropertiesDefinition> extends BaseAbstractController {
+public class PropertiesDefinitionController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends BaseAbstractController {
 
-    private Class<T> targetModel;
+    private Class<TP> targetModel;
+    private Class<H> holderModel;
     
 	private IPersistenceDynaService applicationService;
 
 
 
-	public PropertiesDefinitionController(Class<T> targetModel)
+	public PropertiesDefinitionController(Class<TP> targetModel, Class<H> propertyHolder)
     {
         this.targetModel = targetModel;
+        this.holderModel = propertyHolder;
     }
 
     public void setApplicationService(IPersistenceDynaService applicationService) {
@@ -60,7 +65,7 @@ public class PropertiesDefinitionController<T extends PropertiesDefinition> exte
         
         Integer tipologiaProprietaId = Integer.valueOf(paramTipologiaProprietaId);
 
-        PropertiesDefinition propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
+        TP propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
        
         /*Se si è voluto creare un soggettario come particolare widget testo, porto con me l'id
          * del soggettario per potere procedere alla scelta di un nome e voce per il soggettario*/
@@ -88,7 +93,7 @@ public class PropertiesDefinitionController<T extends PropertiesDefinition> exte
         Map<String, Object> model = new HashMap<String, Object>();
         String paramTipologiaProprietaId = request.getParameter("id");
         Integer tipologiaProprietaId = Integer.valueOf(paramTipologiaProprietaId);
-        PropertiesDefinition propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
+        TP propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
         
         model.put("tipologiaProprieta", propertiesDefinition);
         model.put("addModeType", "display");
@@ -97,7 +102,7 @@ public class PropertiesDefinitionController<T extends PropertiesDefinition> exte
 
 	private ModelAndView handleList(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<? extends PropertiesDefinition> listTipologiaProprieta = applicationService.getListTipologieProprietaFirstLevel(targetModel);	 
+		List<TP> listTipologiaProprieta = applicationService.getListTipologieProprietaFirstLevel(targetModel);	 
 		model.put("tipologiaProprietaList", listTipologiaProprieta);		
 		return new ModelAndView(listView, model);
 	}
@@ -110,11 +115,10 @@ public class PropertiesDefinitionController<T extends PropertiesDefinition> exte
 		
 		try {
 
-			PropertiesDefinition tip = applicationService.get(targetModel, tipologiaProprietaId);
+			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
 			//cancello tutte le proprietà salvate in passato
-			applicationService.deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
-			//cancello se mascherate		
-			((ITabService)applicationService).deleteTipologiaProprietaSuAree(tip);
+			applicationService.deleteAllProprietaByTipologiaProprieta(targetModel, tip);
+						
 			//cancello la tipologia di proprieta
 			applicationService.delete(targetModel, tipologiaProprietaId);
 		} catch (Exception ecc) {

@@ -6,15 +6,14 @@ import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.model.Soggettario;
-import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-import it.cilea.osd.jdyna.web.IBoxService;
-import it.cilea.osd.jdyna.web.IContainable;
+import it.cilea.osd.jdyna.web.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
 import it.cilea.osd.jdyna.widget.WidgetCheckRadio;
 import it.cilea.osd.jdyna.widget.WidgetClassificazione;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
-import it.cilea.osd.jdyna.widget.WidgetData;
+import it.cilea.osd.jdyna.widget.WidgetDate;
 import it.cilea.osd.jdyna.widget.WidgetEmail;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
 import it.cilea.osd.jdyna.widget.WidgetFormulaClassificazione;
@@ -46,12 +45,15 @@ import org.springframework.web.servlet.ModelAndView;
  * @param <TY>
  *            la tipologia dell'oggetto
  */
-public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder>
+public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>>
 		extends BaseFormController {
+	
 	private Class<TP> tpClass;	
 	private Class<TY> typeClass;
+	private Class<H> boxClass;
+	
 	private String filename;
-	private IBoxService applicationService;
+	private ITabService applicationService;
 
 	/**
 	 * Esporta la configurazione anagrafica corrente di un oggetto in un file
@@ -97,7 +99,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 		}
 
 		// Aree
-		Class<H> areaClass = applicationService.getPropertyHolderClass();
+		Class<H> areaClass = boxClass;
 		List<H> allAree = applicationService.getList(areaClass);
 		for (H area : allAree) {
 			toXML(writer, area);
@@ -119,7 +121,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 		this.tpClass = tpClass;
 	}
 
-	public void setApplicationService(IBoxService applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
@@ -127,6 +129,10 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 		this.typeClass = typeClass;
 	}
 
+	public void setBoxClass(Class<H> boxClass) {
+		this.boxClass = boxClass;
+	}
+	
 	/**
 	 * Imposta il nome che sarà assegnato al file di export
 	 * 
@@ -236,8 +242,8 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 			writer.print("                                </bean>\n");
 			writer.print("                            </property>\n");
 			writer.print("                        </bean>\n\n");
-		} else if (widget instanceof WidgetData) {
-			WidgetData widgetData = (WidgetData) widget;
+		} else if (widget instanceof WidgetDate) {
+			WidgetDate widgetData = (WidgetDate) widget;
 			writer
 					.print("                        <bean class=\"it.cilea.osd.jdyna.widget.WidgetData\">\n");
 			if (widgetData.getMaxYear() != null) {
@@ -451,7 +457,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 	 * @param area
 	 */
 	private void toXML(PrintWriter writer, H area) {
-		Class<H> areaClass = applicationService.getPropertyHolderClass();
+		Class<H> areaClass = boxClass;
 		writer.print("    <bean id=\"" + areaClass.getSimpleName()
 				+ area.getId() + "\" class=\"" + areaClass.getCanonicalName()
 				+ "\">\n");
@@ -463,7 +469,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 		writer
 				.print("                            <property name=\"maschera\">\n"
 						+ "                                  <list>\n");
-		for (IContainable tip : area.getMaschera()) {
+		for (Containable tip : area.getMask()) {
 
 			writer.print("                                       <ref local=\""
 					+ tip.getShortName() + tpClass.getSimpleName() + "\" />\n");

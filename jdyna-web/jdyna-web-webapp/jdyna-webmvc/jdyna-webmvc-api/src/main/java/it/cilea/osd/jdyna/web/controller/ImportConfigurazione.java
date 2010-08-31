@@ -32,7 +32,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @param <TP> la tipologia proprieta dell'oggetto
  * @param <A>  il  tipo di area dell'oggetto
  */
-public class ImportConfigurazione<TY extends ATipologia<TP>,TP extends PropertiesDefinition, H extends IPropertyHolder<TP>, A extends Tab<TP,H>> extends BaseFormController {
+public class ImportConfigurazione<TY extends ATipologia<TP>,TP extends PropertiesDefinition, H extends IPropertyHolder, A extends Tab<H>> extends BaseFormController {
 	private Class<TP> tpClass;
 	private Class<A> areaClass;
 	private Class<TY> typeClass;

@@ -27,7 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-public class ImportAnagraficaObject<P extends Property<TP>,TP extends PropertiesDefinition, H extends IPropertyHolder<TP>, A extends Tab<TP,H>, B extends ImportPropertyAnagraficaUtil> extends BaseFormController {
+public class ImportAnagraficaObject<P extends Property<TP>,TP extends PropertiesDefinition, H extends IPropertyHolder, A extends Tab<H>, B extends ImportPropertyAnagraficaUtil> extends BaseFormController {
 	
 	
 	private Class<B> beanPropertyClass;

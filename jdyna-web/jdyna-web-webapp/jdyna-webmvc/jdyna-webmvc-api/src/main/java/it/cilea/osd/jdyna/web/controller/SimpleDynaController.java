@@ -6,9 +6,11 @@ import it.cilea.osd.jdyna.model.ATipologia;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
-import it.cilea.osd.jdyna.web.IBoxService;
+import it.cilea.osd.jdyna.web.Containable;
 import it.cilea.osd.jdyna.web.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Tab;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,18 +21,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class SimpleDynaController <P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder>
+public class SimpleDynaController <P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder, T extends Tab<H>>
 	extends BaseAbstractController {
 
 	private final int PAGE_SIZE = 20;
 	
-	protected IBoxService applicationService;
+	protected ITabService applicationService;
 	
 	protected Class<? extends AnagraficaSupport<P, TP>> objectClass;
 	
 	protected Class<TP> tpClass;
 	
 	protected Class<? extends ATipologia<TP>> typeClass;
+	
+	protected Class<T> tabClass;
+	
+	protected Class<H> propertyHolderClass;
+	
 	private String modelPath;
 	
 	private String i18nPrefix = "action";
@@ -48,8 +55,15 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 		objectClass = anagraficaObjectClass;
 		tpClass = classTP;		
 	}
+
+	public SimpleDynaController(Class<? extends AnagraficaSupport<P, TP>> anagraficaObjectClass, Class<TP> classTP, Class<T> classT, Class<H> classH) throws InstantiationException, IllegalAccessException {
+		objectClass = anagraficaObjectClass;
+		tpClass = classTP;		
+		tabClass = classT;
+		propertyHolderClass = classH;
+	}
 	
-	public void setApplicationService(IBoxService applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
@@ -77,8 +91,8 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 		}
 		//FIXME verificare questa parte di codice se effettivamente serve a qualcosa
 		Integer ID = null;
-		Class<H> areaClass = applicationService.getPropertyHolderClass();
-		List<H> listaAllAree =  (List<H>) (applicationService.getList(areaClass));
+		Class<T> areaClass = tabClass;
+		List<T> listaAllAree =  applicationService.getList(areaClass);
 		
 
 		if (request.getParameter("areaId") != null) {
@@ -86,7 +100,7 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 			model.put("first", false);
 		} else {		
 			if(listaAllAree!=null && !listaAllAree.isEmpty()) {
-				H area = listaAllAree.get(0);
+				T area = listaAllAree.get(0);
 				if(area!=null) {
 					ID = area.getId();
 				}
@@ -104,10 +118,14 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 		// passo alla view l'ID dell'area selezionata
 		model.put("areaId", ID);
 		// Passo alla view le tipologie di proprietà da visualizzare nell'area
+		List<H> propertyHolders = applicationService.findPropertyHolderInTab(tabClass, ID);
+		
+		
 		List<IContainable> area =null;
-
-		area = applicationService.findContainableInBox(areaClass, ID);
-	  
+		
+		for(IPropertyHolder<Containable> iph : propertyHolders) {
+				area = applicationService.findContainableInPropertyHolder(propertyHolderClass, iph.getId());
+		}
    	    jdynaObject.inizializza();
    	    
 	 	model.put("path", modelPath);
@@ -144,7 +162,7 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 		
 		List<? extends AnagraficaSupport<P, TP>> objectlist;
 		
-		TP tipProp = applicationService.findTipologiaProprietaByShortName(
+		TP tipProp = applicationService.findPropertiesDefinitionByShortName(
 				tpClass, sort);
 		if (tipProp != null) {
 			objectlist = applicationService

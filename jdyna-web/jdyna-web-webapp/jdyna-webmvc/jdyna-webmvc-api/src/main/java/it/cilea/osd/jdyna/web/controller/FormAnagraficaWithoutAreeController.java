@@ -11,6 +11,7 @@ import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
 import it.cilea.osd.jdyna.util.FormulaManager;
+import it.cilea.osd.jdyna.web.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.Tab;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
@@ -28,7 +29,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<TP>, A extends Tab<TP,H>, EO extends AnagraficaObject<P, TP>>
+public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, A extends Tab<H>, EO extends AnagraficaObject<P, TP>>
 		extends BaseFormController {
 
 	
@@ -65,7 +66,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
 		ServletRequestDataBinder servletRequestDataBinder = super.createBinder(request, command);
 		AnagraficaObjectDTO commandDTO = (AnagraficaObjectDTO) command;
 		for (String shortName : commandDTO.getAnagraficaProperties().keySet()) {
-			TP tipologiaProprieta = applicationService.findTipologiaProprietaByShortName(clazzTipologiaProprieta, shortName);
+			TP tipologiaProprieta = applicationService.findPropertiesDefinitionByShortName(clazzTipologiaProprieta, shortName);
 			PropertyEditor propertyEditor = tipologiaProprieta.getRendering().getPropertyEditor(applicationService);
 			if (tipologiaProprieta.getRendering() instanceof WidgetCombo) {
 				WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipologiaProprieta
