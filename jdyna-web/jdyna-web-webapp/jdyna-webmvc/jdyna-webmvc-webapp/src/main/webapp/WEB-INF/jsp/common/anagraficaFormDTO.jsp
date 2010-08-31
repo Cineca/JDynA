@@ -30,8 +30,9 @@ ${link.value}
 <%-- Serve per triview e la nostra dyna tag library --%>
 <c:set var="commandObject" value="${anagraficadto}" scope="request" />
 <c:set var="simpleNameAnagraficaObject" value="${simpleNameAnagraficaObject}" scope="page" />
-<c:set var="mostraPulsanteFormule" value="${mostraPulsanteFormule}" scope="page" />
+<!--<c:set var="mostraPulsanteFormule" value="${mostraPulsanteFormule}" scope="page" />
 
+-->
 <form:form commandName="anagraficadto" action="" method="post">
 	 <spring:hasBindErrors name="anagraficadto">
          <div class="error">
@@ -49,24 +50,12 @@ ${link.value}
          </ul>
          </div>
       </spring:hasBindErrors>
+
 	
-	<dyna:hidden propertyPath="anagraficadto.areaId" />
-	<dyna:hidden propertyPath="anagraficadto.objectId" />
-	<input type="hidden" id="newAreaId" name="newAreaId" />
-<div id='tab'>
-    <ul id="tablist">  
-  <c:forEach items="${areaList}" var="area">
-    <li id="liCorrente${area.id}"<c:if test="${area.id == areaId}">
-			class="selected"
-			</c:if>>    	    	    	
-    	<a onclick="changeArea(${area.id})">${area.title}</a> 
-    </li>
-  </c:forEach>
-  </ul>
-</div>
+	<triview:hidden propertyPath="anagraficadto.objectId" />
 
 <div id='content'>
-	<c:forEach items="${tipologieProprietaInArea}" var="tipologiaDaVisualizzare">
+	<c:forEach items="${tipologieProprieta}" var="tipologiaDaVisualizzare">
 
 		<% 
 		   List<String> parameters = new ArrayList<String>();
@@ -79,16 +68,13 @@ ${link.value}
 	 	 	propertyPath="anagraficadto.anagraficaProperties[${tipologiaDaVisualizzare.shortName}]" ajaxValidation="validateAnagraficaProperties" validationParams="${parameters}"/>	 	 	
 	 	 		 	 	 	 	
 	</c:forEach>
-<%--	
-<c:if test="${showRicalcola}">	
-	<input src="${root}/images/icons/formule.jpg" type="image" name="_eventId_calculate" value="Ricalcola" title="Ricalcola le formule" onhelp="Ricalcola le formule presenti nell'area" />
-</c:if>
---%> 	
+ 	
 </div>
-	<input type="hidden" name="_flowExecutionKey" value="${flowExecutionKey}">
-	<input type="submit" name="_eventId_cancel" value="Annulla" />
+	
+	<input type="submit" name="cancel" value="Annulla" /><!--
 	<c:if test="${mostraPulsanteFormule}">
 		<input type="submit" name="_eventId_calculate" value="Ricalcola" />
 	</c:if>	
-	<input type="submit" name="_eventId_save" value="Salva"/>
+	-->
+	<input type="submit" name="save" value="Salva"/>
 </form:form>
