@@ -28,15 +28,25 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOX_SEQ")
     @SequenceGenerator(name = "BOX_SEQ", sequenceName = "BOX_SEQ")
-	/**Chiave primaria di accesso*/
+	/** Primary key */
 	private Integer id;
 
-	/** Etichetta mostrata come intestazione dell'area */
-	@Column(unique = true)
+	/** Tab shortname */
+	@Column(unique=true)
+	private String shortName;
+
+	/** Priority level */
+	public int priority;
+	
+	/** Tab label */
 	private String title;
 
+	/**
+	 * Level of visibility  
+	 */
+	public Integer visibility;
+	
 	// accessori e setter
-
 	public Integer getId() {
 		return id;
 	}
@@ -86,5 +96,24 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
 	@Transient
 	public abstract void setMask(List<C> mask);
 
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
 
+	public String getShortName() {
+		return shortName;
+	}
+
+	public Integer getVisibility() {
+		return visibility;
+	}
+	public void setVisibility(Integer visibility) {
+		this.visibility = visibility;
+	}
+	public int getPriority() {
+		return priority;
+	}
+	public void setPriority(int priorita) {
+		this.priority = priorita;
+	}
 }

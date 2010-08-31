@@ -26,6 +26,10 @@ public interface ITabService extends IPersistenceDynaService {
 
 	public <TP extends PropertiesDefinition> WidgetCombo findComboByChild(Class<TP> clazz, TP tip);
 
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByTitle(Class<T> clazzTab,String title);
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByShortName(Class<T> clazzTab,String title);
+
+	public <H extends IPropertyHolder<Containable>> H getBoxByShortName(Class<H> clazzBox, String title);
+
+	public List<IContainable> getContainableOnCreation();
 
 }

@@ -63,8 +63,11 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
     /** Id primary key */
 	private Integer id;
 	
-	/** tab label */
+	/** tab shortname */
 	@Column(unique=true)
+	private String shortName;
+	
+	/** tab label */
 	private String title;
 	
 	/** Priority level */
@@ -74,8 +77,12 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	 * Mandatory level 
 	 */
 	public boolean mandatory;
+		
+	/**
+	 * Level of visibility 
+	 */
+	public Integer visibility;
 	
-
 	// getter and setter 	
 	public Integer getId() {
 		return id;
@@ -90,6 +97,7 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	@Override
 	public boolean equals(Object object) {
 		try {
@@ -133,6 +141,18 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	}
 	public void setMandatory(boolean mandatory) {
 		this.mandatory = mandatory;
+	}
+	public void setShortName(String shortName) {
+		this.shortName = shortName;
+	}
+	public String getShortName() {
+		return shortName;
+	}
+	public Integer getVisibility() {
+		return visibility;
+	}
+	public void setVisibility(Integer visibility) {
+		this.visibility = visibility;
 	}
 	
 }

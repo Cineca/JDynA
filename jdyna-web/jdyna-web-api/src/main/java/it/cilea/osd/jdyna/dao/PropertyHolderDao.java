@@ -37,4 +37,5 @@ public interface PropertyHolderDao<H extends IPropertyHolder> extends PaginableO
 	public List<H> findHolderByContainable(IContainable tip);
 	public List<IContainable> findValoriOnCreation();
 	public List<IContainable> findContainableWithRenderingFormula(Integer boxID);
+	public H uniqueBoxByShortName(String title);	
 }

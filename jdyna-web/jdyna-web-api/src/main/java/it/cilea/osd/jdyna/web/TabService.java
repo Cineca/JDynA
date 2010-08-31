@@ -117,12 +117,18 @@ public abstract class TabService extends PersistenceDynaService implements
 	}
 
 	@Override
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByTitle(Class<T> clazzTab,
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByShortName(Class<T> clazzTab,
 			String title) {
 		TabDao<H, T> tabDao = (TabDao<H,T>) getDaoByModel(clazzTab);
-		return tabDao.uniqueTabByTitle(title);
+		return tabDao.uniqueTabByShortName(title);
 	}
 
+	@Override
+	public <H extends IPropertyHolder<Containable>> H getBoxByShortName(Class<H> clazzBox,
+			String title) {
+		PropertyHolderDao<H> boxDao = (PropertyHolderDao<H>) getDaoByModel(clazzBox);
+		return boxDao.uniqueBoxByShortName(title);
+	}
 
 
 
