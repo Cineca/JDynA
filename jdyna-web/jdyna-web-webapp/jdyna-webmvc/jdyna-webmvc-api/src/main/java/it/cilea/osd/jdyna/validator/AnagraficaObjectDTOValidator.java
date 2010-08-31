@@ -9,8 +9,8 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
 import it.cilea.osd.jdyna.util.ValidationMessage;
-import it.cilea.osd.jdyna.web.IBoxService;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.List;
@@ -21,14 +21,14 @@ import org.springframework.validation.Validator;
 public class AnagraficaObjectDTOValidator<P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder, EO extends AnagraficaObject<P, TP>>
 		implements Validator {
 
-	protected IBoxService applicationService;
+	protected ITabService applicationService;
 
 	protected Class<TP> clazzTipologiaProprieta;
 
 	protected Class<EO> clazzAnagraficaObject;
 
 
-	public void setApplicationService(IBoxService applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 

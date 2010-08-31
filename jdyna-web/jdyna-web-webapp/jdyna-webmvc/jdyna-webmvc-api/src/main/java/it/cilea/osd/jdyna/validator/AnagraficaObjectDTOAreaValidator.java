@@ -11,9 +11,9 @@ import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.web.ADecoratorPropertiesDefinition;
-import it.cilea.osd.jdyna.web.IBoxService;
 import it.cilea.osd.jdyna.web.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.List;
@@ -24,14 +24,15 @@ import org.springframework.validation.Validator;
 public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends PropertiesDefinition, I extends IPropertyHolder, EO extends AnagraficaObject<P, TP>>
 		implements Validator {
 
-	protected IBoxService applicationService;
+	protected ITabService applicationService;
 
 	protected Class<TP> clazzTipologiaProprieta;
 
 	protected Class<EO> clazzAnagraficaObject;
 
+	protected Class<I> clazzPropertyHolder;
 
-	public void setApplicationService(IBoxService applicationService) {
+	public void setApplicationService(ITabService applicationService) {
 		this.applicationService = applicationService;
 	}
 
@@ -45,9 +46,9 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 		if (dto.getObjectId() != null) { // edit
 			AnagraficaObject<P, TP> epiObject = applicationService.get(
 					clazzAnagraficaObject, dto.getObjectId());
-			tipologieDaValidare = applicationService.findContainableInBox(applicationService.getPropertyHolderClass(), dto.getAreaId());
+			tipologieDaValidare = applicationService.findContainableInPropertyHolder(clazzPropertyHolder, dto.getAreaId());
 		} else { // creation
-			tipologieDaValidare = ((IBoxService)applicationService)
+			tipologieDaValidare = ((ITabService)applicationService)
 					.getContainableOnCreation();
 		}
 		validate(dto, errors, tipologieDaValidare, "");
@@ -121,5 +122,9 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 
 	public void setClazzAnagraficaObject(Class<EO> clazzAnagraficaObject) {
 		this.clazzAnagraficaObject = clazzAnagraficaObject;
+	}
+
+	public void setClazzPropertyHolder(Class<I> clazzPropertyHolder) {
+		this.clazzPropertyHolder = clazzPropertyHolder;
 	}
 }

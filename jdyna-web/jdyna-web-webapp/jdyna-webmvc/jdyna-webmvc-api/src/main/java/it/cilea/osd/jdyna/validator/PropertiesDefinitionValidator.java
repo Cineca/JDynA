@@ -7,7 +7,7 @@ import it.cilea.osd.jdyna.service.ValidatorService.ValidationResult;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
 import it.cilea.osd.jdyna.widget.WidgetClassificazione;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
-import it.cilea.osd.jdyna.widget.WidgetData;
+import it.cilea.osd.jdyna.widget.WidgetDate;
 import it.cilea.osd.jdyna.widget.WidgetEmail;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
 import it.cilea.osd.jdyna.widget.WidgetNumero;
@@ -51,7 +51,7 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 
 			// verifica se è unica
 			// controllo sul db che non ci siano shortname uguali
-			result2 = super.getValidatorService().controllaShortName(
+			result2 = super.getValidatorService().checkShortName(
 					object.getClass(), metadato);
 			if (!result2.isSuccess())
 				errors.rejectValue("shortName", result2.getMessage());
@@ -120,8 +120,8 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 				}
 			}
 		}
-		if (aWidget instanceof WidgetData) {
-			WidgetData widgetData = (WidgetData) aWidget;
+		if (aWidget instanceof WidgetDate) {
+			WidgetDate widgetData = (WidgetDate) aWidget;
 			//verificare che anno minimo sia minore di anno massimo
 			if(widgetData.getMinYear()>widgetData.getMaxYear()) {
 				errors.rejectValue("rendering.min","error.message.fallita.validazione.widget.data.min");
