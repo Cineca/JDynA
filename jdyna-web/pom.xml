@@ -13,8 +13,6 @@
 	<modules>
 		<module>jdyna-web-api</module>
 		<module>jdyna-web-webapp</module>
-		<module>jdyna-webmvc</module>
-		<module>jdyna-webflow</module>
 	</modules>
 
 	<dependencies>
