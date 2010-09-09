@@ -59,7 +59,7 @@
 		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="subStatus"> 
 			tmpShortNames[${subStatus.count - 1}] = '${subtip.shortName}';
 			tmpLabels[${subStatus.count - 1}] = '${subtip.label}';
-			tmpRepetables[${subStatus.count - 1}] = ${subtip.ripetibile};
+			tmpRepetables[${subStatus.count - 1}] = ${subtip.repeatable};
 			tmpLabelsSize[${subStatus.count - 1}] = '${dyna:escapeApici(subtip.labelMinSize)}';
 			tmpNewLines[${subStatus.count - 1}] = ${subtip.newline}; 
 			tmpTypes[${subStatus.count - 1}] = new Array(); 
@@ -125,7 +125,7 @@
 	<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
 			<th>${subtip.label}</th>
 	</c:forEach>
-	<c:if test="${tipologia.ripetibile}">
+	<c:if test="${tipologia.repeatable}">
 			<th>
 				&nbsp;
 			</th>
@@ -187,18 +187,18 @@
 				<c:if test="${!empty labelMinWidth}">
 					<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 				</c:if>
-					<span class="dynaLabel${subtip.obbligatorieta?'Required':''}" ${labelStyle}>${subtip.label}:</span>
+					<span class="dynaLabel${subtip.mandatory?'Required':''}" ${labelStyle}>${subtip.label}:</span>
 				<div class="dynaFieldValue">
 			
 			</c:otherwise>
 		</c:choose>
 
 				<%-- FIXME ctrl+C/ctrl+V da edit.tag ... --%>
-				<c:if test="${subtip.obbligatorieta != false}">
+				<c:if test="${subtip.mandatory != false}">
 					<c:set var="required" value="true" />
 				</c:if>
 		
-				<c:if test="${subtip.ripetibile != false}">
+				<c:if test="${subtip.repeatable != false}">
 					<c:set var="repetable" value="true" />
 				</c:if>
 		
@@ -380,15 +380,15 @@
 		</c:forEach>
 		<c:choose>
 		<c:when test="${tipologia.rendering.inline}">
-		<c:if test="${tipologia.ripetibile}">
+		<c:if test="${tipologia.repeatable}">
 				<td>
 					<c:choose>
 					<c:when test="${rowStatus.count == fn:length(values)}">
-						<img id="addButton${inputName}" src="${root}/images/main_plus.gif" class="addButton"
+						<img id="addButton${inputName}" src="${root}/image/jdyna/main_plus.gif" class="addButton"
 							onclick="${dynajs_var}.create(this)" />
 					</c:when>
 					<c:otherwise>
-						<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+						<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
 							onclick="${dynajs_var}.remove(${rowStatus.count-1},this)" />
 					</c:otherwise>
 					</c:choose>
@@ -398,19 +398,19 @@
 		</c:when>
 		<c:otherwise>
 			</div>
-		<c:if test="${tipologia.ripetibile}">
+		<c:if test="${tipologia.repeatable}">
 			<c:choose>
 			<c:when test="${rowStatus.count == fn:length(values)}">
-				<img id="addButton${inputName}" src="${root}/images/main_plus.gif" class="addButton"
+				<img id="addButton${inputName}" src="${root}/image/jdyna/main_plus.gif" class="addButton"
 					onclick="${dynajs_var}.create(this)" />
 			</c:when>
 			<c:otherwise>
-				<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+				<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
 					onclick="${dynajs_var}.remove(${rowStatus.count-1},this)" />
 			</c:otherwise>
 			</c:choose>
 		</c:if>
-		<c:if test="${tipologia.ripetibile && !tipologia.rendering.inline}">
+		<c:if test="${tipologia.repeatable && !tipologia.rendering.inline}">
 			<div class="dynaClear">&nbsp;</div>
 		</c:if>
 		</c:otherwise>

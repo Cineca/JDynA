@@ -9,5 +9,7 @@ public interface IContainable {
 	public Integer getId();
 	public Integer getAccessLevel();
 	public String getLabel();
+	public boolean getRepeatable();
+	public Object getObject();
 	
 }

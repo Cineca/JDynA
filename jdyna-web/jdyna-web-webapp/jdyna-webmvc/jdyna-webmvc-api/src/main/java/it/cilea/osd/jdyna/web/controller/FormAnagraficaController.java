@@ -8,7 +8,6 @@ import it.cilea.osd.jdyna.model.AnagraficaObject;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
-import it.cilea.osd.jdyna.util.FormulaManager;
 import it.cilea.osd.jdyna.web.Containable;
 import it.cilea.osd.jdyna.web.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
@@ -18,6 +17,7 @@ import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.beans.PropertyEditor;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -32,18 +32,12 @@ import org.springframework.web.servlet.ModelAndView;
 public class FormAnagraficaController<P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, EO extends AnagraficaObject<P, TP>>
 		extends BaseFormController {
 	private ITabService applicationService;
-	private FormulaManager formulaManager;
-
-	// private Class<P> clazzProprieta;
+		
 	private Class<TP> clazzTipologiaProprieta;
 	private Class<EO> clazzAnagraficaObject;
 	private Class<T> clazzTab;
 	private Class<H> clazzBox;
 
-	public void setFormulaManager(FormulaManager formulaManager) {
-		this.formulaManager = formulaManager;
-	}
-	
 	public void setClazzAnagraficaObject(Class<EO> clazzAnagraficaObject) {
 		this.clazzAnagraficaObject = clazzAnagraficaObject;
 	}
@@ -64,6 +58,10 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		this.applicationService = applicationService;
 	}
 
+	public ITabService getApplicationService() {
+		return applicationService;
+	}
+	
 	@Override
 	protected ServletRequestDataBinder createBinder(HttpServletRequest request,
 			Object command) throws Exception {
@@ -107,17 +105,17 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 				anagraficaObjectDTO.getObjectId());
 		
 		List<H> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, anagraficaObjectDTO
-				.getAreaId());
+				.getTabId());
 				
 		List<IContainable> tipProprietaInArea =null;
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
 			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
-				
-		map.put("tipologieProprietaInArea", tipProprietaInArea);
+		map.put("propertiesHolders", propertyHolders);
+		map.put("propertiesDefinitionsInTab", tipProprietaInArea);
 		List<T> aree = applicationService.getList(clazzTab);
-		map.put("areaList", aree);
+		map.put("tabList", aree);
 		map.put("simpleNameAnagraficaObject", clazzAnagraficaObject.getSimpleName());
 		return map;
 	}
@@ -126,7 +124,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 	protected Object formBackingObject(HttpServletRequest request)
 			throws Exception {
 		String paramAreaId = request.getParameter("areaId");
-		String paramAnagraficaObjectId = request.getParameter("EPIObjectId");
+		String paramAnagraficaObjectId = request.getParameter("anagraficaId");
 
 		List<T> aree = applicationService.getList(clazzTab);
 		Integer areaId;
@@ -135,23 +133,26 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		} else {
 			areaId = Integer.parseInt(paramAreaId);
 		}
+
 		Integer anagraficaId = Integer.parseInt(paramAnagraficaObjectId);
 		
 		EO epiObject = applicationService.get(clazzAnagraficaObject,
 				anagraficaId);
-		
+		if(epiObject==null) {
+			epiObject = clazzAnagraficaObject.newInstance();
+		}
 		List<H> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, areaId);
 				
-		List<IContainable> tipProprietaInArea =null;
+		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
 			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		AnagraficaObjectAreaDTO anagraficaObjectDTO = new AnagraficaObjectAreaDTO();
-		anagraficaObjectDTO.setAreaId(areaId);
+		anagraficaObjectDTO.setTabId(areaId);
 		anagraficaObjectDTO.setObjectId(anagraficaId);
 		
-		List<TP> realTPS = null;
+		List<TP> realTPS = new LinkedList<TP>();
 		for(IContainable c : tipProprietaInArea) {
 			realTPS.add((TP)applicationService.findContainableByDecorable(clazzTipologiaProprieta.newInstance().getDecoratorClass(), c.getId()));
 		}
@@ -167,7 +168,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 
 		String exitPage = "redirect:details.htm?id="
 				+ anagraficaObjectDTO.getObjectId() + "&areaId="
-				+ anagraficaObjectDTO.getAreaId();
+				+ anagraficaObjectDTO.getTabId();
 
 		if (request.getParameter("annulla") != null) {
 			return new ModelAndView(exitPage);
@@ -177,15 +178,15 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 				anagraficaObjectDTO.getObjectId());
 
 		List<H> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, anagraficaObjectDTO
-				.getAreaId());
+				.getTabId());
 				
-		List<IContainable> tipProprietaInArea = null;
+		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
 			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		
-		List<TP> realTPS = null;
+		List<TP> realTPS = new LinkedList<TP>();
 		for(IContainable c : tipProprietaInArea) {
 			realTPS.add((TP)applicationService.findContainableByDecorable(clazzTipologiaProprieta.newInstance().getDecoratorClass(), c.getId()));
 		}
@@ -195,7 +196,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		myObject.pulisciAnagrafica();
 		applicationService.saveOrUpdate(clazzAnagraficaObject, myObject);
 		T area = applicationService.get(clazzTab, anagraficaObjectDTO
-				.getAreaId());
+				.getTabId());
 		final String areaTitle = area.getTitle();
 		saveMessage(request, getText("action.opera.anagrafica.edited",
 				new Object[] { areaTitle }, request.getLocale()));
@@ -219,18 +220,34 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		EO epiObject = applicationService.get(clazzAnagraficaObject,
 				dto.getObjectId());
 		List<H> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, dto
-				.getAreaId());
+				.getTabId());
 				
-		List<IContainable> tipProprietaInArea =null;
+		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
 			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
-		List<TP> realTPS = null;
+		List<TP> realTPS = new LinkedList<TP>();
 		for(IContainable c : tipProprietaInArea) {
 			realTPS.add((TP)applicationService.findContainableByDecorable(clazzTipologiaProprieta.newInstance().getDecoratorClass(), c.getId()));
 		}
 		AnagraficaUtils.reverseDTO(dto, epiObject, realTPS);
 		AnagraficaUtils.fillDTO(dto, epiObject, realTPS);
+	}
+
+	public Class<TP> getClazzTipologiaProprieta() {
+		return clazzTipologiaProprieta;
+	}
+
+	public Class<EO> getClazzAnagraficaObject() {
+		return clazzAnagraficaObject;
+	}
+
+	public Class<T> getClazzTab() {
+		return clazzTab;
+	}
+
+	public Class<H> getClazzBox() {
+		return clazzBox;
 	}
 }

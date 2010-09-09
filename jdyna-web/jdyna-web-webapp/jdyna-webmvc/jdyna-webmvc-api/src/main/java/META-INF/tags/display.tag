@@ -9,11 +9,11 @@
 	<c:set var="helpHTML" value="${dyna:escapeHTMLtoJavascript(tipologia.help)}" />
 </c:if>		
 
-<c:if test="${tipologia.obbligatorieta != false}">
+<c:if test="${tipologia.mandatory != false}">
 	<c:set var="required" value="true" />
 </c:if>		
 
-<c:if test="${tipologia.ripetibile != false}">
+<c:if test="${tipologia.repeatable != false}">
 	<c:set var="repetable" value="true" />
 </c:if>		
 

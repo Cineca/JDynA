@@ -80,7 +80,7 @@
 		
 		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="15" />
 				<img id="${calendarButton}"
-			src="<c:url value="/images/icons/calendar.png"/>" alt="calendar"
+			src="<c:url value="/image/jdyna/calendar.png"/>" alt="calendar"
 				class="calendar" />
 
 		<script type="text/javascript">
@@ -119,11 +119,11 @@
 
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
-	<img src="${root}/images/main_plus.gif" class="addButton"
+	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:when>
 	<c:otherwise>
-	<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
 		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
 	</c:otherwise>
 	</c:choose>
@@ -159,7 +159,7 @@
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="15" onchange="${functionValidation};${onchange}"/>
 				<img id="${calendarButton}"
-			src="<c:url value="/images/icons/calendar.png"/>" alt="calendar"
+			src="<c:url value="/image/jdyna/calendar.png"/>" alt="calendar"
 				class="calendar" />
 		
 		<script type="text/javascript">
@@ -192,7 +192,7 @@
 									${isTime},'${cssClass}');
 	</script>
 
-	<img src="${root}/images/main_plus.gif" class="addButton"
+	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:if>
 

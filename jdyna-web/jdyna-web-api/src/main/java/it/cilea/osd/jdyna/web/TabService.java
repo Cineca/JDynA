@@ -11,7 +11,13 @@ import it.cilea.osd.jdyna.widget.WidgetCombo;
 import java.util.LinkedList;
 import java.util.List;
 
-//TODO
+
+/**
+ * Real service to manage Tab, Box and Containable objects
+ * 
+ * @author Pascarelli Andrea
+ *
+ */
 public abstract class TabService extends PersistenceDynaService implements
 		ITabService {
 	
@@ -97,7 +103,10 @@ public abstract class TabService extends PersistenceDynaService implements
 			box.getMask().remove(containable);
 		}
 	}
-	
+
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public IContainable findContainableByDecorable(Class decoratorClass,
 			Integer decorable) {
@@ -106,7 +115,9 @@ public abstract class TabService extends PersistenceDynaService implements
 		return result;
 	}
 
-	
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <TP extends PropertiesDefinition> WidgetCombo findComboByChild(
 			Class<TP> clazz, TP tip) {
@@ -116,6 +127,9 @@ public abstract class TabService extends PersistenceDynaService implements
 		
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByShortName(Class<T> clazzTab,
 			String title) {
@@ -123,13 +137,31 @@ public abstract class TabService extends PersistenceDynaService implements
 		return tabDao.uniqueTabByShortName(title);
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@Override
 	public <H extends IPropertyHolder<Containable>> H getBoxByShortName(Class<H> clazzBox,
 			String title) {
 		PropertyHolderDao<H> boxDao = (PropertyHolderDao<H>) getDaoByModel(clazzBox);
 		return boxDao.uniqueBoxByShortName(title);
 	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public <TP extends PropertiesDefinition> List<IContainable> getContainableOnCreation(Class<TP> model) {
+		log.debug("find all containable on object creation");
+		List<TP> results = getTipologiaOnCreation(model);
+		List<IContainable> iResult = new LinkedList<IContainable>();
+		for(TP rpPd : results) {
+			iResult.add(findContainableByDecorable(rpPd.getDecoratorClass(), rpPd.getId()));
+		}
+		getOtherContainableOnCreation(iResult);
+		return iResult;
+	}
 
-
-
+	/** Extends this method to add other containables on creation */
+	protected abstract void getOtherContainableOnCreation(List<IContainable> containables);
 }

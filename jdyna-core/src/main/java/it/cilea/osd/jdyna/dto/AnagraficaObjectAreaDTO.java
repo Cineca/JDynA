@@ -25,17 +25,26 @@
  */
 package it.cilea.osd.jdyna.dto;
 
-
+//TODO this is a tab dto
 public class AnagraficaObjectAreaDTO extends AnagraficaObjectDTO {
 	
-	private Integer areaId;
+	private Integer tabId;
 	
+	private Integer newTabId;
 	
-	public Integer getAreaId() {
-		return areaId;
+	public Integer getTabId() {
+		return tabId;
 	}
 
-	public void setAreaId(Integer areaId) {
-		this.areaId = areaId;
+	public void setTabId(Integer areaId) {
+		this.tabId = areaId;
+	}
+
+	public void setNewTabId(Integer newTabId) {
+		this.newTabId = newTabId;
+	}
+
+	public Integer getNewTabId() {
+		return newTabId;
 	}
 }

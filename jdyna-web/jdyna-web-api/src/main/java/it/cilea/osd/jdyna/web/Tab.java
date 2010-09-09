@@ -42,7 +42,6 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.OrderBy;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -53,13 +52,12 @@ import org.hibernate.annotations.SortType;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject {
+public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject implements Comparable<Tab<H>> {
 	
 	@Id	
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "TAB_SEQ")
     @SequenceGenerator(name = "TAB_SEQ", sequenceName = "TAB_SEQ")
-    @OrderBy(clause="priority")
     /** Id primary key */
 	private Integer id;
 	
@@ -153,6 +151,19 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	}
 	public void setVisibility(Integer visibility) {
 		this.visibility = visibility;
+	}
+	
+	/**
+	 * Order by priority, if priority is the same then get an alphabetical order by <code>shortName</code> 
+	 * 
+	 * @return
+	 * 
+	 */	
+	public int compareTo(Tab secondTip) {		
+		if (secondTip == null) return -1;
+		if (priority < secondTip.priority) return -1;
+		else if (priority > secondTip.priority) return 1;
+			 else return shortName.compareTo(secondTip.getShortName());
 	}
 	
 }

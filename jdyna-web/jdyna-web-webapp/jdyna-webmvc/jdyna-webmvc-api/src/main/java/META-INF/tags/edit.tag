@@ -12,11 +12,11 @@
 	<c:set var="helpHTML" value="${dyna:escapeHTMLtoJavascript(tipologia.help)}" />
 </c:if>		
 
-<c:if test="${tipologia.obbligatorieta != false}">
+<c:if test="${tipologia.mandatory != false}">
 	<c:set var="required" value="true" />
 </c:if>		
 
-<c:if test="${tipologia.ripetibile != false}">
+<c:if test="${tipologia.repeatable != false}">
 	<c:set var="repetable" value="true" />
 </c:if>		
 
@@ -116,7 +116,7 @@
 	${tipologia.help}
 	</div>
 </c:if>	
-	<span class="dynaLabel${tipologia.obbligatorieta?'Required':''}" ${labelStyle}>${tipologia.label}:${help}</span>
+	<span class="dynaLabel${tipologia.mandatory?'Required':''}" ${labelStyle}>${tipologia.label}:${help}</span>
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>
 
