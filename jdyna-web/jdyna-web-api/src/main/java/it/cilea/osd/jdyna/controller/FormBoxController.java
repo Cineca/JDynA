@@ -44,7 +44,7 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		String paramId = request.getParameter("id");
 		
 		List<IContainable> owneredContainables = new LinkedList<IContainable>();
-		List<IContainable> containables = applicationService.findAllContainables(tpClass);
+		List<IContainable> containables = applicationService.getList(tpClass.newInstance().getDecoratorClass());
 		if (paramId != null) {
 			Integer id = Integer.parseInt(paramId);
 			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
