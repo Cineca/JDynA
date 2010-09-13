@@ -181,7 +181,7 @@ public class AnagraficaUtils {
 											(MultiValue<P, TP>) proprieta
 													.getValue(),
 											subtp)) {
-									subavalori.add(new ValoreDTO(subprop.getValue().getObject()));
+									subavalori.add(new ValoreDTO(subprop.getValue().getObject(),subprop.getVisibility()));
 								}
 								subDTO.getAnagraficaProperties().get(
 										subtp.getShortName()).addAll(subavalori);
@@ -189,8 +189,9 @@ public class AnagraficaUtils {
 							avalori.add(new ValoreDTO(subDTO));
 						}
 						else {
-							avalori.add(new ValoreDTO(proprieta.getValue().getObject()));
-			//				avalori.add(proprieta.getValore().getOggetto());
+							avalori.add(new ValoreDTO(proprieta.getValue().getObject(), proprieta.getVisibility()));
+
+									
 						}
 					}
 					if (avalori.size() != 0) {
@@ -274,6 +275,7 @@ public class AnagraficaUtils {
 										anagraficaSupport.createProprieta(proprieta.get(i), subtp)
 												.getValue().setOggetto(
 														subValoreDTO.getObject());
+										anagraficaSupport.createProprieta(proprieta.get(i), subtp).setVisibility(subValoreDTO.getVisibility());
 									}
 								}
 							}
@@ -286,6 +288,7 @@ public class AnagraficaUtils {
 					for (ValoreDTO valoreDTO : avaloriDTO) {
 						if (valoreDTO != null && valoreDTO.getObject() != null) {
 							proprieta.get(i).getValue().setOggetto(valoreDTO.getObject());
+							proprieta.get(i).setVisibility(valoreDTO.getVisibility());
 							//				proprieta.get(i).getValore().setOggetto(avaloriDTO.get(i));
 							i++;
 						}

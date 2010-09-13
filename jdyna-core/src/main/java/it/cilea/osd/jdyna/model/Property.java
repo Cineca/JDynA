@@ -80,6 +80,33 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	//@NotFound(action=NotFoundAction.IGNORE)
 	private AValue value;
 
+	/**
+	 * the visibility flags of the field
+	 */
+	private Integer visibility;
+	
+	/**
+     * Getter method.
+     *
+     * 
+     * @return the visibility flags of the field
+     */
+    public Integer getVisibility()
+    {
+        return visibility;
+    }
+
+    /**
+     * Setter method. 
+     * 
+     * @param visibility
+     *            the visibility flags of the field
+     */
+    public void setVisibility(Integer visibility)
+    {	    
+		this.visibility = visibility ==null?new Integer(0):visibility;
+	}
+
 
 	/**
 	 * Restituisce la posizione della proprietà all'interno della lista di proprietà della medesima tipologia.

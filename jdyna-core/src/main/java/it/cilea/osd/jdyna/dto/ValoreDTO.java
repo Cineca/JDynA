@@ -30,13 +30,22 @@ import java.io.Serializable;
 public class ValoreDTO implements Serializable {
 	/** The real contents entered/showed by the UI */
 	private Object object;
-
+	private Integer visibility;
+	
 	public ValoreDTO() {
 	}
 	
 	public ValoreDTO(Object object) {
 		super();
 		this.object = object;
+		this.setVisibility(0);
+	}
+
+	
+	public ValoreDTO(Object object, Integer visibility) {
+		super();
+		this.object = object;
+		this.setVisibility(visibility);
 	}
 
 	public Object getObject() {
@@ -55,5 +64,13 @@ public class ValoreDTO implements Serializable {
 			//FIXME attenzione "al primo giro" su dyna viene chiamato il toString del valore...
 			return "";
 		}
+	}
+
+	public void setVisibility(Integer visibility) {
+		this.visibility = visibility;
+	}
+
+	public Integer getVisibility() {
+		return visibility;
 	}
 }

@@ -187,7 +187,7 @@
 				<c:if test="${!empty labelMinWidth}">
 					<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 				</c:if>
-					<span class="dynaLabel${subtip.mandatory?'Required':''}" ${labelStyle}>${subtip.label}:</span>
+					<span class="dynaLabel${subtip.mandatory?'Required':''}" ${labelStyle}>${subtip.label}</span>
 				<div class="dynaFieldValue">
 			
 			</c:otherwise>
