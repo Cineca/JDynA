@@ -30,7 +30,7 @@ import java.io.Serializable;
 public class ValoreDTO implements Serializable {
 	/** The real contents entered/showed by the UI */
 	private Object object;
-	private Integer visibility;
+	private Boolean visibility;
 	
 	public ValoreDTO() {
 	}
@@ -38,11 +38,11 @@ public class ValoreDTO implements Serializable {
 	public ValoreDTO(Object object) {
 		super();
 		this.object = object;
-		this.setVisibility(0);
+		this.setVisibility(false);
 	}
 
 	
-	public ValoreDTO(Object object, Integer visibility) {
+	public ValoreDTO(Object object, Boolean visibility) {
 		super();
 		this.object = object;
 		this.setVisibility(visibility);
@@ -66,11 +66,14 @@ public class ValoreDTO implements Serializable {
 		}
 	}
 
-	public void setVisibility(Integer visibility) {
-		this.visibility = visibility;
+	public void setVisibility(Boolean visibility) {
+		this.visibility = visibility==null?false:visibility;		
 	}
 
-	public Integer getVisibility() {
+	public Boolean getVisibility() {
+		if(this.visibility==null) {
+			return false;
+		}
 		return visibility;
 	}
 }
