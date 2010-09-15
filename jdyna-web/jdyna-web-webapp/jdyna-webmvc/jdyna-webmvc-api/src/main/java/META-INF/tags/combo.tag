@@ -1,5 +1,7 @@
 <%@ attribute name="propertyPath" required="true"%>
 <%@ attribute name="tipologia" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
+<%@ attribute name="visibility" required="true"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="label" required="false"%>
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
@@ -45,7 +47,6 @@
 	<c:set var="values" value="${status.value}" />
 	<c:set var="inputName" value="${status.expression}" />
 </spring:bind>
-
 	<c:if test="${repeatable}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
@@ -109,10 +110,10 @@
 			</c:choose>
 		</c:forEach>
 		
-		var ${dynajs_var} = new DynaComboInput('${root}','${dynajs_var}',
+		var ${dynajs_var} = new DynaComboInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',
 									${fn:length(values)},${tipologia.rendering.inline},
-									tmpShortNames,tmpLabels,tmpRepetables,tmpLabelsSize,tmpTypes,tmpNewLines);
+									tmpShortNames,tmpLabels,tmpRepetables,tmpLabelsSize,tmpTypes,tmpNewLines,'${visibility}');
 	</script>
 	</c:if>
 
@@ -125,10 +126,12 @@
 	<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
 			<th>${subtip.label}</th>
 	</c:forEach>
+	<c:if test="${empty disabled}">
 	<c:if test="${tipologia.repeatable}">
 			<th>
 				&nbsp;
 			</th>
+	</c:if>
 	</c:if>
 		</tr>
 	</thead>
@@ -269,19 +272,19 @@
 					<c:when test="${isText}">
 						<dyna:text propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
 							size="${subtip.rendering.dimensione.col}" required="${required}"
-							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" />
+							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 					</c:when>
 					<c:when test="${isNumero}">
 						<dyna:text propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
 							size="${subtip.rendering.size}" required="${required}"
 							repeatable="${repetable}" onchange="${onchange}" 
 							cssClass="number"
-							ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" />
+							ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" visibility="${visibility}"/>
 					</c:when>
 					<c:when test="${isEmail}">
 						<dyna:text propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
 							size="20" required="${required}"
-							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" />
+							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" visibility="${visibility}"/>
 					</c:when>
 					<c:when test="${isTextArea}">
 						<dyna:textarea propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
@@ -314,7 +317,7 @@
 						<dyna:date propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
 							isTime="${subtip.rendering.time}"
 							required="${required}" repeatable="${repetable}"
-							onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" />
+							onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 					</c:when>
 					<c:when test="${isCheckbox}">
 						<dyna:checkbox propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
@@ -344,7 +347,7 @@
 							repeatable="${repetable}"
 							tipologia="${subtip}"
 							required="${required}"
-							onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" />
+							onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}" visibility="${visibility}"/>
 					</c:when>
 				</c:choose> 
 				<%-- FIXME FINE ctrl+C/ctrl+V da edit.tag ... --%>
@@ -378,6 +381,7 @@
 				</c:choose>
 			
 		</c:forEach>
+		<c:if test="${empty disabled}">
 		<c:choose>
 		<c:when test="${tipologia.rendering.inline}">
 		<c:if test="${tipologia.repeatable}">
@@ -415,6 +419,7 @@
 		</c:if>
 		</c:otherwise>
 		</c:choose>
+		</c:if>
 	</c:forEach>
 	
 <c:choose>

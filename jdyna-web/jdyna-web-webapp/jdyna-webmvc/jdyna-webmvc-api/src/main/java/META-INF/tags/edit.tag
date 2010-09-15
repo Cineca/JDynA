@@ -1,5 +1,7 @@
 <%@ attribute name="propertyPath" required="true"%>
 <%@ attribute name="tipologia" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
+<%@ attribute name="visibility" required="true"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="onchange" required="false"%>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
@@ -19,6 +21,10 @@
 <c:if test="${tipologia.repeatable != false}">
 	<c:set var="repetable" value="true" />
 </c:if>		
+
+<c:if test="${tipologia.rendering.triview eq 'link'}">
+	<c:set var="isLink" value="true" />
+</c:if>
 
 <c:if test="${tipologia.rendering.triview eq 'testo' && !tipologia.rendering.multilinea}">
 	<c:set var="isText" value="true" />
@@ -116,36 +122,42 @@
 	${tipologia.help}
 	</div>
 </c:if>	
-	<span class="dynaLabel${tipologia.mandatory?'Required':''}" ${labelStyle}>${tipologia.label}:${help}</span>
+	<span class="dynaLabel${tipologia.mandatory?'Required':''}" ${labelStyle}>${tipologia.label} ${help}</span>
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>
 
 
 <c:choose>
+	<c:when test="${isLink}">	
+		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
+				required="${required}" repeatable="${repetable}" 
+				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
+	</c:when>
 	<c:when test="${isText}">	
 		<dyna:text propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
 	</c:when>	
 	<c:when test="${isTextWithCollisioni}">		
 		<dyna:text propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}" collision="true" collisionClass="${tipologia.anagraficaHolderClass}" collisionField="${tipologia.shortName}"/>
+				validationParams="${validationParams}" collision="true" collisionClass="${tipologia.anagraficaHolderClass}" collisionField="${tipologia.shortName}" visibility="${visibility}"/>
 	</c:when>	
 	<c:when test="${isNumero}">	
 		<dyna:text propertyPath="${propertyPath}" size="${tipologia.rendering.size}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				cssClass="number"
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}"/>
 	</c:when>
 	<c:when test="${isEmail}">	
 		<dyna:text propertyPath="${propertyPath}" size="20"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}"/>
 	</c:when>
 	<c:when test="${isTextArea}">
 		<dyna:textarea propertyPath="${propertyPath}" toolbar="${tipologia.rendering.htmlToolbar}"
@@ -178,7 +190,7 @@
 		<dyna:date propertyPath="${propertyPath}" isTime="${tipologia.rendering.time}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
 	</c:when>
 	<c:when test="${isCheckbox}">
 		<dyna:checkbox propertyPath="${propertyPath}" 
@@ -206,7 +218,7 @@
 		<dyna:combo propertyPath="${propertyPath}" repeatable="${repetable}" 
 				tipologia="${tipologia}" required="${required}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
 	</c:when>
 </c:choose>
 <c:if test="${!subElement}">

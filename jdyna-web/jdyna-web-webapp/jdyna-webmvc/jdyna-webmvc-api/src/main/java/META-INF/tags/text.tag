@@ -1,4 +1,6 @@
 <%@ attribute name="propertyPath" required="true"%>
+<%@ attribute name="visibility" required="true"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="label" required="false"%>
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
@@ -58,7 +60,6 @@
 		<%-- We depend on the controller adding this to request. --%>
 	</c:if>
 </spring:bind>
-
 <c:set var="propertyName" value="${dyna:getPropertyName(propertyPath)}" />
 <%-- FINE CODICE COMUNE A TUTTI I TAG... --%>
 <spring:bind path="${propertyPath}">
@@ -87,23 +88,27 @@
 		<c:set var="autocomplete" value="autocomplete=\"off\"" />
 	</c:if>
 	
-		<input name="${inputName}" id="${inputName}" size="${size}" ${type}
+		<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
 			value="${inputValue}" onchange="${functionValidation}${onchange}" onkeyup="${oncollisione}"  ${cssClassAttribute} ${autocomplete}/>
-	
+		<c:if test="${visibility}">
+			<dyna:boolean propertyPath="${inputName}.visibility"/>
+		</c:if>	
 	<c:if test="${!repeatable && collision}">
 		<div id="collision${inputName}" class="dynaCollision"></div>
 	</c:if>
 	</spring:bind>
 	
+	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:if test="${iterationStatus.count == 1}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
+	
 	<script type="text/javascript">
-		var ${dynajs_var} = new AddTextInput('${root}','${dynajs_var}',
+		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}');
-	</script>
+									 ${size},'${cssClass}', '${visibility}');
+	</script>	
 	</c:if>
 
 	<c:choose>
@@ -113,9 +118,10 @@
 	</c:when>
 	<c:otherwise>
 	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
-		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
+		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this);" />
 	</c:otherwise>
 	</c:choose>
+	</c:if>
 	</c:if>
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
 </c:forEach>
@@ -140,6 +146,9 @@
 	</c:if>
 	
 	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+	<c:if test="${visibility}">
+		<dyna:boolean propertyPath="${inputName}.visibility"/>
+	</c:if>
 	
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="" />
@@ -154,26 +163,29 @@
 		
 
 	
-	<input name="${inputName}" id="${inputName}" size="${size}" ${type}
+	<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
 		value="${inputValue}" onchange="${functionValidation};${onchange}" onkeyup="${oncollisione}" ${cssClassAttribute} ${autocomplete}/>
 	
 	<c:if test="${!repeatable && collision}">
 		<div id="collision${inputName}" class="dynaCollision"></div>
 	</c:if>
 	
+	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
+		
 	<script type="text/javascript">
-		var ${dynajs_var} = new AddTextInput('${root}','${dynajs_var}',
+		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}');
+									 ${size},'${cssClass}', '${visibility}');		
 	</script>
-
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create()" alt="add button"/>
+		onclick="${dynajs_var}.create();" alt="add button"/>
 	
 	</c:if>
+	</c:if>
+	
 	<dyna:validation propertyPath="${validation}" />
 	
 </c:if>

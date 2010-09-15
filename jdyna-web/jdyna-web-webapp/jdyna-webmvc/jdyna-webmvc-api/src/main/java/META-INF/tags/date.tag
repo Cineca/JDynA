@@ -1,4 +1,6 @@
 <%@ attribute name="propertyPath" required="true"%>
+<%@ attribute name="visibility" required="true"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="label" required="false"%>
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
@@ -32,6 +34,7 @@
 
 <%@ taglib uri="jdynatags" prefix="dyna" %>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
+
 
 
 <c:if test="${label != null || labelKey != null}">
@@ -78,11 +81,13 @@
 
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 		
-		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="15" />
-				<img id="${calendarButton}"
+		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="8" ${disabled}/>
+		
+		<c:if test="${empty disabled}">
+		<img id="${calendarButton}" 
 			src="<c:url value="/image/jdyna/calendar.png"/>" alt="calendar"
 				class="calendar" />
-
+		
 		<script type="text/javascript">
 						Calendar.setup(
 							{
@@ -100,23 +105,28 @@
 							<c:if test="${isTime == true}">
 								,
 								showsTime : true // show time as well as date
-							</c:if>
+							</c:if>						
 							}
 						);
 		</script>
+		</c:if>
 		
+		<c:if test="${visibility}">
+			<dyna:boolean propertyPath="${inputName}.visibility"/>
+		</c:if>
 	</spring:bind>
 	
+	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:if test="${iterationStatus.count == 1}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
-		var ${dynajs_var} = new DynaDateInput('${root}','${dynajs_var}',
+		var ${dynajs_var} = new DynaDateInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									${isTime},'${cssClass}');
+									${isTime},'${visibility}');
 	</script>
 	</c:if>
-
+	
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
@@ -124,9 +134,10 @@
 	</c:when>
 	<c:otherwise>
 	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
-		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
+		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this);" />		
 	</c:otherwise>
 	</c:choose>
+	</c:if>
 	</c:if>
 	
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />	
@@ -157,11 +168,13 @@
 			<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 		</c:if>
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="15" onchange="${functionValidation};${onchange}"/>
-				<img id="${calendarButton}"
-			src="<c:url value="/image/jdyna/calendar.png"/>" alt="calendar"
-				class="calendar" />
+		<input id="${inputName}" name="${inputName}" ${disabled} type="text" value="${inputValue}" size="8" onchange="${functionValidation};${onchange}"/>
 		
+		<c:if test="${empty disabled}">
+		<img id="${calendarButton}" 
+			src="<c:url value="/image/jdyna/calendar.png"/>" alt="calendar"
+		class="calendar" />
+	
 		<script type="text/javascript">
 						Calendar.setup(
 							{
@@ -179,22 +192,31 @@
 							<c:if test="${isTime == true}">
 								,
 								showsTime : true // show time as well as date
-							</c:if>
+							</c:if>							
 							}
 						);
 		</script>
-	
+		</c:if>
+		
+		<c:if test="${visibility}">
+			<dyna:boolean propertyPath="${inputName}.visibility"/>
+		</c:if>
+			
+	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
-		var ${dynajs_var} = new DynaDateInput('${root}','${dynajs_var}',
+		var ${dynajs_var} = new DynaDateInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									${isTime},'${cssClass}');
+									${isTime},'${visibility}'); 
 	</script>
-
+	
+	
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:if>
+	</c:if>
+	
 
 		<dyna:validation propertyPath="${validation}" />		 				
 </c:if>
