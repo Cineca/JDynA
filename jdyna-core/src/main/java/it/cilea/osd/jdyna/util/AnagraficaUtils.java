@@ -181,7 +181,7 @@ public class AnagraficaUtils {
 											(MultiValue<P, TP>) proprieta
 													.getValue(),
 											subtp)) {
-									subavalori.add(new ValoreDTO(subprop.getValue().getObject(),subprop.getVisibility()));
+									subavalori.add(new ValoreDTO(subprop.getValue().getObject(),(subprop.getVisibility()==0)?false:true));
 								}
 								subDTO.getAnagraficaProperties().get(
 										subtp.getShortName()).addAll(subavalori);
@@ -189,7 +189,7 @@ public class AnagraficaUtils {
 							avalori.add(new ValoreDTO(subDTO));
 						}
 						else {
-							avalori.add(new ValoreDTO(proprieta.getValue().getObject(), proprieta.getVisibility()));
+							avalori.add(new ValoreDTO(proprieta.getValue().getObject(), (proprieta.getVisibility()==0)?false:true));
 
 									
 						}
@@ -272,10 +272,10 @@ public class AnagraficaUtils {
 												subtp.getShortName());
 								for (ValoreDTO subValoreDTO : subavaloriDTO) {
 									if (subValoreDTO != null && subValoreDTO.getObject() != null) {
-										anagraficaSupport.createProprieta(proprieta.get(i), subtp)
-												.getValue().setOggetto(
-														subValoreDTO.getObject());
-										anagraficaSupport.createProprieta(proprieta.get(i), subtp).setVisibility(subValoreDTO.getVisibility());
+										P property = anagraficaSupport.createProprieta(proprieta.get(i), subtp);
+										property.getValue().setOggetto(
+														subValoreDTO.getObject());										
+										property.setVisibility(subValoreDTO.getVisibility()==false?0:1);
 									}
 								}
 							}
@@ -288,7 +288,7 @@ public class AnagraficaUtils {
 					for (ValoreDTO valoreDTO : avaloriDTO) {
 						if (valoreDTO != null && valoreDTO.getObject() != null) {
 							proprieta.get(i).getValue().setOggetto(valoreDTO.getObject());
-							proprieta.get(i).setVisibility(valoreDTO.getVisibility());
+							proprieta.get(i).setVisibility(valoreDTO.getVisibility()==false?0:1);
 							//				proprieta.get(i).getValore().setOggetto(avaloriDTO.get(i));
 							i++;
 						}
