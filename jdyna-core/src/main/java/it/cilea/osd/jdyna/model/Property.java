@@ -93,6 +93,9 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
      */
     public Integer getVisibility()
     {
+    	if(this.visibility==null) {
+    		return 0;
+    	}
         return visibility;
     }
 
