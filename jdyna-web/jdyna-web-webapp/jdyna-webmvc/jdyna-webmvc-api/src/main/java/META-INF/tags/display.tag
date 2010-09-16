@@ -17,6 +17,10 @@
 	<c:set var="repetable" value="true" />
 </c:if>		
 
+<c:if test="${tipologia.rendering.triview eq 'link'}">
+	<c:set var="isLink" value="true" />
+</c:if>
+
 <c:if test="${tipologia.rendering.triview eq 'combo'}">
 	<c:set var="isCombo" value="true" />
 </c:if>
@@ -122,6 +126,28 @@
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>
 <c:choose>
+	<c:when test="${isLink}">
+		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+			<%--<c:set var="minheight" value="" />--%>
+			<c:set var="minwidth" value="" />
+			<c:set var="style" value="" />
+			<%--<c:if test="${tipologia.rendering.dimensione.row > 1}">
+				<c:set var="minheight" value="min-height: ${tipologia.rendering.dimensione.row}em;" />
+			</c:if>--%>
+			<c:if test="${tipologia.rendering.size > 1}">
+				<c:set var="minwidth" value="min-width: ${tipologia.rendering.dimensione.col}em;" />
+			</c:if>
+			<%--<c:if test="${!empty minheight || !empty minwidth}">
+				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
+			</c:if>--%>
+			<c:if test="${!empty minwidth && !subElement}">
+				<c:set var="style" value="style=\"${minwidth}\"" />
+			</c:if>
+			<c:set var="displayObject" value="${dyna:display(tipologia,value.valore.real)}" />
+			<a href="${dyna:getLinkValue(displayObject)}"></a> <span ${style}>${dyna:getLinkDescription(displayObject)}</span></a>
+		</c:forEach>
+	</c:when>
 	<c:when test="${isText}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>

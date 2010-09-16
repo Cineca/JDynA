@@ -63,7 +63,18 @@
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 		<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
+		<c:set var="idlinkvalue" value="linkvalue${status.expression}" />
+		<c:set var="idlinkdescription" value="linkdescription${status.expression}" />
 		
+		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(inputName)}()" />
+		
+		<script type="text/javascript">
+			function ${dynajs_funct}{
+				dynaLinkValueUpdate('${inputName}','${idlinkdescription}','${idlinkvalue}');
+			}
+		</script>
+		
+		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 		
 		<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
@@ -71,19 +82,20 @@
 	<c:if test="${!empty ajaxValidation}">
 		<c:set var="functionValidation" value="${ajaxValidation}('${inputName}'${!empty parametersValidation?',':''}${!empty parametersValidation?parametersValidation:''});" />
 	</c:if>
-	<c:if test="${!repeatable && collision}">		
-		<c:set var="oncollisione" value="searchCollision('${collisionField}','${collisionClass.name}','${inputName}','${root}')" />
-		<c:set var="autocomplete" value="autocomplete=\"off\"" />
-	</c:if>
 	
-		<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
-			value="${inputValue}" onchange="${functionValidation}${onchange}" onkeyup="${oncollisione}"  ${cssClassAttribute} ${autocomplete}/>
-		<c:if test="${visibility}">
-			<dyna:boolean propertyPath="${inputName}.visibility"/>
-		</c:if>	
-	<c:if test="${!repeatable && collision}">
-		<div id="collision${inputName}" class="dynaCollision"></div>
-	</c:if>
+	<c:set var="onchange" value="${dynajs_funct};${onchange}" />
+	
+	
+	<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled}
+		value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
+		
+	<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}" type="text" ${disabled}
+		value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
+	
+	<c:if test="${visibility}">
+		<dyna:boolean propertyPath="${inputName}.visibility"/>
+	</c:if>	
+	
 	</spring:bind>
 	
 	<c:if test="${empty disabled}">
@@ -92,17 +104,17 @@
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	
 	<script type="text/javascript">
-		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
+		var ${dynajs_var} = new AddLinkInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}', '${visibility}');
+									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
+									 ${size},'${cssClass}','${visibility}');
 	</script>	
 	</c:if>
 
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create()" />
+		onclick="${dynajs_var}.create();" />
 	</c:when>
 	<c:otherwise>
 	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
@@ -120,6 +132,8 @@
 			<spring:bind path="${propertyPath}[0]">
 				<c:set var="inputValue"><c:out value="${status.value == null?'':status.value}" escapeXml="true"></c:out></c:set>
 				<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
+				<c:set var="idlinkvalue" value="linkvalue${status.expression}" />
+				<c:set var="idlinkdescription" value="linkdescription${status.expression}" />
 			</spring:bind>
 		</c:catch>		
 		<c:set var="validation" value="${propertyPath}[0]"/>	
@@ -128,12 +142,31 @@
 			<spring:bind path="${propertyPath}">
 				<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 				<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
+				<c:set var="idlinkvalue" value="linkvalue${status.expression}" />
+				<c:set var="idlinkdescription" value="linkdescription${status.expression}" />
 			</spring:bind>
 			<c:set var="validation" value="${propertyPath}"/>	
 	
 	</c:if>
-	
-	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		
+		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
+		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+
+		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(inputName)}()" />
+		
+		<script type="text/javascript">
+			function ${dynajs_funct}{
+				dynaLinkValueUpdate('${inputName}','${idlinkdescription}','${idlinkvalue}');
+			}
+		</script>
+		
+		<c:set var="onchange" value="${dynajs_funct};${onchange}" />
+		<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled}
+			value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
+		<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}" type="text" ${disabled}
+			value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
+			
+					
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>
@@ -143,30 +176,17 @@
 	<c:if test="${!empty ajaxValidation}">
 		<c:set var="functionValidation" value="${ajaxValidation}('${inputName}'${!empty parametersValidation?',':''}${!empty parametersValidation?parametersValidation:''})" />
 	</c:if>
-	
-	<c:if test="${!repeatable && collision}">
-		<c:set var="oncollisione" value="searchCollision('${collisionField}','${collisionClass.name}','${inputName}','${root}')" />
-		<c:set var="autocomplete" value="autocomplete=\"off\"" />
-	</c:if>
-		
 
-	
-	<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
-		value="${inputValue}" onchange="${functionValidation};${onchange}" onkeyup="${oncollisione}" ${cssClassAttribute} ${autocomplete}/>
-	
-	<c:if test="${!repeatable && collision}">
-		<div id="collision${inputName}" class="dynaCollision"></div>
-	</c:if>
-	
+				
 	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-		
+	
 	<script type="text/javascript">
-		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
+		var ${dynajs_var} = new AddLinkInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}', '${visibility}');		
+									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
+									 ${size},'${cssClass}','${visibility}');		
 	</script>
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create();" alt="add button"/>

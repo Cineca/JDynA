@@ -129,7 +129,7 @@
 
 <c:choose>
 	<c:when test="${isLink}">	
-		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
+		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.size}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		

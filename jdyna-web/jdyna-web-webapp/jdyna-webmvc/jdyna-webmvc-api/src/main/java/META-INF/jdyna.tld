@@ -267,5 +267,17 @@
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>boolean instanceOf(java.lang.Object,java.lang.String)</function-signature>
 </function>
+<function>
+	<description>Return the ID of the subject from the "link" string id:value</description>
+	<name>getLinkValue</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getLinkValue(java.lang.String)</function-signature>
+</function>
 
+<function>
+	<description>Return the value in the subject from the "soggetto" string id:value</description>
+	<name>getLinkDescription</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getLinkDescription(java.lang.String)</function-signature>
+</function>
 </taglib>

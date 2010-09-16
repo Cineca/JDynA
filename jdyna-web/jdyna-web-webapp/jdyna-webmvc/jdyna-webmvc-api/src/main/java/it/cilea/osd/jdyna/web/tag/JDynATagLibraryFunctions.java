@@ -318,4 +318,36 @@ public class JDynATagLibraryFunctions {
 		}
 		return false;
 	}
+	
+	
+	
+	/**
+	 * Return the ID of the subject from the "link" string id:value
+	 * @param inputValue
+	 * @return
+	 */
+	public static String getLinkDescription(String inputValue) {
+		if (inputValue != null) {
+			String[] result = inputValue.split("\\|\\|\\|", 2);
+			return result[0];
+		}
+		else {
+			return "";
+		}		
+	}
+	
+	/**
+	 * Return the value in the subject from the "link" string id:value
+	 * @param inputValue
+	 * @return
+	 */ 
+	public static String getLinkValue(String inputValue) {
+		if (inputValue != null) {
+			String[] result = inputValue.split("\\|\\|\\|", 2);
+			return result.length>1?result[1]:"";
+		}
+		else {
+			return "";
+		}		
+	}
 }

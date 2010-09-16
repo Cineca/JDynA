@@ -25,36 +25,36 @@
  */
 package it.cilea.osd.jdyna.widget;
 
+import it.cilea.osd.jdyna.editor.LinkPropertyEditor;
 import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.value.LinkValue;
-import it.cilea.osd.jdyna.value.TextValue;
 
 import java.beans.PropertyEditor;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
-
-/** Classe Testo
- * @author biondo,pascarelli
+/** 
+ * 
+ * Link widget
+ * 
+ * 
+ * @author pascarelli
  *
  */
+@Entity
+@Table(name="jdyna_widget_link")
 public class WidgetLink extends AWidget {
 
 	@Transient
 	private String triview;
-		
+	
+	private Integer size;
+	
 	public String getTriview() {		
 		return "link";
 	}
@@ -64,7 +64,7 @@ public class WidgetLink extends AWidget {
 	 * Restituisce lo StringTrimmer editor configurato per la conversione delle stringhe vuote in null
 	 */
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {	
-		return new StringTrimmerEditor(true);
+		return new LinkPropertyEditor(applicationService);
 	}
 	
 
@@ -83,6 +83,15 @@ public class WidgetLink extends AWidget {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	public Integer getSize() {
+		return size;
+	}
+
+	public void setSize(Integer size) {
+		this.size = size;
+	}
+
 
     
 }
