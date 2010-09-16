@@ -26,6 +26,11 @@
 </tag-file>
 
 <tag-file>
+	<name>link</name>
+	<path>/META-INF/tags/link.tag</path>
+</tag-file>
+
+<tag-file>
 	<name>text</name>
 	<path>/META-INF/tags/text.tag</path>
 </tag-file>
