@@ -128,7 +128,7 @@
 <c:choose>
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility}">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -152,7 +152,7 @@
 	</c:when>
 	<c:when test="${isText}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility}">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -216,7 +216,7 @@
 	</c:when>
 	<c:when test="${isCombo && tipologia.rendering.inline}">
 		<c:set var="count" value="0" />
-		<c:if test="${values[numriga].value.visibility}">
+		<c:if test="${values[numriga].value.visibility == 1}">
 		<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${tipologia.shortName}"
 			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="50">
 		<display:setProperty name="paging.banner.no_items_found" value="" />
@@ -244,7 +244,7 @@
 		</c:if>	
 	</c:when>
 	<c:when test="${isCombo && !tipologia.rendering.inline}">
-	<c:if test="${values[numriga].value.visibility}">
+	<c:if test="${values[numriga].value.visibility == 1}">
 		<c:choose>
 		<c:when test="${fn:length(values) > 0}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
@@ -287,7 +287,7 @@
 	</c:when>
 	<c:otherwise>
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-	  	<c:if test="${value.visibility}">
+	  	<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			${dyna:display(tipologia,value.value.real)}
 		</c:if>
