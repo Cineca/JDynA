@@ -12,7 +12,9 @@ import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
 
+import java.sql.SQLException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class SimpleDynaController <P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder, T extends Tab<H>>
+public abstract class SimpleDynaController <P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>>
 	extends BaseAbstractController {
 
 	private final int PAGE_SIZE = 20;
@@ -80,65 +82,81 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 		return retValue;
 	}
 
-	protected ModelAndView handleDetails(HttpServletRequest request) {
+	protected ModelAndView handleDetails(HttpServletRequest request) throws SQLException {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		String paramObjectId = request.getParameter("id");
-		Integer objectId = Integer.valueOf(paramObjectId);
+		String paramObjectId = request.getParameter("anagraficaId");
+		Integer objectId = null;
+		if(paramObjectId==null) {
+			objectId = findAnagraficaByParentObject(request);
+		}
+		else {
+			objectId = Integer.valueOf(paramObjectId);
+		}
 		AnagraficaSupport<P,TP> jdynaObject = (AnagraficaSupport<P,TP>) applicationService.get(objectClass, objectId);
 		if(jdynaObject==null){
 			throw new RuntimeException("La url non corrisponde a nessun oggetto valido nella piattaforma");
 		}
-		//FIXME verificare questa parte di codice se effettivamente serve a qualcosa
-		Integer ID = null;
-		Class<T> areaClass = tabClass;
-		List<T> listaAllAree =  applicationService.getList(areaClass);
-		
+	
+		//this map contains key-values pairs, key = box shortname and values = collection of metadata
+		Map<String, List<IContainable>> mapBoxToContainables = new HashMap<String, List<IContainable>>();
 
-		if (request.getParameter("areaId") != null) {
-			ID = Integer.valueOf(request.getParameter("areaId"));
-			model.put("first", false);
+		//collection of edit tabs (all edit tabs created on system associate to visibility)
+		List<T> tabs = findTabsWithVisibility(request);
+		
+		Integer ID = null;	
+
+		if (request.getParameter("tabId") != null) {
+			ID = Integer.valueOf(request.getParameter("tabId"));			
 		} else {		
-			if(listaAllAree!=null && !listaAllAree.isEmpty()) {
-				T area = listaAllAree.get(0);
-				if(area!=null) {
-					ID = area.getId();
-				}
+			if(tabs!=null && !tabs.isEmpty()) {
+				ID = tabs.get(0).getId();
 			}
 			else {
-				//restituisco le tipo
-				model.put("tipologieInArea", applicationService.getListTipologieProprietaFirstLevel(jdynaObject.getClassPropertiesDefinition()));				
-				model.put("anagraficaObject", jdynaObject);								
-				return new ModelAndView(detailsView, model);
+				throw new RuntimeException(
+				"No tabs to display contact administrator");
 			}
-			model.put("first", true);
 		}
 
-		model.put("aree", listaAllAree);
-		// passo alla view l'ID dell'area selezionata
-		model.put("areaId", ID);
-		// Passo alla view le tipologie di proprietà da visualizzare nell'area
-		List<H> propertyHolders = applicationService.findPropertyHolderInTab(tabClass, ID);
 		
 		
-		List<IContainable> area =null;
-		
-		for(IPropertyHolder<Containable> iph : propertyHolders) {
-				area = applicationService.findContainableInPropertyHolder(propertyHolderClass, iph.getId());
+		//check if request tab from view is active (check on collection before)  
+		T t = applicationService.get(
+				tabClass,
+				ID);
+		if (!tabs.contains(t)) {
+			throw new RuntimeException(
+					"You not have needed authorization level to display this tab");
 		}
-   	    jdynaObject.inizializza();
-   	    
-	 	model.put("path", modelPath);
-	    
-	    Class<TP> tipologiaProprieta = jdynaObject.getClassPropertiesDefinition(); 
-		List<TP> tpColumnListEpiObject = applicationService.getValoriDaMostrare(tipologiaProprieta);
-				
-		model.put("showInColumnList", tpColumnListEpiObject);
+		
+		//collection of boxs
+		List<H> propertyHolders = 
+			applicationService.findPropertyHolderInTab(
+					tabClass, ID);
+		
+
+		//this piece of code get containables object from boxs and put them on map
+		List<IContainable> pDInTab = new LinkedList<IContainable>();
+		for (H iph : propertyHolders) {
 			
-	    model.put("tipologieInArea", area);
-	     
-		model.put("anagraficaObject", jdynaObject);
-				
+				List<IContainable> temp = applicationService
+						.findContainableInPropertyHolder(propertyHolderClass,
+								iph.getId());
+				mapBoxToContainables.put(iph.getShortName(), temp);
+				pDInTab.addAll(temp);
+			
+		}
+		jdynaObject.inizializza();
+		
+		
+		
+		model.put("propertiesHolders", propertyHolders);
+		model.put("propertiesDefinitionsInTab", pDInTab);
+		model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
+		model.put("tabList", tabs);
+		model.put("tabId", ID);  	    
+	 	model.put("path", modelPath);     
+		model.put("anagraficaObject", jdynaObject);				
 		model.put("addModeType", "display");
 		
 		return new ModelAndView(detailsView, model);
@@ -146,6 +164,11 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 	
 
 
+
+	protected abstract Integer findAnagraficaByParentObject(HttpServletRequest request);
+
+	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request) throws SQLException;
+		
 
 	protected ModelAndView handleList(HttpServletRequest request) {
 		String paramSort = request.getParameter("sort");
@@ -188,7 +211,7 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 
 	protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		String paramId = request.getParameter("id");
+		String paramId = request.getParameter("anagraficaid");
 		Integer epiobjectID = Integer.valueOf(paramId);
 		/* uso il delete controllato */
 		AnagraficaSupport<P,TP> a= applicationService.get(objectClass,epiobjectID);
@@ -223,5 +246,9 @@ public class SimpleDynaController <P extends Property<TP>, TP extends Properties
 
 	public void setModelPath(String modelPath) {
 		this.modelPath = modelPath;
+	}
+
+	public ITabService getApplicationService() {
+		return applicationService;
 	}
 }
