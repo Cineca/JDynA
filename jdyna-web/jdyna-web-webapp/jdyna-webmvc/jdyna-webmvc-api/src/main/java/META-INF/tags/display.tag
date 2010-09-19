@@ -1,6 +1,6 @@
 <%@ attribute name="values" required="true" type="java.util.Collection" %>
 <%@ attribute name="tipologia" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
-<%@ attribute name="subElement" required="false" %>
+<%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
@@ -98,6 +98,21 @@
 <c:if test="${tipologia.rendering.triview eq 'calendar'}">
 	<c:set var="isCalendar" value="true" />
 </c:if>
+<c:set var="showit" value="false" target="java.lang.Boolean"/>
+
+<c:choose>
+<c:when test="${!isCombo}">
+<c:forEach var="value" items="${values}" varStatus="valueStatus">		
+		<c:if test="${value.visibility == 1}">
+			<c:set var="showit" value="true" target="java.lang.Boolean"/>
+		</c:if>
+</c:forEach>
+</c:when>
+<c:otherwise>
+	<c:set var="showit" value="true" target="java.lang.Boolean"/>
+</c:otherwise>
+</c:choose>
+
 <c:if test="${!subElement}">
 <c:set var="fieldMinWidth" value="" />
 <c:set var="fieldMinHeight" value="" />
@@ -112,6 +127,7 @@
 	<c:set var="fieldStyle" value="style=\"${fieldMinHeight}${fieldMinWidth}\"" />
 </c:if>
 
+<c:if test="${showit}">
 <div class="dynaField" ${fieldStyle}>
 <c:set var="labelMinWidth" value="" />
 <c:set var="labelStyle" value="" />
@@ -122,12 +138,18 @@
 	<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 </c:if>
 
-	<span class="dynaLabel" ${labelStyle}>${tipologia.label}:</span>
+<span class="dynaLabel" ${labelStyle}><c:if test="${!empty tipologia.label}">${tipologia.label}:</c:if></span>
+
+
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>
+</c:if>
+
+<c:if test="${showit}">
 <c:choose>
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		
 		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
@@ -216,17 +238,21 @@
 	</c:when>
 	<c:when test="${isCombo && tipologia.rendering.inline}">
 		<c:set var="count" value="0" />
-		<c:if test="${values[numriga].value.visibility == 1}">
+		
 		<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${tipologia.shortName}"
-			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="50">
+			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="100">
 		<display:setProperty name="paging.banner.no_items_found" value="" />
 		<display:setProperty name="paging.banner.one_item_found" value="" />
 		<display:setProperty name="paging.banner.all_items_found" value="" />
-		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="valueStatus">
+		<display:setProperty name="paging.banner.page.selected" value="" />
+		<display:setProperty name="paging.banner.onepage" value="" />
+		
+		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="valueStatus">		
 				<c:set var="subLabelMinWidth" value="" />
 				<c:if test="${subtip.labelMinSize > 1}">
 					<c:set var="subLabelMinWidth" value="width:${subtip.labelMinSize}em;" />
 				</c:if>
+				
 					<display-el:column style="${subLabelMinWidth}" title="${subtip.label}"  
 						sortProperty="value.anagrafica4view['${subtip.shortName}'][0].value.sortValue" 
 						sortable="false">
@@ -236,22 +262,27 @@
 					<c:set var="numriga" 
 						value="${(count - count % fn:length(tipologia.rendering.sottoTipologie))/fn:length(tipologia.rendering.sottoTipologie)}" />
 					<c:set var="count" value="${count+1}" />
+					
 					<dyna:display tipologia="${subtip}" subElement="true" 
 						values="${values[numriga].value.anagrafica4view[subtip.shortName]}" />
+			
 					</display-el:column>
+				
 		</c:forEach>
 		</display:table>
-		</c:if>	
+		
 	</c:when>
 	<c:when test="${isCombo && !tipologia.rendering.inline}">
-	<c:if test="${values[numriga].value.visibility == 1}">
+	
 		<c:choose>
 		<c:when test="${fn:length(values) > 0}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<div class="dynaFieldComboValue">
 			<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
+				
 				<dyna:display-combo-inline subValues="${value.value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" />
+				
 				<%-- FINE DEL COPIA INCOLLA --%>
 			</c:forEach>
 		</div>
@@ -268,7 +299,7 @@
 		</div>
 		</c:otherwise>
 		</c:choose>
-	</c:if>
+	
 	</c:when>
 	<c:when test="${isNumero}">
 	<c:set var="minwidth" value="" />
@@ -300,4 +331,6 @@
 <c:if test="${tipologia.newline}">
 	<div class="dynaClear">&nbsp;</div>
 </c:if>
+</c:if>
+
 </c:if>

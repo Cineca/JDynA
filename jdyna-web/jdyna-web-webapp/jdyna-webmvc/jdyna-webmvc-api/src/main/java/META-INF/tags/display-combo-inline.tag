@@ -4,7 +4,7 @@
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
 <%-- //FIXME Copia incolla da display.tag... --%>
-
+---qui è inline
 					
 					<c:if test="${subtip.rendering.triview eq 'testo' && !subtip.rendering.multilinea}">
 						<c:set var="isSubText" value="true" />
