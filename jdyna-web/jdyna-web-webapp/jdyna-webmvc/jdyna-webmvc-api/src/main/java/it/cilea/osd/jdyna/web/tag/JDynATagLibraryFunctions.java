@@ -2,8 +2,10 @@ package it.cilea.osd.jdyna.web.tag;
 
 import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.FormulaManager;
 import it.cilea.osd.jdyna.utils.HashUtil;
+import it.cilea.osd.jdyna.value.MultiValue;
 import it.cilea.osd.jdyna.value.PointerValue;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 
@@ -11,6 +13,7 @@ import java.beans.PropertyEditor;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collection;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -27,38 +30,38 @@ import org.apache.lucene.analysis.Tokenizer;
 import org.apache.lucene.analysis.standard.StandardTokenizer;
 
 public class JDynATagLibraryFunctions {
-	
+
 	private static final String PROPERTY_SEPERATOR = ".";
 	private static Log log = LogFactory.getLog(JDynATagLibraryFunctions.class);
-	
-	public static String escapeHTMLtoJavascript(String html)
-	{
-		if (html == null) return null;
-		
-		String jsString = html.replaceAll("&","&amp;");
-		jsString = html.replaceAll("<","&lt;");
-		jsString = jsString.replaceAll(">","&gt;");
-		jsString = jsString.replaceAll("\"","&#034;");
-		jsString = jsString.replaceAll("'"," &#039;");
-		jsString = jsString.replaceAll("\n","");
-		jsString = jsString.replaceAll("\r","");
+
+	public static String escapeHTMLtoJavascript(String html) {
+		if (html == null)
+			return null;
+
+		String jsString = html.replaceAll("&", "&amp;");
+		jsString = html.replaceAll("<", "&lt;");
+		jsString = jsString.replaceAll(">", "&gt;");
+		jsString = jsString.replaceAll("\"", "&#034;");
+		jsString = jsString.replaceAll("'", " &#039;");
+		jsString = jsString.replaceAll("\n", "");
+		jsString = jsString.replaceAll("\r", "");
 		return jsString;
 	}
-	
-	public static String escapeApici(String html)
-	{
-		if (html == null) return null;
-		
+
+	public static String escapeApici(String html) {
+		if (html == null)
+			return null;
+
 		String jsString = html.replaceAll("\'", "\\\\'");
 		return jsString;
 	}
-	
+
 	public static String replaceApiciDoppi(String display) {
 		String result = "";
 		result = display.replaceAll("\"", "'");
 		return result;
 	}
-	
+
 	public static String getDisplayValue(Object obj, String display) {
 		if (obj == null) {
 			return "";
@@ -68,21 +71,21 @@ public class JDynATagLibraryFunctions {
 			if (obj instanceof ValoreDTO) {
 				ValoreDTO valoreDTO = (ValoreDTO) obj;
 				if (valoreDTO.getObject() != null) {
-					result = FormulaManager.calcoloValore(display, valoreDTO.getObject(), null, 0).toString();
-				}
-				else {
+					result = FormulaManager.calcoloValore(display,
+							valoreDTO.getObject(), null, 0).toString();
+				} else {
 					return "";
 				}
-			}
-			else {
-				result = FormulaManager.calcoloValore(display, obj, null , 0).toString();
+			} else {
+				result = FormulaManager.calcoloValore(display, obj, null, 0)
+						.toString();
 			}
 		} catch (RuntimeException e) {
 			result = "";
 		}
 		return result;
 	}
-	
+
 	public static String getTargetClass(WidgetPointer wpointer) {
 		PointerValue vp;
 		try {
@@ -92,13 +95,18 @@ public class JDynATagLibraryFunctions {
 			throw new RuntimeException(e);
 		}
 	}
-	
-	public static Object getReferencedObject(Object root, String propertyPath) throws OgnlException{
-	
-		/* considero anche il caso in cui le stringhe mi arrivino gia' con gli apici */
+
+	public static Object getReferencedObject(Object root, String propertyPath)
+			throws OgnlException {
+
+		/*
+		 * considero anche il caso in cui le stringhe mi arrivino gia' con gli
+		 * apici
+		 */
 		String pattern = "\\[([^\\]']*[^'0-9\\]]{1,}[^\\]']*[^'])\\]";
-		String propertyPathWithOutRoot=propertyPath.substring(propertyPath.indexOf(".")+1).replaceAll(pattern, "['$1']");
-	
+		String propertyPathWithOutRoot = propertyPath.substring(
+				propertyPath.indexOf(".") + 1).replaceAll(pattern, "['$1']");
+
 		if (root == null) {
 			return "";
 		}
@@ -107,23 +115,23 @@ public class JDynATagLibraryFunctions {
 			if (root instanceof ValoreDTO) {
 				ValoreDTO valoreDTO = (ValoreDTO) root;
 				if (valoreDTO.getObject() != null) {
-					result=Ognl.getValue(propertyPathWithOutRoot, valoreDTO.getObject());
-				}
-				else {
+					result = Ognl.getValue(propertyPathWithOutRoot,
+							valoreDTO.getObject());
+				} else {
 					return "";
 				}
-			}
-			else {
-				result=Ognl.getValue(propertyPathWithOutRoot, root);
+			} else {
+				result = Ognl.getValue(propertyPathWithOutRoot, root);
 			}
 		} catch (RuntimeException e) {
 			result = "";
 		}
 		return result;
 	}
-	
+
 	/**
 	 * Return the ID of the subject from the "soggetto" string id:value
+	 * 
 	 * @param inputValue
 	 * @return
 	 */
@@ -131,27 +139,26 @@ public class JDynATagLibraryFunctions {
 		if (inputValue != null) {
 			String[] result = inputValue.split(":", 2);
 			return result[0];
-		}
-		else {
+		} else {
 			return "";
-		}		
+		}
 	}
-	
+
 	/**
 	 * Return the value in the subject from the "soggetto" string id:value
+	 * 
 	 * @param inputValue
 	 * @return
-	 */ 
+	 */
 	public static String getSubjectValue(String inputValue) {
 		if (inputValue != null) {
 			String[] result = inputValue.split(":", 2);
-			return result.length>1?result[1]:"";
-		}
-		else {
+			return result.length > 1 ? result[1] : "";
+		} else {
 			return "";
-		}		
+		}
 	}
-	
+
 	/**
 	 * Restituisce la stringa corrispondente al valore di object passato come
 	 * argomento utilizzando il property editor associato alla tipologia di
@@ -162,19 +169,23 @@ public class JDynATagLibraryFunctions {
 	 * @return
 	 */
 	public static String display(PropertiesDefinition tp, Object object) {
-		if(object==null) {
+		if (object == null) {
 			return "";
 		}
-		//Passiamo un application service null ma il property editor lo usa solo per il passaggio da text -> object e non viceversa
-		PropertyEditor propertyEditor = tp.getRendering().getPropertyEditor(null);
+		// Passiamo un application service null ma il property editor lo usa
+		// solo per il passaggio da text -> object e non viceversa
+		PropertyEditor propertyEditor = tp.getRendering().getPropertyEditor(
+				null);
 		propertyEditor.setValue(object);
 		return propertyEditor.getAsText();
 	}
-	
+
 	/**
-	 * Estrae da una collection i suoi elementi, restituendo una stringa con gli elementi separati da una virgola 
+	 * Estrae da una collection i suoi elementi, restituendo una stringa con gli
+	 * elementi separati da una virgola
 	 * 
-	 * @param parameters : la collection contenente gli elementi per creare la stringa
+	 * @param parameters
+	 *            : la collection contenente gli elementi per creare la stringa
 	 * @return
 	 */
 	public static String extractParameters(Collection<String> parameters) {
@@ -182,9 +193,9 @@ public class JDynATagLibraryFunctions {
 		if (parameters != null) {
 			int size = parameters.size();
 			int i = 0;
-			for(String parameter : parameters) {
-				result += "'"+parameter+"'";
-				if(i<size-1) {
+			for (String parameter : parameters) {
+				result += "'" + parameter + "'";
+				if (i < size - 1) {
 					result += ",";
 				}
 				i++;
@@ -192,7 +203,7 @@ public class JDynATagLibraryFunctions {
 		}
 		return result;
 	}
-	
+
 	public static String md5(String text) {
 		return HashUtil.hashMD5(text);
 	}
@@ -206,19 +217,21 @@ public class JDynATagLibraryFunctions {
 	 * @return
 	 * @throws IOException
 	 */
-	public static String getCollisioniQuery(String inputValue) throws IOException {
+	public static String getCollisioniQuery(String inputValue)
+			throws IOException {
 		StringBuffer inputToken = new StringBuffer();
 		Tokenizer tokenizer = new StandardTokenizer(
 				new StringReader(inputValue));
 		Token token = tokenizer.next();
 		while (token != null) {
-			inputToken.append(new String(token.termBuffer(), 0, token.termLength()));
+			inputToken.append(new String(token.termBuffer(), 0, token
+					.termLength()));
 			inputToken.append("~");
 			token = tokenizer.next();
 		}
 		return inputToken.toString();
 	}
-	
+
 	public static String getObjectFromPropertyPath(String propertyPath) {
 		// Path is "customer.contact.fax.number", need to return
 		// "customer.contact.fax"
@@ -229,7 +242,7 @@ public class JDynATagLibraryFunctions {
 		log.debug("objectString = " + objectString);
 		return objectString;
 	}
-	
+
 	public static String getPropertyFromPropertyPath(String propertyPath) {
 		// Path is "customer.contact.fax.number", need to return "number"
 		log.debug("propertyPath = " + propertyPath);
@@ -243,14 +256,14 @@ public class JDynATagLibraryFunctions {
 		if (propertyString.length() > 2) {
 			if (propertyString.charAt(propertyString.length() - 1) == 'd'
 					&& propertyString.charAt(propertyString.length() - 2) == 'I') {
-				propertyString = propertyString.substring(0, propertyString
-						.length() - 2);
+				propertyString = propertyString.substring(0,
+						propertyString.length() - 2);
 			}
 		}
 
 		return propertyString;
 	}
-	
+
 	public static String getPropertyPathNoIdFromPropertyPathId(
 			String propertyPathId) {
 		// Path is "customer.contact.fax.number", need to return "number"
@@ -260,8 +273,8 @@ public class JDynATagLibraryFunctions {
 		if (propertyPathId.length() > 2) {
 			if (propertyPathId.charAt(propertyPathId.length() - 1) == 'd'
 					&& propertyPathId.charAt(propertyPathId.length() - 2) == 'I') {
-				propertyPathId = propertyPathId.substring(0, propertyPathId
-						.length() - 2);
+				propertyPathId = propertyPathId.substring(0,
+						propertyPathId.length() - 2);
 			}
 		}
 		propertyPathId = propertyPathId + ".displayValue";
@@ -276,21 +289,23 @@ public class JDynATagLibraryFunctions {
 		return list == null ? false : list.contains(object);
 	}
 
-	public static boolean emptyMap(Map map){
-		if (map == null) return true;
-		for (Object obj : map.values()){
-			if ((obj != null && obj instanceof Collection && ((Collection) obj).size() > 0) ||
-					(obj != null && !(obj instanceof Collection))) 
-					return false;
+	public static boolean emptyMap(Map map) {
+		if (map == null)
+			return true;
+		for (Object obj : map.values()) {
+			if ((obj != null && obj instanceof Collection && ((Collection) obj)
+					.size() > 0)
+					|| (obj != null && !(obj instanceof Collection)))
+				return false;
 		}
 		return true;
 	}
 
-	public static String nl2br(String stringa){
-		String strigaRisultato=new String(stringa);
+	public static String nl2br(String stringa) {
+		String strigaRisultato = new String(stringa);
 		Pattern CRLF = Pattern.compile("(\r\n|\r|\n|\n\r)");
 		Matcher m = CRLF.matcher(stringa);
-		 
+
 		if (m.find()) {
 			strigaRisultato = m.replaceAll("<br/>");
 		}
@@ -298,31 +313,33 @@ public class JDynATagLibraryFunctions {
 	}
 
 	/**
-	 * Determina se il parametro superclasse passato come stringa è un superclasse di object;
-	 * Nota chiama internamente {@link Class#isAssignableFrom(Class)}
+	 * Determina se il parametro superclasse passato come stringa è un
+	 * superclasse di object; Nota chiama internamente
+	 * {@link Class#isAssignableFrom(Class)}
 	 * 
 	 * <code> 
 	 * if(superclass.isAssignableFrom(object.getClass())) {
-	 *	 return true;
+	 * 	 return true;
 	 * }
 	 * </code>
+	 * 
 	 * @param object
 	 * @param superClassName
 	 * @return true se object1 se è sottoclasse di superclass
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 */
-	public static boolean instanceOf(Object object, String superClassName) throws ClassNotFoundException {
+	public static boolean instanceOf(Object object, String superClassName)
+			throws ClassNotFoundException {
 		Class classe = Class.forName(superClassName);
-		if(classe.isAssignableFrom(object.getClass())) {
+		if (classe.isAssignableFrom(object.getClass())) {
 			return true;
 		}
 		return false;
 	}
-	
-	
-	
+
 	/**
 	 * Return the ID of the subject from the "link" string id:value
+	 * 
 	 * @param inputValue
 	 * @return
 	 */
@@ -330,24 +347,39 @@ public class JDynATagLibraryFunctions {
 		if (inputValue != null) {
 			String[] result = inputValue.split("\\|\\|\\|", 2);
 			return result[0];
-		}
-		else {
+		} else {
 			return "";
-		}		
+		}
 	}
-	
+
 	/**
 	 * Return the value in the subject from the "link" string id:value
+	 * 
 	 * @param inputValue
 	 * @return
-	 */ 
+	 */
 	public static String getLinkValue(String inputValue) {
 		if (inputValue != null) {
 			String[] result = inputValue.split("\\|\\|\\|", 2);
-			return result.length>1?result[1]:"";
-		}
-		else {
+			return result.length > 1 ? result[1] : "";
+		} else {
 			return "";
-		}		
+		}
+	}
+
+	public static <P extends Property<TP>, TP extends PropertiesDefinition> Object hideComboRow(
+			Object propertiesList) {
+		List<P> list = (List<P>) propertiesList;
+		List<P> toView = new LinkedList<P>();		
+		external: for (P p : list) {
+			MultiValue<P, TP> multi = (MultiValue<P, TP>) p.getValue();
+			internal: for (P pp : multi.getObject()) {
+				if (pp.getVisibility() == 1) {
+					toView.add(p);
+					break internal;
+				}
+			}
+		}
+		return toView;
 	}
 }

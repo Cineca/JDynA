@@ -100,7 +100,8 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	
 		//this map contains key-values pairs, key = box shortname and values = collection of metadata
 		Map<String, List<IContainable>> mapBoxToContainables = new HashMap<String, List<IContainable>>();
-
+		Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
+		
 		//collection of edit tabs (all edit tabs created on system associate to visibility)
 		List<T> tabs = findTabsWithVisibility(request);
 		
@@ -142,7 +143,12 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 				List<IContainable> temp = applicationService
 						.findContainableInPropertyHolder(propertyHolderClass,
 								iph.getId());
+				Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
+				for(IContainable tt : temp) {
+					tempMap.put(tt.getShortName(), tt);
+				}				
 				mapBoxToContainables.put(iph.getShortName(), temp);
+				mapBoxToMapContainables.put(iph.getShortName(), tempMap);
 				pDInTab.addAll(temp);
 			
 		}
@@ -153,6 +159,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		model.put("propertiesHolders", propertyHolders);
 		model.put("propertiesDefinitionsInTab", pDInTab);
 		model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
+		model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
 		model.put("tabList", tabs);
 		model.put("tabId", ID);  	    
 	 	model.put("path", modelPath);     

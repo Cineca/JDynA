@@ -337,8 +337,9 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 					cacheAnagr4View.put(property.getTypo().getShortName(),
 							appoggio);
 				}
-
+	
 				appoggio.add(property);
+				
 			}
 		}
 		if (log.isDebugEnabled()) {

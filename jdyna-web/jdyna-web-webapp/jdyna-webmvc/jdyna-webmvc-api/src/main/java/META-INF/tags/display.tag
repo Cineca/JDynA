@@ -238,7 +238,7 @@
 	</c:when>
 	<c:when test="${isCombo && tipologia.rendering.inline}">
 		<c:set var="count" value="0" />
-		
+		<c:set var="values" value="${dyna:hideComboRow(values)}" />
 		<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${tipologia.shortName}"
 			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="100">
 		<display:setProperty name="paging.banner.no_items_found" value="" />
@@ -247,7 +247,9 @@
 		<display:setProperty name="paging.banner.page.selected" value="" />
 		<display:setProperty name="paging.banner.onepage" value="" />
 		
-		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="valueStatus">		
+		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="valueStatus">
+				
+									
 				<c:set var="subLabelMinWidth" value="" />
 				<c:if test="${subtip.labelMinSize > 1}">
 					<c:set var="subLabelMinWidth" value="width:${subtip.labelMinSize}em;" />

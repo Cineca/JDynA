@@ -181,10 +181,13 @@ public class AnagraficaUtils {
 											(MultiValue<P, TP>) proprieta
 													.getValue(),
 											subtp)) {
+									
 									subavalori.add(new ValoreDTO(subprop.getValue().getObject(),(subprop.getVisibility()==0)?false:true));
+									
 								}
+								
 								subDTO.getAnagraficaProperties().get(
-										subtp.getShortName()).addAll(subavalori);
+										subtp.getShortName()).addAll(subavalori);								
 							}
 							avalori.add(new ValoreDTO(subDTO));
 						}
