@@ -84,4 +84,9 @@ public abstract class FormDecoratorPropertiesDefinitionController<W extends AWid
 	public ITabService getApplicationService() {
 		return applicationService;
 	}
+
+	public Class<TP> getTargetModel() {
+		return targetModel;
+	}
+
 }

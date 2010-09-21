@@ -146,9 +146,6 @@
 	</c:if>
 	
 	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-	<c:if test="${visibility}">
-		<dyna:boolean propertyPath="${inputName}.visibility"/>
-	</c:if>
 	
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="" />
@@ -165,6 +162,10 @@
 	
 	<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
 		value="${inputValue}" onchange="${functionValidation};${onchange}" onkeyup="${oncollisione}" ${cssClassAttribute} ${autocomplete}/>
+	
+	<c:if test="${visibility}">
+		<dyna:boolean propertyPath="${inputName}.visibility"/>
+	</c:if>
 	
 	<c:if test="${!repeatable && collision}">
 		<div id="collision${inputName}" class="dynaCollision"></div>

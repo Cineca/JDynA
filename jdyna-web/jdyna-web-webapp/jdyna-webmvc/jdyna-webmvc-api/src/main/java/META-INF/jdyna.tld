@@ -288,10 +288,4 @@
 	<function-signature>Object hideComboRow(java.lang.Object)</function-signature>
 </function>
 
-<function>
-	<description>Check if logical groups are not public</description>
-	<name>isGroupFieldsHidden</name>
-	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
-	<function-signature>boolean isGroupFieldsHidden(java.lang.Object,java.lang.String)</function-signature>
-</function>
 </taglib>
