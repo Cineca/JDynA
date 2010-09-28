@@ -205,6 +205,10 @@
 					<c:set var="repetable" value="true" />
 				</c:if>
 		
+				<c:if test="${subtip.rendering.triview eq 'link'}">
+					<c:set var="isLink" value="true" />
+				</c:if>
+				
 				<c:if
 					test="${subtip.rendering.triview eq 'testo' && !subtip.rendering.multilinea}">
 					<c:set var="isText" value="true"/>
@@ -269,6 +273,11 @@
 					<c:set var="isCalendar" value="true" />
 				</c:if>
 				<c:choose>
+					<c:when test="${isLink}">	
+						<dyna:link propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]" 
+							size="${subtip.rendering.size}" required="${required}"
+							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}"	validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
+					</c:when>
 					<c:when test="${isText}">
 						<dyna:text propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]"
 							size="${subtip.rendering.dimensione.col}" required="${required}"
@@ -351,6 +360,7 @@
 					</c:when>
 				</c:choose> 
 				<%-- FIXME FINE ctrl+C/ctrl+V da edit.tag ... --%>
+				<c:set var="isLink" value="false" />
 				<c:set var="isText" value="false" />
 				<c:set var="isEmail" value="false" />
 				<c:set var="isTextArea" value="false" />
