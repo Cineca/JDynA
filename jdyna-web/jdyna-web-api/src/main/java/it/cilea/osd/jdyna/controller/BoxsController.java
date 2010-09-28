@@ -49,7 +49,7 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 		
-	private ModelAndView handleDetails(HttpServletRequest request) {
+	protected ModelAndView handleDetails(HttpServletRequest request) {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		String tabId = request.getParameter("id");
@@ -85,7 +85,7 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<H> boxs = new LinkedList<H>();
 		boxs = applicationService.getList(boxClass);
-		model.put("listTab", boxs);
+		model.put("listBox", boxs);
 		return new ModelAndView(listView,model);
 	}
 

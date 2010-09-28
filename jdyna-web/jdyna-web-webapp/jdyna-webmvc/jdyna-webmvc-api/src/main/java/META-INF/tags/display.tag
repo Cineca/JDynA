@@ -159,7 +159,7 @@
 				<c:set var="minheight" value="min-height: ${tipologia.rendering.dimensione.row}em;" />
 			</c:if>--%>
 			<c:if test="${tipologia.rendering.size > 1}">
-				<c:set var="minwidth" value="min-width: ${tipologia.rendering.dimensione.col}em;" />
+				<c:set var="minwidth" value="min-width: ${tipologia.rendering.size}em;" />
 			</c:if>
 			<%--<c:if test="${!empty minheight || !empty minwidth}">
 				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />

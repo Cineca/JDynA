@@ -87,13 +87,14 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		Map<String, Object> model = new HashMap<String, Object>();
 		String paramObjectId = request.getParameter("anagraficaId");
 		Integer objectId = null;
-		if(paramObjectId==null) {
-			objectId = findAnagraficaByParentObject(request);
+		if(paramObjectId==null || paramObjectId.isEmpty()) {
+			objectId = findAnagraficaIdByParentObject(request);
 		}
 		else {
 			objectId = Integer.valueOf(paramObjectId);
-		}
-		AnagraficaSupport<P,TP> jdynaObject = (AnagraficaSupport<P,TP>) applicationService.get(objectClass, objectId);
+		}		
+		
+		AnagraficaSupport<P,TP> jdynaObject = getAnagrafica(request, objectId);
 		if(jdynaObject==null){
 			throw new RuntimeException("La url non corrisponde a nessun oggetto valido nella piattaforma");
 		}
@@ -168,12 +169,19 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		
 		return new ModelAndView(detailsView, model);
 	}
+
 	
+	private AnagraficaSupport<P, TP> getAnagrafica(HttpServletRequest request, Integer objectId) {
+		if(objectId==null || objectId == -1) {
+			return findAnagraficaByParentObject(request);
+		}
+		return (AnagraficaSupport<P,TP>) applicationService.get(objectClass, objectId);
+	}
 
+	protected abstract Integer findAnagraficaIdByParentObject(HttpServletRequest request);
 
-
-	protected abstract Integer findAnagraficaByParentObject(HttpServletRequest request);
-
+	protected abstract AnagraficaSupport<P, TP> findAnagraficaByParentObject(HttpServletRequest request);
+	
 	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request) throws SQLException;
 		
 
