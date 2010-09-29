@@ -53,7 +53,7 @@ public class WidgetLink extends AWidget {
 	@Transient
 	private String triview;
 	
-	private int size = 30;
+	private int size = 70;
 	
 	public String getTriview() {		
 		return "link";
