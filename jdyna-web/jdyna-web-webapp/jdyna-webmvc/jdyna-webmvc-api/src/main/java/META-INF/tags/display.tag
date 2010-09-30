@@ -1,6 +1,7 @@
 <%@ attribute name="values" required="true" type="java.util.Collection" %>
 <%@ attribute name="tipologia" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
+<%@ attribute name="hideLabel" required="false" type="java.lang.Boolean"%>
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
@@ -137,9 +138,9 @@
 <c:if test="${!empty labelMinWidth}">
 	<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 </c:if>
-
-<span class="dynaLabel" ${labelStyle}><c:if test="${!empty tipologia.label}">${tipologia.label}:</c:if></span>
-
+<c:if test="${!empty tipologia.label && !hideLabel}">
+<span class="dynaLabel" ${labelStyle}>${tipologia.label}:</span>
+</c:if>
 
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>

@@ -6,6 +6,7 @@
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
 <%@ attribute name="isCreation" required="false" type="java.lang.Boolean" description="active all functionality only for creation of object"%>
+<%@ attribute name="hideLabel" required="false" type="java.lang.Boolean" %>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -122,7 +123,9 @@
 	${tipologia.help}
 	</div>
 </c:if>	
+<c:if test="${!hideLabel}">
 	<span class="dynaLabel${tipologia.mandatory?'Required':''}" ${labelStyle}>${tipologia.label} ${help}</span>
+</c:if>	
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
 </c:if>
 
