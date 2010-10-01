@@ -17,7 +17,6 @@ public class ExportUtils implements ApplicationContextAware {
 	private IPersistenceDynaService applicationService;
 	private ApplicationContext appContext;
 
-
 	/** Logger for this class and subclasses */
 	protected final Log logger = LogFactory.getLog(getClass());
 
@@ -32,33 +31,28 @@ public class ExportUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * Metodo di supporto per scrivere il DOCTYPE e il bean per il custom editor dell'albero classificatore
+	 * Metodo di supporto per scrivere il DOCTYPE e il bean per il custom editor
+	 * dell'albero classificatore
 	 * 
 	 * @param writer
 	 * @param albero
 	 *            l'albero da esportare
 	 */
-	public void writeDocTypeANDCustomEditorAlberoClassificatore(PrintWriter writer) {
-		writer
-				.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
-						+ "<!DOCTYPE beans PUBLIC \"-//SPRING//DTD BEAN//EN\"\n"
-						+ "\"http://www.springframework.org/dtd/spring-beans.dtd\">\n\n\n");
+	public void writeDocTypeANDCustomEditorAlberoClassificatore(
+			PrintWriter writer) {
+		writer.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+				+ "<!DOCTYPE beans PUBLIC \"-//SPRING//DTD BEAN//EN\"\n"
+				+ "\"http://www.springframework.org/dtd/spring-beans.dtd\">\n\n\n");
 		writer.print("<beans>\n");
-		writer
-				.print("   <!-- Configurazioni per il tool di import (NON MODIFICARE) -->\n");
-		writer
-				.print("		<bean id=\"customEditorConfigurer\" class=\"org.springframework.beans.factory.config.CustomEditorConfigurer\">\n");
+		writer.print("   <!-- Configurazioni per il tool di import (NON MODIFICARE) -->\n");
+		writer.print("		<bean id=\"customEditorConfigurer\" class=\"org.springframework.beans.factory.config.CustomEditorConfigurer\">\n");
 		writer.print("			<property name=\"customEditors\">\n");
 		writer.print("    	       <map>\n");
-		writer
-				.print("      	      <entry key=\"it.cilea.osd.jdyna.model.AlberoClassificatorio\">\n");
-		writer
-				.print("                    <ref bean=\"configurazioneAlberoClassificatorioEditor\"/>\n");
+		writer.print("      	      <entry key=\"it.cilea.osd.jdyna.model.AlberoClassificatorio\">\n");
+		writer.print("                    <ref bean=\"configurazioneAlberoClassificatorioEditor\"/>\n");
 		writer.print("                </entry>\n");
-		writer
-				.print("      	      <entry key=\"it.cilea.osd.jdyna.model.Classificazione\">\n");
-		writer
-				.print("                    <ref bean=\"configurazioneClassificazioneEditor\"/>\n");
+		writer.print("      	      <entry key=\"it.cilea.osd.jdyna.model.Classificazione\">\n");
+		writer.print("                    <ref bean=\"configurazioneClassificazioneEditor\"/>\n");
 		writer.print("                </entry>\n");
 
 		writer.print("             </map>\n");
@@ -66,27 +60,29 @@ public class ExportUtils implements ApplicationContextAware {
 		writer.print(" 		</bean>\n");
 
 	}
-	
 
-	/** Crea un marcatore xml (tag) settandogli un id passato come parametro */	
-	public static Element createTagXML(Element root, String tag,String tagId) {
+	/** Crea un marcatore xml (tag) settandogli un id passato come parametro */
+	public static Element createTagXML(Element root, String tag, String tagId) {
 		Element marcatore = new Element(tag);
-		marcatore.setAttribute("id", tagId);		
+		marcatore.setAttribute("id", tagId);
 		root.addContent(marcatore);
 		return marcatore;
 	}
 
 	/** Crea un marcatore xml */
 	public static Element createTagXML(Element root, String tag) {
-		Element marcatore = new Element(tag);		
+		Element marcatore = new Element(tag);
 		root.addContent(marcatore);
 		return marcatore;
 	}
 
-	/** Crea una proprietà all'interno del marcatore settando anche il valore 
+	/**
+	 * Crea una proprietà all'interno del marcatore settando anche il valore
 	 * 
-	 * @return l'elemento appena creato */
-	public static Element createProperty(Element root, String tag, String name, String value) {
+	 * @return l'elemento appena creato
+	 */
+	public static Element createProperty(Element root, String tag, String name,
+			String value) {
 		Element prop = new Element(tag);
 		prop.setAttribute("name", name);
 		Element valueElement = new Element("value");
@@ -95,9 +91,10 @@ public class ExportUtils implements ApplicationContextAware {
 		root.addContent(prop);
 		return prop;
 	}
-	
-	/** Crea una proprietà all'interno del marcatore con nomi e valori degli attributi passati come parametri  
-	 * {@code 
+
+	/**
+	 * Crea una proprietà all'interno del marcatore con nomi e valori degli
+	 * attributi passati come parametri {@code 
 	 * Esempio: 
 	 * <example>
 	 * 		<test message="hello" messaggeTwo="hello people">
@@ -105,20 +102,25 @@ public class ExportUtils implements ApplicationContextAware {
 	 * 		</test>	  	 	
 	 * </example>
 	 * }
-	 * @return l'elemento appena creato */
-	public static Element createCustomPropertyWithCustomAttributes(Element root, String tag,List<String> attributes, List<String> valuesAttributes) {
+	 * 
+	 * @return l'elemento appena creato
+	 */
+	public static Element createCustomPropertyWithCustomAttributes(
+			Element root, String tag, List<String> attributes,
+			List<String> valuesAttributes) {
 		Element prop = new Element(tag);
 		int i = 0;
-		for(String attribute : attributes) {
-			prop.setAttribute(attribute, valuesAttributes.get(i));	
+		for (String attribute : attributes) {
+			prop.setAttribute(attribute, valuesAttributes.get(i));
 			i++;
-		}				
+		}
 		root.addContent(prop);
 		return prop;
 	}
-	
-	
-	/** Crea una proprietà all'interno di un marcatore(root) settando anche un insieme di valori 
+
+	/**
+	 * Crea una proprietà all'interno di un marcatore(root) settando anche un
+	 * insieme di valori
 	 * 
 	 * {@code 
 	 * Esempio: 
@@ -128,15 +130,20 @@ public class ExportUtils implements ApplicationContextAware {
 	 * 	</test>	  	 	
 	 * </example>
 	 * }
-	 * @return l'elemento appena creato */
-	public static Element createCustomPropertyWithCustomAttribute(Element root, String tag, String attribute, String valuesAttribute) {
-		Element prop = new Element(tag);		
-		prop.setAttribute(attribute, valuesAttribute);						
+	 * 
+	 * @return l'elemento appena creato
+	 */
+	public static Element createCustomPropertyWithCustomAttribute(Element root,
+			String tag, String attribute, String valuesAttribute) {
+		Element prop = new Element(tag);
+		prop.setAttribute(attribute, valuesAttribute);
 		root.addContent(prop);
 		return prop;
 	}
-	
-	/** Crea una proprietà all'interno del marcatore settando anche un insieme di valori 
+
+	/**
+	 * Crea una proprietà all'interno del marcatore settando anche un insieme di
+	 * valori
 	 * 
 	 * {@code 
 	 * Esempio:
@@ -149,21 +156,25 @@ public class ExportUtils implements ApplicationContextAware {
 	 * 		</test2>
 	 * </test>
 	 * }
-	 * @return l'elemento appena creato */
-	public static Element createCustomPropertyWithCustomValues(Element root, String tag, List<String> tagValues, List<String> values) {
+	 * 
+	 * @return l'elemento appena creato
+	 */
+	public static Element createCustomPropertyWithCustomValues(Element root,
+			String tag, List<String> tagValues, List<String> values) {
 		Element prop = new Element(tag);
 		int i = 0;
-		for(String tagValue : tagValues) {
+		for (String tagValue : tagValues) {
 			Element valueElement = new Element(tagValue);
 			valueElement.addContent(values.get(i));
 			prop.addContent(valueElement);
 			i++;
-		}				
+		}
 		root.addContent(prop);
 		return prop;
 	}
-	
-	/** Crea un valore custom all'interno del marcatore passato come parametro 
+
+	/**
+	 * Crea un valore custom all'interno del marcatore passato come parametro
 	 * 
 	 * {@code 
 	 * Esempio: root = test ; tagValue = "test1" ; value ="Hello!"
@@ -173,20 +184,24 @@ public class ExportUtils implements ApplicationContextAware {
 	 * 		</test1>	 	 	
 	 * </test>
 	 * }
-	 * @return l'elemento appena creato */
-	public static Element createCustomValue(Element root, String tagValue, String value) {
-						
-		Element valueElement = new Element(tagValue);
-		valueElement.addContent(value);
-		root.addContent(valueElement);		
+	 * 
+	 * @return l'elemento appena creato
+	 */
+	public static Element createCustomValue(Element root, String tagValue,
+			String value) {
+		if (value != null && !value.isEmpty()) {
+			Element valueElement = new Element(tagValue);
+			valueElement.addContent(value);
+			root.addContent(valueElement);
+		}
 		return root;
 	}
-	
 
 	/**
 	 * 
-	 * Add child element with custom attributes and a value to root element passed as parameter of method
-	 *  
+	 * Add child element with custom attributes and a value to root element
+	 * passed as parameter of method
+	 * 
 	 * @param root
 	 * @param tagValue
 	 * @param value
@@ -194,16 +209,20 @@ public class ExportUtils implements ApplicationContextAware {
 	 * @param valuesAttributes
 	 * @return
 	 */
-	public static Element createCustomValueWithCustomAttributes(Element root, String tagValue, String value, List<String> attributes, List<String> valuesAttributes) {
-		
-		Element valueElement = new Element(tagValue);
-		int i = 0;
-		for(String attribute : attributes) {
-			valueElement.setAttribute(attribute, valuesAttributes.get(i));	
-			i++;
-		}		
-		valueElement.addContent(value);
-		root.addContent(valueElement);		
+	public static Element createCustomValueWithCustomAttributes(Element root,
+			String tagValue, String value, List<String> attributes,
+			List<String> valuesAttributes) {
+
+		if (value != null && !value.isEmpty()) {
+			Element valueElement = new Element(tagValue);
+			int i = 0;
+			for (String attribute : attributes) {
+				valueElement.setAttribute(attribute, valuesAttributes.get(i));
+				i++;
+			}
+			valueElement.addContent(value);
+			root.addContent(valueElement);
+		}
 		return root;
 	}
 }
