@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.dom4j.dom.DOMElement;
 import org.jdom.Element;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -181,4 +182,28 @@ public class ExportUtils implements ApplicationContextAware {
 		return root;
 	}
 	
+
+	/**
+	 * 
+	 * Add child element with custom attributes and a value to root element passed as parameter of method
+	 *  
+	 * @param root
+	 * @param tagValue
+	 * @param value
+	 * @param attributes
+	 * @param valuesAttributes
+	 * @return
+	 */
+	public static Element createCustomValueWithCustomAttributes(Element root, String tagValue, String value, List<String> attributes, List<String> valuesAttributes) {
+		
+		Element valueElement = new Element(tagValue);
+		int i = 0;
+		for(String attribute : attributes) {
+			valueElement.setAttribute(attribute, valuesAttributes.get(i));	
+			i++;
+		}		
+		valueElement.addContent(value);
+		root.addContent(valueElement);		
+		return root;
+	}
 }
