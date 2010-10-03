@@ -83,11 +83,9 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
 	}
 
 	/**
-	 * Restituisce la lista delle tipologie di proprietà da <b>non</b> mostrare
-	 * nell'area
-	 * 
-	 * @author bollini
-	 * @return lista di tipologie di proprietà non ammesse nell'area
+	 * Get field to show on the box.
+	 *
+	 * @return containables list to show
 	 */
 	@Transient
 	@Sort(type=SortType.UNSORTED)
