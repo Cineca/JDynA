@@ -446,20 +446,16 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 		if (source.getTypo().getRendering() instanceof WidgetCombo) {
 			MultiValue<P, TP> valoreSource = (MultiValue<P, TP>) source
 					.getValue();
-			int index=0;
+			
 			for (P sottoSource : valoreSource.getObject()) {
-				// non effettuo nessun check sullo stato corrente del valore della proprietà target perchè per assunzione
-				// (vedi javadoc) deve essere una proprietà appena creata. Eventuali check possibili sarebbero inutili nel
-				// nostro caso d'uso e avrebbero ripercussioni sulle performance...
-				MultiValue<P, TP> valoreSource2 = (MultiValue<P, TP>) target
-				.getValue();
-				P sottoTarget = valoreSource2.getObject().get(index);
-				index++;
-				clonaValore(sottoTarget, sottoSource);
-				
+	
+				P sottoTarget = createProprieta(target, sottoSource.getTypo());			
+				clonaValore(sottoTarget, sottoSource);					
+								
 			}
 		} else {
 			target.getValue().setOggetto(source.getValue().getObject());
+			target.setVisibility(source.getVisibility());
 		}
 
 	}
