@@ -22,7 +22,7 @@ import org.hibernate.annotations.SortType;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
+public abstract class Box<C extends Containable> implements IPropertyHolder<C>,Comparable<Box<C>>{
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
@@ -114,4 +114,18 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C> {
 	public void setPriority(int priorita) {
 		this.priority = priorita;
 	}
+	
+	/**
+	 * Order by priority, if priority is the same then get an alphabetical order by <code>shortName</code> 
+	 * 
+	 * @return
+	 * 
+	 */	
+	public int compareTo(Box secondTip) {		
+		if (secondTip == null) return -1;
+		if (priority < secondTip.priority) return -1;
+		else if (priority > secondTip.priority) return 1;
+			 else return shortName.compareTo(secondTip.getShortName());
+	}
+	
 }
