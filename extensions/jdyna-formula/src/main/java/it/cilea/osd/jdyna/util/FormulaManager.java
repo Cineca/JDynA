@@ -533,7 +533,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 						AnagraficaSupport oggetto = (AnagraficaSupport) object;
 						registraFormule(oggetto);
 					}
-				}			
+				}
+				
 				ricalcoloFormula(evento);
 			}
 		} catch (OgnlException e) {
