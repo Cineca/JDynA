@@ -11,7 +11,7 @@
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   <modules>
-  	<module>jdyna-webflow</module>
+  	<!-- <module>jdyna-webflow</module> -->
   	<module>jdyna-webmvc</module>    
   </modules>
 </project>
