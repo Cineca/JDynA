@@ -90,7 +90,7 @@ public class AlberoClassificatorio extends IdentifiableObject implements
 	@Cascade(value = { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
 	private List<Classificazione> topClassificazioni;
 
-	/** indica se a true che non può avere classificazioni non top level; 
+	/** indica se a true che non puo' avere classificazioni non top level; 
 	 *  l'uso del campo avviene solo via API o import */	
 	private boolean flat;
 	

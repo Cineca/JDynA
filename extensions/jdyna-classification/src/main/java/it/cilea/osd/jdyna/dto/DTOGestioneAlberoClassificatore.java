@@ -90,7 +90,7 @@ public class DTOGestioneAlberoClassificatore implements Serializable {
 	/** per verificare che si vuole creare una sottoclassificazione */
 	private boolean createSubClassificazione;
 	
-	/** indica che l'albero non può avere sottoclassificazioni */
+	/** indica che l'albero non puo' avere sottoclassificazioni */
 	private boolean flat = false;
 	
 	public String getTopNome() {
