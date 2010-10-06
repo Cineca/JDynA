@@ -40,7 +40,7 @@ public class ImportPropertyAnagraficaUtil implements Serializable {
 	
 	/** Il valore della proprieta' che si vuole importare 
 	 *  NOTA:
-	 *  sull'xml può essere una 'stringa'-'una lista di stringhe'-'una lista di ImportPropertyAnagraficaUtil'
+	 *  sull'xml puo' essere una 'stringa'-'una lista di stringhe'-'una lista di ImportPropertyAnagraficaUtil'
 	 * */
 	private Object valore;
 

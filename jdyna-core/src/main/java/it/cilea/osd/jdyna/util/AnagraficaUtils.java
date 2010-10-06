@@ -249,7 +249,7 @@ public class AnagraficaUtils {
 				anagraficaSupport.createProprieta(tipProprieta);
 			}
 			for (int i = 0; i < propDaEliminare; i++) {
-				// devo eliminare sempre l'ultima proprieta' perché la lista e'
+				// devo eliminare sempre l'ultima proprieta' perche' la lista e'
 				// una referenza
 				// alla lista mantenuta dalla cache a4v che viene alterata dal
 				// removeProprieta
@@ -369,7 +369,7 @@ public class AnagraficaUtils {
 		
 		P proprieta = null;
 		//se e' una combo la tipologia devo creare la proprieta' per il valore multi e cancellare le sotto proprieta create di default per ogni sotto tipologia
-		//in modo tale che quando capiterò nel caso della combo creo le sole sotto proprieta' descritte dall'xml
+		//in modo tale che quando capitero' nel caso della combo creo le sole sotto proprieta' descritte dall'xml
 		if(tipologiaDaImportare.getRendering() instanceof WidgetCombo) {
 			 proprieta = anagraficaObject.createProprieta(tipologiaDaImportare);
 			 //((MultiValue<P, TP>)proprieta.getValore()).getOggetto().clear();

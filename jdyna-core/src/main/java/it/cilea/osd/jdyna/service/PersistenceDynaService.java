@@ -157,7 +157,7 @@ public class PersistenceDynaService extends PersistenceService implements
 
 		if (epiObjectWithTypeSupport.getTipologia() == null)
 			throw new IllegalArgumentException(
-					"La tipologia non può essere NULL");
+					"La tipologia non puo' essere NULL");
 
 		List<TP> results = tipologiaProprietaDao
 				.findTipologieProprietaInTipologia(epiObjectWithTypeSupport

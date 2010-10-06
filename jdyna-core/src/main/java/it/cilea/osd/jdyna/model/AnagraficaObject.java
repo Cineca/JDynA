@@ -213,13 +213,13 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 			int pos = proprieta.getPosition();
 			int numProp = propList.size();
 			
-			// occorre partire esattamente da pos perché la proprieta' e' gia'
+			// occorre partire esattamente da pos perche' la proprieta' e' gia'
 			// stata rimossa dall'anagrafica
 			for (int idx = pos; idx < numProp; idx++) {
 				propList.get(idx).setPosition(idx);
 			}
 			// aggiorno il contenuto della cache
-			// non e' necessario perché il getProprietaDellaTipologia restituisce
+			// non e' necessario perche' il getProprietaDellaTipologia restituisce
 			// una referenza
 			// cacheAnagr4View.put(proprieta.getTipologia().getShortName(),
 			// propList);
