@@ -67,7 +67,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 
         TP propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
        
-        /*Se si è voluto creare un soggettario come particolare widget testo, porto con me l'id
+        /*Se si e' voluto creare un soggettario come particolare widget testo, porto con me l'id
          * del soggettario per potere procedere alla scelta di un nome e voce per il soggettario*/
         String paramId = request.getParameter("soggettarioId");
         if (paramId != null){
@@ -116,7 +116,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 		try {
 
 			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
-			//cancello tutte le proprietà salvate in passato
+			//cancello tutte le proprieta' salvate in passato
 			applicationService.deleteAllProprietaByTipologiaProprieta(targetModel, tip);
 						
 			//cancello la tipologia di proprieta

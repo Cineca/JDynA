@@ -104,7 +104,7 @@ public class ExportConfigurazioneSoggettari extends BaseFormController {
 	 * @param soggettario
 	 *            l'albero da esportare
 	 */
-	//FIXME valutare la possibilità di utilizzare il polimorfismo implementando un'interfaccia IExportableBeanDefinition
+	//FIXME valutare la possibilita' di utilizzare il polimorfismo implementando un'interfaccia IExportableBeanDefinition
 	private void toXML(PrintWriter writer, Soggettario soggettario) {
 		writer.print("    <bean id=\""
 				+ Soggettario.class.getSimpleName() + soggettario.getId()
@@ -136,7 +136,7 @@ public class ExportConfigurazioneSoggettari extends BaseFormController {
 
 	/**
 	 * Metodo di supporto per esportare un soggetto nella sua "bean
-	 * definition". //FIXME valutare la possibilità di utilizzare il
+	 * definition". //FIXME valutare la possibilita' di utilizzare il
 	 * polimorfismo implementando un'interfaccia IExportableBeanDefinition
 	 * 
 	 * @param writer

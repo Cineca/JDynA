@@ -13,19 +13,19 @@ public class Utils {
     
 	/** Trasforma l'expression scritta dall'utente (salvata su db) in una regola comprensibile a OGNL; 
 	 *  REGOLE:
-	 *  -   l'utente inserirà una espressione del tipo '${costo}[1]', questa espressione verrà trasformata in un formato
-	 *  	leggibile a OGNL quindi diventerà 'anagrafica4view['costo'][1].object';
-	 *  -   la stringa '${costo}[n]' diventerà 'anagrafica4view['costo'][n].object';
+	 *  -   l'utente inserira' una espressione del tipo '${costo}[1]', questa espressione verra' trasformata in un formato
+	 *  	leggibile a OGNL quindi diventera' 'anagrafica4view['costo'][1].object';
+	 *  -   la stringa '${costo}[n]' diventera' 'anagrafica4view['costo'][n].object';
 	 *  -   ATT!!! se ho una combo bisogna valutarla in modo
 	 *  	tale che se la stringa immessa dall'utente sia '${combo[${idx}].costo[1]*IVA}' bisogna 
 	 *  	valutare per prima la combo con il suo idx passato come parametro per 
 	 *  	poi prendere il giusto valore dell'elemento costo;
 	 *  -   se non voglio utilizzare idx lo metto a null (ad esempio quando voglio solamente parserizzare una stringa)
-	 *  - 	Per la ripetibilità nella formula bisogna inserire un resultIdx in modo tale da sostituirlo con quello passato come parametro
+	 *  - 	Per la ripetibilita' nella formula bisogna inserire un resultIdx in modo tale da sostituirlo con quello passato come parametro
 	 *      Es. se l'utente chiama questo metodo con un'espressione del tipo opera.${test}[${resultIdx}] con parametro resultIdx uguale a 4
-	 *      allora il metodo cercherà la 4 proprieta ripetibile nell'anagrafica 4 view  
+	 *      allora il metodo cerchera' la 4 proprieta ripetibile nell'anagrafica 4 view  
 	 *  -   Il metodo deve essere chiamato sempre con parametro resultIdx uguale a 0 in modo tale da verificare se 
-	 *      la formula contiene o meno la stringa resultIdx nell'espressione e quindi poter valutare o meno la ripetibilità
+	 *      la formula contiene o meno la stringa resultIdx nell'espressione e quindi poter valutare o meno la ripetibilita'
 	 *  
 	 * @param idx indice di posizione della proprieta 
 	 * @param resultIdx indice di posizione della proprieta ripetibile (se null cerca di restituire la lista di proprieta dell'anagrafica)

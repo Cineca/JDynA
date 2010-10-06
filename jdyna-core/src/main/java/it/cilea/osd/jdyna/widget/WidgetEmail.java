@@ -84,7 +84,7 @@ public class WidgetEmail extends AWidget {
 	public boolean valida(String email) {
 		Matcher matcher = pattern.matcher(email);
 		if (matcher.find()) {
-			log.debug(email + " è un indirizzo email ben scritto");
+			log.debug(email + " e' un indirizzo email ben scritto");
 			return true;
 		}
 			

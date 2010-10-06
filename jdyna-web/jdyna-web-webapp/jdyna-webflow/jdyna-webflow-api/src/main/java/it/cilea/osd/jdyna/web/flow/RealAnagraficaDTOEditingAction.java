@@ -118,7 +118,7 @@ public class RealAnagraficaDTOEditingAction
 		try {
 			commandDTO = (AnagraficaObjectAreaDTO) getFormObject(context);
 		} catch (Exception e) {
-			logger.error("Non è stato possibile estrarre il Command Object dal flusoo", e);
+			logger.error("Non e' stato possibile estrarre il Command Object dal flusoo", e);
 		}
 
 		Set<String> shortNames = (commandDTO == null || commandDTO.getAnagraficaProperties() == null)?

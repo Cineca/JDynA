@@ -41,11 +41,11 @@ import ognl.ObjectNullHandler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 /** 
- *  Classe di utilità che dinamicamente sostituisce durante la valutazione delle
+ *  Classe di utilita' che dinamicamente sostituisce durante la valutazione delle
  *  espressioni Ognl i null che possono esserci in catena, quindi permette di intercettare
  *  quando i metodi hanno valore di ritorno null e le proprieta sono valutate con un null,
  *  permettendo la sostituzione con il valore di default dell'istanza di AValue che 
- *  c'è dietro al AWidget.
+ *  c'e' dietro al AWidget.
  *  
  *  @author pascarelli, bollini 
  */
@@ -72,7 +72,7 @@ public class Anagrafica4ViewNullHandler<P extends Property<TP>, TP extends Prope
 
 
 	/** Viene chiamato quando nella valutazione OGNL in formula manager 
-	 *  nella espressione vi è una proprietà a null; L'interceptor per
+	 *  nella espressione vi e' una proprieta' a null; L'interceptor per
 	 *  l'handler viene settato sull'oggetto RuntimeException
 	 *  
 	 *  @see FormulaManager 

@@ -44,7 +44,7 @@ public class DTOClassificazione implements Serializable {
 	/** se selezionabile o meno*/
 	private boolean selezionabile;
 	
-	/** se la categoria è utilizzabile per nuovi inserimenti/modifiche */
+	/** se la categoria e' utilizzabile per nuovi inserimenti/modifiche */
 	private boolean attivo;
 	
 	

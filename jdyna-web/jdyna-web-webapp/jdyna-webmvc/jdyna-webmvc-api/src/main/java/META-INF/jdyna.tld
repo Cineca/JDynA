@@ -194,7 +194,7 @@
 </function>
 
 <!-- <function>
-	<description>Verifica se nella stringa di configurazione è specificata l'utilizzo dell'ora nel calendario js</description>
+	<description>Verifica se nella stringa di configurazione e' specificata l'utilizzo dell'ora nel calendario js</description>
 	<name>isTimeEnableInConfiguration</name>
 	<function-class>it.cilea.osd.common.util.triview.Utilities</function-class>
 	<function-signature>boolean isTimeEnableInConfiguration(java.lang.String)</function-signature>
@@ -250,7 +250,7 @@
 	<function-signature>java.util.List filtraAnnoMese(java.lang.String,java.lang.String,java.lang.Integer,java.lang.Integer,java.util.List)</function-signature>
 </function>	
 <function>
-	<description>Verifica se la mappa passata è null o contiene solo valori vuoti (null o collection di dimensione 0)</description>
+	<description>Verifica se la mappa passata e' null o contiene solo valori vuoti (null o collection di dimensione 0)</description>
 	<name>emptyMap</name>
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>boolean emptyMap(java.util.Map)</function-signature>

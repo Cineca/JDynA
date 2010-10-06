@@ -70,7 +70,7 @@ public abstract class AValue<P> extends IdentifiableObject {
 	}
 
 	/**
-	 * Questo metodo è esclusivamente ad uso interno e va implementato dalle
+	 * Questo metodo e' esclusivamente ad uso interno e va implementato dalle
 	 * sottoclassi per gestire correttamente la persistenza. Non utilizzare per altri casi d'uso.
 	 * Per settare il valore wrappato dalla classe utilizzare il metodo {@link #setOggetto(Object)}
 	 */

@@ -51,7 +51,7 @@ public class ImportConfigurazioneSoggettari extends BaseFormController {
 		MultipartFile file = (CommonsMultipartFile) bean.getFile();
 		File a = null;
 
-		// creo il file temporaneo che sarà caricato come contesto di spring
+		// creo il file temporaneo che sara' caricato come contesto di spring
 		a = File.createTempFile("jdyna_soggettari", ".xml", new File(path));
 		file.transferTo(a);
 
@@ -108,7 +108,7 @@ public class ImportConfigurazioneSoggettari extends BaseFormController {
 			try {
 				Soggetto soggettoDaImportare = (Soggetto) context
 						.getBean(soggettoDefinition);
-				// la classificazione non fa parte di un soggettario importato ma è
+				// la classificazione non fa parte di un soggettario importato ma e'
 				// un aggiornamento di un soggettario pre-esistente
 				if (!soggettariImportati.contains(soggettoDaImportare
 						.getSoggettario().getId())) {

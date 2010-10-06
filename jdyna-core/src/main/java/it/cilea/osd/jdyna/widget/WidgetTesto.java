@@ -65,16 +65,16 @@ public class WidgetTesto extends AWidget {
 	/** tipo di editor html da utilizzare: nessuno, FCKEditor completa o ridotta */
 	private String htmlToolbar;
 	
-	/** grandezza dell'area di testo, se textbox è il numero max di lunghezza, se textarea 
-	 *  è il numero di righe.
+	/** grandezza dell'area di testo, se textbox e' il numero max di lunghezza, se textarea 
+	 *  e' il numero di righe.
 	 */
 	@Embedded 
 	private Size dimensione;
 	
 	@Transient
 	/** la stringa di configurazione per il widget testo contiene in prima posizione, quindi nella posizione dedicata al
-	 *  display (al momento la struttura della stringa di configurazione è a 3 parametri divisi da un punto e virgola,
-	 *  e.g configuration:"<display>;<filtro>;<targetClass>"...è possibile aggiungere anche altri parametri per poi parserizzarli)
+	 *  display (al momento la struttura della stringa di configurazione e' a 3 parametri divisi da un punto e virgola,
+	 *  e.g configuration:"<display>;<filtro>;<targetClass>"...e' possibile aggiungere anche altri parametri per poi parserizzarli)
 	 */
 	private String configuration = "";
 

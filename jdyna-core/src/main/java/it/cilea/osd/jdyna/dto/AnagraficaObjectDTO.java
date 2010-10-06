@@ -36,9 +36,9 @@ public class AnagraficaObjectDTO implements Serializable, IAnagraficaObjectDTO {
 	
 	private Integer objectId;
 	/**
-	 * La chiave della mappa e lo shortName della tipologia di proprietà. 
+	 * La chiave della mappa e lo shortName della tipologia di proprieta'. 
 	 * I valori rappresentano la lista ordinata dei valori associati alle
-	 * proprietà della tipologia individuata dalla chiave
+	 * proprieta' della tipologia individuata dalla chiave
 	 */
 	private Map<String, List<ValoreDTO>> anagraficaProperties = new HashMap<String, List<ValoreDTO>>();
 

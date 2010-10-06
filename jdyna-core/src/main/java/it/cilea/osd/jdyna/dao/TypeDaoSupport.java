@@ -32,11 +32,11 @@ import java.util.List;
 
 public interface TypeDaoSupport <A extends ATipologia<TP>, TP extends PropertiesDefinition> {
 	/**
-	 * Restituisce la lista di tipologie proprietà ammissibili per la sottotipologia individuata da 
+	 * Restituisce la lista di tipologie proprieta' ammissibili per la sottotipologia individuata da 
 	 * <code>tipologiaOggetto</code> ({@link ATipologia}).
 	 * 
 	 * @param tipologiaOggetto, la Tipologia
-	 * @return lista di proprietà ammesse dal type
+	 * @return lista di proprieta' ammesse dal type
 	 */
 	public List<TP> findTipologieProprietaInTipologia(ATipologia<TP> tipologiaOggetto);
 	public List<TP> findTipologieProprietaInTipologiaAndShowInList(ATipologia<TP> tipologiaOggetto);

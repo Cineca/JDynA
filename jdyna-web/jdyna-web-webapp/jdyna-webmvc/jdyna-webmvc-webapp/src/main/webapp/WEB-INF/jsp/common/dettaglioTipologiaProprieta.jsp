@@ -2,7 +2,7 @@
 <%--VALIDATA XHTML 1.1 --%>
 
 <c:set var="commandObject" value="${tipologiaProprieta}" scope="request" />
-<fieldset><legend>Metaproprietà di presentazione e indicizzazione</legend>
+<fieldset><legend>Metaproprieta' di presentazione e indicizzazione</legend>
 	<div class="dynaField">
 		<span class="dynaLabel">
 			Shortname:
@@ -40,7 +40,7 @@
 
 	<div class="dynaField">
 		<span class="dynaLabel">
-			Obbligatorietà:
+			Obbligatorieta':
 		</span>
 		<div class="dynaFieldValue">
 			${tipologiaProprieta.obbligatorieta?'Si':'No'}
@@ -49,7 +49,7 @@
 
 	<div class="dynaField">
 		<span class="dynaLabel">
-			Ripetibilità:
+			Ripetibilita':
 		</span>
 		<div class="dynaFieldValue">
 			${tipologiaProprieta.ripetibile?'Si':'No'}
@@ -62,7 +62,7 @@
 
 	<div class="dynaField">
 		<span class="dynaLabel">
-			Priorità:
+			Priorita':
 		</span>
 		<div class="dynaFieldValue">
 			${tipologiaProprieta.priorita}
@@ -155,7 +155,7 @@
 </fieldset>
 	
 	
-<fieldset><legend>Metaproprietà di rendering e validazione</legend>
+<fieldset><legend>Metaproprieta' di rendering e validazione</legend>
 
 <c:if test="${tipologiaProprieta.rendering.class.simpleName == 'WidgetTesto'}">
 <div class="dynaField" >

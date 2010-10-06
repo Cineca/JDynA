@@ -54,7 +54,7 @@ public class WidgetClassificazione extends AWidget {
 	@Transient
 	private String triview;
 
-	/** la configurazione del widget è l'id dell'albero classificatorio*/
+	/** la configurazione del widget e' l'id dell'albero classificatorio*/
 	@Transient
 	private String configuration;
 	
@@ -137,7 +137,7 @@ public class WidgetClassificazione extends AWidget {
 
 	public void setAlberoClassificatorio(AlberoClassificatorio alberoClassificatorio) {
 		if(alberoClassificatorio == null) {
-			throw new IllegalArgumentException("Non c'è nessun albero classificatorio associato al widget");
+			throw new IllegalArgumentException("Non c'e' nessun albero classificatorio associato al widget");
 		}
 		this.alberoClassificatorio = alberoClassificatorio;
 	}

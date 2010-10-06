@@ -137,9 +137,9 @@ public class GestioneAlberoDTO extends BaseFormAction {
 		real.setNome(alberoDTO.getEditNome());		
 		
 		if(alberoDTO.isCreateSubClassificazione()) {
-			//devo creare la sottoclassificazione solo se l'albero non è flat
+			//devo creare la sottoclassificazione solo se l'albero non e' flat
 			if(alberoDTO.isFlat()) {
-				log.debug("Non è stata possibile creare la sottoclassificazione poichè l'albero è flat");
+				log.debug("Non e' stata possibile creare la sottoclassificazione poiche' l'albero e' flat");
 				Errors errors = new BindException(alberoDTO, "gestioneAlbero");
 				errors.rejectValue("createSubClassificazione","error.create.subclassificazione.albero.is.flat");
 				getFormErrors(context).addAllErrors(errors);	
@@ -219,7 +219,7 @@ public class GestioneAlberoDTO extends BaseFormAction {
 			applicationService.delete(Classificazione.class, classificazionePKEY);			
 		}
 		catch (Exception e) {			
-			log.debug("Non è stata possibile cancellare la classificazione");
+			log.debug("Non e' stata possibile cancellare la classificazione");
 			Errors errors = new BindException(alberoDTO, "gestioneAlbero");
 			errors.rejectValue("editID","error.delete.classificazione");
 			getFormErrors(context).addAllErrors(errors);

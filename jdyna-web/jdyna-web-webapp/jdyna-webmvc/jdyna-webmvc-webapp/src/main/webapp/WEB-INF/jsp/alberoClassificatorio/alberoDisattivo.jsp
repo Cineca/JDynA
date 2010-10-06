@@ -3,7 +3,7 @@
 
 <form:form commandName="classificazione" action="flusso.flow" method="post">
 
-L'albero selezionato non è attivo, selezionane un altro!
+L'albero selezionato non e' attivo, selezionane un altro!
 <br/>
 
 <%-- pulsanti di submit --%>

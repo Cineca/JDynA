@@ -29,7 +29,7 @@ import java.io.Serializable;
 
 
 /**
- * Oggetto che rappresenta un bean sul file di import delle proprietà dell'anagrafica, 
+ * Oggetto che rappresenta un bean sul file di import delle proprieta' dell'anagrafica, 
  * 
  * @author pascarelli
  *
@@ -38,7 +38,7 @@ public class ImportPropertyAnagraficaUtil implements Serializable {
 	/** Lo shortname della tipologia di proprieta */
 	private String shortname;
 	
-	/** Il valore della proprietà che si vuole importare 
+	/** Il valore della proprieta' che si vuole importare 
 	 *  NOTA:
 	 *  sull'xml può essere una 'stringa'-'una lista di stringhe'-'una lista di ImportPropertyAnagraficaUtil'
 	 * */

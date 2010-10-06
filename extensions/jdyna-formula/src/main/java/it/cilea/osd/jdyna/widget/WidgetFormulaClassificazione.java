@@ -40,7 +40,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 /**
- * WidgetFormula è una tipologia di rendering che mantiene al suo interno
+ * WidgetFormula e' una tipologia di rendering che mantiene al suo interno
  * un'espressione e una regola di ricalcolo per decidere se l'espressione
  * deve essere valutata in base a dei parametri.
  * @see FormulaManager, ProprietaDaRicalcolare

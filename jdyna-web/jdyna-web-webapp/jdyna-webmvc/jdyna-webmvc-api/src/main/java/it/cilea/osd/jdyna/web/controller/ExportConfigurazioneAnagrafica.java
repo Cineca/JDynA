@@ -90,7 +90,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 		writer.print("          </property>\n");
 		writer.print(" 		</bean>\n");
 
-		// Tipologie di proprietà
+		// Tipologie di proprieta'
 		List<TP> allTP = applicationService.getList(tpClass);
 		for (TP tp : allTP) {
 			if (tp.isTopLevel()) {
@@ -134,7 +134,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 	}
 	
 	/**
-	 * Imposta il nome che sarà assegnato al file di export
+	 * Imposta il nome che sara' assegnato al file di export
 	 * 
 	 * @param filename
 	 *            nome del file di export
@@ -145,7 +145,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 
 	/**
 	 * Metodo di supporto per esportare un widget nella sua "bean definition".
-	 * //FIXME valutare la possibilità di utilizzare il pattern decorator e/o il
+	 * //FIXME valutare la possibilita' di utilizzare il pattern decorator e/o il
 	 * polimorfismo implementando un'interfaccia IExportableBeanDefinition
 	 * 
 	 * @param writer
@@ -367,13 +367,13 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 	}
 
 	/**
-	 * Metodo di supporto per esportare una tipologia di proprietà nella sua
+	 * Metodo di supporto per esportare una tipologia di proprieta' nella sua
 	 * "bean definition". 
 	 * 
 	 * @param writer
 	 * @param widget
 	 */
-	//FIXME valutare la possibilità di introdurre un'interfaccia IExportableBeanDefinition
+	//FIXME valutare la possibilita' di introdurre un'interfaccia IExportableBeanDefinition
 	private void toXML(PrintWriter writer, TP tp) {
 		writer.print("    <bean id=\"" + tp.getShortName()
 				+ tpClass.getSimpleName() + "\" class=\""
@@ -451,7 +451,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 
 	/**
 	 * Metodo di supporto per esportare un'area nella sua "bean definition". Le
-	 * tipologie di proprietà mascherate sono referenziate localmente (bean ref)
+	 * tipologie di proprieta' mascherate sono referenziate localmente (bean ref)
 	 * 
 	 * @param writer
 	 * @param area
@@ -482,7 +482,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 
 	/**
 	 * Metodo di supporto per esportare una tipologia di oggetto nella sua "bean
-	 * definition". Le tipologie di proprietà mascherate sono referenziate
+	 * definition". Le tipologie di proprieta' mascherate sono referenziate
 	 * localmente (bean ref)
 	 * 
 	 * @param writer

@@ -12,7 +12,7 @@ public interface IPersistenceFormulaService extends IPersistenceDynaService, IEv
 	/**
 	 * Trova gli oggetti da ricalcolare utilizzando le informazioni clazz e id
 	 * del JPAEvent. NB: al momento la tipologia di evento non viene utilizzata,
-	 * il dato è stato memorizzato solo per la comodità di sfruttare la
+	 * il dato e' stato memorizzato solo per la comodita' di sfruttare la
 	 * defininizione del JPAEvent all'interno della definizione di
 	 * OggettoDaRicalcolare
 	 */

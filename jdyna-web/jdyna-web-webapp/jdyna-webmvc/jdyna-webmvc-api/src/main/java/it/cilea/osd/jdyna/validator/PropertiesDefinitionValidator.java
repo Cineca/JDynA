@@ -49,7 +49,7 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 
 			ValidationResult result2 = null;
 
-			// verifica se è unica
+			// verifica se e' unica
 			// controllo sul db che non ci siano shortname uguali
 			result2 = super.getValidatorService().checkShortName(
 					object.getClass(), metadato);
@@ -68,9 +68,9 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 
 		if (WidgetPointer.class.isAssignableFrom(aWidget.getClass())) {
 			WidgetPointer widgetPointer = (WidgetPointer) aWidget;
-			//si dovrebbe calcolare il display..cioè vedere se il percorso è coerente
-			//e.g. se il display è ${nome}[0] su un target di tipo Opera..allora 
-			//l'applicazione dovrebbe avvertire che il display non è coerente
+			//si dovrebbe calcolare il display..cioe' vedere se il percorso e' coerente
+			//e.g. se il display e' ${nome}[0] su un target di tipo Opera..allora 
+			//l'applicazione dovrebbe avvertire che il display non e' coerente
 //			String clazz = widgetPointer.getTarget();
 //			String display = widgetPointer.getDisplay();
 //			try {

@@ -52,9 +52,9 @@ import org.apache.commons.collections.list.LazyList;
  * 
  * @param
  * <P>
- * la classe delle proprietà presenti nell'anagrafica dell'oggetto
+ * la classe delle proprieta' presenti nell'anagrafica dell'oggetto
  * @param <TP>
- *            la classe delle tipologie di proprietà presenti nell'anagrafica
+ *            la classe delle tipologie di proprieta' presenti nell'anagrafica
  *            dell'oggetto
  * @param <A>
  *            la classe delle area applicabili all'anagrafica dell'oggetto
@@ -249,7 +249,7 @@ public class AnagraficaUtils {
 				anagraficaSupport.createProprieta(tipProprieta);
 			}
 			for (int i = 0; i < propDaEliminare; i++) {
-				// devo eliminare sempre l'ultima proprietà perché la lista è
+				// devo eliminare sempre l'ultima proprieta' perché la lista e'
 				// una referenza
 				// alla lista mantenuta dalla cache a4v che viene alterata dal
 				// removeProprieta
@@ -326,16 +326,16 @@ public class AnagraficaUtils {
 
 //	/**
 //	 * Cerca, nella lista passata come secondo argomento, la tipologia di
-//	 * proprietà che referenzia la combo in cui è contenuta la TP figlia.
+//	 * proprieta' che referenzia la combo in cui e' contenuta la TP figlia.
 //	 * 
 //	 * @param child
-//	 *            la tipologia di proprietà figlia (i.e. isTopLevel() == false)
+//	 *            la tipologia di proprieta' figlia (i.e. isTopLevel() == false)
 //	 * @param allTP
-//	 *            la lista di tutte le tipologie di proprietà in cui cercare
-//	 * @return la tipologia di proprietà padre o null se non è presente nella
+//	 *            la lista di tutte le tipologie di proprieta' in cui cercare
+//	 * @return la tipologia di proprieta' padre o null se non e' presente nella
 //	 *         lista
 //	 * @throws IllegalArgumentException
-//	 *             se la tipologia di proprietà indicata come figlia è topLevel
+//	 *             se la tipologia di proprieta' indicata come figlia e' topLevel
 //	 */
 //	public <TP extends PropertiesDefinition> TP findTipologiaProprietaParent(TP child, List<TP> allTP){
 //		return null;
@@ -368,8 +368,8 @@ public class AnagraficaUtils {
 					.getImportPropertyEditor(applicationService);
 		
 		P proprieta = null;
-		//se è una combo la tipologia devo creare la proprietà per il valore multi e cancellare le sotto proprieta create di default per ogni sotto tipologia
-		//in modo tale che quando capiterò nel caso della combo creo le sole sotto proprietà descritte dall'xml
+		//se e' una combo la tipologia devo creare la proprieta' per il valore multi e cancellare le sotto proprieta create di default per ogni sotto tipologia
+		//in modo tale che quando capiterò nel caso della combo creo le sole sotto proprieta' descritte dall'xml
 		if(tipologiaDaImportare.getRendering() instanceof WidgetCombo) {
 			 proprieta = anagraficaObject.createProprieta(tipologiaDaImportare);
 			 //((MultiValue<P, TP>)proprieta.getValore()).getOggetto().clear();
@@ -402,7 +402,7 @@ public class AnagraficaUtils {
 						valore.setOggetto(pe.getValue());
 						//proprieta.setValore(valore);
 					} else {
-						// è una combo...							
+						// e' una combo...							
 						importSottoProprieta(proprieta, anagraficaObject, (ImportPropertyAnagraficaUtil)elementList);				}
 				}
 
@@ -457,7 +457,7 @@ public class AnagraficaUtils {
 					//proprieta.setValore(valore);
 				//caso ricorsivo
 				} else {
-					// è una combo...
+					// e' una combo...
 					importSottoProprieta(proprieta, anagraficaObject, (ImportPropertyAnagraficaUtil)elementList);
 				}
 			}

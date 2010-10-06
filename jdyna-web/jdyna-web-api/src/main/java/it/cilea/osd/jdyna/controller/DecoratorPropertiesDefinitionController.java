@@ -79,7 +79,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 
 			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
 			
-			//cancello tutte le proprietà salvate in passato
+			//cancello tutte le proprieta' salvate in passato
 			applicationService.deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
 			//cancello se fanno parte di qualche property holder		
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);

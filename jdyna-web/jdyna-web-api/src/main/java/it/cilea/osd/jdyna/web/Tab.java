@@ -116,10 +116,10 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	}
 	
 	/**
-	 * Restituisce la lista delle tipologie di proprietà da <b>non</b> mostrare nell'area
+	 * Restituisce la lista delle tipologie di proprieta' da <b>non</b> mostrare nell'area
 	 * 
 	 * @author bollini
-	 * @return lista di tipologie di proprietà non ammesse nell'area
+	 * @return lista di tipologie di proprieta' non ammesse nell'area
 	 */
 	@Transient
 	@Sort(type=SortType.UNSORTED)

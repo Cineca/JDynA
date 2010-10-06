@@ -59,7 +59,7 @@ public class GestioneRicerca extends FormAction {
 				
 				if (sortParam != null && sortParam.startsWith(index+"_"))
 				{
-					// alla lunghezza del nome indice va sommato 1 perchè è stato aggiunto _
+					// alla lunghezza del nome indice va sommato 1 perche' e' stato aggiunto _
 					sort = sortParam.substring(index.length() + 1);
 					dir = (String) requestContext.getRequestParameters().get("dir");					
 				}

@@ -52,7 +52,7 @@ public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
 		log.debug("chiamato SoggettoConverter - setAsText"+text);
-		//la stringa che arriva è del tipo 'IDSOGGETTARIO:VOCESOGGETTO'
+		//la stringa che arriva e' del tipo 'IDSOGGETTARIO:VOCESOGGETTO'
 		//devo parserizzare
 		int index = text.indexOf("|||");
 		String linkvalue = "";

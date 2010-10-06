@@ -2,7 +2,7 @@ package it.cilea.osd.jdyna.service;
 
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-/** Classe di utilità per la validazione delle singole proprietà, 
+/** Classe di utilita' per la validazione delle singole proprieta', 
  *  offre anche altri metodi per validazioni specifiche 
  *  
  *  @author pascarelli

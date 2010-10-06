@@ -7,7 +7,7 @@ import it.cilea.osd.jdyna.model.Classificazione;
 import org.springframework.validation.Errors;
 import org.springframework.validation.ValidationUtils;
 
-/** Classe di utilità per la validazione delle singole proprietà, 
+/** Classe di utilita' per la validazione delle singole proprieta', 
  *  offre anche altri metodi per validazioni specifiche 
  *  
  *  @author pascarelli

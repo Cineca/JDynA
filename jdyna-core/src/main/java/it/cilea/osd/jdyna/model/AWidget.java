@@ -45,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
-/** Classe che rappresenta un Widget cioè una 
+/** Classe che rappresenta un Widget cioe' una 
  *  tipologia di valore gestibile dal sistema
  *  
  * @author biondo,pascarelli

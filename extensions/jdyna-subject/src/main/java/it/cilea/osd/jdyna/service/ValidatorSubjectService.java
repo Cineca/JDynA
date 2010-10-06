@@ -10,7 +10,7 @@ public class ValidatorSubjectService extends ValidatorService implements IValida
 		super(applicationService);		
 	}
 		
-	/** Controlla se la voce del soggetto è univoca sul soggettario padre */
+	/** Controlla se la voce del soggetto e' univoca sul soggettario padre */
 	public ValidationResult controllaVoceSuSoggettario(Soggettario soggettario,String voce) {
 		if(applicationService.findSoggetto(soggettario.getId(), voce)!=null) {					
 			return new ValidationResult(
@@ -20,7 +20,7 @@ public class ValidatorSubjectService extends ValidatorService implements IValida
 		return new ValidationResult();
 	}
 	
-	/** Controlla se il nome del soggettario è univoco nel db*/
+	/** Controlla se il nome del soggettario e' univoco nel db*/
 	public ValidationResult controllaNomeSuSoggettario(Soggettario soggettario,String nome) {
 		Soggettario soggettarioDaNome=applicationService.uniqueSoggettarioByName(nome);
 		/* se non ha l'id sto in creazione, se lo trovo col nome e0 duplicato*/

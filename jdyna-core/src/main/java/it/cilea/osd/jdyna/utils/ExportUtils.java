@@ -77,7 +77,7 @@ public class ExportUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * Crea una proprietà all'interno del marcatore settando anche il valore
+	 * Crea una proprieta' all'interno del marcatore settando anche il valore
 	 * 
 	 * @return l'elemento appena creato
 	 */
@@ -93,7 +93,7 @@ public class ExportUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * Crea una proprietà all'interno del marcatore con nomi e valori degli
+	 * Crea una proprieta' all'interno del marcatore con nomi e valori degli
 	 * attributi passati come parametri {@code 
 	 * Esempio: 
 	 * <example>
@@ -119,7 +119,7 @@ public class ExportUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * Crea una proprietà all'interno di un marcatore(root) settando anche un
+	 * Crea una proprieta' all'interno di un marcatore(root) settando anche un
 	 * insieme di valori
 	 * 
 	 * {@code 
@@ -142,7 +142,7 @@ public class ExportUtils implements ApplicationContextAware {
 	}
 
 	/**
-	 * Crea una proprietà all'interno del marcatore settando anche un insieme di
+	 * Crea una proprieta' all'interno del marcatore settando anche un insieme di
 	 * valori
 	 * 
 	 * {@code 

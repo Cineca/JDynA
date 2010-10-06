@@ -47,7 +47,7 @@ import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 
 /**
- * Rappresenta una singola proprietà dell'oggetto.
+ * Rappresenta una singola proprieta' dell'oggetto.
  * 
  * @author biondo,pascarelli
  * 
@@ -112,23 +112,23 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 
 
 	/**
-	 * Restituisce la posizione della proprietà all'interno della lista di proprietà della medesima tipologia.
-	 * La prima proprietà ha posizione 0.
+	 * Restituisce la posizione della proprieta' all'interno della lista di proprieta' della medesima tipologia.
+	 * La prima proprieta' ha posizione 0.
 	 * 
 	 * @see AnagraficaSupport#getProprietaDellaTipologia(PropertiesDefinition)
-	 * @return la posizione della proprietà
+	 * @return la posizione della proprieta'
 	 */
 	public int getPosition() {
 		return position;
 	}
 
 	/**
-	 * Imposta la posizione della proprietà all'interno della lista di proprietà della medesima tipologia<br>
+	 * Imposta la posizione della proprieta' all'interno della lista di proprieta' della medesima tipologia<br>
 	 * <b>Attenzione</b> l'utilizzo di questo metodo potrebbe introdurre disallineamenti nella lista sopra citata.
 	 * Utilizzare solamente per implementare i metodi dell'interfaccia <code>AnagraficaSupport</code>
 	 * 
 	 * @see AnagraficaSupport, AnagraficaSupport#getProprietaDellaTipologia(PropertiesDefinition)
-	 * @param posizione, la nuova posizione della proprietà
+	 * @param posizione, la nuova posizione della proprieta'
 	 */
 	public void setPosition(int posizione) {
 		this.position = posizione;
@@ -143,34 +143,34 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	}
 
 	/**
-	 * Restituisce la proprietà contenente la proprietà corrente o <code>null</code> se la proprietà è di primo livello
+	 * Restituisce la proprieta' contenente la proprieta' corrente o <code>null</code> se la proprieta' e' di primo livello
 	 * 
-	 * @return l'eventuale proprietà nel cui valore (MultiValue) è contenuta la proprietà corrente
+	 * @return l'eventuale proprieta' nel cui valore (MultiValue) e' contenuta la proprieta' corrente
 	 * @see MultiValue
 	 */
 	@Transient
 	public abstract Property<TP> getPropertyParent();
 	
 	/**
-	 * Setter per la proprietà contenitore.<br>
-	 * <b>Attenzione</b> la proprietà contenitore deve essere della medesima classe della proprietà corrente, altrimenti
+	 * Setter per la proprieta' contenitore.<br>
+	 * <b>Attenzione</b> la proprieta' contenitore deve essere della medesima classe della proprieta' corrente, altrimenti
 	 * deve essere sollevata una <code>ClassCastException</code>
 	 * 
-	 * @param proprietà nel cui valore (MultiValue) è contenuta la proprietà corrente, <code>null</code> se la proprietà è di primo livello
+	 * @param proprieta' nel cui valore (MultiValue) e' contenuta la proprieta' corrente, <code>null</code> se la proprieta' e' di primo livello
 	 */
 	public abstract void setParentProperty(Property<TP> property);	
 	
 	/**
-	 * Restituisce la tipologia di proprietà associata.
+	 * Restituisce la tipologia di proprieta' associata.
 	 * 
 	 * @see PropertiesDefinition 
-	 * @return la tipologia di proprietà associata.
+	 * @return la tipologia di proprieta' associata.
 	 */
 	@Transient
 	public abstract TP getTypo();
 	
 	/**
-	 * Setter per la tipologia di proprietà
+	 * Setter per la tipologia di proprieta'
 	 * 
 	 * @see PropertiesDefinition
 	 */
@@ -179,7 +179,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	
 	/**
 	 * Definisce il link all'indietro verso l'oggetto proprietario dell'anagrafica 
-	 * @param parent l'oggetto proprietario dell'anagrafica in cui compare la proprietà
+	 * @param parent l'oggetto proprietario dell'anagrafica in cui compare la proprieta'
 	 */
 	public abstract void setParent(AnagraficaSupport<? extends Property<TP>, TP> parent);
 
@@ -189,7 +189,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
      */
 	@Transient
 	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
-	//FIXME valutare l'opportunità di introdurre il pattern decorator per gestire i vari getObject, toString, toHTML, etc.
+	//FIXME valutare l'opportunita' di introdurre il pattern decorator per gestire i vari getObject, toString, toHTML, etc.
 	/**
 	 * Permette di restituire per qualsiasi valore della proprieta il generico
 	 * oggetto associato; ad esempio per una Stringa il valore della stringa,
@@ -203,15 +203,15 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 
 	/** 
 	 *  Restituisce la descrizione esatta del valore associato alla tipologia
-	 * 	che viene renderizzato tramite widget; è il widget che sa come visualizzare
-	 *  sulla view il valore della proprietà. 
+	 * 	che viene renderizzato tramite widget; e' il widget che sa come visualizzare
+	 *  sulla view il valore della proprieta'. 
 	 **/
 	@Override
 	public String toString() {		
 		if (getValue() != null && getValue().getObject() != null) {			
 			return getTypo().getRendering().toString(getValue().getObject());
 		}
-		log.warn("to string di Proprietà con valore null");
+		log.warn("to string di Proprieta' con valore null");
 		return super.toString();
 	}
 	
@@ -227,14 +227,14 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	
 	
 	/**
-	 * Confronta due proprietà prima in base alla tipologia e poi, nel caso queste coincidano, in base
-	 * alle rispettive posizioni. Se anche la posizione coincide vuol dire che si stanno confrontando proprietà
+	 * Confronta due proprieta' prima in base alla tipologia e poi, nel caso queste coincidano, in base
+	 * alle rispettive posizioni. Se anche la posizione coincide vuol dire che si stanno confrontando proprieta'
 	 * di oggetti differenti, a questo punto si guarda l'attributo sortValue del valore.
 	 * 
 	 * @see PropertiesDefinition#compareTo
 	 * @see #getPosition()
-	 * @param o la proprietà da comparare
-	 * @return come disporre in modo ordinato le due proprietà
+	 * @param o la proprieta' da comparare
+	 * @return come disporre in modo ordinato le due proprieta'
 	 */
 	public int compareTo(Property<TP> o) {
 		
@@ -277,7 +277,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 			try {
 				propConfronto = (Property<TP>) object;
 			} catch (ClassCastException e) {
-				log.warn("Attenzione, l'oggetto che hai passato al metodo equals non è una proprieta", e);
+				log.warn("Attenzione, l'oggetto che hai passato al metodo equals non e' una proprieta", e);
 				return false;
 			}
 		}

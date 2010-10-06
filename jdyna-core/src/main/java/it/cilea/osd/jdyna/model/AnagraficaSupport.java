@@ -33,12 +33,12 @@ import java.util.List;
 import java.util.Map;
 /**
  * Questa interfaccia deve essere implementata da tutti gli oggetti che vogliono gestire una anagrafica
- * dinamica di proprietà.
+ * dinamica di proprieta'.
  * 
  * @author bollini
  *
- * @param <P> la classe delle proprietà presenti nell'anagrafica dell'oggetto
- * @param <TP> la classe delle tipologie di proprietà presenti nell'anagrafica dell'oggetto
+ * @param <P> la classe delle proprieta' presenti nell'anagrafica dell'oggetto
+ * @param <TP> la classe delle tipologie di proprieta' presenti nell'anagrafica dell'oggetto
  * 
  */
 public interface AnagraficaSupport <P extends Property<TP>, TP extends PropertiesDefinition> extends Selectable {
@@ -52,11 +52,11 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	/**
      * Utilizzato per la fase di visualizzazione dell'anagrafica nel resoconto
      * degli oggetti, la lista come valore della mappa che viene tornata dal metodo
-     * indica che ad una tipologia di proprieta possono corrispondere più proprieta.
+     * indica che ad una tipologia di proprieta possono corrispondere piu' proprieta.
      * 
-     * @return Mappa key=shortname della tipologia di proprietà : value=lista di elementi
-     *         dell'anagrafica (se alla stessa key si riferisce una lista con più elementi vuol dire 
-     *         che la tipologia della proprieta è ripetibile) 
+     * @return Mappa key=shortname della tipologia di proprieta' : value=lista di elementi
+     *         dell'anagrafica (se alla stessa key si riferisce una lista con piu' elementi vuol dire 
+     *         che la tipologia della proprieta e' ripetibile) 
      */
     public Map<String, List<P>> getAnagrafica4view();
     
@@ -64,7 +64,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	 * Il metodo setta la nuova anagrafica cancellando la vecchia
 	 * in modo tale da settare anche il parent delle singole proprieta
 	 * a null (altrimenti si verrebbe a creare una doppia anagrafica).
-	 * E' responsabilità del setter garantire il corretto ordinamento dell'anagrafica
+	 * E' responsabilita' del setter garantire il corretto ordinamento dell'anagrafica
 	 * 
 	 * @param anagrafica la nuova anagrafica da settare
 	 */
@@ -72,30 +72,30 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce nell'anagrafica dell'oggetto.
-     * La nuova proprietà sarà posizionata ({@link Property#setPosition(int)}) in coda alle altre eventuali 
-     * proprietà della medesima tipologia. 
+     * La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) in coda alle altre eventuali 
+     * proprieta' della medesima tipologia. 
      * 
-     * @throws IllegalArgumentException se la tipologia di proprietà specificata non è di primo livello ({@link PropertiesDefinition#isTopLevel()} 
+     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' di primo livello ({@link PropertiesDefinition#isTopLevel()} 
      * @return la nuova proprieta creata 
      */
 	public P createProprieta(TP tipologiaProprieta) throws IllegalArgumentException;
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce nell'anagrafica dell'oggetto.
-     * La nuova proprietà sarà posizionata ({@link Property#setPosition(int)}) nella posizione specificata
-     * da <code>posizione</code> modificando coerentemente la posizione delle altre proprietà. Nel caso in cui
-     * la posizione specificata fosse superiore al numero di proprietà della tipologia specificata 
-     * ({@link #getProprietaDellaTipologia(PropertiesDefinition)}), la nuova proprietà sarà inserita in ultima 
+     * La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) nella posizione specificata
+     * da <code>posizione</code> modificando coerentemente la posizione delle altre proprieta'. Nel caso in cui
+     * la posizione specificata fosse superiore al numero di proprieta' della tipologia specificata 
+     * ({@link #getProprietaDellaTipologia(PropertiesDefinition)}), la nuova proprieta' sara' inserita in ultima 
      * posizione. 
      * 
-     * @throws IllegalArgumentException se la tipologia di proprietà specificata non è di primo livello ({@link PropertiesDefinition#isTopLevel()}
+     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' di primo livello ({@link PropertiesDefinition#isTopLevel()}
      * @return la nuova proprieta creata 
      */
 	public P createProprieta(TP tipologiaProprieta, Integer posizione) throws IllegalArgumentException;
 	
 	/**
 	 * Rimuove, se presente, la proprieta indicata dall'anagrafica dell'oggetto. 
-	 * Se la proprietà è una combo rimuove anche le sottoproprietà collegate
+	 * Se la proprieta' e' una combo rimuove anche le sottoproprieta' collegate
 	 *
 	 * @see Property#equals(Object)
 	 * @param la proprieta da rimuovere 
@@ -104,38 +104,38 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	public boolean removeProprieta(P proprieta);
 	
 	/**
-     * Data una tipologia di proprietà, restituisce la lista di proprietà di quella tipologia
+     * Data una tipologia di proprieta', restituisce la lista di proprieta' di quella tipologia
      * presenti nell'anagrafica del oggetto. La determinazione della corrispondenza tra la tipologia
-     * delle proprietà in anagrafica e la tipologia di proprietà passata come argomento è effettuata
+     * delle proprieta' in anagrafica e la tipologia di proprieta' passata come argomento e' effettuata
      * utilizzando il metodo <code>equals()</code>.
      * 
      * @see PropertiesDefinition#equals(Object)
-     * @param tipologiaProprieta La tipologia di proprietà da considerare
+     * @param tipologiaProprieta La tipologia di proprieta' da considerare
      * @return la lista di proprieta dell'anagrafica della tipologia tipologiaProprieta
      */
 	public List<P> getProprietaDellaTipologia(TP tipologiaProprieta);	
 	
 	/**
-     * Data una tipologia di proprietà, restituisce la lista di proprietà di quella tipologia
+     * Data una tipologia di proprieta', restituisce la lista di proprieta' di quella tipologia
      * presenti nella combo specificata. La determinazione della corrispondenza tra la tipologia
-     * delle proprietà in anagrafica e la tipologia di proprietà passata come argomento è effettuata
+     * delle proprieta' in anagrafica e la tipologia di proprieta' passata come argomento e' effettuata
      * utilizzando il metodo <code>equals()</code>.
      * 
      * @see PropertiesDefinition#equals(Object)
-     * @param tipologiaProprieta La tipologia di proprietà da considerare
+     * @param tipologiaProprieta La tipologia di proprieta' da considerare
      * @return la lista di sottoproprieta della tipologia tipologiaProprieta contenute nel combo specificato
      */
 	public List<P> getProprietaDellaTipologiaInValoreMulti(MultiValue<P,TP> valoreMulti,TP tipologiaProprieta);	
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce tra i ValoriMulti della proprieta
-     * padre specificata. La nuova proprietà sarà posizionata ({@link Property#setPosition(int)}) nella posizione 
-     * specificata da <code>posizione</code> modificando coerentemente la posizione delle altre proprietà. Nel caso in cui
-     * la posizione specificata fosse superiore al numero di proprietà della tipologia specificata 
-     * ({@link #getProprietaDellaTipologiaInValoreMulti(MultiValue, PropertiesDefinition)}), la nuova proprietà sarà inserita in ultima 
+     * padre specificata. La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) nella posizione 
+     * specificata da <code>posizione</code> modificando coerentemente la posizione delle altre proprieta'. Nel caso in cui
+     * la posizione specificata fosse superiore al numero di proprieta' della tipologia specificata 
+     * ({@link #getProprietaDellaTipologiaInValoreMulti(MultiValue, PropertiesDefinition)}), la nuova proprieta' sara' inserita in ultima 
      * posizione. 
      * 
-     * @throws IllegalArgumentException se la tipologia di proprietà specificata non è applicabile alla proprietà padre
+     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' applicabile alla proprieta' padre
      * 		   ({@link WidgetCombo#getSottoTipologie()}
      * @return la nuova proprieta creata 
      */	
@@ -144,21 +144,21 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce tra i ValoriMulti della proprieta
-     * padre specificata. La nuova proprietà sarà posizionata ({@link Property#setPosition(int)}) in coda 
-     * alle altre eventuali proprietà della medesima tipologia.  
+     * padre specificata. La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) in coda 
+     * alle altre eventuali proprieta' della medesima tipologia.  
      * 
-     * @throws IllegalArgumentException se la tipologia di proprietà specificata non è applicabile alla proprietà padre
+     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' applicabile alla proprieta' padre
      * 		   ({@link WidgetCombo#getSottoTipologie()}
      * @return la nuova proprieta creata 
      */
 	public P createProprieta(P proprieta, TP tipologiaProprieta);
 
 	/** 
-	 * Restituisce la classe di proprietà utilizzata per l'anagrafica dell'oggetto.
+	 * Restituisce la classe di proprieta' utilizzata per l'anagrafica dell'oggetto.
 	 * Deve estendere <code>Property&gt;TP&lt;</code>, dove TP estende <code>PropertiesDefinition</code>
 	 * 
 	 * @see Property
-	 * @return Restituisce la classe di proprietà utilizzata per l'anagrafica dell'oggetto
+	 * @return Restituisce la classe di proprieta' utilizzata per l'anagrafica dell'oggetto
 	 */
 	public Class<P> getClassProperty();
 	
@@ -182,7 +182,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	public void invalidateAnagraficaCache();
 	
 	/**
-	 * Pulisce l'anagrafica dalle proprietà non valorizzate
+	 * Pulisce l'anagrafica dalle proprieta' non valorizzate
 	 */
 	public void pulisciAnagrafica();
 	

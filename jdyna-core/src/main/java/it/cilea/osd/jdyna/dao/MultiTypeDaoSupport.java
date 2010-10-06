@@ -32,17 +32,17 @@ import java.util.List;
 
 public interface MultiTypeDaoSupport <A extends ATipologia<TP>, TP extends PropertiesDefinition> {
 	/**
-	 * Restituisce la lista di tipologie proprietà ammissibili per l'insieme di tipologie individuate da 
+	 * Restituisce la lista di tipologie proprieta' ammissibili per l'insieme di tipologie individuate da 
 	 * <code>listaTipologie</code>.
 	 * 
 	 * @author biondo
 	 * @param listaTipologie, lista delle tipologie
-	 * @param sizeList, la cardinalità dell'insieme di tipologie passate
-	 * Il parametro <code>sizeList</code> è necessario perchè durante la fase di intersezione delle
-	 * tipologie di proprietà delle varie categorie (tipologie), vengono selezionate quelle tipologie
-	 * di proprietà non comuni a tutte le categorie.
+	 * @param sizeList, la cardinalita' dell'insieme di tipologie passate
+	 * Il parametro <code>sizeList</code> e' necessario perche' durante la fase di intersezione delle
+	 * tipologie di proprieta' delle varie categorie (tipologie), vengono selezionate quelle tipologie
+	 * di proprieta' non comuni a tutte le categorie.
 	 * 
-	 * @return lista di tipologieproprietà ammesse dal type
+	 * @return lista di tipologieproprieta' ammesse dal type
 	 */
 	public List<TP> findTipologieProprietaAssegnabiliPerMultiType(List<? extends ATipologia<TP>> listaTipologie, long sizeList);
 	public List<TP> findTipologieProprietaAssegnabiliPerMultiTypeAndArea(List<? extends ATipologia<TP>> listaTipologie, long sizeList, Integer area);

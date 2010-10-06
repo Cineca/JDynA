@@ -28,7 +28,7 @@ public interface IPersistenceClassificationService extends IPersistenceDynaServi
 	 * @param attivo true se si vogliono recuperare solo le classificazioni attive, false per tutte
 	 * @return
 	 */
-	//TODO verificare se è più conveniente utilizzare i metodi di getTop e getSub del singolo albero/classificazione
+	//TODO verificare se e' piu' conveniente utilizzare i metodi di getTop e getSub del singolo albero/classificazione
 	public List<Classificazione> getSubClassificazioni(
 			Integer alberoPK, String codice, boolean attivo);
 

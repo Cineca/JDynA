@@ -83,7 +83,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	/** se obbligatorio */
 	private boolean mandatory;
 	
-	/** Ripetibilità*/
+	/** Ripetibilita'*/
 	private boolean repeatable;
 	
 	/** require new line after it */
@@ -97,7 +97,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	})	
 	private Size fieldMinSize;
 	
-	/**Etichetta della proprietà */	
+	/**Etichetta della proprieta' */	
 	private String label;
 	
 	/**Rendering*/
@@ -108,7 +108,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	private AWidget rendering;
     
 	/**
-	 * Definisce se questa tipologia di proprietà deve essere visualizzata 
+	 * Definisce se questa tipologia di proprieta' deve essere visualizzata 
 	 * nelle tabelle di riepilogo
 	 * 
 	 **/
@@ -116,28 +116,28 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	
 	@Column (nullable=true)
 	/** Definisce se la tipologia di proprieta deve essere mostrata in
-	 * 	modalità di creazione */
+	 * 	modalita' di creazione */
 	private boolean onCreation;
 	
 	/** 
-	 * Indica la priorità con cui deve essere visualizzata nei riepiloghi delle 
-	 * anagrafiche. Maggiore è la priorità prima sarà visualizzata la tipologia (default 0)
+	 * Indica la priorita' con cui deve essere visualizzata nei riepiloghi delle 
+	 * anagrafiche. Maggiore e' la priorita' prima sara' visualizzata la tipologia (default 0)
 	 **/
 	private int priority;
 	
 	@Type(type="text")
 	/**
-	 * Testo di help da mostrare durante l'editing di proprietà di questa tipologia
+	 * Testo di help da mostrare durante l'editing di proprieta' di questa tipologia
 	 */
 	private String help;
 	
-	/** Indica se la tipologia è di primo livello o meno (default true)*/	
+	/** Indica se la tipologia e' di primo livello o meno (default true)*/	
 	private boolean topLevel;
 	
-	/** Indica se la tipologia proprieta è da indicizzare per la ricerca semplice*/
+	/** Indica se la tipologia proprieta e' da indicizzare per la ricerca semplice*/
 	private boolean simpleSearch;
 
-	/** Indica se la tipologia proprieta è da indicizzare per la ricerca avanzata*/
+	/** Indica se la tipologia proprieta e' da indicizzare per la ricerca avanzata*/
 	private boolean advancedSearch;
 	
 	public Integer getLabelMinSize() {
@@ -261,10 +261,10 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	}
 	
 	/**
-	 * Restituisce l'ordinamento tra due tipologie di proprietà in base alla priorità. 
-	 * In caso di pari priorità viene utilizzato l'ordinamento alfabetico degli <code>shortName</code>
+	 * Restituisce l'ordinamento tra due tipologie di proprieta' in base alla priorita'. 
+	 * In caso di pari priorita' viene utilizzato l'ordinamento alfabetico degli <code>shortName</code>
 	 * 
-	 * @return l'ordinamento in base alla priorità
+	 * @return l'ordinamento in base alla priorita'
 	 * @see PropertiesDefinition#priority
 	 */	
 	public int compareTo(PropertiesDefinition secondTip) {		
@@ -314,19 +314,19 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 		this.help = help;
 	}
 		
-	/** Il metodo restituisce la classe dell'oggetto di riferimento della tipologia proprietà; 
+	/** Il metodo restituisce la classe dell'oggetto di riferimento della tipologia proprieta'; 
 	 * 	Ad esempio per l'oggetto TipologiaProprietaOpera restituisce Opera.class
 	 * */	
 	@Transient
 	public abstract Class getAnagraficaHolderClass();		
 	
-	/** Il metodo restituisce la classe della proprietà di riferimento della tipologia proprietà; 
+	/** Il metodo restituisce la classe della proprieta' di riferimento della tipologia proprieta'; 
 	 * 	Ad esempio per l'oggetto TipologiaProprietaOpera restituisce ProprietaOpera.class
 	 * */	
 	@Transient
 	public abstract Class getPropertyHolderClass();
 	
-	/** Il metodo restituisce il decorator di tipo contenibile per funzionalità web
+	/** Il metodo restituisce il decorator di tipo contenibile per funzionalita' web
 	 * */	
 	@Transient
 	public abstract Class getDecoratorClass();

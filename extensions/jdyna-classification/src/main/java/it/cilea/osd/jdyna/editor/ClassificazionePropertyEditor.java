@@ -43,8 +43,8 @@ public class ClassificazionePropertyEditor extends java.beans.PropertyEditorSupp
 	public void setAsText(String text) throws IllegalArgumentException,IndexOutOfBoundsException {
 		
 		 // dentro TEXT non arriva l'ID della classificazione,questo 
-		 // perchè nella classe Classificazione il getIdentifyingValue restituisce
-		 // il CODICE...è stato aggiunto anche l'id dell'albero classificatorio in modo
+		 // perche' nella classe Classificazione il getIdentifyingValue restituisce
+		 // il CODICE...e' stato aggiunto anche l'id dell'albero classificatorio in modo
 		// tale da fare la query
 		
 		//parserizzo la stringa text

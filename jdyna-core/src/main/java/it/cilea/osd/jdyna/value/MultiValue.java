@@ -70,18 +70,18 @@ public abstract class MultiValue<P extends Property<TP>, TP extends PropertiesDe
 	
 	/**
 	 * Utilizzato per la fase di visualizzazione/editing di un combo. La mappa
-	 * ha come chiave lo shortname della tipologia di proprietà e come valore la
-	 * lista di proprietà corrispondenti.
+	 * ha come chiave lo shortname della tipologia di proprieta' e come valore la
+	 * lista di proprieta' corrispondenti.
 	 * 
-	 * @return Mappa key=shortname della tipologia di proprietà : value=lista di
+	 * @return Mappa key=shortname della tipologia di proprieta' : value=lista di
 	 *         elementi dell'anagrafica (se alla stessa key si riferisce una
-	 *         lista con più elementi vuol dire che la tipologia della proprieta
-	 *         è ripetibile)
+	 *         lista con piu' elementi vuol dire che la tipologia della proprieta
+	 *         e' ripetibile)
 	 */
 	@Transient
 	public Anagrafica4View<P, TP> getAnagrafica4view() {
 		// Anagrafica4View<P, TP> cacheAnagr4View = null;
-		// verifico se ho già disponibile una cache
+		// verifico se ho gia' disponibile una cache
 		if (cacheAnagr4View != null) {
 			return cacheAnagr4View;
 		}
@@ -103,7 +103,7 @@ public abstract class MultiValue<P extends Property<TP>, TP extends PropertiesDe
 //					Hibernate.initialize(anagraficaObject.getAnagrafica());
 //				}
 //			}
-			// la lista real contiene solo le proprietà di primo livello della
+			// la lista real contiene solo le proprieta' di primo livello della
 			// combo, quindi vanno tutte inserite in a4v
 			List<P> appoggio = cacheAnagr4View.get(property.getTypo()
 					.getShortName());

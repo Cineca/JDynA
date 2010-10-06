@@ -45,7 +45,7 @@ import javax.persistence.Table;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 
 /**
- * WidgetFormula è una tipologia di rendering che mantiene al suo interno
+ * WidgetFormula e' una tipologia di rendering che mantiene al suo interno
  * un'espressione e una regola di ricalcolo per decidere se l'espressione
  * deve essere valutata in base a dei parametri.
  * @see FormulaManager, ProprietaDaRicalcolare
@@ -62,8 +62,8 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 public class WidgetFormulaTesto extends WidgetFormula {
 	
 	
-	/** grandezza dell'area di testo, se textbox è il numero max di lunghezza, se textarea 
-	 *  è il numero di righe.
+	/** grandezza dell'area di testo, se textbox e' il numero max di lunghezza, se textarea 
+	 *  e' il numero di righe.
 	 */
     @Embedded
     @AttributeOverrides( {

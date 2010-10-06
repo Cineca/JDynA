@@ -237,7 +237,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 					.getLocale()));
 		}
 		catch (Exception e){
-			log.error("Non è stato possibile eliminare l'oggetto " + e);
+			log.error("Non e' stato possibile eliminare l'oggetto " + e);
 			saveMessage(request, getText(i18nPrefix + ".notdeleted", request
 					.getLocale()));		
 			return new ModelAndView(detailsView+"?id="+epiobjectID, model);

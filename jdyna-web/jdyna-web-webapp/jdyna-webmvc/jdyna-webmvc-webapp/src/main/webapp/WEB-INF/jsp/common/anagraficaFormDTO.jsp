@@ -33,7 +33,7 @@ ${link.value}
 -->
 <form:form commandName="anagraficadto" action="" method="post">
 	<spring:hasBindErrors name="anagraficadto">
-		<div class="error">Non sarà possibile salvare i dati contenuti
+		<div class="error">Non sara' possibile salvare i dati contenuti
 		nel form fino a quando non saranno risolti i seguenti problemi
 		(cliccare sul messaggio per raggiungere rapidamente il campo in
 		errore):

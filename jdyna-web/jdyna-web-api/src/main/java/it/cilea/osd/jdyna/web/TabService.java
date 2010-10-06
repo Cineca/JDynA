@@ -44,7 +44,7 @@ public abstract class TabService extends PersistenceDynaService implements
 	 */
 	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deletePropertyHolderInTabs(Class<T> classTab, H holder) {
 		TabDao<H, T> tabDao = (TabDao<H,T>) getDaoByModel(classTab);
-		// trovo le aree dove è mascherata la tipologia di proprietà e rompo
+		// trovo le aree dove e' mascherata la tipologia di proprieta' e rompo
 		// l'associazione
 		List<T> tabs = tabDao.findTabsByHolder(holder);
 		for (T tab : tabs) {

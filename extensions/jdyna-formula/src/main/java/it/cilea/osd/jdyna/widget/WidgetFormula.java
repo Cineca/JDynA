@@ -42,7 +42,7 @@ import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Type;
 
 /**
- * WidgetFormula è una tipologia di rendering che mantiene al suo interno
+ * WidgetFormula e' una tipologia di rendering che mantiene al suo interno
  * un'espressione e una regola di ricalcolo per decidere se l'espressione
  * deve essere valutata in base a dei parametri.
  * @see FormulaManager, ProprietaDaRicalcolare
@@ -66,7 +66,7 @@ public abstract class WidgetFormula extends AWidget {
 	//in modo tale da castare il risultato che ne esce al tipo di risultato
 	//private String resultType;
 	
-	/** Serve per gestire la ripetibilità dei metadati */
+	/** Serve per gestire la ripetibilita' dei metadati */
 	@Type(type = "text")
 	private String resultNumber;
 	
@@ -138,7 +138,7 @@ public abstract class WidgetFormula extends AWidget {
 //			return (AValue) Class.forName(resultType).newInstance();
 //		} catch (Exception e) {
 //			log.error(e);
-//			throw new IllegalStateException("Il tipo di risultato previsto dalla formula non è supportato",e);
+//			throw new IllegalStateException("Il tipo di risultato previsto dalla formula non e' supportato",e);
 //		}
 //	}
 	
@@ -148,7 +148,7 @@ public abstract class WidgetFormula extends AWidget {
 //			return (Class<? extends AValue>) Class.forName(resultType);
 //		} catch (ClassNotFoundException e) {
 //			log.error(e);
-//			throw new IllegalStateException("Il tipo di risultato previsto dalla formula non è supportato",e);
+//			throw new IllegalStateException("Il tipo di risultato previsto dalla formula non e' supportato",e);
 //		}
 //	}
 	

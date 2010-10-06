@@ -89,8 +89,8 @@ public class SearchService implements ISearchDynaService {
 		
 		List result = fullTextQuery.list();
 		
-		log.debug("La query che si vuole eseguire è: "+fullTextQuery.getQueryString());
-		//index are written at commit time..ma essendo ora all'interno della transazionalità sotto spring il commit avviene in automatico
+		log.debug("La query che si vuole eseguire e': "+fullTextQuery.getQueryString());
+		//index are written at commit time..ma essendo ora all'interno della transazionalita' sotto spring il commit avviene in automatico
 		//tx.commit(); 
 		
 		//FIXME Chiudere la sessione!!!
@@ -150,9 +150,9 @@ public class SearchService implements ISearchDynaService {
 		
 		if (log.isDebugEnabled())
 		{
-			log.debug("La query che si vuole eseguire è: "+fullTextQuery.getQueryString());
+			log.debug("La query che si vuole eseguire e': "+fullTextQuery.getQueryString());
 		}
-		//index are written at commit time..ma essendo ora all'interno della transazionalità sotto spring il commit avviene in automatico
+		//index are written at commit time..ma essendo ora all'interno della transazionalita' sotto spring il commit avviene in automatico
 		//tx.commit(); 
 		
 		//FIXME Chiudere la sessione!!!
@@ -248,8 +248,8 @@ public class SearchService implements ISearchDynaService {
 		fullTextQuery.setMaxResults(10);
 		List<T> result = fullTextQuery.list();
 		
-		log.debug("La query che si vuole eseguire è: "+fullTextQuery.getQueryString());
-		//index are written at commit time..ma essendo ora all'interno della transazionalità sotto spring il commit avviene in automatico
+		log.debug("La query che si vuole eseguire e': "+fullTextQuery.getQueryString());
+		//index are written at commit time..ma essendo ora all'interno della transazionalita' sotto spring il commit avviene in automatico
 		//tx.commit(); 
 		
 		//FIXME Chiudere la sessione!!!
@@ -328,8 +328,8 @@ public class SearchService implements ISearchDynaService {
 		}
 		List result = fullTextQuery.list();
 		
-		log.debug("La query che si vuole eseguire è: "+fullTextQuery.getQueryString());
-		//index are written at commit time..ma essendo ora all'interno della transazionalità sotto spring il commit avviene in automatico
+		log.debug("La query che si vuole eseguire e': "+fullTextQuery.getQueryString());
+		//index are written at commit time..ma essendo ora all'interno della transazionalita' sotto spring il commit avviene in automatico
 		//tx.commit(); 
 		
 		//FIXME Chiudere la sessione!!!

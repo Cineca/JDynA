@@ -53,10 +53,10 @@ import org.springframework.util.StringUtils;
 
 /**
  * Manager delle formule, sul save or update di un oggetto verifica se in
- * qualche formula l'oggetto è implicato, verifica se è possibile calcolarlo e
+ * qualche formula l'oggetto e' implicato, verifica se e' possibile calcolarlo e
  * fa il parser della formula con OGNL,trasforma l'espressione del WidgetFormula
  * seguendo delle regole.
- * TODO spostare la logica di calcolo delle formule su un altra classe poichè condivisa da molti servizi
+ * TODO spostare la logica di calcolo delle formule su un altra classe poiche' condivisa da molti servizi
  *     
  * 
  * @author pascarelli
@@ -82,7 +82,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	
 	/**
 	 * Metodo che ascolta i messaggi che arrivano dal saveOrUpdate per ricalcolare le formule riferite
-	 * alla variabile che si è editata.
+	 * alla variabile che si e' editata.
 	 * 
 	 * @param variabileId l'id dell'oggetto da cercare nella lista di oggetti Variabile di ProprietaDaRicalcolare 
 	 * @param classe  la classe dell'oggetto da cercare nella lista di oggetti Variabile di ProprietaDaRicalcolare
@@ -107,19 +107,19 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	
 	/** Trasforma l'expression scritta dall'utente (salvata su db) in una regola comprensibile a OGNL; 
 	 *  REGOLE:
-	 *  -   l'utente inserirà una espressione del tipo '${costo}[1]', questa espressione verrà trasformata in un formato
-	 *  	leggibile a OGNL quindi diventerà 'anagrafica4view['costo'][1].object';
-	 *  -   la stringa '${costo}[n]' diventerà 'anagrafica4view['costo'][n].object';
+	 *  -   l'utente inserira' una espressione del tipo '${costo}[1]', questa espressione verra' trasformata in un formato
+	 *  	leggibile a OGNL quindi diventera' 'anagrafica4view['costo'][1].object';
+	 *  -   la stringa '${costo}[n]' diventera' 'anagrafica4view['costo'][n].object';
 	 *  -   ATT!!! se ho una combo bisogna valutarla in modo
 	 *  	tale che se la stringa immessa dall'utente sia '${combo[${idx}].costo[1]*IVA}' bisogna 
 	 *  	valutare per prima la combo con il suo idx passato come parametro per 
 	 *  	poi prendere il giusto valore dell'elemento costo;
 	 *  -   se non voglio utilizzare idx lo metto a null (ad esempio quando voglio solamente parserizzare una stringa)
-	 *  - 	Per la ripetibilità nella formula bisogna inserire un resultIdx in modo tale da sostituirlo con quello passato come parametro
+	 *  - 	Per la ripetibilita' nella formula bisogna inserire un resultIdx in modo tale da sostituirlo con quello passato come parametro
 	 *      Es. se l'utente chiama questo metodo con un'espressione del tipo opera.${test}[${resultIdx}] con parametro resultIdx uguale a 4
-	 *      allora il metodo cercherà la 4 proprieta ripetibile nell'anagrafica 4 view  
+	 *      allora il metodo cerchera' la 4 proprieta ripetibile nell'anagrafica 4 view  
 	 *  -   Il metodo deve essere chiamato sempre con parametro resultIdx uguale a 0 in modo tale da verificare se 
-	 *      la formula contiene o meno la stringa resultIdx nell'espressione e quindi poter valutare o meno la ripetibilità
+	 *      la formula contiene o meno la stringa resultIdx nell'espressione e quindi poter valutare o meno la ripetibilita'
 	 *  
 	 * @param idx indice di posizione della proprieta 
 	 * @param resultIdx indice di posizione della proprieta ripetibile (se null cerca di restituire la lista di proprieta dell'anagrafica)
@@ -156,8 +156,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	 * dal metodo <em>getOgnlExpression</em> 
 	 * 
 	 * @see getOgnlExpression
-	 * @param expression è la formula
-	 * @param rootObject è l'oggetto su cui valutare la formula
+	 * @param expression e' la formula
+	 * @param rootObject e' l'oggetto su cui valutare la formula
 	 * @param idx indice di posizione della proprieta 
 	 * @author pascarelli
 	 * @throws OgnlException 
@@ -171,8 +171,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	 * dal metodo <em>getOgnlExpression</em> 
 	 * 
 	 * @see getOgnlExpression
-	 * @param expression è la formula
-	 * @param rootObject è l'oggetto su cui valutare la formula
+	 * @param expression e' la formula
+	 * @param rootObject e' l'oggetto su cui valutare la formula
 	 * @author pascarelli
 	 * @throws OgnlException */
 	public static Object calcoloValore(String expression, Object rootObject,
@@ -225,8 +225,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	}
 	
 	/**
-	 * Metodo di utilità per la registrazione di formule appena create,
-	 * itera sull'anagrafica verificando se l'oggetto è di tipo WidgetFormula,
+	 * Metodo di utilita' per la registrazione di formule appena create,
+	 * itera sull'anagrafica verificando se l'oggetto e' di tipo WidgetFormula,
 	 * una volta verificato questo registra la formula nel ProprietaDaRicalcolare.
 	 * 
 	 * @param oggetto di tipo AnagraficaSupport quindi contenente un anagrafica;
@@ -248,7 +248,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 		for(TP tip : tipologieConRenderingFormula) {
 			if (!tip.isTopLevel()){	
 				for(P p: oggetto.getProprietaDellaTipologia(tip)) {				
-					log.debug("estraggo le variabili dalla proprietà: "+p);
+					log.debug("estraggo le variabili dalla proprieta': "+p);
 					variabili.addAll(getEventiVariabili(p));
 				}
 			} else {
@@ -284,7 +284,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	
 	/**
 	 * Metodo che calcola le formule sull'oggetto con anagrafica passato come
-	 * parametro, verificando la eventuale ripetibilità delle proprieta di cui
+	 * parametro, verificando la eventuale ripetibilita' delle proprieta di cui
 	 * si vogliono calcolare le formule e valutando la regola di ricalcolo.
 	 * 
 	 * @param oggetto
@@ -303,8 +303,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 		for(TP tip : tipologieConRenderingFormula) {
 			log.debug("ciclando sulle tipologie di proprieta per trovare tp con rendering widgetformula in ricalcolaFormule");		
 							
-			log.debug("la tipologia di proprietà: " + tip.getShortName()
-						+ " è una formula");
+			log.debug("la tipologia di proprieta': " + tip.getShortName()
+						+ " e' una formula");
 				WidgetFormula widgetFormula = (WidgetFormula) tip.getRendering();
 			if (tip.isTopLevel()) {
 				boolean result = valutaRegolaDiCalcolo(
@@ -334,8 +334,8 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 //						
 //					}				
 //										
-					//se non è null calcolo il result number della formula e itero per ricalcolare le formule
-					//altrimenti devo se è null vuol dire che non è ripetibile
+					//se non e' null calcolo il result number della formula e itero per ricalcolare le formule
+					//altrimenti devo se e' null vuol dire che non e' ripetibile
 					String resultNumberString = widgetFormula.getResultNumber();
 					Integer resultNumber = 1;
 					if(resultNumberString!=null && resultNumberString.length()!=0){
@@ -344,7 +344,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 						}
 						catch (RuntimeException e) {
 							resultNumber = 0;
-							log.warn("non è stato possibile calcolare il resultNumber" + e.getStackTrace());
+							log.warn("non e' stato possibile calcolare il resultNumber" + e.getStackTrace());
 						}
 					}
 						for(int i = 0; i<resultNumber; i++) {
@@ -394,15 +394,15 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 				else {
 				// per le combo
 
-				// FIXME l'idx non è sempre sufficiente, occorrerebbe poter
+				// FIXME l'idx non e' sempre sufficiente, occorrerebbe poter
 				// accedere
 				// anche agli idx del contenitore della combo (>livello2)
-				// probabilmente sarebbe più comodo disporre di un "this" come
-				// referenza alla proprietà in cui inserire il valore
+				// probabilmente sarebbe piu' comodo disporre di un "this" come
+				// referenza alla proprieta' in cui inserire il valore
 				// calcolato...
 
 				TP tpCombo = applicationService.getTipologiaProprietaComboWith(tip,oggetto.getClassPropertiesDefinition());
-				//solo se la combo è di primo livello 
+				//solo se la combo e' di primo livello 
 				if (tpCombo.isTopLevel()) {
 					List<P> pList = oggetto.getProprietaDellaTipologia(tpCombo);
 					if (pList.size() == 0){ 
@@ -440,9 +440,9 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 										.get(proprietaDaCancellare.size() - 1 - i));
 							}
 
-							// se non è null calcolo il result number della formula
+							// se non e' null calcolo il result number della formula
 							// e itero per ricalcolare le formule
-							// altrimenti devo se è null vuol dire che non è
+							// altrimenti devo se e' null vuol dire che non e'
 							// ripetibile
 							String resultNumberString = widgetFormula
 									.getResultNumber();
@@ -550,7 +550,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 	 * proprieta)
 	 * 
 	 * @param p
-	 *            la proprieta su cui è registrata la formula
+	 *            la proprieta su cui e' registrata la formula
 	 * @param mem
 	 *            il gestore per l'evento ModelEvento
 	 * 
@@ -575,7 +575,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 
 				// si valutano le stringhe contenute nella lista variabili
 				// del widget formula
-				// l'oggetto su cui vengono valutate è il padre della
+				// l'oggetto su cui vengono valutate e' il padre della
 				// proprieta
 				if (StringUtils.hasText(variabile)) {
 
@@ -604,7 +604,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 								}
 							} else {
 								log
-										.warn("Errore nel calcolo formula in metodo getEventiVariabili: il risultato della valutazione non è Identifiable o una Collection");
+										.warn("Errore nel calcolo formula in metodo getEventiVariabili: il risultato della valutazione non e' Identifiable o una Collection");
 							}
 						
 					} catch (RuntimeException e) {

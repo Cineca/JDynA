@@ -67,7 +67,7 @@ public class ClassificationExportUtils implements ApplicationContextAware {
 	
 	/**
 	 * Metodo di supporto per esportare un albero classificatorio nella sua
-	 * "bean definition". //FIXME valutare la possibilità di utilizzare il
+	 * "bean definition". //FIXME valutare la possibilita' di utilizzare il
 	 * polimorfismo implementando un'interfaccia IExportableBeanDefinition
 	 * 
 	 * @param writer
@@ -116,7 +116,7 @@ public class ClassificationExportUtils implements ApplicationContextAware {
 
 	/**
 	 * Metodo di supporto per esportare una classificazione nella sua "bean
-	 * definition". //FIXME valutare la possibilità di utilizzare il
+	 * definition". //FIXME valutare la possibilita' di utilizzare il
 	 * polimorfismo implementando un'interfaccia IExportableBeanDefinition
 	 * 
 	 * @param writer

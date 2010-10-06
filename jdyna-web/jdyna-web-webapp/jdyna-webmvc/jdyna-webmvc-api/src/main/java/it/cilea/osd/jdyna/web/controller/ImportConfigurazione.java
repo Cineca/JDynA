@@ -56,7 +56,7 @@ public class ImportConfigurazione<TY extends ATipologia<TP>,TP extends Propertie
 			MultipartFile file = (CommonsMultipartFile)bean.getFile();		
 			File a = null;
 
-			//creo il file temporaneo che sarà caricato come contesto di spring per caricare la configurazione degli oggetti
+			//creo il file temporaneo che sara' caricato come contesto di spring per caricare la configurazione degli oggetti
 			a = File.createTempFile("jdyna", ".xml", new File(path));
 			file.transferTo(a);
 			
@@ -113,7 +113,7 @@ public class ImportConfigurazione<TY extends ATipologia<TP>,TP extends Propertie
 				}
 				w++;
 			}
-			// check sulla tipologia poichè ci sono oggetti che non hanno la tipologia tipo Opera e Parte
+			// check sulla tipologia poiche' ci sono oggetti che non hanno la tipologia tipo Opera e Parte
 			if (typeClass != null) {
 			String[] typeDefinitions = context.getBeanNamesForType(typeClass);
 			int r = 0;

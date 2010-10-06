@@ -45,7 +45,7 @@ public interface IPersistenceDynaService extends IPersistenceService {
 //	/**
 //	 * Trova gli oggetti da ricalcolare utilizzando le informazioni clazz e id
 //	 * del JPAEvent. NB: al momento la tipologia di evento non viene utilizzata,
-//	 * il dato è stato memorizzato solo per la comodità di sfruttare la
+//	 * il dato e' stato memorizzato solo per la comodita' di sfruttare la
 //	 * defininizione del JPAEvent all'interno della definizione di
 //	 * OggettoDaRicalcolare
 //	 */
@@ -67,7 +67,7 @@ public interface IPersistenceDynaService extends IPersistenceService {
 //	void deleteOggettoDaRicalcolareByOggetto(Integer id, String canonicalName);
 
 	/**
-	 * Trova tutte le proprietà con il parent e la tipologia passata come
+	 * Trova tutte le proprieta' con il parent e la tipologia passata come
 	 * parametro
 	 */
 	public <P extends Property<TP>, TP extends PropertiesDefinition> List<P> getProprietaByParentAndTipologia(
@@ -81,7 +81,7 @@ public interface IPersistenceDynaService extends IPersistenceService {
 			TP sottoTipologiaProprieta, Class<TP> classTipologiaProprieta);
 
 	/**
-	 * Restituisce la tipologia di proprietà (unica) data dallo shortName passato come parametro 
+	 * Restituisce la tipologia di proprieta' (unica) data dallo shortName passato come parametro 
 	 * 
 	 * @see PropertiesDefinitionDao#uniqueByShortName(String)
 	 * @param clazz - la classe di tipologia proprieta su cui cercare 
@@ -196,7 +196,7 @@ public interface IPersistenceDynaService extends IPersistenceService {
 
 
 
-	/** Conta il numero di dati(le proprietà) associati alla tipologia di proprieta 
+	/** Conta il numero di dati(le proprieta') associati alla tipologia di proprieta 
 	 * 
 	 * @param tipologiaProprietaID : l'id della tipologia
 	 * @return il numero di proprieta trovate con quella tipologia

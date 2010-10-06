@@ -35,7 +35,7 @@ public class SoggettarioValidator extends JDynaBaseValidator {
 				 
 
 	
-	/** Verifica se la voce è stata inserita ed è unica sul soggettario.
+	/** Verifica se la voce e' stata inserita ed e' unica sul soggettario.
 	 */
 	public void validateVoce(Soggettario soggettario,Errors errors)  {
 			ValidationResult result = validatorService.controllaNomeSuSoggettario(soggettario, soggettario.getNome());

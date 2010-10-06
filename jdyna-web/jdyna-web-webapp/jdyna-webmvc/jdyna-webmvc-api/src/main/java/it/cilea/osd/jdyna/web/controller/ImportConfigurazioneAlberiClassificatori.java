@@ -50,7 +50,7 @@ public class ImportConfigurazioneAlberiClassificatori extends
 		MultipartFile file = (CommonsMultipartFile) bean.getFile();
 		File a = null;
 
-		// creo il file temporaneo che sarà caricato come contesto di spring
+		// creo il file temporaneo che sara' caricato come contesto di spring
 		a = File.createTempFile("jdyna", ".xml", new File(path));
 		file.transferTo(a);
 

@@ -47,12 +47,12 @@ import org.hibernate.search.bridge.LuceneOptions;
 /**
  * @author biondo, bollini, pascarelli
  * 
- * Questo bridge permette di trattare le proprietà dinamiche dell'anagrafica
+ * Questo bridge permette di trattare le proprieta' dinamiche dell'anagrafica
  * come se fossero attributi espliciti dell'oggetto. Se la tipologia di
- * proprietà prevede l'indicizzazione avanzata del valore allora lo
- * {@link PropertiesDefinition#getShortName() shortname} della tipologia sarà
- * utilizzata come nome dell'indice. Se la tipologia di proprietà prevede
- * l'inserimento nella ricerca semplice allora il valore sarà inserito
+ * proprieta' prevede l'indicizzazione avanzata del valore allora lo
+ * {@link PropertiesDefinition#getShortName() shortname} della tipologia sara'
+ * utilizzata come nome dell'indice. Se la tipologia di proprieta' prevede
+ * l'inserimento nella ricerca semplice allora il valore sara' inserito
  * all'interno dell'indice <b>default</b>.
  * 
  * @see PropertiesDefinition#isSimpleSearch()
@@ -97,8 +97,8 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 	 */
 	private String indicizzaDyna(String name, Object obj, Document doc,
 			Store store, Index idx, Float boost) {
-		// la costante wrapped indica che il campo è wrappato nel contenitore e
-		// le sue proprietà dinamiche devono essere indicizzate come se si
+		// la costante wrapped indica che il campo e' wrappato nel contenitore e
+		// le sue proprieta' dinamiche devono essere indicizzate come se si
 		// trovassero ad un livello superiore
 		
 		if (WRAPPED.equals(name)){
@@ -158,7 +158,7 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 						
 			
 			// gestisco un indice di ordinamento in cui inserisco
-			// solo la prima proprietà di ogni tipologia
+			// solo la prima proprieta' di ogni tipologia
 			if (prop.getPosition() == 0
 					&& fieldName.equals(tipProp.getShortName())
 					&& avalore.getSortValue() != null) {
@@ -178,21 +178,21 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 			}
 
 			// se stiamo indicizzando l'oggetto principale l'indice
-			// di default sarà: default
+			// di default sara': default
 			// se invece stiamo indicizzando un sotto-oggetto es
-			// opera.collana.shortnametipologia sarà utilizzato
+			// opera.collana.shortnametipologia sara' utilizzato
 			// l'indice collana (ovvero il nome del sotto-oggetto)
 			String fieldDefault = name.equals("") ? "default"
 					: name.substring(0, name.length() - 1);
 
 			if (contenuto instanceof AnagraficaSupport) {
 				log
-						.debug("Il valore che indicizzo è un puntatore ad un oggetto con Anagrafica - fieldName: "
+						.debug("Il valore che indicizzo e' un puntatore ad un oggetto con Anagrafica - fieldName: "
 								+ fieldName);
-				// se è prevista la ricerca avanzata devo creare indici del tipo
+				// se e' prevista la ricerca avanzata devo creare indici del tipo
 				// oggettoprinc.oggettosec; oggettoprinc.oggettosec.default e
 				// oggettoprinc.oggettosec.shortname per ogni tp dell'oggetto sec di 
-				// cui è prevista la ricerca avanzata
+				// cui e' prevista la ricerca avanzata
 			
 				if (tipProp.isAdvancedSearch()) {
 					indicizzaDyna(fieldName + ".", contenuto, doc, store, idx, boost);
@@ -205,7 +205,7 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 					}
 				}
 				
-				// se è prevista la ricerca semplice allora devo inserire le proprietà
+				// se e' prevista la ricerca semplice allora devo inserire le proprieta'
 				// semplici dell'oggetto secondario nell'indice di default dell'oggetto
 				// principale
 				if (tipProp.isSimpleSearch())
@@ -214,7 +214,7 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 				}
 			}// else if (contenuto instanceof List) {
 				// non faccio nulla, saranno indicizzate solo le
-				// sotto proprietà contenute
+				// sotto proprieta' contenute
 			//}
 			else {
 				String[] fieldValues = avalore.getTokenizedValue();
@@ -223,7 +223,7 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 						//String fieldValue = contenuto.toString();
 						if (fieldValue.length()!=0) {
 							// se il name finisce per default. vuol dire che siamo stati chiamati
-							// per ricorsione durante l'indicizzazione semplice di una proprietà
+							// per ricorsione durante l'indicizzazione semplice di una proprieta'
 							// che puntava ad un'oggetto dotato di anagrafica dinamica
 							if (tipProp.isAdvancedSearch() && !name.endsWith("default.")) {
 								Field field = new Field(fieldName,
@@ -267,9 +267,9 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 							}
 						} else {
 							log
-									.debug("Valore vuoto non indicizzato! proprietà tp: "
+									.debug("Valore vuoto non indicizzato! proprieta' tp: "
 											+ prop.getTypo().getShortName()
-											+ " proprietà pos: "
+											+ " proprieta' pos: "
 											+ prop.getPosition());
 						}
 					}
@@ -280,7 +280,7 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 						//String fieldValue = contenuto.toString();
 						if (fieldValue.length()!=0) {
 							// se il name finisce per default. vuol dire che siamo stati chiamati
-							// per ricorsione durante l'indicizzazione semplice di una proprietà
+							// per ricorsione durante l'indicizzazione semplice di una proprieta'
 							// che puntava ad un'oggetto dotato di anagrafica dinamica
 							if (tipProp.isAdvancedSearch() && !name.endsWith("default.")) {
 								Field field = new Field(fieldName,
@@ -324,9 +324,9 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 							}
 						} else {
 							log
-									.debug("Valore vuoto non indicizzato! proprietà tp: "
+									.debug("Valore vuoto non indicizzato! proprieta' tp: "
 											+ prop.getTypo().getShortName()
-											+ " proprietà pos: "
+											+ " proprieta' pos: "
 											+ prop.getPosition());
 						}
 					}
@@ -334,8 +334,8 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 			}
 		} else {
 			log.debug("Valore non indicizzato! contenuto: "
-					+ contenuto + " proprietà tp: "
-					+ prop.getTypo().getShortName() + " proprietà pos: "
+					+ contenuto + " proprieta' tp: "
+					+ prop.getTypo().getShortName() + " proprieta' pos: "
 					+ prop.getPosition());
 		}
 	}

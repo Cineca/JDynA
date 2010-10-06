@@ -384,7 +384,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	 */
 	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
 			TypeSupport<P, TP> oggetto) {
-		log.debug("Predispongo le proprietà per la tipologia: "
+		log.debug("Predispongo le proprieta' per la tipologia: "
 				+ oggetto.getTipologia());
 		List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
 		fitAnagrafica(oggetto, tpoList, false);
@@ -395,7 +395,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	 */
 	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
 			TypeSupport<P, TP> oggetto) {
-		log.debug("Predispongo le proprietà per la tipologia: "
+		log.debug("Predispongo le proprieta' per la tipologia: "
 				+ oggetto.getTipologia());
 		List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
 		fitAnagrafica(oggetto, tpoList, true);
@@ -430,13 +430,13 @@ public class PersistenceDynaService extends PersistenceService implements
 	 *            area
 	 * @param oggetto
 	 *            l'oggetto sul quale si vuole avere la certazza della presenza
-	 *            di proprietà di una particolare lista di tipologie
+	 *            di proprieta' di una particolare lista di tipologie
 	 * @param tpoList
-	 *            la lista delle tipologie di proprietà da rendere disponibili
+	 *            la lista delle tipologie di proprieta' da rendere disponibili
 	 *            nell'oggetto (saranno filtrate sulle sole topLevel)
 	 * @param onCreation
 	 *            mettere a true se si vuole limitare la lista delle tipologie
-	 *            di proprietà passate alle sole "onCreation"
+	 *            di proprieta' passate alle sole "onCreation"
 	 */
 	private <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
 			AnagraficaSupport<P, TP> oggetto, List<TP> tpoList,

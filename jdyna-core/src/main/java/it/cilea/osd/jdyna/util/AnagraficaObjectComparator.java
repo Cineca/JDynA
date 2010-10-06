@@ -34,13 +34,13 @@ import java.util.List;
 
 public class AnagraficaObjectComparator <P extends Property<TP>, TP extends PropertiesDefinition> implements Comparator<AnagraficaObject<P, TP>> {
 
-	/** shortName della tipologia di proprietà da utilizzare per la comparazione */
+	/** shortName della tipologia di proprieta' da utilizzare per la comparazione */
 	private String shortName;
 	
 	/** moltiplicatore indicante la direzione di ordinamento: inverso=-1 normale=1*/
 	private int inverse = 1;
 	
-	/** comparator di proprietà, utilizzato internamente per confrontare gli oggetti dotati di anagrafica */
+	/** comparator di proprieta', utilizzato internamente per confrontare gli oggetti dotati di anagrafica */
 	private ProprietaComparator<P, TP> proprietaComparator = new ProprietaComparator<P, TP>();
 	
 	public AnagraficaObjectComparator(String shortName, boolean inverse) {

@@ -54,7 +54,7 @@ public class ImportAnagraficaObject<P extends Property<TP>,TP extends Properties
 			MultipartFile file = (CommonsMultipartFile)bean.getFile();		
 			File a = null;
 
-			//creo il file temporaneo che sarà caricato come contesto di spring per caricare la configurazione degli oggetti
+			//creo il file temporaneo che sara' caricato come contesto di spring per caricare la configurazione degli oggetti
 			a = File.createTempFile("jdyna", ".xml", new File(path));
 			file.transferTo(a);
 			

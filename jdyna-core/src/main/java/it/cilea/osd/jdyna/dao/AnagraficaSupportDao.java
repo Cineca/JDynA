@@ -37,8 +37,8 @@ public interface AnagraficaSupportDao<T, PK extends Serializable> extends Pagina
 
 	/**
 	 * Metodo di supporto per la paginazione, serve ad includere anche gli
-	 * oggetti che non hanno proprietà della tipologia specificata. Restituisce
-	 * un estratto della lista di epi object senza proprietà della TP
+	 * oggetti che non hanno proprieta' della tipologia specificata. Restituisce
+	 * un estratto della lista di epi object senza proprieta' della TP
 	 * specificata secondo i parametri di paginazione impostati
 	 * 
 	 * @param tipologiaId
@@ -59,14 +59,14 @@ public interface AnagraficaSupportDao<T, PK extends Serializable> extends Pagina
 			int maxResults);
 
 	/**
-	 * Conta il numero di EPIObject <b>senza</b> proprietà della TP specificata
+	 * Conta il numero di EPIObject <b>senza</b> proprieta' della TP specificata
 	 * @param tipologiaId
 	 * @return
 	 */
 	public long countEmptyByTipologiaProprieta(Integer tipologiaId);
 
 	/**
-	 * Conta il numero di EPIObject <b>con</b> proprietà della TP specificata
+	 * Conta il numero di EPIObject <b>con</b> proprieta' della TP specificata
 	 * @param tipologiaId
 	 * @return
 	 */

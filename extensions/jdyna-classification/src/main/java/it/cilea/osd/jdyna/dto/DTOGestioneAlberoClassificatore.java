@@ -46,10 +46,10 @@ public class DTOGestioneAlberoClassificatore implements Serializable {
 	
 	private boolean codiceSignificativo;
 
-	/** se la top categoria è selezionabile o meno*/
+	/** se la top categoria e' selezionabile o meno*/
 	private boolean topSelezionabile;
 	
-	/** se la top categoria è utilizzabile per nuovi inserimenti/modifiche */
+	/** se la top categoria e' utilizzabile per nuovi inserimenti/modifiche */
 	private boolean topAttivo;
 	
 	
@@ -66,7 +66,7 @@ public class DTOGestioneAlberoClassificatore implements Serializable {
 	/** se selezionabile o meno*/
 	private boolean editSelezionabile;
 	
-	/** se la categoria è utilizzabile per nuovi inserimenti/modifiche */
+	/** se la categoria e' utilizzabile per nuovi inserimenti/modifiche */
 	private boolean editAttivo;
 	
 	
@@ -80,7 +80,7 @@ public class DTOGestioneAlberoClassificatore implements Serializable {
 	/** se la sottocategoria  selezionabile o meno*/
 	private boolean subSelezionabile;
 	
-	/** se la sottocategoria è utilizzabile per nuovi inserimenti/modifiche */
+	/** se la sottocategoria e' utilizzabile per nuovi inserimenti/modifiche */
 	private boolean subAttivo;
 	
 	

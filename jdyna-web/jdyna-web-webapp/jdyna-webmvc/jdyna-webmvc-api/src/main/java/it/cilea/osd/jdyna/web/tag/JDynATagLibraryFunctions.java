@@ -162,7 +162,7 @@ public class JDynATagLibraryFunctions {
 	/**
 	 * Restituisce la stringa corrispondente al valore di object passato come
 	 * argomento utilizzando il property editor associato alla tipologia di
-	 * proprietà passata come primo argomento
+	 * proprieta' passata come primo argomento
 	 * 
 	 * @param tp
 	 * @param object
@@ -313,7 +313,7 @@ public class JDynATagLibraryFunctions {
 	}
 
 	/**
-	 * Determina se il parametro superclasse passato come stringa è un
+	 * Determina se il parametro superclasse passato come stringa e' un
 	 * superclasse di object; Nota chiama internamente
 	 * {@link Class#isAssignableFrom(Class)}
 	 * 
@@ -325,7 +325,7 @@ public class JDynATagLibraryFunctions {
 	 * 
 	 * @param object
 	 * @param superClassName
-	 * @return true se object1 se è sottoclasse di superclass
+	 * @return true se object1 se e' sottoclasse di superclass
 	 * @throws ClassNotFoundException
 	 */
 	public static boolean instanceOf(Object object, String superClassName)

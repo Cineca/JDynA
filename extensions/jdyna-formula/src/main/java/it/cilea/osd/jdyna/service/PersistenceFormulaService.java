@@ -98,7 +98,7 @@ public class PersistenceFormulaService extends PersistenceDynaService implements
 			} catch (ClassNotFoundException e) {
 				log
 						.warn(
-								"la classe indicata nell'oggetto da ricalcolare non è stata trovata",
+								"la classe indicata nell'oggetto da ricalcolare non e' stata trovata",
 								e);
 			} catch (ClassCastException e) {
 				log

@@ -57,7 +57,7 @@ public interface ISearchDynaService {
 	 * @param sort
 	 *            l'indice da utilizzare come criterio di ordinamento
 	 * @param page
-	 *            il numero di pagina da visualizzare (l'offset di paginazione è
+	 *            il numero di pagina da visualizzare (l'offset di paginazione e'
 	 *            dato da [page-1] * maxResults)
 	 * @param maxResults
 	 *            il numero massimo di risultati
@@ -98,9 +98,9 @@ public interface ISearchDynaService {
 	 * <li>filtro = tipologie.nome:cliente</li>
 	 * <li>model = ContattoFisico.class</li>
 	 * </ul>
-	 * restituirà tutti i contatti fisici della tipologia "cliente" e con un termine indicizzato che inizi per wil.
+	 * restituira' tutti i contatti fisici della tipologia "cliente" e con un termine indicizzato che inizi per wil.
 	 * Equivale alla query lucene: wil* +tipologie.nome:cliente <br>
-	 * <b>NB</b> il numero di risultati è limitato a 10
+	 * <b>NB</b> il numero di risultati e' limitato a 10
 	 * 
 	 * @param <T>
 	 *            classe degli oggetti da ricercare

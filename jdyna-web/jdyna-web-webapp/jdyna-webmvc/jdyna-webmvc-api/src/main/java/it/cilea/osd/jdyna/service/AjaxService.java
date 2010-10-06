@@ -79,14 +79,14 @@ public class AjaxService implements IAjaxDynaService {
 		if(count==0) {
 			return "Nessun dato sulla piattaforma dipendente da questo metadato";
 		}
-		return "Ci sono sulla piattaforma " + applicationService.countValoriByTipologiaProprieta(Integer.parseInt(idTipologia)) + " dato/i dipendenti da questo metadato, cancellando rimuoverai tutte le proprietà degli oggetti di questa tipologia";				
+		return "Ci sono sulla piattaforma " + applicationService.countValoriByTipologiaProprieta(Integer.parseInt(idTipologia)) + " dato/i dipendenti da questo metadato, cancellando rimuoverai tutte le proprieta' degli oggetti di questa tipologia";				
 	}
 	
 	@RemoteMethod
 	public List<Classificazione> getClassificazioni(String nomeAlbero,String codice) {
 	
-		log.debug("è partito ajax --------------->codice"+codice);
-		log.debug("è partito ajax -------------->pkey albero"+nomeAlbero);
+		log.debug("e' partito ajax --------------->codice"+codice);
+		log.debug("e' partito ajax -------------->pkey albero"+nomeAlbero);
 	//	parserizzo la stringa text
 		String resultCodice = "";
 		if(!codice.equals("")){

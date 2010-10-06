@@ -59,12 +59,12 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	{
 		
 		if (!tipologiaProprieta.isTopLevel()) {			
-			throw new IllegalArgumentException("Non è possibile creare una Property di tipo: "+tipologiaProprieta.getShortName()+"al di fuori del relativo combo");
+			throw new IllegalArgumentException("Non e' possibile creare una Property di tipo: "+tipologiaProprieta.getShortName()+"al di fuori del relativo combo");
 		}
 		List<P> propList = getProprietaDellaTipologia(tipologiaProprieta);
 		int numProp = propList.size();
 		P proprieta = createProprietaWithoutPosizione(null, tipologiaProprieta);
-		proprieta.setPosition(numProp); // la dimensione di una lista è esattamente la prima posizione disponibile
+		proprieta.setPosition(numProp); // la dimensione di una lista e' esattamente la prima posizione disponibile
 										 // lista vuota - 0; un elemento 1; etc.
 		Collections.sort(getAnagrafica());
 		// aggiorno il contenuto della cache
@@ -78,7 +78,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	public P createProprieta(TP tipologiaProprieta, Integer posizione)
 	{
 		if (!tipologiaProprieta.isTopLevel()) 
-			throw new IllegalArgumentException("Non è possibile creare una Property di tipo: "+tipologiaProprieta.getShortName()+"al di fuori del relativo combo");
+			throw new IllegalArgumentException("Non e' possibile creare una Property di tipo: "+tipologiaProprieta.getShortName()+"al di fuori del relativo combo");
 		List<P> propList = getProprietaDellaTipologia(tipologiaProprieta);
 		int numProp = propList.size();
 		for (int idx = posizione; idx < numProp; idx++){
@@ -99,11 +99,11 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	public P createProprieta(P proprieta , TP tipologiaProprieta) {
 		if (log.isDebugEnabled())
 		{
-			log.debug("Creazione della sottoproprietà "+tipologiaProprieta+" in "+proprieta);
+			log.debug("Creazione della sottoproprieta' "+tipologiaProprieta+" in "+proprieta);
 			log.debug("P-TP: "+proprieta.getTypo().getShortName()+" P-V: "+proprieta.getValue().getObject());
 		}
 		//FIXME aggiungere il check delle precondizioni (TP sottotipologia ammessa in P)
-		//è nella combo che devo calcolare la posizione delle proprieta di una certa tipologia
+		//e' nella combo che devo calcolare la posizione delle proprieta di una certa tipologia
 		List<P> propList = getProprietaDellaTipologiaInValoreMulti((MultiValue<P,TP>)proprieta.getValue(),tipologiaProprieta);
 		int numProp = propList.size();
 		P p = createProprietaWithoutPosizione(proprieta, tipologiaProprieta);	
@@ -121,7 +121,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 		//FIXME aggiungere il check delle precondizioni (TP sottotipologia ammessa in P)
 		if (log.isDebugEnabled())
 		{
-			log.debug("Creazione della sottoproprietà "+tipologiaProprieta+" in "+proprieta);
+			log.debug("Creazione della sottoproprieta' "+tipologiaProprieta+" in "+proprieta);
 			log.debug("P-TP: "+proprieta.getTypo().getShortName()+" P-V: "+proprieta.getValue().getObject());
 			log.debug("TP: "+tipologiaProprieta.getShortName()+" Pos: "+posizione);			
 		}
@@ -171,7 +171,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	{
 		if (log.isDebugEnabled())
 		{
-			log.debug("Rimozione della proprietà: " + proprieta + " dall'oggetto: "+proprieta.getParent()==null?proprieta.getPropertyParent().getParent():proprieta.getParent()+" con rendering: "+ proprieta.getTypo().getRendering());
+			log.debug("Rimozione della proprieta': " + proprieta + " dall'oggetto: "+proprieta.getParent()==null?proprieta.getPropertyParent().getParent():proprieta.getParent()+" con rendering: "+ proprieta.getTypo().getRendering());
 			log.debug("TP: "+proprieta.getTypo().getShortName()+" V: "+proprieta.getValue().getObject());
 		}
 		P proprietaParent = (P) proprieta.getPropertyParent();
@@ -180,7 +180,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 		
 		//check se la proprieta viene rimossa dall'anagrafica dell'oggetto o dalla lista di proprieta di una combo  
 		boolean rimossa = false;
-		// la lista contiene tutte gli elementi di quella tipologia, è ordinata
+		// la lista contiene tutte gli elementi di quella tipologia, e' ordinata
 		// in base alle posizioni
 		List<P> propList;
 		if (proprietaParent == null) {
@@ -193,7 +193,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 					log.debug("rimozione dall'anagrafica avvenuta con successo");
 				}
 				else {
-					log.debug("errore non è stato possibile rimuovere la proprieta dall'anagrafica");
+					log.debug("errore non e' stato possibile rimuovere la proprieta dall'anagrafica");
 				}
 			}
 			
@@ -206,20 +206,20 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 					log.debug("rimozione dall'anagrafica4view avvenuta con successo");
 				}
 				else {
-					log.debug("errore non è stato possibile rimuovere la proprieta dall'anagrafica4view");
+					log.debug("errore non e' stato possibile rimuovere la proprieta dall'anagrafica4view");
 				}
 			}
 			
 			int pos = proprieta.getPosition();
 			int numProp = propList.size();
 			
-			// occorre partire esattamente da pos perché la proprietà è già
+			// occorre partire esattamente da pos perché la proprieta' e' gia'
 			// stata rimossa dall'anagrafica
 			for (int idx = pos; idx < numProp; idx++) {
 				propList.get(idx).setPosition(idx);
 			}
 			// aggiorno il contenuto della cache
-			// non è necessario perché il getProprietaDellaTipologia restituisce
+			// non e' necessario perché il getProprietaDellaTipologia restituisce
 			// una referenza
 			// cacheAnagr4View.put(proprieta.getTipologia().getShortName(),
 			// propList);
@@ -234,7 +234,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 					log.debug("rimozione dalla combo avvenuta con successo");
 				}
 				else {
-					log.debug("errore non è stato possibile rimuovere la proprieta dalla combo");
+					log.debug("errore non e' stato possibile rimuovere la proprieta dalla combo");
 				}
 			}
 			
@@ -245,7 +245,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 			int pos = proprieta.getPosition();
 			int numProp = propList.size();
 			//proprieta.setParent(null); // 0 1 2
-			// bisogna partire da pos+1 perchè è vero che dalla anagrafica è già
+			// bisogna partire da pos+1 perche' e' vero che dalla anagrafica e' gia'
 			// stato rimossa ma non dalla lista di valoreMulti
 			for (int idx = pos + 1; idx < numProp; idx++) {
 				propList.get(idx).setPosition(idx - 1);
@@ -259,7 +259,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 					log.debug("rimozione dalla cache della combo avvenuta con successo");
 				}
 				else {
-					log.debug("errore non è stato possibile rimuovere la proprieta dalla cache della combo");
+					log.debug("errore non e' stato possibile rimuovere la proprieta dalla cache della combo");
 				}
 			}
 			
@@ -270,11 +270,11 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	}
 	
 	/**
-	 * Metodo di supporto per la rimozione di tutte le eventuali proprietà
-	 * contenute in una data proprietà
+	 * Metodo di supporto per la rimozione di tutte le eventuali proprieta'
+	 * contenute in una data proprieta'
 	 * 
 	 * @param proprieta
-	 * @return <code>true</code> se sono state rimosse delle sottoproprietà
+	 * @return <code>true</code> se sono state rimosse delle sottoproprieta'
 	 */
 	@SuppressWarnings("unchecked")
 	private boolean removeSottoProprieta(P proprieta) {
@@ -285,13 +285,13 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 			List<P> sottoProprieta = valoreMulti.getObject();
 			for (P proprietaFiglia : sottoProprieta) {				
 				rimossa = rimossa || removeSottoProprieta(proprietaFiglia);
-				//proprietaFiglia.setParent(null); // necessaria per cancellare la proprietà dal db
+				//proprietaFiglia.setParent(null); // necessaria per cancellare la proprieta' dal db
 				proprietaFiglia.setParentProperty(null);
 				//getAnagrafica().remove(proprietaFiglia);
 			}
 			sottoProprieta.clear();
 		} catch (ClassCastException e) {
-			// la proprieta non contiene sottoproprietà
+			// la proprieta non contiene sottoproprieta'
 		}						
 		return rimossa;
 	}
@@ -301,7 +301,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 	 */
 	@Transient
     public Anagrafica4View<P, TP> getAnagrafica4view() {
-		// verifico se ho già disponibile una cache
+		// verifico se ho gia' disponibile una cache
 		if (cacheAnagr4View != null) {
 			return cacheAnagr4View;
 		}
@@ -328,7 +328,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 //				}
 //			}
 
-			// in a4v inserisco solo le proprietà di primo livello!
+			// in a4v inserisco solo le proprieta' di primo livello!
 			if (property.getParent() != null && property.getTypo().isTopLevel()==true) {				
 				List<P> appoggio = cacheAnagr4View.get(property.getTypo()
 						.getShortName());
@@ -388,7 +388,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         // viene effettuato nel setValore()
         //proprieta.getValore().setProprieta(proprieta);
         
-        //aggiungo la proprietà all'anagrafica se è top level
+        //aggiungo la proprieta' all'anagrafica se e' top level
         if(tipologiaProprieta.isTopLevel()) {
         	proprieta.setParent(this);
         	getAnagrafica().add(proprieta);
@@ -402,9 +402,9 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         	}		
         }
         
-        //se è una combo creo tutta la struttura 
+        //se e' una combo creo tutta la struttura 
 		if(tipologiaProprieta.getRendering() instanceof WidgetCombo) {
-			log.debug("La proprietà in corso di creazione è una combo, creo le sottoproprietà...");
+			log.debug("La proprieta' in corso di creazione e' una combo, creo le sottoproprieta'...");
 			for(TP tp : ((WidgetCombo<P,TP>)tipologiaProprieta.getRendering()).getSottoTipologie()) {				
 				createProprieta(proprieta,tp);
 			}
@@ -415,7 +415,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 
 	/**
 	 * Compila l'anagrafica corrente a partire da una seconda anagrafica.
-	 * Se l'anagrafica corrente contiene già delle proprietà queste vengono eliminate.
+	 * Se l'anagrafica corrente contiene gia' delle proprieta' queste vengono eliminate.
 	 * 
 	 * @param sourceAnagrafica l'oggetto dotato di anagrafica da utilizzare come sorgente
 	 */
@@ -425,7 +425,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 			return;
 		}
 		for (P prop : sourceAnagrafica.getAnagrafica()) {
-			// lavoro solo le top proprietà, le sotto proprietà le recupero
+			// lavoro solo le top proprieta', le sotto proprieta' le recupero
 			// implicitamente
 			if (prop.getParent() != null && prop.getTypo().isTopLevel()) {
 				P cloned = createProprieta(prop.getTypo());
@@ -436,11 +436,11 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 
 	/**
 	 * Metodo di help interno per la duplicazione di una anagrafica.
-	 * Attenzione la proprietà target <b>deve essere una proprietà vuota</b> che non 
-	 * contenga cioè precedenti valori.
+	 * Attenzione la proprieta' target <b>deve essere una proprieta' vuota</b> che non 
+	 * contenga cioe' precedenti valori.
 	 * 
-	 * @param target Proprietà in cui sarà copiato il valore
-	 * @param source Proprietà da cui sarà letto il valore
+	 * @param target Proprieta' in cui sara' copiato il valore
+	 * @param source Proprieta' da cui sara' letto il valore
 	 */
 	private void clonaValore(P target, P source) {
 		if (source.getTypo().getRendering() instanceof WidgetCombo) {
@@ -511,7 +511,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 		for (P propVuota : propVuote) {
 			removeProprieta(propVuota);
 		}
-		log.debug("eliminate tutte le proprietà nulle di primo livello dall'oggetto "
+		log.debug("eliminate tutte le proprieta' nulle di primo livello dall'oggetto "
 						+ this);
 		
 	}

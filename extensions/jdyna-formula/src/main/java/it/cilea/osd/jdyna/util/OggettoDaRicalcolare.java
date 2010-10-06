@@ -42,7 +42,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 /**
- * ProprietaDaRicalcolare è l'oggetto che si occupa di mantenere al suo interno
+ * ProprietaDaRicalcolare e' l'oggetto che si occupa di mantenere al suo interno
  * le informazioni necessarie per calcolare con i giusti parametri una formula.
  * 
  * @see FormulaManager, WidgetFormula
@@ -77,8 +77,8 @@ public class OggettoDaRicalcolare implements Identifiable {
 
 	@Embedded
 	/**
-	 * NB: al momento la tipologia di evento non viene utilizzata, il dato è
-	 * stato memorizzato solo per la comodità di sfruttare la defininizione del
+	 * NB: al momento la tipologia di evento non viene utilizzata, il dato e'
+	 * stato memorizzato solo per la comodita' di sfruttare la defininizione del
 	 * JPAEvent all'interno della definizione di OggettoDaRicalcolare
 	 */
 	private JPAEvent event;

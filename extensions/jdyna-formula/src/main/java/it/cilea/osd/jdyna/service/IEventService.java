@@ -6,7 +6,7 @@ import it.cilea.osd.jdyna.event.ISubscriber;
 public interface IEventService {
 	/**
 	 * Wrapper per la registrazione dei subscribers al sistema di notifica
-	 * @param <E> la classe di eventi a cui il subscriber è interessato
+	 * @param <E> la classe di eventi a cui il subscriber e' interessato
 	 * @param subscriber
 	 * @param eventClass
 	 */
@@ -15,7 +15,7 @@ public interface IEventService {
 	
 	/**
 	 * Wrapper per la rimozione dei subscribers dal sistema di notifica
-	 * @param <E> la classe di eventi a cui il subscriber non è più interessato
+	 * @param <E> la classe di eventi a cui il subscriber non e' piu' interessato
 	 * @param subscriber
 	 * @param eventClass
 	 */

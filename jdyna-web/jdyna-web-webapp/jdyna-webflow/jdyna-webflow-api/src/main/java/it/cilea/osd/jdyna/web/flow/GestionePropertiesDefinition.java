@@ -82,7 +82,7 @@ public class GestionePropertiesDefinition<T extends PropertiesDefinition> extend
 				Hibernate.initialize(((WidgetCheckRadio) widget).getAlberoClassificatorio());
 				Hibernate.initialize(((WidgetCheckRadio) widget).getSoggettario());
 			}
-			//inserisco nel flusso un flag per bloccare la modifica dei widget sulla tipologia già esistente
+			//inserisco nel flusso un flag per bloccare la modifica dei widget sulla tipologia gia' esistente
 			request.getFlowScope().put("flag",true);
 		}
 	    else {
@@ -103,7 +103,7 @@ public class GestionePropertiesDefinition<T extends PropertiesDefinition> extend
 		Event bvEvent = super.bindAndValidate(request);
 		String widgetClass = request.getRequestParameters().get("widget");
 		TP tipologiaProprieta = (TP)getFormObject(request);
-		// se non è già stata associata un widget del tipo selezionato ne creo una nuova istanza
+		// se non e' gia' stata associata un widget del tipo selezionato ne creo una nuova istanza
 		if (tipologiaProprieta.getRendering() == null ||(!tipologiaProprieta.getRendering().getClass().getName().equals(widgetClass)
 		&&widgetClass!=null)		
 		)
@@ -123,7 +123,7 @@ public class GestionePropertiesDefinition<T extends PropertiesDefinition> extend
 			tipologiaProprieta.setRendering(widget);
 		}
 		else {
-			//cancello da formulaEvent le formule registrate in precedenza perchè qualche parametro potrebbe variare in edit del widget
+			//cancello da formulaEvent le formule registrate in precedenza perche' qualche parametro potrebbe variare in edit del widget
 			if(tipologiaProprieta.getRendering() instanceof WidgetFormula) {
 				//FIXME KNOW ISSSUE se le cancello le devo pure ricreare altrimenti fino a che non riapro l'oggetto in modifica le formule 				   
 				// non si ricalcolano...
@@ -134,7 +134,7 @@ public class GestionePropertiesDefinition<T extends PropertiesDefinition> extend
 
 	public Event addSottoTipologie(RequestContext request) throws Exception
 	{
-		//FIXME il parent in questo caso è una stringa ERRORE
+		//FIXME il parent in questo caso e' una stringa ERRORE
 		WidgetCombo wc = (WidgetCombo)request.getFlowScope().get("parent");
 		PropertiesDefinition tip = (PropertiesDefinition)request.getFlowScope().get("tipologiaProprieta");		
 		List<PropertiesDefinition> sottoTipologie = wc.getSottoTipologie();
@@ -171,11 +171,11 @@ public class GestionePropertiesDefinition<T extends PropertiesDefinition> extend
 	public Event bindAndValidate(RequestContext context) throws Exception {
 		Event event = super.bindAndValidate(context);
 		T tipologiaProprieta = (T)getFormObject(context);
-		//se il rendering è un testo devo verificare se l'utente ha inserito la funzionalità delle collisioni			
+		//se il rendering e' un testo devo verificare se l'utente ha inserito la funzionalita' delle collisioni			
 		if(tipologiaProprieta.getRendering() instanceof WidgetTesto) {
 			WidgetTesto widgetTesto = (WidgetTesto)tipologiaProprieta.getRendering();
 			if(widgetTesto.isCollisioni()) {
-				//bisogna indicizzare il campo su cui si vuole la funzionalità (HibernateSearch farà la query su quel field)
+				//bisogna indicizzare il campo su cui si vuole la funzionalita' (HibernateSearch fara' la query su quel field)
 				tipologiaProprieta.setAdvancedSearch(true);
 			}
 		}

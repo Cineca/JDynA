@@ -131,7 +131,7 @@ ${gestioneAlbero.nome}
 
 	 <spring:hasBindErrors name="gestioneAlbero">
          <div class="error">
-         Non sarà possibile salvare i dati contenuti nel form fino a quando non saranno risolti i seguenti problemi (cliccare sul messaggio per raggiungere rapidamente il campo in errore):
+         Non sara' possibile salvare i dati contenuti nel form fino a quando non saranno risolti i seguenti problemi (cliccare sul messaggio per raggiungere rapidamente il campo in errore):
          <ul>
             <c:forEach var="errMsgObj" items="${errors.fieldErrors}">
                <li>
@@ -346,8 +346,8 @@ ${gestioneAlbero.nome}
 			
 			</c:if>		
 			<c:if test="${albero.flat}">
-				L'albero è di tipo FLAT. 
-				Non è permesso l'immissione di sottoclassificazioni.
+				L'albero e' di tipo FLAT. 
+				Non e' permesso l'immissione di sottoclassificazioni.
 			</c:if>	
 		</div>
 	</fieldset>	

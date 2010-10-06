@@ -62,7 +62,7 @@ public class WidgetPointer extends AWidget {
 	protected String target;
 	
 	/** E'il valore che si vuole mostrare sulla view.
-	 *  display conterrà stringhe immesse dall'amministratore del
+	 *  display conterra' stringhe immesse dall'amministratore del
 	 *  tipo '${cognome}+", "+${nome}.substring(0,1)'.
 	 *  Il parse di questa stringa utilizza le stesse regole di 
 	 *  parsering di {@link FormulaManager.getOgnlExpression()};
@@ -105,7 +105,7 @@ public class WidgetPointer extends AWidget {
 			return (PointerValue) Class.forName(target).newInstance();
 		} catch (Exception e) {
 			log.error(e);
-			throw new IllegalStateException("Il tipo di valore associato al widget pointer non è consentito",e);
+			throw new IllegalStateException("Il tipo di valore associato al widget pointer non e' consentito",e);
 		}
 	}
 
@@ -115,7 +115,7 @@ public class WidgetPointer extends AWidget {
 			return (Class<? extends AValue>) Class.forName(target);
 		} catch (ClassNotFoundException e) {
 			log.error(e);
-			throw new IllegalStateException("Il tipo di valore associato al widget pointer non è consentito",e);
+			throw new IllegalStateException("Il tipo di valore associato al widget pointer non e' consentito",e);
 		}
 	}
 	
@@ -144,7 +144,7 @@ public class WidgetPointer extends AWidget {
 			throw new IllegalStateException(
 					"Il widget pointer id:"
 							+ getId()
-							+ " non è configurato propriamente - valore target inesistente: "
+							+ " non e' configurato propriamente - valore target inesistente: "
 							+ target);
 		}
 	}
@@ -152,8 +152,8 @@ public class WidgetPointer extends AWidget {
 	/**
 	 * Calcola il valore da stampare valutando l'espressione contenuta
 	 * nell'attributo display sull'oggetto <em>value</em> passato come
-	 * parametro. Il calcolo del valore è fatto da FormulaManager usato come
-	 * classe di utilità per i widget. Torna la stringa vuota se l'oggetto è
+	 * parametro. Il calcolo del valore e' fatto da FormulaManager usato come
+	 * classe di utilita' per i widget. Torna la stringa vuota se l'oggetto e'
 	 * null. FIXME attualmente non cattura l'eccezione ognl
 	 * 
 	 * @see FormulaManager
@@ -165,7 +165,7 @@ public class WidgetPointer extends AWidget {
 	@Override
 	public String toString(Object value) {
 		if (value == null) {
-			log.debug("widgetPointer - il value è null");
+			log.debug("widgetPointer - il value e' null");
 			return "";
 		}
 		Object result = FormulaManager.calcoloValore(display, value, null, 0);
