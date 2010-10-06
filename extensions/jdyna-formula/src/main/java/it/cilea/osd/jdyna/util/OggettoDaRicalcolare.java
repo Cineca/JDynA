@@ -58,7 +58,7 @@ import org.apache.commons.logging.LogFactory;
 		@NamedQuery(name = "OggettoDaRicalcolare.findFormuleByOggetto", query = "select oggettoDaRicalcolare from OggettoDaRicalcolare oggettoDaRicalcolare where oggettoDaRicalcolare.oggettoId = ? and oggettoDaRicalcolare.oggettoClass = ?"),
 		//@NamedQuery(name = "OggettoDaRicalcolare.findFormuleByOggetto", query = "select oggettoDaRicalcolare from OggettoDaRicalcolare oggettoDaRicalcolare where oggettoDaRicalcolare.oggettoIdentificatore = ? and oggettoDaRicalcolare.oggettoClass = ?"),
 		@NamedQuery(name = "OggettoDaRicalcolare.findOggettoDaRicalcolareByDatiEvento", query = "from OggettoDaRicalcolare oggettoDaRicalcolare where event.clazz = ? and event.id = ?"),
-		@NamedQuery(name = "OggettoDaRicalcolare.deleteOggettoDaRicalcolareByOggetto", query = "delete from OggettoDaRicalcolare where oggettoId = ? and oggettoClass = ?"),
+		@NamedQuery(name = "OggettoDaRicalcolare.deleteOggettoDaRicalcolareByOggetto", query = "delete from OggettoDaRicalcolare where oggettoId = ? and oggettoClass = ?")
 		//@NamedQuery(name = "OggettoDaRicalcolare.deleteOggettoDaRicalcolareByIdentificatore", query = "delete from OggettoDaRicalcolare where oggettoIdentificatore = ? and oggettoClass = ?") ,
 		//@NamedQuery(name = "OggettoDaRicalcolare.countOggettoDaRicalcolareByIdentificatore", query = "select count(*) from OggettoDaRicalcolare where oggettoIdentificatore = ? and oggettoClass = ?")
 })
