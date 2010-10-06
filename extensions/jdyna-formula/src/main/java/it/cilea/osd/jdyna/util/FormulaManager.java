@@ -535,9 +535,9 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 					}
 				}
 				
-				ricalcoloFormula(evento);
+//				ricalcoloFormula(evento);
 			}
-		} catch (OgnlException e) {
+		} catch (Exception e) {
 			log
 					.error(
 							"Errore OGNL nel calcolo di una formula o nella registrazione di una variabile",
