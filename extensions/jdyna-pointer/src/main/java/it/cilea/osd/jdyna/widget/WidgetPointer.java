@@ -67,7 +67,7 @@ public class WidgetPointer extends AWidget {
 	 *  Il parse di questa stringa utilizza le stesse regole di 
 	 *  parsering di {@link FormulaManager.getOgnlExpression()};
 	 *  E' indispensabile per visualizzare qualcosa nella tendina,
-	 *  quindi non può essere nullo.
+	 *  quindi non puo' essere nullo.
 	 * 
 	 */
 	@Type(type = "text")

@@ -161,7 +161,7 @@ public abstract class WidgetFormula extends AWidget {
 //	@Override
 //	public PropertyEditor getPropertyEditor(
 //			ApplicationService applicationService) {		
-//		return null; //FIXME le formule non necessitano di convertire input utente, cosa succede però nell'elaborazione del DTO???
+//		return null; //FIXME le formule non necessitano di convertire input utente, cosa succede pero' nell'elaborazione del DTO???
 //	}
 
 //	public String getResultType() {

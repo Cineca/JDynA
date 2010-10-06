@@ -37,7 +37,7 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 
 		PropertiesDefinition metadato = (PropertiesDefinition) object;
 
-		// lo shortname non può essere vuoto
+		// lo shortname non puo' essere vuoto
 
 		String shortName = metadato.getShortName();
 
