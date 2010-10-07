@@ -53,7 +53,10 @@ public class WidgetLink extends AWidget {
 	@Transient
 	private String triview;
 	
-	private int size = 70;
+	/**
+	 * Percent size (this value is default for input size either link description and value)
+	 */
+	private int size = 40;
 	
 	public String getTriview() {		
 		return "link";

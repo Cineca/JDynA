@@ -86,10 +86,10 @@
 	<c:set var="onchange" value="${dynajs_funct};${onchange}" />
 	
 	
-	<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled}
+	<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled} size="${size}%"
 		value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
 		
-	<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}" type="text" ${disabled}
+	<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}%" type="text" ${disabled}
 		value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
 	
 	<c:if test="${visibility}">
@@ -161,9 +161,9 @@
 		</script>
 		
 		<c:set var="onchange" value="${dynajs_funct};${onchange}" />
-		<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled}
+		<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled} size="${size}%"
 			value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
-		<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}" type="text" ${disabled}
+		<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}%" type="text" ${disabled}
 			value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
 			
 					
