@@ -163,8 +163,7 @@
 			</spring:bind>
 			<c:set var="validation" value="${propertyPath}"/>	
 	
-	</c:if>
-		${labelHeadSx}
+	</c:if>		
 		<c:if test="${!empty labelHeadSx}">	
 			<label id="labelvalue">${labelHeadSx}</label>
 			<c:if test="${empty labelHeadDx}">
