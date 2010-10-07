@@ -130,8 +130,8 @@
 </c:if>
 
 
-${tipologia.rendering.labelHeaderLabel}
-----
+
+
 <c:choose>
 	<c:when test="${isLink}">	
 		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.size}" labelHeadSx="${tipologia.rendering.labelHeaderLabel}" labelHeadDx="${tipologia.rendering.labelHeaderURL}"
