@@ -130,9 +130,11 @@
 </c:if>
 
 
+${tipologia.rendering.labelHeaderLabel}
+----
 <c:choose>
 	<c:when test="${isLink}">	
-		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.size}"
+		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.size}" labelHeadSx="${tipologia.rendering.labelHeaderLabel}" labelHeadDx="${tipologia.rendering.labelHeaderURL}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		

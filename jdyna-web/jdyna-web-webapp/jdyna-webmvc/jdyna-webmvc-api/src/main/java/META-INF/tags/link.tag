@@ -13,6 +13,8 @@
 <%@ attribute name="onchange" required="false"%>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
+<%@ attribute name="labelHeadSx" required="false"%>
+<%@ attribute name="labelHeadDx" required="false"%>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -55,6 +57,20 @@
 </spring:bind>
 <c:catch var="exNoIndexedValue">
 <c:forEach var="value" items="${values}" varStatus="iterationStatus">
+	<c:if test="${iterationStatus.count==0}">
+		
+		<c:if test="${!empty labelHeadSx}">	
+			<label id="labelvalue">${labelHeadSx}</label>
+			<c:if test="${empty labelHeadDx}">
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if test="${!empty labelHeadDx}">
+			<label id="labelurl">${labelHeadDx}</label>
+			<br/>
+		</c:if>			
+		
+	</c:if>
 	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
 		<c:if test="${iterationStatus.count > 1}">
 		<br/>
@@ -148,7 +164,17 @@
 			<c:set var="validation" value="${propertyPath}"/>	
 	
 	</c:if>
-		
+		${labelHeadSx}
+		<c:if test="${!empty labelHeadSx}">	
+			<label id="labelvalue">${labelHeadSx}</label>
+			<c:if test="${empty labelHeadDx}">
+				<br/>
+			</c:if>
+		</c:if>
+		<c:if test="${!empty labelHeadDx}">
+			<label id="labelurl">${labelHeadDx}</label>
+			<br/>
+		</c:if>			
 		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 
