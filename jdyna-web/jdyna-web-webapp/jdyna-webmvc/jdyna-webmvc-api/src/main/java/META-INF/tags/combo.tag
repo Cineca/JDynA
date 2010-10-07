@@ -275,7 +275,7 @@
 				<c:choose>
 					<c:when test="${isLink}">	
 						<dyna:link propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]" 
-							size="${subtip.rendering.size}" required="${required}"
+							size="${subtip.rendering.size}" required="${required}" labelHeadSx="${subtip.rendering.labelHeaderLabel}" labelHeadDx="${subtip.rendering.labelHeaderURL}"
 							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}"	validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
 					</c:when>
 					<c:when test="${isText}">
