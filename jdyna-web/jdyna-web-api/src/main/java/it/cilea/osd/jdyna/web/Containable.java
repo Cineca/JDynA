@@ -12,9 +12,13 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @Entity
 @Table(name="jdyna_containables")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Containable<P> extends IdentifiableObject implements IContainable {
 
 	
