@@ -104,12 +104,19 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
     }
 	
-	protected ModelAndView handleDetails(HttpServletRequest request) throws SQLException {
+	protected ModelAndView handleDetails(HttpServletRequest request) throws SQLException, InstantiationException, IllegalAccessException {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		Integer objectId = getAnagraficaId(request);
 		
-		AnagraficaSupport<P,TP> jdynaObject = applicationService.get(objectClass, objectId);
+		AnagraficaSupport<P,TP> jdynaObject = null;
+		if(objectId!=null) {
+			jdynaObject = applicationService.get(objectClass, objectId);
+		}
+		else {
+			jdynaObject = objectClass.newInstance();
+		}
+		
 		if(jdynaObject==null){
 			throw new RuntimeException("La url non corrisponde a nessun oggetto valido nella piattaforma");
 		}
