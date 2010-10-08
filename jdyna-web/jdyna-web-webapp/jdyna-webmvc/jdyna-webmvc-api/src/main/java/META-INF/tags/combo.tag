@@ -95,6 +95,9 @@
 				<c:when test="${subtip.rendering.triview == 'calendar'}">
 					tmpTypes[${subStatus.count - 1}][1] = ${subtip.rendering.time};
 				</c:when>
+				<c:when test="${subtip.rendering.triview == 'link'}">
+					tmpTypes[${subStatus.count - 1}][1] = ${subtip.rendering.size};
+				</c:when>
 				<c:when test="${subtip.rendering.triview == 'alberoClassificatorio'}">
 					tmpTypes[${subStatus.count - 1}][1] = '${dyna:escapeApici(subtip.rendering.alberoClassificatorio.nome)}';
 					tmpTypes[${subStatus.count - 1}][2] = new Array();

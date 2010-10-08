@@ -57,24 +57,25 @@
 </spring:bind>
 <c:catch var="exNoIndexedValue">
 <c:forEach var="value" items="${values}" varStatus="iterationStatus">
-	<c:if test="${iterationStatus.count==0}">
+	<c:if test="${iterationStatus.count - 1 eq 0}">
 		
 		<c:if test="${!empty labelHeadSx}">	
-			<label id="labelvalue">${labelHeadSx}</label>
+			<span>${labelHeadSx}</span>
 			<c:if test="${empty labelHeadDx}">
 				<br/>
 			</c:if>
 		</c:if>
 		<c:if test="${!empty labelHeadDx}">
-			<label id="labelurl">${labelHeadDx}</label>
+			<span style="padding-left:'${size}%';">${labelHeadDx}</span>
 			<br/>
-		</c:if>			
+		</c:if>	
 		
 	</c:if>
-	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
+	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">	
 		<c:if test="${iterationStatus.count > 1}">
 		<br/>
 		</c:if>
+		
 		<%-- Se sono riuscito a fare il bind allora è una proprietà indicizzata --%>
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
@@ -82,7 +83,7 @@
 		<c:set var="idlinkvalue" value="linkvalue${status.expression}" />
 		<c:set var="idlinkdescription" value="linkdescription${status.expression}" />
 		
-		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(inputName)}()" />
+		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(propertyPath)}_${dyna:md5(inputName)}()" />
 		
 		<script type="text/javascript">
 			function ${dynajs_funct}{
@@ -165,19 +166,19 @@
 	
 	</c:if>		
 		<c:if test="${!empty labelHeadSx}">	
-			<label id="labelvalue">${labelHeadSx}</label>
+			<span>${labelHeadSx}</span>
 			<c:if test="${empty labelHeadDx}">
 				<br/>
 			</c:if>
 		</c:if>
 		<c:if test="${!empty labelHeadDx}">
-			<label id="labelurl">${labelHeadDx}</label>
+			<span style="padding-left:'${size}%';">${labelHeadDx}</span>
 			<br/>
-		</c:if>			
+		</c:if>	
 		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 
-		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(inputName)}()" />
+		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(propertyPath)}_${dyna:md5(inputName)}()" />
 		
 		<script type="text/javascript">
 			function ${dynajs_funct}{
