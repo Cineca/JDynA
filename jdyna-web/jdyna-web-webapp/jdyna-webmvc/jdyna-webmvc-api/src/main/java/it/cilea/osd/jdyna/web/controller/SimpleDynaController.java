@@ -82,19 +82,34 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		return retValue;
 	}
 
+    protected Integer getTabId(HttpServletRequest request)
+    {
+        String param = request.getParameter("tabId");
+        try {
+            return Integer.valueOf(param);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    protected Integer getAnagraficaId(HttpServletRequest request)
+    {
+        String param = request.getParameter("anagraficaId");
+        try {
+            return Integer.valueOf(param);
+        }
+        catch (NumberFormatException e) {
+            return null;
+        }
+    }
+	
 	protected ModelAndView handleDetails(HttpServletRequest request) throws SQLException {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		String paramObjectId = request.getParameter("anagraficaId");
-		Integer objectId = null;
-		if(paramObjectId==null || paramObjectId.isEmpty()) {
-			objectId = findAnagraficaIdByParentObject(request);
-		}
-		else {
-			objectId = Integer.valueOf(paramObjectId);
-		}		
+		Integer objectId = getAnagraficaId(request);
 		
-		AnagraficaSupport<P,TP> jdynaObject = getAnagrafica(request, objectId);
+		AnagraficaSupport<P,TP> jdynaObject = applicationService.get(objectClass, objectId);
 		if(jdynaObject==null){
 			throw new RuntimeException("La url non corrisponde a nessun oggetto valido nella piattaforma");
 		}
@@ -106,36 +121,29 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		//collection of edit tabs (all edit tabs created on system associate to visibility)
 		List<T> tabs = findTabsWithVisibility(request);
 		
-		Integer ID = null;	
+		Integer tabId = getTabId(request);	
 
-		if (request.getParameter("tabId") != null) {
-			ID = Integer.valueOf(request.getParameter("tabId"));			
-		} else {		
-			if(tabs!=null && !tabs.isEmpty()) {
-				ID = tabs.get(0).getId();
-			}
-			else {
-				throw new RuntimeException(
-				"No tabs to display contact administrator");
-			}
-		}
+        if (tabId == null && tabs != null && tabs.size() > 0)
+        {
+            tabId = tabs.get(0).getId();
+        }
+        
+        if (tabId == null)
+        {
+            throw new RuntimeException(
+                    "No tabs to display contact administrator");
+        }
 
-		
-		
-		//check if request tab from view is active (check on collection before)  
-		T t = applicationService.get(
-				tabClass,
-				ID);
-		if (!tabs.contains(t)) {
-			throw new RuntimeException(
-					"You not have needed authorization level to display this tab");
-		}
-		
-		//collection of boxs
-		List<H> propertyHolders = 
-			applicationService.findPropertyHolderInTab(
-					tabClass, ID);
-		
+        T t = applicationService.get(tabClass, tabId);
+        if (!tabs.contains(t))
+        {
+            throw new RuntimeException(
+                    "You not have needed authorization level to display this tab");
+        }
+
+        // collection of boxs
+        List<H> propertyHolders = applicationService.findPropertyHolderInTab(
+                tabClass, tabId);
 
 		//this piece of code get containables object from boxs and put them on map
 		List<IContainable> pDInTab = new LinkedList<IContainable>();
@@ -162,7 +170,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
 		model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
 		model.put("tabList", tabs);
-		model.put("tabId", ID);  	    
+		model.put("tabId", tabId);  	    
 	 	model.put("path", modelPath);     
 		model.put("anagraficaObject", jdynaObject);				
 		model.put("addModeType", "display");
@@ -170,17 +178,6 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		return new ModelAndView(detailsView, model);
 	}
 
-	
-	private AnagraficaSupport<P, TP> getAnagrafica(HttpServletRequest request, Integer objectId) {
-		if(objectId==null || objectId == -1) {
-			return findAnagraficaByParentObject(request);
-		}
-		return (AnagraficaSupport<P,TP>) applicationService.get(objectClass, objectId);
-	}
-
-	protected abstract Integer findAnagraficaIdByParentObject(HttpServletRequest request);
-
-	protected abstract AnagraficaSupport<P, TP> findAnagraficaByParentObject(HttpServletRequest request);
 	
 	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request) throws SQLException;
 		
