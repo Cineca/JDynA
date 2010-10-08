@@ -38,7 +38,7 @@ public class ValoreDTO implements Serializable {
 	public ValoreDTO(Object object) {
 		super();
 		this.object = object;
-		this.setVisibility(false);
+		this.setVisibility(true);
 	}
 
 	
