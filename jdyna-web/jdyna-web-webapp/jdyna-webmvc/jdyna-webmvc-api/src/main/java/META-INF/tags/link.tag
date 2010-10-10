@@ -92,7 +92,7 @@
 		
 		<script type="text/javascript">
 			function ${dynajs_funct}{
-				dynaLinkValueUpdate('${inputName}','${idlinkdescription}','${idlinkvalue}');
+				dynaLinkValueUpdate('${inputName}','${idlinkvalue}','${idlinkdescription}');
 			}
 		</script>
 		
@@ -184,7 +184,7 @@
 		
 		<script type="text/javascript">
 			function ${dynajs_funct}{
-				dynaLinkValueUpdate('${inputName}','${idlinkdescription}','${idlinkvalue}');
+				dynaLinkValueUpdate('${inputName}','${idlinkvalue}','${idlinkdescription}');
 			}
 		</script>
 		
@@ -216,7 +216,9 @@
 		var ${dynajs_var} = new AddLinkInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
-									 ${size},${repeatable},'${cssClass}','${visibility}');		
+									 ${size},${repeatable},
+									 '${dyna:escapeApici(labelHeadSx)}','${dyna:escapeApici(labelHeadDx)}',
+									 '${cssClass}','${visibility}');		
 	</script>
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create(this);" alt="add button"/>

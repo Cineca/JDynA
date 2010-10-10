@@ -25,52 +25,33 @@
  */
 package it.cilea.osd.jdyna.editor;
 
-import it.cilea.osd.common.service.IPersistenceService;
 import it.cilea.osd.jdyna.value.EmbeddedLinkValue;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
-	/** My gateway to business logic */
-	private IPersistenceService applicationService;
-	
-	
 	
 	/** The logger */
 	private final static Log log = LogFactory.getLog(LinkPropertyEditor.class);
 	
-	public LinkPropertyEditor() {
-	
-	}
-	
-	public LinkPropertyEditor(IPersistenceService applicationService) {
-		this.applicationService = applicationService;
-	}
-	
-	
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
-		log.debug("chiamato SoggettoConverter - setAsText"+text);
-		//la stringa che arriva e' del tipo 'IDSOGGETTARIO:VOCESOGGETTO'
-		//devo parserizzare
-		int index = text.indexOf("|||");
-		String linkvalue = "";
-		String linkdescription = "";
-		EmbeddedLinkValue link = new EmbeddedLinkValue();
-		if(text==null || text.length()==0) {		
-			setValue(null);
-		}
-		else {			
-			linkvalue = text.substring(0, index);
-			link.setValueLink(linkvalue);
-			if (text.substring(index + 1) == null
-					|| text.substring(index + 1).length() == 0) {
-				setValue(null);
-			} else {
-				linkdescription = text.substring(index + 3);
-				link.setDescriptionLink(linkdescription);				
-			}
+		log.debug("LinkPropertyEditor - setAsText: "+text);
+		// text: 'description|||link'
+		if (StringUtils.isEmpty(text))
+		    setValue(null);
+		else
+		{
+		    String[] splitted = text.split("\\|\\|\\|");
+		    if (splitted.length > 2)
+		    {
+		        throw new IllegalArgumentException("Invalid text string for link: "+text);
+		    }
+		    EmbeddedLinkValue link = new EmbeddedLinkValue();
+		    link.setDescriptionLink(splitted[0]);
+		    link.setValueLink(splitted.length == 2?splitted[1]:null);
 			setValue(link);
 		}
 	}
@@ -82,16 +63,9 @@ public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
 		if (valore == null) return "";
 		log.debug("value = "+valore.getValueLink());
 		log.debug("description = "+valore.getDescriptionLink());
-		return valore==null?"":valore.getValueLink()
-			+"|||"+valore.getDescriptionLink();
+		return valore==null?"|||":
+		    (valore.getDescriptionLink()!=null?valore.getDescriptionLink():"")
+			+"|||"+
+			(valore.getValueLink()!=null?valore.getValueLink():"");
 	}
-
-	public IPersistenceService getApplicationService() {
-		return applicationService;
-	}
-
-	public void setApplicationService(IPersistenceService applicationService) {
-		this.applicationService = applicationService;
-	}
-
 }

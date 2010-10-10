@@ -338,7 +338,7 @@ public class JDynATagLibraryFunctions {
 	}
 
 	/**
-	 * Return the ID of the subject from the "link" string id:value
+	 * Return the description from the "link" string description|||target
 	 * 
 	 * @param inputValue
 	 * @return
@@ -353,7 +353,7 @@ public class JDynATagLibraryFunctions {
 	}
 
 	/**
-	 * Return the value in the subject from the "link" string id:value
+	 * Return the target from the "link" string description|||target
 	 * 
 	 * @param inputValue
 	 * @return

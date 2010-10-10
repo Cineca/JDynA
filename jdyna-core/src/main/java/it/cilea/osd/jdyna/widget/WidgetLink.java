@@ -77,7 +77,7 @@ public class WidgetLink extends AWidget {
 	 * Restituisce lo StringTrimmer editor configurato per la conversione delle stringhe vuote in null
 	 */
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {	
-		return new LinkPropertyEditor(applicationService);
+		return new LinkPropertyEditor();
 	}
 	
 
