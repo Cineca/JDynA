@@ -56,26 +56,31 @@
 	<c:set var="values" value="${status.value}" />
 </spring:bind>
 <c:catch var="exNoIndexedValue">
+<table>
+	<c:choose>
+			<c:when test="${!empty labelHeadSx or !empty labelHeadDx}">
+<thead>
+	<tr>
+		<th>
+		<c:choose>
+			<c:when test="${!empty labelHeadSx}">${labelHeadSx}</c:when>
+			<c:otherwise>&nbsp;</c:otherwise>
+		</c:choose>
+		</th>
+		<th>
+		<c:choose>
+			<c:when test="${!empty labelHeadDx}">${labelHeadDx}</c:when>
+			<c:otherwise>&nbsp;</c:otherwise>
+		</c:choose>
+		</th>
+		<th>&nbsp;</th>
+	</tr>
+</thead>
+		</c:when>
+	</c:choose>	
 <c:forEach var="value" items="${values}" varStatus="iterationStatus">
-	<c:if test="${iterationStatus.count - 1 eq 0}">
-		
-		<c:if test="${!empty labelHeadSx}">	
-			<span>${labelHeadSx}</span>
-			<c:if test="${empty labelHeadDx}">
-				<br/>
-			</c:if>
-		</c:if>
-		<c:if test="${!empty labelHeadDx}">
-			<span style="padding-left:'${size}%';">${labelHeadDx}</span>
-			<br/>
-		</c:if>	
-		
-	</c:if>
 	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">	
-		<c:if test="${iterationStatus.count > 1}">
-		<br/>
-		</c:if>
-		
+	<tr><td>		
 		<%-- Se sono riuscito a fare il bind allora è una proprietà indicizzata --%>
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
@@ -105,10 +110,12 @@
 	
 	<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled} size="${size}%"
 		value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
-		
+	</td>
+	<td>	
 	<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}%" type="text" ${disabled}
 		value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
-	
+	</td>
+	<td>
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>	
@@ -124,14 +131,16 @@
 		var ${dynajs_var} = new AddLinkInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
-									 ${size},'${cssClass}','${visibility}');
+									 ${size},${repeatable},
+									 '${dyna:escapeApici(labelHeadSx)}','${dyna:escapeApici(labelHeadDx)}',
+									 '${cssClass}','${visibility}');
 	</script>	
 	</c:if>
 
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create();" />
+		onclick="${dynajs_var}.create(this);" />
 	</c:when>
 	<c:otherwise>
 	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
@@ -141,9 +150,12 @@
 	</c:if>
 	</c:if>
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
+	</td>
+</tr>	
 </c:forEach>
 </c:catch>
-<c:if test="${!inputShowed}">	
+<c:if test="${!inputShowed}">
+<tr><td>	
 	<c:if test="${exNoIndexedValue == null}">
 		<c:catch var="exNoIndexedValue">
 			<spring:bind path="${propertyPath}[0]">
@@ -165,16 +177,6 @@
 			<c:set var="validation" value="${propertyPath}"/>	
 	
 	</c:if>		
-		<c:if test="${!empty labelHeadSx}">	
-			<span>${labelHeadSx}</span>
-			<c:if test="${empty labelHeadDx}">
-				<br/>
-			</c:if>
-		</c:if>
-		<c:if test="${!empty labelHeadDx}">
-			<span style="padding-left:'${size}%';">${labelHeadDx}</span>
-			<br/>
-		</c:if>	
 		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 
@@ -189,10 +191,12 @@
 		<c:set var="onchange" value="${dynajs_funct};${onchange}" />
 		<input name="${idlinkdescription}" id="${idlinkdescription}" type="text" ${disabled} size="${size}%"
 			value="${dyna:getLinkDescription(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
+		</td>
+		<td>	
 		<input name="${idlinkvalue}" id="${idlinkvalue}" size="${size}%" type="text" ${disabled}
 			value="${dyna:getLinkValue(inputValue)}" onchange="${functionValidation}${onchange}" ${cssClassAttribute}/>
-			
-					
+		</td>	
+		<td>		
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>
@@ -212,17 +216,18 @@
 		var ${dynajs_var} = new AddLinkInputWithVisibility('${root}','${dynajs_var}',
 									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
-									 ${size},'${cssClass}','${visibility}');		
+									 ${size},${repeatable},'${cssClass}','${visibility}');		
 	</script>
 	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create();" alt="add button"/>
+		onclick="${dynajs_var}.create(this);" alt="add button"/>
 	
 	</c:if>
 	</c:if>
 	
 	<dyna:validation propertyPath="${validation}" />
-	
+	</td></tr>
 </c:if>
+</table>
 	 <c:if test='${!empty helpKey || !empty help}'>
 
 </div></div>

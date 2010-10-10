@@ -71,8 +71,8 @@
 					tmpTypes[${subStatus.count - 1}][1] = '${subtip.rendering.size}';
 					tmpTypes[${subStatus.count - 1}][2] = '${dyna:getTargetClass(subtip.rendering)}';
 					tmpTypes[${subStatus.count - 1}][3] = '${dyna:escapeApici(subtip.rendering.display)}';
-					tmpTypes[${subStatus.count - 1}][4] = '${required}';
-					tmpTypes[${subStatus.count - 1}][5] = '${repetable}';
+					tmpTypes[${subStatus.count - 1}][4] = '${subtip.rendering.required}';
+					tmpTypes[${subStatus.count - 1}][5] = '${subtip.repeatable}';
 					tmpTypes[${subStatus.count - 1}][6] = '${dyna:escapeApici(onchange)}';
 					tmpTypes[${subStatus.count - 1}][7] = '${ajaxValidation}';
 					tmpTypes[${subStatus.count - 1}][8] = '${validationParams}';
@@ -97,6 +97,9 @@
 				</c:when>
 				<c:when test="${subtip.rendering.triview == 'link'}">
 					tmpTypes[${subStatus.count - 1}][1] = ${subtip.rendering.size};
+					tmpTypes[${subStatus.count - 1}][2] = ${subtip.repeatable};
+					tmpTypes[${subStatus.count - 1}][3] = '${dyna:escapeApici(subtip.rendering.labelHeaderLabel)}';
+					tmpTypes[${subStatus.count - 1}][4] = '${dyna:escapeApici(subtip.rendering.labelHeaderURL)}';
 				</c:when>
 				<c:when test="${subtip.rendering.triview == 'alberoClassificatorio'}">
 					tmpTypes[${subStatus.count - 1}][1] = '${dyna:escapeApici(subtip.rendering.alberoClassificatorio.nome)}';
