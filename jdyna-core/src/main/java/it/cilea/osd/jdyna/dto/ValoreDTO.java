@@ -67,12 +67,12 @@ public class ValoreDTO implements Serializable {
 	}
 
 	public void setVisibility(Boolean visibility) {
-		this.visibility = visibility==null?false:visibility;		
+		this.visibility = visibility==null?true:visibility;		
 	}
 
 	public Boolean getVisibility() {
 		if(this.visibility==null) {
-			return false;
+			return true;
 		}
 		return visibility;
 	}
