@@ -36,7 +36,7 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C>,C
 	private String shortName;
 
 	/** Priority level */
-	public int priority;
+	private int priority;
 	
 	/** Tab label */
 	private String title;
@@ -44,7 +44,9 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C>,C
 	/**
 	 * Level of visibility  
 	 */
-	public Integer visibility;
+	protected Integer visibility;
+	
+	private boolean collapsed;
 	
 	// accessori e setter
 	public Integer getId() {
@@ -114,6 +116,16 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C>,C
 	public void setPriority(int priorita) {
 		this.priority = priorita;
 	}
+	
+	public boolean isCollapsed()
+	{
+	    return this.collapsed;
+	}
+	
+    public void setCollapsed(boolean collapsed)
+    {
+        this.collapsed = collapsed;
+    }
 	
 	/**
 	 * Order by priority, if priority is the same then get an alphabetical order by <code>shortName</code> 
