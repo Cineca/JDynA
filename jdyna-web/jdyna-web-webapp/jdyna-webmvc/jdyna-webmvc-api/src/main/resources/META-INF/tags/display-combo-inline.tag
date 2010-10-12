@@ -91,18 +91,20 @@
 </c:if>
 
 
-<c:set var="showit" value="false" target="java.lang.Boolean" />
+<c:set var="subshowit" value="false" target="java.lang.Boolean" />
+
 
 <c:choose>
 	<c:when test="${!isCombo}">
-		<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
-			<c:if test="${value.visibility == 1}">
-				<c:set var="showit" value="true" target="java.lang.Boolean" />
+		<c:forEach var="subvalue" items="${subValues}" varStatus="valueStatus">
+
+			<c:if test="${subvalue.visibility == 1}">
+				<c:set var="subshowit" value="true" target="java.lang.Boolean" />
 			</c:if>
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
-		<c:set var="showit" value="true" target="java.lang.Boolean" />
+		<c:set var="subshowit" value="true" target="java.lang.Boolean" />
 	</c:otherwise>
 </c:choose>
 
@@ -121,7 +123,7 @@
 	<c:if test="${!empty fieldMinHeight || !empty fieldMinWidth}">
 		<c:set var="fieldStyle" value="style=\" ${fieldMinHeight}${fieldMinWidth}\"" />
 	</c:if>
-	<c:if test="${showit}">
+	<c:if test="${subshowit}">
 		<div class="dynaField"${fieldStyle}><c:set var="labelMinWidth"
 			value="" /> <c:set var="labelStyle" value="" /> <c:if
 			test="${subtip.labelMinSize > 1}">
@@ -132,7 +134,7 @@
 		<div id="${subtip.shortName}Div" class="dynaFieldValue">
 	</c:if>
 </c:if>
-<c:if test="${showit}">
+<c:if test="${subshowit}">
 	<c:choose>
 		<c:when test="${isLink}">
 			<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
