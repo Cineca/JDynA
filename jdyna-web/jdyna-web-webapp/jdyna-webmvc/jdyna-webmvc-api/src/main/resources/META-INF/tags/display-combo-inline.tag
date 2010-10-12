@@ -128,7 +128,7 @@
 					<div id="${subtip.shortName}Div" class="dynaFieldValue">
 					</c:if>
 					</c:if>
-					</c:if>
+					<c:if test="${showit}">
 					<c:choose>
 						<c:when test="${isLink}">
 							<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
