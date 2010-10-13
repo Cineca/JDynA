@@ -81,7 +81,7 @@
 
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 		
-		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="8" ${disabled}/>
+		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="10" ${disabled}/>
 		
 		<c:if test="${empty disabled}">
 		<img id="${calendarButton}" 
@@ -168,7 +168,7 @@
 			<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 		</c:if>
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-		<input id="${inputName}" name="${inputName}" ${disabled} type="text" value="${inputValue}" size="8" onchange="${functionValidation};${onchange}"/>
+		<input id="${inputName}" name="${inputName}" ${disabled} type="text" value="${inputValue}" size="10" onchange="${functionValidation};${onchange}"/>
 		
 		<c:if test="${empty disabled}">
 		<img id="${calendarButton}" 
