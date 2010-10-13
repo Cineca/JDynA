@@ -139,8 +139,8 @@
 
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
-	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create(this);" />
+	<img id="_dyna_${dyna:md5(propertyPath)}_addbutton" src="${root}/image/jdyna/main_plus.gif" class="addButton"
+		onclick="${dynajs_var}.create();" />
 	</c:when>
 	<c:otherwise>
 	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
@@ -220,7 +220,7 @@
 									 '${dyna:escapeApici(labelHeadSx)}','${dyna:escapeApici(labelHeadDx)}',
 									 '${cssClass}','${visibility}');		
 	</script>
-	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
+	<img id="_dyna_${dyna:md5(propertyPath)}_addbutton" src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create(this);" alt="add button"/>
 	
 	</c:if>
