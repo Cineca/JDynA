@@ -79,7 +79,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param decorable
 	 * @return
 	 */
-	public IContainable findContainableByDecorable(Class decoratorClass,
+	public <IC> IC findContainableByDecorable(Class decoratorClass,
 			Integer decorable);
 
 	/**

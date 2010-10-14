@@ -8,6 +8,7 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.PersistenceDynaService;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -69,6 +70,7 @@ public abstract class TabService extends PersistenceDynaService implements
 			boxID = getList(boxClass).get(0).getId();
 		}
 		List<IContainable> results = boxDao.findContainableByHolder(boxID);		
+		Collections.sort(results);
 		return results;
 	}
 	
@@ -86,6 +88,7 @@ public abstract class TabService extends PersistenceDynaService implements
 			containables.add(dao.uniqueContainableByDecorable(tp.getId()));
 		}
 		findOtherContainables(containables);
+		Collections.sort(containables);
 		return containables;
 	}
 	

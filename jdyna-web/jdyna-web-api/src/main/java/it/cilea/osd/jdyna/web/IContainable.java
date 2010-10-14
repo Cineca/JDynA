@@ -1,9 +1,6 @@
 package it.cilea.osd.jdyna.web;
 
-
-
-
-public interface IContainable { 
+public interface IContainable extends Comparable<IContainable> { 
 
 	public String getShortName();
 	public Integer getId();
@@ -11,5 +8,5 @@ public interface IContainable {
 	public String getLabel();
 	public boolean getRepeatable();
 	public Object getObject();
-	
+	public int getPriority();
 }
