@@ -69,35 +69,41 @@ import org.hibernate.annotations.Type;
 public abstract class PropertiesDefinition extends IdentifiableObject implements Selectable, Comparable<PropertiesDefinition>, IPropertiesDefinition {
 	//FIXME aggiungere campi -valore di default e -valore di test (servono anche per creare il validatore delle formule)
 	
-	/**Chiave primaria di accesso*/
+	/** Primary key identifier*/
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROPERTIESDEFINITION_SEQ")
     @SequenceGenerator(name = "PROPERTIESDEFINITION_SEQ", sequenceName = "PROPERTIESDEFINITION_SEQ")
 	private Integer id;
 	
-	/** intestazione tipologia*/
+	/** A unique textual identifier */
 	@Column (unique = true)
 	private String shortName;
 	
-	/** se obbligatorio */
+	/** The fact of being field obligatory */
 	private boolean mandatory;
 	
-	/** Ripetibilita'*/
+	/** Field repeatability*/
 	private boolean repeatable;
 	
-	/** require new line after it */
+	/** Require new line after it */
 	private boolean newline;
 	
+	/**
+	 * Label min size 
+	 */
 	private int labelMinSize;
 	
+	/**
+	 * Field row and column min size
+	 */
 	@AttributeOverrides(value = {
 			@AttributeOverride(name = "col", column = @Column(name= "fieldmin_col")),
 			@AttributeOverride(name = "row", column = @Column(name= "fieldmin_row"))
 	})	
 	private Size fieldMinSize;
 	
-	/**Etichetta della proprieta' */	
+	/** Label */	
 	private String label;
 	
 	/**Rendering*/
