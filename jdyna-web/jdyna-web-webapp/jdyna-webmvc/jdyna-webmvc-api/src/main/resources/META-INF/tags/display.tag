@@ -110,7 +110,17 @@
 </c:forEach>
 </c:when>
 <c:otherwise>
-	<c:set var="showit" value="true" target="java.lang.Boolean"/>
+<c:choose>
+	<c:when test="${isCombo && tipologia.rendering.inline}">
+		<c:set var="values" value="${dyna:hideComboRow(values)}" />		
+		<c:if test="${!empty values}">
+			<c:set var="showit" value="true" target="java.lang.Boolean"/>
+		</c:if>
+	</c:when>	
+	<c:otherwise>
+		<c:set var="showit" value="true" target="java.lang.Boolean"/>
+	</c:otherwise>
+</c:choose>	
 </c:otherwise>
 </c:choose>
 
@@ -260,7 +270,7 @@
 	</c:when>
 	<c:when test="${isCombo && tipologia.rendering.inline}">
 		<c:set var="count" value="0" />
-		<c:set var="values" value="${dyna:hideComboRow(values)}" />
+			
 		<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${tipologia.shortName}"
 			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="100">
 		<display:setProperty name="paging.banner.no_items_found" value="" />
