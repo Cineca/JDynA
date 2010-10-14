@@ -161,7 +161,28 @@
 					</c:if>
 					<c:set var="displayObject"
 						value="${dyna:display(subtip,value.value.real)}" />
-					<a target="_blank" href="${dyna:getLinkValue(displayObject)}"><span${style}>${dyna:getLinkDescription(displayObject)}</span></a>
+					<c:choose>
+				<c:when test="${!empty dyna:getLinkValue(displayObject)}">			
+				<a target="_blank" href="${dyna:getLinkValue(displayObject)}">
+				<c:choose>
+				<c:when test="${!empty dyna:getLinkDescription(displayObject)}">
+					<span ${style}>${dyna:getLinkDescription(displayObject)}</span>
+				</c:when>
+				<c:otherwise>
+					<span ${style}>${dyna:getLinkValue(displayObject)}</span>
+				</c:otherwise>
+				</c:choose>
+				</a>
+				</c:when>
+				<c:otherwise>
+				
+				<c:if test="${!empty dyna:getLinkDescription(displayObject)}">
+					<span ${style}>${dyna:getLinkDescription(displayObject)}</span>
+				</c:if>
+							
+				
+				</c:otherwise>
+				</c:choose>
 				</c:if>
 			</c:forEach>
 		</c:when>
