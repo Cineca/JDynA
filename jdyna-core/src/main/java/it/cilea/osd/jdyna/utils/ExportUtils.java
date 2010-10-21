@@ -216,7 +216,8 @@ public class ExportUtils implements ApplicationContextAware {
 			Element valueElement = new Element(tagValue);
 			int i = 0;
 			for (String attribute : attributes) {
-				valueElement.setAttribute(attribute, valuesAttributes.get(i));
+				String valueAttribute = valuesAttributes.get(i);				
+				valueElement.setAttribute(attribute, valueAttribute==null?"":valueAttribute);
 				i++;
 			}
 			valueElement.addContent(value);
