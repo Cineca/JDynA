@@ -50,7 +50,7 @@ public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
 		        throw new IllegalArgumentException("Invalid text string for link: "+text);
 		    }
 		    EmbeddedLinkValue link = new EmbeddedLinkValue();
-		    link.setDescriptionLink(splitted[0]);
+		    link.setDescriptionLink(splitted.length > 0?splitted[0]:null);
 		    link.setValueLink(splitted.length == 2?splitted[1]:null);
 			setValue(link);
 		}
