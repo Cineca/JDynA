@@ -48,6 +48,12 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C>,C
 	
 	private boolean collapsed;
 	
+    /**
+     * flag to say that this box contains only "header" informations. If this is
+     * the only box with data in a tab then the tab is "empty"
+     */
+	private boolean unrelevant;
+	
 	// accessori e setter
 	public Integer getId() {
 		return id;
@@ -125,6 +131,16 @@ public abstract class Box<C extends Containable> implements IPropertyHolder<C>,C
     public void setCollapsed(boolean collapsed)
     {
         this.collapsed = collapsed;
+    }
+    
+    public boolean isUnrelevant()
+    {
+        return unrelevant;
+    }
+    
+    public void setUnrelevant(boolean b)
+    {
+        this.unrelevant = b;
     }
 	
 	/**
