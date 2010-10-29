@@ -288,4 +288,11 @@
 	<function-signature>Object hideComboRow(java.lang.Object)</function-signature>
 </function>
 
+<function>
+	<description>Sort a list (make attention that parameter list elements must be implements Comparable</description>
+	<name>sortList</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>List sortList(java.util.List)</function-signature>
+</function>
+
 </taglib>

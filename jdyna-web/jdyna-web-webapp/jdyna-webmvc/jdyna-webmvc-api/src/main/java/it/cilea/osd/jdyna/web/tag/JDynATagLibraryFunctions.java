@@ -14,6 +14,7 @@ import java.beans.PropertyEditor;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -395,4 +396,14 @@ public class JDynATagLibraryFunctions {
 		return toView;
 	}
 	
+	/**
+	 * Sort a list (make attention that parameter list elements must be implements Comparable)
+	 * 
+	 * @param list
+	 * @return
+	 */
+	public static List sortList(List list) {		
+		Collections.sort(list);
+		return list;	
+	}
 }

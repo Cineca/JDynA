@@ -23,6 +23,7 @@
 </c:if>
 
 <c:if test="${tipologia.rendering.triview eq 'combo'}">
+	<c:set var="subTypesSortered" value="${dyna:sortList(tipologia.rendering.sottoTipologie)}" />
 	<c:set var="isCombo" value="true" />
 </c:if>
 
@@ -279,7 +280,7 @@
 		<display:setProperty name="paging.banner.page.selected" value="" />
 		<display:setProperty name="paging.banner.onepage" value="" />
 		
-		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="valueStatus">
+		<c:forEach var="subtip" items="${subTypesSortered}" varStatus="valueStatus">
 				
 									
 				<c:set var="subLabelMinWidth" value="" />
@@ -312,7 +313,7 @@
 		<c:when test="${fn:length(values) > 0}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<div class="dynaFieldComboValue">
-			<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
+			<c:forEach var="subtip" items="${subTypesSortered}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 				
 				<dyna:display-combo-inline subValues="${value.value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" />
@@ -325,7 +326,7 @@
 		</c:when>
 		<c:otherwise>
 		<div class="dynaFieldComboValue">
-			<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
+			<c:forEach var="subtip" items="${subTypesSortered}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 				<dyna:display-combo-inline subtip="${subtip}" />
 				<%-- FINE DEL COPIA INCOLLA --%>			
