@@ -44,6 +44,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
+import org.springframework.web.multipart.MultipartFile;
 
 /** Classe che gestisce un'area dell'Anagrafica 
  * @author pascarelli
@@ -80,6 +81,19 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	 * Level of visibility 
 	 */
 	public Integer visibility;
+	
+	
+
+	
+	private String ext;
+	
+	private String mime;
+	
+	/**
+	 * Icon tab
+	 */
+	@Transient
+	private MultipartFile iconFile;
 	
 	// getter and setter 	
 	public Integer getId() {
@@ -165,4 +179,26 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 			 else return shortName.compareTo(secondTip.getShortName());
 	}
 	
+	public MultipartFile getIconFile() {
+		return iconFile;
+	}
+	public void setIconFile(MultipartFile iconFile) {
+		this.iconFile = iconFile;
+	}
+
+	public void setExt(String ext) {
+		this.ext = ext;
+	}
+
+	public String getExt() {
+		return ext;
+	}
+
+	public void setMime(String mime) {
+		this.mime = mime;
+	}
+
+	public String getMime() {
+		return mime;
+	}
 }
