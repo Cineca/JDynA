@@ -25,7 +25,7 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
 public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends PropertiesDefinition, I extends IPropertyHolder<Containable>, T extends Tab<I>, EO extends AnagraficaObject<P, TP>>
-		implements Validator {
+		extends AnagraficaObjectDTOValidator<P, TP, I, EO> {
 
 	private static Log log = LogFactory.getLog(AnagraficaObjectDTOAreaValidator.class);
 	
@@ -54,10 +54,11 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 			List<I> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, dto
 					.getTabId());
 			for(I iph : propertyHolders) {
-				tipologieDaValidare = applicationService.findContainableInPropertyHolder(clazzPropertyHolder, iph.getId());
+				tipologieDaValidare.addAll(applicationService.findContainableInPropertyHolder(clazzPropertyHolder, iph.getId()));
 			}
 						
 		} else { // creation
+			
 			tipologieDaValidare = ((ITabService)applicationService)
 					.getContainableOnCreation(clazzTipologiaProprieta);
 		}
@@ -75,66 +76,6 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 		validate(dto, errors, realTPS, "");
 	}
 
-	public void validate(AnagraficaObjectDTO dto, Errors errors,
-			List<TP> tipologieDaValidare, String propertyPathPrefix) {
-		for (TP tipologia : tipologieDaValidare) {
-			
-			AWidget widget = tipologia.getRendering();
-
-			int sizeDTO = 0;
-			int idx = 0;
-			if (dto.getAnagraficaProperties().get(
-					tipologia.getShortName()) != null) {
-				for (ValoreDTO valoreDTO : dto.getAnagraficaProperties().get(
-						tipologia.getShortName())) {
-
-					if (widget instanceof WidgetCombo) {
-						AnagraficaObjectDTO valore = valoreDTO != null ? ((AnagraficaObjectDTO) valoreDTO
-								.getObject())
-								: null;
-
-						final WidgetCombo combo = (WidgetCombo) widget;
-						final List sottoTipologie = combo.getSottoTipologie();
-						if (valore != null
-								&& !AnagraficaUtils.checkIsAllNull(valore,
-										sottoTipologie)) {
-							sizeDTO++;
-
-							validate(valore, errors, sottoTipologie,
-									propertyPathPrefix
-											+ "anagraficaProperties["
-											+ tipologia.getShortName() + "]["
-											+ idx + "].object.");
-						}
-					} else {
-						Object valore = valoreDTO == null ? null : valoreDTO
-								.getObject();
-						if (valore != null) {
-
-							sizeDTO++;
-
-							ValidationMessage errorMsg = widget.valida(valore);
-							if (errorMsg != null) {
-								errors.rejectValue(propertyPathPrefix
-										+ "anagraficaProperties["
-										+ tipologia.getShortName() + "][" + idx
-										+ "]", errorMsg.getI18nKey(), errorMsg
-										.getParameters(), tipologia.getLabel());
-							}
-						}
-					}
-					idx++;
-				}
-
-				if (sizeDTO == 0 && tipologia.isMandatory()) {
-					errors.rejectValue(propertyPathPrefix
-							+ "anagraficaProperties["
-							+ tipologia.getShortName() + "][0]",
-							"field.required", tipologia.getLabel());
-				}
-			}
-		}
-	}
 
 	public void setClazzTipologiaProprieta(Class<TP> clazzTipologiaProprieta) {
 		this.clazzTipologiaProprieta = clazzTipologiaProprieta;

@@ -30,6 +30,7 @@
 <%-- FIXME: CODICE COMUNE A TUTTI I TAG... --%>
 
 <c:set var="objectPath" value="${dyna:getObjectPath(propertyPath)}" />
+<c:set var="subtypes" value="${dyna:sortList(tipologia.rendering.sottoTipologie)}" />
 
 <spring:bind path="${objectPath}">
 	<c:set var="object" value="${status.value}" />
@@ -57,7 +58,7 @@
 		var tmpTypes = new Array();
 		var tmpNewLines = new Array();
 		
-		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="subStatus"> 
+		<c:forEach var="subtip" items="${subtypes}" varStatus="subStatus"> 
 			tmpShortNames[${subStatus.count - 1}] = '${subtip.shortName}';
 			tmpLabels[${subStatus.count - 1}] = '${subtip.label}';
 			tmpRepetables[${subStatus.count - 1}] = ${subtip.repeatable};
@@ -129,7 +130,7 @@
 	<%--<caption>${label}</caption> --%>
 	<thead>
 		<tr>
-	<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}">
+	<c:forEach var="subtip" items="${subtypes}">
 			<th>${subtip.label}</th>
 	</c:forEach>
 	<c:if test="${empty disabled}">
@@ -156,7 +157,7 @@
 		</c:otherwise>
 	</c:choose>
 
-		<c:forEach var="subtip" items="${tipologia.rendering.sottoTipologie}" varStatus="colStatus">
+		<c:forEach var="subtip" items="${subtypes}" varStatus="colStatus">
 
 		<c:choose>
 			<c:when test="${tipologia.rendering.inline}">
