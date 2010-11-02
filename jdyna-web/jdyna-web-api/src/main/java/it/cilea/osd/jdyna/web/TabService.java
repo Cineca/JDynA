@@ -69,7 +69,9 @@ public abstract class TabService extends PersistenceDynaService implements
 		if (area == null) {
 			boxID = getList(boxClass).get(0).getId();
 		}
-		List<IContainable> results = boxDao.findContainableByHolder(boxID);		
+		List<IContainable> results = boxDao.findContainableByHolder(boxID);
+//		Don't use this, hard-use on jsp
+//		findOtherContainablesInBoxByConfiguration(area.getShortName(), results);
 		Collections.sort(results);
 		return results;
 	}
@@ -95,6 +97,10 @@ public abstract class TabService extends PersistenceDynaService implements
 
 	/** Extends this method to add other containables object type */
 	protected abstract void findOtherContainables(List<IContainable> containables);
+	
+	/** Extends this method to add other containables object type */
+	public abstract void findOtherContainablesInBoxByConfiguration(String holderName,
+			List<IContainable> containables);
 	
 	/**
 	 * {@inheritDoc}
