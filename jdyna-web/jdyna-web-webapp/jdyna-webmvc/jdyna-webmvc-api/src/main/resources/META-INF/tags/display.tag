@@ -312,7 +312,12 @@
 		<c:choose>
 		<c:when test="${fn:length(values) > 0}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<div class="dynaFieldComboValue">
+			<c:choose>
+				<c:when test="${valueStatus.count == 1}"><div class="dynaFieldComboValueFirst"></c:when>
+				<c:when test="${valueStatus.count == fn:length(values)}"><div class="dynaFieldComboValueLast"></c:when>
+				<c:otherwise><div class="dynaFieldComboValue"></c:otherwise>
+			</c:choose>
+		
 			<c:forEach var="subtip" items="${subTypesSortered}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 				
@@ -325,7 +330,7 @@
 		</c:forEach>
 		</c:when>
 		<c:otherwise>
-		<div class="dynaFieldComboValue">
+		<div class="dynaFieldComboValueFirstLast">
 			<c:forEach var="subtip" items="${subTypesSortered}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 				<dyna:display-combo-inline subtip="${subtip}" />
