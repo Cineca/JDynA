@@ -79,7 +79,9 @@
 		<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
 		<c:set var="calendarButton" value="calendar${status.expression}" />
 
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		<c:if test="${disabled}">					
+			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden"/>		
+		</c:if>		
 		
 		<input id="${inputName}" name="${inputName}" type="text" value="${inputValue}" size="10" ${disabled}/>
 		
@@ -167,7 +169,9 @@
 		<c:if test="${!empty ajaxValidation}">
 			<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 		</c:if>
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		<c:if test="${disabled}">					
+			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden"/>		
+		</c:if>		
 		<input id="${inputName}" name="${inputName}" ${disabled} type="text" value="${inputValue}" size="10" onchange="${functionValidation};${onchange}"/>
 		
 		<c:if test="${empty disabled}">

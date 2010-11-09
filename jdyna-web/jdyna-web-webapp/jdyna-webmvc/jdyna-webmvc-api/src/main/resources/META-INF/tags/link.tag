@@ -96,9 +96,11 @@
 			}
 		</script>
 		
-		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-		
+			
+			<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" ${disabled}/>	
+		<c:if test="${disabled}">					
+			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden"/>		
+		</c:if>		
 		<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="" />
 	<c:if test="${!empty ajaxValidation}">
@@ -177,8 +179,8 @@
 			<c:set var="validation" value="${propertyPath}"/>	
 	
 	</c:if>		
-		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" />
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		<input id="${inputName}" name="${inputName}" type="hidden" value="${inputValue}" ${disabled}/>
+		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" ${disabled}/>
 
 		<c:set var="dynajs_funct" value="_dyna_${dyna:md5(propertyPath)}_${dyna:md5(inputName)}()" />
 		
