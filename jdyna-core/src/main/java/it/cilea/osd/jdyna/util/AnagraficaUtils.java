@@ -264,24 +264,29 @@ public class AnagraficaUtils {
 						AnagraficaObjectDTO subDTO = valoreDTO != null?(AnagraficaObjectDTO) valoreDTO.getObject():null;
 						if (subDTO != null && !AnagraficaUtils.checkIsAllNull(subDTO, combo.getSottoTipologie())) {
 							MultiValue<P, TP> multi = (MultiValue) proprieta.get(i).getValue();
-							int oldSubSize = multi.getObject().size();
-							for (int k = 0; k < oldSubSize; k++) {
-								anagraficaSupport.removeProprieta(multi.getObject().get(0));
-							}
-							for (TP subtp : ((WidgetCombo<P, TP>) tipProprieta
-									.getRendering()).getSottoTipologie()) {						
-								List<ValoreDTO> subavaloriDTO = (List<ValoreDTO>) subDTO
-										.getAnagraficaProperties().get(
-												subtp.getShortName());
-								for (ValoreDTO subValoreDTO : subavaloriDTO) {
-									if (subValoreDTO != null && subValoreDTO.getObject() != null) {
-										P property = anagraficaSupport.createProprieta(proprieta.get(i), subtp);
-										property.getValue().setOggetto(
-														subValoreDTO.getObject());										
-										property.setVisibility(subValoreDTO.getVisibility()==false?0:1);
-									}
-								}
-							}
+//							int oldSubSize = multi.getObject().size();
+//							for (int k = 0; k < oldSubSize; k++) {
+//								anagraficaSupport.removeProprieta(multi.getObject().get(0));
+//							}
+//							for (TP subtp : ((WidgetCombo<P, TP>) tipProprieta
+//									.getRendering()).getSottoTipologie()) {						
+//								List<ValoreDTO> subavaloriDTO = (List<ValoreDTO>) subDTO
+//										.getAnagraficaProperties().get(
+//												subtp.getShortName());
+//								
+//								
+//								for (ValoreDTO subValoreDTO : subavaloriDTO) {
+//									if (subValoreDTO != null && subValoreDTO.getObject() != null) {
+//										P property = anagraficaSupport.createProprieta(proprieta.get(i), subtp);
+//										property.getValue().setOggetto(
+//														subValoreDTO.getObject());										
+//										property.setVisibility(subValoreDTO.getVisibility()==false?0:1);
+//									}
+//								}								
+//								
+//							}
+							reverseDTO(subDTO, multi, ((WidgetCombo<P, TP>) tipProprieta.getRendering()).getSottoTipologie());
+							
 							i++;					//3.90 M33-3
 						}
 					}
