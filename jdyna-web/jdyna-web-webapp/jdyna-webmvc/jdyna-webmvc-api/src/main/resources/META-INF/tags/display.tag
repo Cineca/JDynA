@@ -309,10 +309,11 @@
 	</c:when>
 	<c:when test="${isCombo && !tipologia.rendering.inline}">
 	
-		<c:choose>
+		<c:choose>		
 		<c:when test="${fn:length(values) > 0}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:choose>
+				<c:when test="${valueStatus.count == 1 && fn:length(values)==1}"><div class="dynaFieldComboValueFirstLast"></c:when>
 				<c:when test="${valueStatus.count == 1}"><div class="dynaFieldComboValueFirst"></c:when>
 				<c:when test="${valueStatus.count == fn:length(values)}"><div class="dynaFieldComboValueLast"></c:when>
 				<c:otherwise><div class="dynaFieldComboValue"></c:otherwise>
