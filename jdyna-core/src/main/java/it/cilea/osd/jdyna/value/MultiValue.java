@@ -259,22 +259,7 @@ public abstract class MultiValue<P extends Property<TP>, TP extends PropertiesDe
 	 * {@inheritDoc}
 	 */
 	public void setAnagrafica(List<P> anagrafica) {
-		for (P p : getAnagrafica()) {
-			if (p.getTypo().isTopLevel()) {
-				p.setParent(null);
-				p.getValue().setOggetto(null);
-			}
-		}
-		getAnagrafica().clear();
-		if (anagrafica != null) {
-			Collections.sort(anagrafica);
-			getAnagrafica().addAll(anagrafica);
-		}
-
-		for (P p : getAnagrafica()) {
-			p.setParent(this);
-		}
-		invalidateAnagraficaCache();
+		setReal(anagrafica);
 	}
 
 	/**
