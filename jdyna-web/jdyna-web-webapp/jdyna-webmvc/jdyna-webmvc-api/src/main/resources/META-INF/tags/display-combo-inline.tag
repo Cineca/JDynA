@@ -206,7 +206,7 @@
 									<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
 								</c:if>--%>
 				<c:if test="${!empty minwidth && !subElement}">
-					<c:set var="style" value="style=\" ${minwidth}\"" />
+					<c:set var="style" value=" style=\" ${minwidth}\"" />
 				</c:if>
 				<span${style}>${subValue.value.real}</span>
 			</c:forEach>
