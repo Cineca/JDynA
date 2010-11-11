@@ -206,9 +206,9 @@
 									<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
 								</c:if>--%>
 				<c:if test="${!empty minwidth && !subElement}">
-					<c:set var="style" value=" style=\" ${minwidth}\"" />
+					<c:set var="style" value="style=\" ${minwidth}\"" />
 				</c:if>
-				<span${style}>${subValue.value.real}</span>
+				<span ${style}>${subValue.value.real}</span>
 			</c:forEach>
 		</c:when>
 		<c:when test="${isSubTextArea}">
@@ -228,7 +228,7 @@
 				<c:if test="${!empty minheight || !empty minwidth}">
 					<c:set var="style" value="style=\" ${minheight}${minwidth}\"" />
 				</c:if>
-				<div${style}>${subtip.rendering.htmlToolbar eq
+				<div ${style}>${subtip.rendering.htmlToolbar eq
 				'nessuna'?dyna:nl2br(subValue.value.real):subValue.value.real}</div>
 			</c:forEach>
 		</c:when>
