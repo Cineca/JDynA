@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>jdyna</groupId>
 	<artifactId>jdyna</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>pom</packaging>
 	<name>JDynA</name>
 	<description>Dynamic Metadata Management for Java Domain Object</description>
@@ -120,7 +120,7 @@
 			<dependency>
 				<groupId>commons-cilea-genericdao</groupId>
 				<artifactId>commons-cilea-genericdao</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
+				<version>0.1</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>

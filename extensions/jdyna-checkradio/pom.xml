@@ -3,23 +3,23 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <groupId>jdyna-checkradio</groupId>
   <artifactId>jdyna-checkradio</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <dependencies>
   	<dependency>
   		<groupId>jdyna-classification</groupId>
   		<artifactId>jdyna-classification</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-subject</groupId>
   		<artifactId>jdyna-subject</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

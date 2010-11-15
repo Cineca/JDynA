@@ -3,16 +3,16 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <groupId>jdyna-classification</groupId>
   <artifactId>jdyna-classification</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <dependencies>
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

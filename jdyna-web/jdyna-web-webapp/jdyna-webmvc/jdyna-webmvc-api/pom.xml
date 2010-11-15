@@ -3,79 +3,79 @@
   <parent>
     <artifactId>jdyna-webmvc</artifactId>
     <groupId>jdyna-webmvc</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <groupId>jdyna-webmvc-api</groupId>
   <artifactId>jdyna-webmvc-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <dependencies>
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-web-api</groupId>
   		<artifactId>jdyna-web-api</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-classification</groupId>
   		<artifactId>jdyna-classification</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-subject</groupId>
   		<artifactId>jdyna-subject</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-pointer</groupId>
   		<artifactId>jdyna-pointer</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-date</groupId>
   		<artifactId>jdyna-date</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-number</groupId>
   		<artifactId>jdyna-number</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-formula</groupId>
   		<artifactId>jdyna-formula</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-boolean</groupId>
   		<artifactId>jdyna-boolean</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-checkradio</groupId>
   		<artifactId>jdyna-checkradio</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

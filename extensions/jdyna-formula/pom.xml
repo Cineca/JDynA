@@ -3,29 +3,29 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1</version>
   </parent>
   <groupId>jdyna-formula</groupId>
   <artifactId>jdyna-formula</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.1</version>
   <dependencies>
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-number</groupId>
   		<artifactId>jdyna-number</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-classification</groupId>
   		<artifactId>jdyna-classification</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

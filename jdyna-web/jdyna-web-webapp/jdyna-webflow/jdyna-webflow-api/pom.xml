@@ -3,17 +3,16 @@
   <parent>
     <artifactId>jdyna-webflow</artifactId>
     <groupId>jdyna-webflow</groupId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.1
   </parent>
   <groupId>jdyna-webflow-api</groupId>
   <artifactId>jdyna-webflow-api</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <dependencies>
+  <version>0.1</versio0.1ncies>
   	<dependency>
   		<groupId>jdyna-web-api</groupId>
   		<artifactId>jdyna-web-api</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  		<type>jar</type>
+  		<version>0.1</version>
+  		<ty0.1
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
@@ -26,44 +25,39 @@
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
-  		<type>jar</type>
-  	
-  	</dependency>
+  		<version>0.1</version>
+  		<type>jar</typ0.1dependency>
   	<dependency>
   		<groupId>jdyna-classification</groupId>
   		<artifactId>jdyna-classification</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
-  		<scope>compile</scope>
+  		<sc0.1cope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-formula</groupId>
   		<artifactId>jdyna-formula</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
+  		<scope>compile0.1/dependency>
   	<dependency>
   		<groupId>jdyna-webmvc-api</groupId>
   		<artifactId>jdyna-webmvc-api</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
-  	</dependency>
+ 0.1>
   	<dependency>
   		<groupId>jdyna-subject</groupId>
   		<artifactId>jdyna-subject</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
+  	</depende0.1ndency>
   		<groupId>jdyna-checkradio</groupId>
   		<artifactId>jdyna-checkradio</artifactId>
-  		<version>0.0.1-SNAPSHOT</version>
+  		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
-  </dependencies>
-</project>
+  </d0.1</project>

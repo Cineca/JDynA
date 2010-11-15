@@ -4,12 +4,10 @@
   <parent>
   	<artifactId>jdyna-web-webapp</artifactId>
   	<groupId>jdyna-web-webapp</groupId>
-    <version>0.0.1-SNAPSHOT</version>
-  </parent>
+    <version>0.1  </parent>
   <groupId>jdyna-webmvc</groupId>
   <artifactId>jdyna-webmvc</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
-  <packaging>pom</packaging>
+  <version>0.1</versio0.1g>pom</packaging>
   <modules>
   	<module>jdyna-webmvc-api</module>
     <module>jdyna-webmvc-webapp</module>
