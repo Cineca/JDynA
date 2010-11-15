@@ -6,11 +6,11 @@
 	<parent>
 		<artifactId>jdyna-webmvc</artifactId>
 		<groupId>jdyna-webmvc</groupId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1</version>
 	</parent>
 	<groupId>jdyna-webmvc-webapp</groupId>
 	<artifactId>jdyna-webmvc-webapp</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.1</version>
 	<packaging>war</packaging>
 	<name>jdyna-webmvc-webapp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -24,13 +24,13 @@
 		<dependency>
 			<groupId>jdyna-classification</groupId>
 			<artifactId>jdyna-classification</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1</version>
 
 		</dependency>
 		<dependency>
 			<groupId>jdyna-core</groupId>
 			<artifactId>jdyna-core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
