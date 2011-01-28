@@ -80,10 +80,10 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
 			
 			//cancello tutte le proprieta' salvate in passato
-			applicationService.deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
+			applicationService.<it.cilea.osd.jdyna.model.Property<TP>, TP>deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
 			//cancello se fanno parte di qualche property holder		
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
-			applicationService.deleteContainableInPropertyHolder(holderModel,containable);
+			applicationService.<H, T>deleteContainableInPropertyHolder(holderModel,containable);
 			//cancello il decorator e in cascata la tipologia di proprieta		
 			if(!tip.isTopLevel())
 			{				

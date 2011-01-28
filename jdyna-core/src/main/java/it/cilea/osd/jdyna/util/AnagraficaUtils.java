@@ -225,7 +225,7 @@ public class AnagraficaUtils {
 					int tmp = 0;
 					for (ValoreDTO aval : avaloriDTO) {
 						AnagraficaObjectDTO subDTO = aval != null?(AnagraficaObjectDTO) aval.getObject():null;
-						if (subDTO != null && !AnagraficaUtils.checkIsAllNull(subDTO, combo.getSottoTipologie())) {
+						if (subDTO != null && !AnagraficaUtils.<P, TP>checkIsAllNull(subDTO, combo.getSottoTipologie())) {
 							tmp++;					
 						}
 					}
@@ -262,7 +262,7 @@ public class AnagraficaUtils {
 					int i = 0;
 					for (ValoreDTO valoreDTO : avaloriDTO) {
 						AnagraficaObjectDTO subDTO = valoreDTO != null?(AnagraficaObjectDTO) valoreDTO.getObject():null;
-						if (subDTO != null && !AnagraficaUtils.checkIsAllNull(subDTO, combo.getSottoTipologie())) {
+						if (subDTO != null && !AnagraficaUtils.<P, TP>checkIsAllNull(subDTO, combo.getSottoTipologie())) {
 							MultiValue<P, TP> multi = (MultiValue) proprieta.get(i).getValue();
 //							int oldSubSize = multi.getObject().size();
 //							for (int k = 0; k < oldSubSize; k++) {
@@ -315,7 +315,7 @@ public class AnagraficaUtils {
 				if (tp.getRendering() instanceof WidgetCombo) {
 					WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tp
 							.getRendering();
-					if (!checkIsAllNull((AnagraficaObjectDTO) subvalore,
+					if (!AnagraficaUtils.<P, TP>checkIsAllNull((AnagraficaObjectDTO) subvalore,
 							sottoTipologie)) {
 						return false;
 					}

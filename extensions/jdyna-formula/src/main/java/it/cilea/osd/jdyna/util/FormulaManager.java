@@ -315,7 +315,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 					// formula
 					
 					if(((Identifiable)oggetto).getId()!=null) {
-						List<P> proprietaDaCancellare = applicationService.getProprietaByParentAndTipologia((Identifiable)oggetto,tip);
+						List<P> proprietaDaCancellare = applicationService.<P, TP>getProprietaByParentAndTipologia((Identifiable)oggetto,tip);
 								
 						for(P prop : proprietaDaCancellare) {
 							oggetto.removeProprieta(prop);

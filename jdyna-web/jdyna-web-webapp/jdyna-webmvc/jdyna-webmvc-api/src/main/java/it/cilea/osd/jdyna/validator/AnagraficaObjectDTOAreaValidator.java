@@ -54,7 +54,7 @@ public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends
 			List<I> propertyHolders = applicationService.findPropertyHolderInTab(clazzTab, dto
 					.getTabId());
 			for(I iph : propertyHolders) {
-				tipologieDaValidare.addAll(applicationService.findContainableInPropertyHolder(clazzPropertyHolder, iph.getId()));
+				tipologieDaValidare.addAll(applicationService.<I, T>findContainableInPropertyHolder(clazzPropertyHolder, iph.getId()));
 			}
 						
 		} else { // creation

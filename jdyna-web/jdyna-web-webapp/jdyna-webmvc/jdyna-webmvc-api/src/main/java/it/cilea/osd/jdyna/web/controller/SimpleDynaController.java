@@ -157,7 +157,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		for (H iph : propertyHolders) {
 			
 				List<IContainable> temp = applicationService
-						.findContainableInPropertyHolder(propertyHolderClass,
+						.<H, T>findContainableInPropertyHolder(propertyHolderClass,
 								iph.getId());
 				Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
 				for(IContainable tt : temp) {

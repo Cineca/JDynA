@@ -56,7 +56,7 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 		Integer paramTypeBoxId = Integer.valueOf(tabId);
 		H box = applicationService.get(boxClass, paramTypeBoxId);		
 
-	    List<IContainable> containableList = applicationService.findContainableInPropertyHolder(boxClass, box.getId());
+	    List<IContainable> containableList = applicationService.<H, T>findContainableInPropertyHolder(boxClass, box.getId());
 				
 		model.put("box", box);
 		model.put("containableList", containableList);

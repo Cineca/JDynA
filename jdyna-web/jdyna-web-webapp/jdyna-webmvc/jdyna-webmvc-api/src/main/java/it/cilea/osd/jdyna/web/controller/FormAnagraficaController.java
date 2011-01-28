@@ -110,7 +110,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		List<IContainable> tipProprietaInArea =null;
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
-			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
+			tipProprietaInArea = applicationService.<H, T>findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		map.put("propertiesHolders", propertyHolders);
 		map.put("propertiesDefinitionsInTab", tipProprietaInArea);
@@ -146,7 +146,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
-			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
+			tipProprietaInArea = applicationService.<H, T>findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		AnagraficaObjectAreaDTO anagraficaObjectDTO = new AnagraficaObjectAreaDTO();
 		anagraficaObjectDTO.setTabId(areaId);
@@ -183,7 +183,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
-			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
+			tipProprietaInArea = applicationService.<H, T>findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		
 		List<TP> realTPS = new LinkedList<TP>();
@@ -225,7 +225,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
 		List<IContainable> tipProprietaInArea = new LinkedList<IContainable>();
 		
 		for(IPropertyHolder<Containable> iph : propertyHolders) {
-			tipProprietaInArea = applicationService.findContainableInPropertyHolder(clazzBox, iph.getId());
+			tipProprietaInArea = applicationService.<H, T>findContainableInPropertyHolder(clazzBox, iph.getId());
 		}
 		List<TP> realTPS = new LinkedList<TP>();
 		for(IContainable c : tipProprietaInArea) {

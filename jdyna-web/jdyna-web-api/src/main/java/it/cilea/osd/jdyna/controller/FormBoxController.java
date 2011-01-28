@@ -55,7 +55,7 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		}
 		if (paramId != null) {
 			Integer id = Integer.parseInt(paramId);
-			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
+			owneredContainables = applicationService.<H, T>findContainableInPropertyHolder(boxClass, id);
 		}
 		
 		map.put("containablesList", containables);
