@@ -37,7 +37,9 @@ import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
 import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
+import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
@@ -63,13 +65,14 @@ public class PersistenceDynaService extends PersistenceService implements
 	protected IApplicationDao applicationDao;
 
 	protected PropertyDao propertyDao;
-	
+	protected PropertiesDefinitionDao propertiesDefinitionDao;
 
 
 	/** Metodo di inizializzazione dei generics dao utilizzati direttamente in modo tale da non doverli sempre 
 	 *  prendere dalla mappa dei dao */
 	public void init() {
 		propertyDao = (PropertyDao) getDaoByModel(Property.class);
+		propertiesDefinitionDao = (PropertiesDefinitionDao) getDaoByModel(PropertiesDefinition.class);
 	}
 
 	public void setApplicationDao(IApplicationDao applicationDao) {
@@ -508,5 +511,13 @@ public class PersistenceDynaService extends PersistenceService implements
 				.countValueByPropertiesDefinition(propertiesDefinitionID);
 	}
 
+	
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(AWidget widget) {
+		return (TP)propertiesDefinitionDao.findPropertiesDefinitionByWidget(widget);
+	}
 
 }

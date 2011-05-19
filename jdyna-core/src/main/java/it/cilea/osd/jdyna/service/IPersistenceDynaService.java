@@ -31,7 +31,9 @@ import it.cilea.osd.jdyna.dao.MultiTypeDaoSupport;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
 import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
+import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
@@ -294,4 +296,13 @@ public interface IPersistenceDynaService extends IPersistenceService {
 			Class<T> model, Integer tipologiaId, boolean inverse, int page,
 			int maxResults);
 
+	/**
+	 * 
+	 * Return properties definition by widget
+	 * 
+	 * @param <TP>
+	 * @param widget
+	 * @return
+	 */
+	public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(AWidget widget);
 }

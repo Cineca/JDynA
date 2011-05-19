@@ -25,6 +25,7 @@
  */
 package it.cilea.osd.jdyna.dao;
 import it.cilea.osd.common.dao.PaginableObjectDao;
+import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
 import java.util.List;
@@ -40,5 +41,6 @@ public interface PropertiesDefinitionDao<T extends PropertiesDefinition> extends
 	public List<T> findAllWithWidgetFormula();
 	public List<T> findAdvancedSearchAndClassificazione();
 	public T uniqueTipologiaProprietaCombo(T tipologiaProprieta);
-	public List<T> findAdvancedSearchAndBoolean();		
+	public List<T> findAdvancedSearchAndBoolean();
+	public T findPropertiesDefinitionByWidget(AWidget widget);		
 }
