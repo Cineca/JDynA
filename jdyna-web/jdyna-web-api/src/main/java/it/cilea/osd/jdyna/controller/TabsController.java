@@ -48,7 +48,7 @@ public abstract class TabsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 		
-	private ModelAndView handleDetails(HttpServletRequest request) {
+	protected ModelAndView handleDetails(HttpServletRequest request) {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		String tabId = request.getParameter("id");
@@ -81,7 +81,7 @@ public abstract class TabsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 
-	private ModelAndView handleList(HttpServletRequest arg0) throws Exception {
+	protected ModelAndView handleList(HttpServletRequest arg0) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<T> tabs = new LinkedList<T>();
 		tabs = applicationService.getList(tabsClass);

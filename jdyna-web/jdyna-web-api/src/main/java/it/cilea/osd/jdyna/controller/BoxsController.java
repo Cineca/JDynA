@@ -81,7 +81,7 @@ public abstract class BoxsController<H extends IPropertyHolder<Containable>, T e
 	}
 
 
-	private ModelAndView handleList(HttpServletRequest arg0) throws Exception {
+	protected ModelAndView handleList(HttpServletRequest arg0) throws Exception {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<H> boxs = new LinkedList<H>();
 		boxs = applicationService.getList(boxClass);

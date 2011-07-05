@@ -14,10 +14,6 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.validation.BindException;
-import org.springframework.web.servlet.ModelAndView;
 
 
 
@@ -55,7 +51,7 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		}
 		if (paramId != null) {
 			Integer id = Integer.parseInt(paramId);
-			owneredContainables = applicationService.<H, T>findContainableInPropertyHolder(boxClass, id);
+			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
 		}
 		
 		map.put("containablesList", containables);
