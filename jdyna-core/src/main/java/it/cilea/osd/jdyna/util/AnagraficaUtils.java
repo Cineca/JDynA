@@ -39,6 +39,7 @@ import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.beans.PropertyEditor;
 import java.io.PrintWriter;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -468,6 +469,26 @@ public class AnagraficaUtils {
 			}
 
 		}
-	}			
+	}
 		
+	/**
+	 * Iterate on list passed as parameter and get first value string from anagrafica.
+	 *  
+	 * @param anagrafica
+	 * @param listMetadataShortname
+	 * @return
+	 */
+	public static <P extends Property<TP>, TP extends PropertiesDefinition> Map<String,AValue<?>> getFirstSingleValue(
+			AnagraficaSupport<P, TP> anagrafica,
+			String[] listMetadataShortname) {
+		Map<String,AValue<?>> result = new HashMap<String, AValue<?>>();
+		for(String shortname : listMetadataShortname) {
+			List<P> pp = anagrafica.getAnagrafica4view().get(shortname);
+			if(pp!=null && !pp.isEmpty()) {
+				result.put(shortname, pp.get(0).getValue());
+				return result;
+			}
+		}
+		return null;
+	}
 }
