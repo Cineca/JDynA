@@ -79,7 +79,12 @@
 				<artifactId>commons-collections</artifactId>
 				<version>3.2.1</version>
 			</dependency>
-
+    		
+    		<dependency>
+            	<groupId>commons-io</groupId>
+            	<artifactId>commons-io</artifactId>
+            	<version>2.0.1</version>
+   			</dependency>
 			<!-- make sure that all the component of the slf4j library are up-to-date - fix exception 
 		 		 SLF4J: The requested version 1.5.6 by your slf4j binding is not compatible with [1.6]
 		    	 SLF4J: See http://www.slf4j.org/codes.html#version_mismatch for further details. -->
