@@ -23,60 +23,11 @@
  * Boston, MA  02110-1301  USA
  *
  */
-package it.cilea.osd.jdyna.dto;
+package it.cilea.osd.jdyna.dao;
 
-import java.io.Serializable;
+import it.cilea.osd.common.dao.PaginableObjectDao;
+import it.cilea.osd.jdyna.widget.WidgetFile;
 
-import org.springframework.web.multipart.MultipartFile;
-
-public class ValoreDTO implements Serializable {
-	/** The real contents entered/showed by the UI */
-	private Object object;
-	private Boolean visibility;
-		
-	public ValoreDTO() {
-	}
+public interface WidgetFileDao extends PaginableObjectDao<WidgetFile,Integer> {
 	
-	public ValoreDTO(Object object) {
-		super();
-		this.object = object;
-		this.setVisibility(true);
-	}
-
-	
-	public ValoreDTO(Object object, Boolean visibility) {
-		super();
-		this.object = object;
-		this.setVisibility(visibility);
-	}
-
-	public Object getObject() {
-		return object;
-	}
-
-	void setObject(Object object) {
-		this.object = object;
-	}
-	
-	@Override
-	public String toString() {
-		if (object != null){
-			return object.toString();
-		} else {
-			//FIXME attenzione "al primo giro" su dyna viene chiamato il toString del valore...
-			return "";
-		}
-	}
-
-	public void setVisibility(Boolean visibility) {
-		this.visibility = visibility==null?true:visibility;		
-	}
-
-	public Boolean getVisibility() {
-		if(this.visibility==null) {
-			return true;
-		}
-		return visibility;
-	}
-
 }

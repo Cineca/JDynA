@@ -406,4 +406,50 @@ public class JDynATagLibraryFunctions {
 		Collections.sort(list);
 		return list;	
 	}
+	
+	/**
+	 * Return the information for isDeleteFile checkbox from the "file" string existOnServer|||valueFile|||ext|||mime|||deleteOnServer
+	 * 
+	 * @param inputValue
+	 * @return
+	 */
+	public static boolean getFileIsOnServer(String inputValue) {
+		if (inputValue != null) {
+			String[] result = inputValue.split("\\|\\|\\|", 0);
+			return result.length > 0 ? Boolean.parseBoolean(result[0]) : false;
+		} else {
+			return false;
+		}
+	}
+
+	/**
+	 * Return the target from the "file" string existOnServer|||valueFile|||ext|||mime|||deleteOnServer
+	 * 
+	 * @param inputValue
+	 * @return
+	 */
+	public static String getFileName(String inputValue) {
+		if (inputValue != null) {
+			String[] result = inputValue.split("\\|\\|\\|");
+			return result.length > 4 ? result[3]+ ((result[4]!=null && !result[4].isEmpty()) ?"."+result[4]:"") : "";
+		} else {
+			return "";
+		}
+	}
+	
+	/**
+	 * Return the target from the "file" string existOnServer|||basePath|||servletPath|||valueFile|||ext|||mime|||folderFile
+	 *  
+	 * @param inputValue
+	 * @return
+	 */
+	public static String getFileFolder(String inputValue) {
+		if (inputValue != null) {
+			String[] result = inputValue.split("\\|\\|\\|");
+			return result.length > 5 ? result[6] + "/" : "";
+		} else {
+			return "";
+		}
+	}
 }
+

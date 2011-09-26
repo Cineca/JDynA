@@ -36,23 +36,26 @@ import javax.persistence.Entity;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 @Entity
-public abstract class FileValue extends AValue<EmbeddedFile> {
+@DiscriminatorValue(value = "file")
+public class FileValue extends AValue<EmbeddedFile> {
 
 	@Embedded
     @AttributeOverrides( {
         @AttributeOverride(name = "valueFile", column = @Column(name = "filevalue")),
-        @AttributeOverride(name = "descriptionFile", column = @Column(name = "filedescription")),
+        //@AttributeOverride(name = "descriptionFile", column = @Column(name = "filedescription")),
         @AttributeOverride(name = "mimeFile", column = @Column(name = "filemime")),
         @AttributeOverride(name = "extFile", column = @Column(name = "fileextension")),
-        @AttributeOverride(name = "folderFile", column = @Column(name = "filefolder")),
-        @AttributeOverride(name = "suffixFile", column = @Column(name = "filesuffix"))
+        @AttributeOverride(name = "folderFile", column = @Column(name = "filefolder"))
+//        @AttributeOverride(name = "suffixFile", column = @Column(name = "filesuffix"))
     })
     @Cascade(value = { CascadeType.ALL })    
 	private EmbeddedFile real;
+	
+	public FileValue() {
+		real = new EmbeddedFile();
+	}
 		
 	@Override
 	public EmbeddedFile getObject() {		
@@ -66,7 +69,7 @@ public abstract class FileValue extends AValue<EmbeddedFile> {
 
 	@Override
 	public EmbeddedFile getDefaultValue() {
-		return new EmbeddedFile(getBasePath());
+		return new EmbeddedFile();
 	}
 
 	@Override
@@ -81,6 +84,54 @@ public abstract class FileValue extends AValue<EmbeddedFile> {
 		return null;
 	}
 
-	public abstract String getBasePath();
+	
+	public String getValueFile() {
+		return getObject().getValueFile();
+	}
+
+	public void setValueFile(String valueFile) {
+		getObject().setValueFile(valueFile);
+	}
+
+//	public String getDescriptionFile() {
+//		return getObject().getDescriptionFile();
+//	}
+//
+//	public void setDescriptionFile(String descriptionFile) {
+//		getObject().setDescriptionFile(descriptionFile);
+//	}
+
+	public String getMimeFile() {
+		return getObject().getMimeFile();
+	}
+
+	public void setMimeFile(String mimeFile) {
+		getObject().setMimeFile(mimeFile);
+	}
+
+	public String getExtFile() {
+		return getObject().getExtFile();
+	}
+
+	public void setExtFile(String extFile) {
+		getObject().setExtFile(extFile);
+	}
+
+	public void setFolderFile(String folderFile) {
+		getObject().setFolderFile(folderFile);
+	}
+
+	public String getFolderFile() {
+		return getObject().getFolderFile();
+	}
+//
+//	public void setSuffixFile(String suffixFile) {
+//		getObject().setSuffixFile(suffixFile);
+//	}
+//
+//	public String getSuffixFile() {
+//		return getObject().getSuffixFile();
+//	}
+
 	
 }

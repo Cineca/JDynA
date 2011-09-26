@@ -102,6 +102,14 @@
 					tmpTypes[${subStatus.count - 1}][3] = '${dyna:escapeApici(subtip.rendering.labelHeaderLabel)}';
 					tmpTypes[${subStatus.count - 1}][4] = '${dyna:escapeApici(subtip.rendering.labelHeaderURL)}';
 				</c:when>
+				<c:when test="${subtip.rendering.triview == 'file'}">
+					tmpTypes[${subStatus.count - 1}][1] = ${subtip.rendering.size};
+					tmpTypes[${subStatus.count - 1}][2] = ${subtip.repeatable};
+					tmpTypes[${subStatus.count - 1}][3] = ${subtip.rendering.showPreview};
+					tmpTypes[${subStatus.count - 1}][4] = '${dyna:escapeApici(subtip.rendering.fileDescription)}';
+					tmpTypes[${subStatus.count - 1}][5] = '${dyna:escapeApici(subtip.rendering.servletPath)}';
+					tmpTypes[${subStatus.count - 1}][6] = '${dyna:escapeApici(subtip.rendering.labelAnchor)}';					
+				</c:when>
 				<c:when test="${subtip.rendering.triview == 'alberoClassificatorio'}">
 					tmpTypes[${subStatus.count - 1}][1] = '${dyna:escapeApici(subtip.rendering.alberoClassificatorio.nome)}';
 					tmpTypes[${subStatus.count - 1}][2] = new Array();
@@ -211,7 +219,11 @@
 				<c:if test="${subtip.repeatable != false}">
 					<c:set var="repetable" value="true" />
 				</c:if>
-		
+				
+				<c:if test="${subtip.rendering.triview eq 'file'}">
+					<c:set var="isFile" value="true" />
+				</c:if>
+						
 				<c:if test="${subtip.rendering.triview eq 'link'}">
 					<c:set var="isLink" value="true" />
 				</c:if>
@@ -280,6 +292,13 @@
 					<c:set var="isCalendar" value="true" />
 				</c:if>
 				<c:choose>
+					<c:when test="${isFile}">	
+						<dyna:file propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]" 
+							size="${subtip.rendering.size}" required="${required}" 
+							repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}"	validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"
+							showPreview="${subtip.rendering.showPreview}" labelAnchor="${subtip.rendering.labelAnchor}"
+							servletPath="${subtip.rendering.servletPath}" fileDescription="${subtip.rendering.fileDescription}"/>		
+					</c:when>
 					<c:when test="${isLink}">	
 						<dyna:link propertyPath="${objectPath}.${propertyName}[${rowStatus.count-1}].object.anagraficaProperties[${subtip.shortName}]" 
 							size="${subtip.rendering.size}" required="${required}" labelHeadSx="${subtip.rendering.labelHeaderLabel}" labelHeadDx="${subtip.rendering.labelHeaderURL}"
@@ -367,6 +386,7 @@
 					</c:when>
 				</c:choose> 
 				<%-- FIXME FINE ctrl+C/ctrl+V da edit.tag ... --%>
+				<c:set var="isFile" value="false" />
 				<c:set var="isLink" value="false" />
 				<c:set var="isText" value="false" />
 				<c:set var="isEmail" value="false" />

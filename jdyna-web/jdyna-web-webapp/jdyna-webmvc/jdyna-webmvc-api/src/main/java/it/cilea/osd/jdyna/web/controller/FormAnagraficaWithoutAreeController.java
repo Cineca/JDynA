@@ -5,6 +5,7 @@ import it.cilea.osd.jdyna.dto.AnagraficaObjectDTO;
 import it.cilea.osd.jdyna.dto.IAnagraficaObjectDTO;
 import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.dto.ValoreDTOPropertyEditor;
+import it.cilea.osd.jdyna.editor.FilePropertyEditor;
 import it.cilea.osd.jdyna.model.AnagraficaObject;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
@@ -27,6 +28,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.ServletRequestDataBinder;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, A extends Tab<H>, EO extends AnagraficaObject<P, TP>>
@@ -68,14 +70,22 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
 		for (String shortName : commandDTO.getAnagraficaProperties().keySet()) {
 			TP tipologiaProprieta = applicationService.findPropertiesDefinitionByShortName(clazzTipologiaProprieta, shortName);
 			PropertyEditor propertyEditor = tipologiaProprieta.getRendering().getPropertyEditor(applicationService);
+			if(propertyEditor instanceof FilePropertyEditor) {
+				((FilePropertyEditor)propertyEditor).setExternalAuthority(String.valueOf(commandDTO.getParentId()));
+				((FilePropertyEditor)propertyEditor).setInternalAuthority(String.valueOf(tipologiaProprieta.getId()));
+			}
 			if (tipologiaProprieta.getRendering() instanceof WidgetCombo) {
 				WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipologiaProprieta
 						.getRendering();
 				for (int i = 0; i < 100; i++) {
 					for (TP subtp : combo.getSottoTipologie()){
 						PropertyEditor subPropertyEditor = subtp.getRendering().getPropertyEditor(applicationService);
+						if(subPropertyEditor instanceof FilePropertyEditor) {
+							((FilePropertyEditor)subPropertyEditor).setExternalAuthority(String.valueOf(commandDTO.getParentId()));
+							((FilePropertyEditor)subPropertyEditor).setInternalAuthority(String.valueOf(subtp.getId()));
+						}
 						String path = "anagraficaProperties["+shortName+"]["+i+"].object.anagraficaProperties["+subtp.getShortName()+"]";
-						servletRequestDataBinder.registerCustomEditor(ValoreDTO.class, path, new ValoreDTOPropertyEditor(subPropertyEditor));
+						servletRequestDataBinder.registerCustomEditor(ValoreDTO.class, path, new ValoreDTOPropertyEditor(subPropertyEditor));						
 						servletRequestDataBinder.registerCustomEditor(Object.class, path+".object", subPropertyEditor);
 						logger.debug("Registrato Wrapper del property editor: "+propertyEditor+" per il path (combo): "+path);
 						logger.debug("Registrato property editor: "+propertyEditor+" per il path (combo): "+path+".object");
@@ -84,7 +94,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
 			}
 			else {
 				String path = "anagraficaProperties["+shortName+"]";
-				servletRequestDataBinder.registerCustomEditor(ValoreDTO.class, path, new ValoreDTOPropertyEditor(propertyEditor));
+				servletRequestDataBinder.registerCustomEditor(ValoreDTO.class, path, new ValoreDTOPropertyEditor(propertyEditor));				
 				// per le checkbox
 				servletRequestDataBinder.registerCustomEditor(Object.class, path+".object", propertyEditor);
 				logger.debug("Registrato Wrapper del property editor: "+propertyEditor+" per il path: "+path);

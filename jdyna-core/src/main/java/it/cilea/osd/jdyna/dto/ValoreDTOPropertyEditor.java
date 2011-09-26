@@ -28,14 +28,16 @@ package it.cilea.osd.jdyna.dto;
 import java.beans.PropertyEditor;
 import java.beans.PropertyEditorSupport;
 
-public class ValoreDTOPropertyEditor extends PropertyEditorSupport{
+import org.springframework.web.multipart.MultipartFile;
+
+public class ValoreDTOPropertyEditor extends PropertyEditorSupport {
 	private PropertyEditor internalPropertyEditor;
 
 	public ValoreDTOPropertyEditor(PropertyEditor internalPropertyEditor) {
 		super();
 		this.internalPropertyEditor = internalPropertyEditor;
 	}
-	
+
 	@Override
 	public void setAsText(String arg0) throws IllegalArgumentException {
 		ValoreDTO valoreDTO = new ValoreDTO();
@@ -43,16 +45,23 @@ public class ValoreDTOPropertyEditor extends PropertyEditorSupport{
 		valoreDTO.setObject(internalPropertyEditor.getValue());
 		setValue(valoreDTO);
 	}
-	
+
 	@Override
-	public String getAsText() {	
+	public String getAsText() {
 		return internalPropertyEditor.getAsText();
 	}
-	
+
 	@Override
 	public void setValue(Object arg0) {
 		super.setValue(arg0);
-		ValoreDTO valoreDTO = (ValoreDTO) arg0;
-		internalPropertyEditor.setValue(valoreDTO==null?null:valoreDTO.getObject());
-	}	
+		if (arg0 instanceof MultipartFile) {
+			internalPropertyEditor.setValue(arg0);
+			setValue(internalPropertyEditor.getValue());
+		} else {
+			ValoreDTO valoreDTO = (ValoreDTO) arg0;
+			internalPropertyEditor.setValue(valoreDTO == null ? null
+					: valoreDTO.getObject());
+		}
+	}
+
 }

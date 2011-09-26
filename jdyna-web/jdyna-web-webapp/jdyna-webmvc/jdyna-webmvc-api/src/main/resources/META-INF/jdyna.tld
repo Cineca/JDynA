@@ -26,6 +26,12 @@
 </tag-file>
 
 <tag-file>
+	<name>file</name>
+	<path>/META-INF/tags/file.tag</path>
+</tag-file>
+
+
+<tag-file>
 	<name>link</name>
 	<path>/META-INF/tags/link.tag</path>
 </tag-file>
@@ -295,4 +301,24 @@
 	<function-signature>List sortList(java.util.List)</function-signature>
 </function>
 
+<function>
+	<description>Return the value of checkbox isDeletable from string "file" existOnServer|||valueFile|||ext|||mime|||folder|||deleteOnServer</description>
+	<name>getFileIsOnServer</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean getFileIsOnServer(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return the description from the "file" string existOnServer|||valueFile|||ext|||mime|||folder|||deleteOnServer</description>
+	<name>getFileName</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getFileName(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return the folder from the "file" string existOnServer|||valueFile|||ext|||mime|||folder|||deleteOnServer</description>
+	<name>getFileFolder</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getFileFolder(java.lang.String)</function-signature>
+</function>
 </taglib>

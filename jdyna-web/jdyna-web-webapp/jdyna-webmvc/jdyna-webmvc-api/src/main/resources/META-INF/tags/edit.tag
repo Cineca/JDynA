@@ -23,6 +23,11 @@
 	<c:set var="repetable" value="true" />
 </c:if>		
 
+<c:if test="${tipologia.rendering.triview eq 'file'}">
+	<c:set var="isFile" value="true" />
+</c:if>
+
+
 <c:if test="${tipologia.rendering.triview eq 'link'}">
 	<c:set var="isLink" value="true" />
 </c:if>
@@ -133,6 +138,13 @@
 
 
 <c:choose>
+	<c:when test="${isFile}">	
+		<dyna:file propertyPath="${propertyPath}" size="${tipologia.rendering.size}"						
+				required="${required}" repeatable="${repetable}" 
+				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}" showPreview="${tipologia.rendering.showPreview}" labelAnchor="${tipologia.rendering.labelAnchor}"
+				servletPath="${tipologia.rendering.servletPath}" fileDescription="${tipologia.rendering.fileDescription}"/>		
+	</c:when>
 	<c:when test="${isLink}">	
 		<dyna:link propertyPath="${propertyPath}" size="${tipologia.rendering.size}" 
 				labelHeadSx="${tipologia.rendering.labelHeaderLabel}" labelHeadDx="${tipologia.rendering.labelHeaderURL}"		

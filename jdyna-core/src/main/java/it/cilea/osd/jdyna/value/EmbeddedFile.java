@@ -36,28 +36,15 @@ public class EmbeddedFile {
 	@Type(type="text")
 	private String valueFile;
 		
-	private String descriptionFile;
+	//private String descriptionFile;
 		
 	private String mimeFile;
 	
 	private String extFile;
-	
+		
 	private String folderFile;
-	
-	private String suffixFile;
-	
-	@Transient
-	private boolean deleteIt;
-	
-//	@Transient
-//	private MultipartFile file;
-	
-	@Transient 
-	private String basePath;
-	
-	public EmbeddedFile(String basePath) {
-		this.basePath = basePath;
-	}
+//	
+//	private String suffixFile;
 
 	public String getValueFile() {
 		return valueFile;
@@ -67,13 +54,13 @@ public class EmbeddedFile {
 		this.valueFile = valueFile;
 	}
 
-	public String getDescriptionFile() {
-		return descriptionFile;
-	}
-
-	public void setDescriptionFile(String descriptionFile) {
-		this.descriptionFile = descriptionFile;
-	}
+//	public String getDescriptionFile() {
+//		return descriptionFile;
+//	}
+//
+//	public void setDescriptionFile(String descriptionFile) {
+//		this.descriptionFile = descriptionFile;
+//	}
 
 	public String getMimeFile() {
 		return mimeFile;
@@ -98,37 +85,15 @@ public class EmbeddedFile {
 	public String getFolderFile() {
 		return folderFile;
 	}
-
-//	public void setFile(MultipartFile file) {
-//		this.file = file;
+//
+//	public void setSuffixFile(String suffixFile) {
+//		this.suffixFile = suffixFile;
 //	}
 //
-//	public MultipartFile getFile() {
-//		return file;
+//	public String getSuffixFile() {
+//		return suffixFile;
 //	}
+	
 
-	public void setDeleteIt(boolean deleteIt) {
-		this.deleteIt = deleteIt;
-	}
-
-	public boolean isDeleteIt() {
-		return deleteIt;
-	}
-
-	public void setSuffixFile(String suffixFile) {
-		this.suffixFile = suffixFile;
-	}
-
-	public String getSuffixFile() {
-		return suffixFile;
-	}
-
-	public void setBasePath(String basePath) {
-		this.basePath = basePath;
-	}
-
-	public String getBasePath() {
-		return basePath;
-	}
 	
 }

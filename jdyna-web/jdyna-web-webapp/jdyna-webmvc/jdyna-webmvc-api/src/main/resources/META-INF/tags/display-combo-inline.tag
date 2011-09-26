@@ -24,9 +24,15 @@
 <c:if test="${subtip.rendering.triview eq 'numero'}">
 	<c:set var="isSubNumero" value="true" />
 </c:if>
+
 <c:if test="${subtip.rendering.triview eq 'link'}">
 	<c:set var="isLink" value="true" />
 </c:if>
+
+<c:if test="${subtip.rendering.triview eq 'file'}">
+	<c:set var="isFile" value="true" />
+</c:if>
+
 <c:if test="${subtip.rendering.triview eq 'formula'}">
 	<c:if test="${subtip.rendering.resultTriview eq 'numero'}">
 		<c:set var="isSubNumero" value="true" />
@@ -136,6 +142,62 @@
 </c:if>
 <c:if test="${subshowit}">
 	<c:choose>
+		<c:when test="${isFile}">
+			
+		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		
+		<c:if test="${value.visibility == 1}">
+			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+			<%--<c:set var="minheight" value="" />--%>
+			<c:set var="minwidth" value="" />
+			<c:set var="style" value="" />
+			<%--<c:if test="${tipologia.rendering.dimensione.row > 1}">
+				<c:set var="minheight" value="min-height: ${tipologia.rendering.dimensione.row}em;" />
+			</c:if>--%>
+			<c:if test="${subtip.rendering.size > 1}">
+				<c:set var="minwidth" value="min-width: ${subtip.rendering.size}em;" />
+			</c:if>
+			<%--<c:if test="${!empty minheight || !empty minwidth}">
+				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
+			</c:if>--%>
+			<c:if test="${!empty minwidth && !subElement}">
+				<c:set var="style" value="style=\"${minwidth}\"" />
+			</c:if>
+			<c:set var="displayObject" value="${dyna:display(subtip,value.value.real)}" />
+			<c:choose>
+				<c:when test="${!empty dyna:getFileIsOnServer(displayObject)}">			
+				
+				<c:choose>
+				<c:when test="${subtip.rendering.showPreview}">
+				
+					<div class="image">
+						<img id="picture" name="picture"
+							alt="${dyna:getFileName(displayObject)} picture"
+							src="<%=request.getContextPath()%>/${subtip.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
+							title="A preview ${dyna:getFileName(displayObject)} picture" />
+					</div>
+					
+												
+				</c:when>				
+				<c:otherwise>
+					<a target="_blank" href="<%=request.getContextPath()%>/${subtip.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
+						<span ${style}>${subtip.rendering.labelAnchor}</span>
+					</a>
+				</c:otherwise>
+				</c:choose>
+				
+				</c:when>
+				<c:otherwise>
+				
+						<img id="picture" name="picture" alt="No image" src="<%=request.getContextPath() %>/image/authority/noimage.jpg"
+							title="No picture for ${subtip.shortName}" />
+							
+				
+				</c:otherwise>
+			</c:choose>
+		</c:if>
+		</c:forEach>
+		</c:when>
 		<c:when test="${isLink}">
 			<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
 
