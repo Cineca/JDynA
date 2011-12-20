@@ -126,7 +126,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
 		
 		//collection of edit tabs (all edit tabs created on system associate to visibility)
-		List<T> tabs = findTabsWithVisibility(request, jdynaObject);
+		List<T> tabs = findTabsWithVisibility(request);
 		
 		Integer tabId = getTabId(request);	
 
@@ -186,7 +186,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	}
 
 	
-	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request, AnagraficaSupport<P, TP> jdynaObject) throws SQLException;
+	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request) throws SQLException;
 		
 
 	protected ModelAndView handleList(HttpServletRequest request) {

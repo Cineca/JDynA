@@ -25,13 +25,15 @@
  */
 package it.cilea.osd.jdyna.value;
 
+import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 
 @Embeddable
-public class EmbeddedFile {
+public class EmbeddedFile implements Serializable {
 
 	@Type(type="text")
 	private String valueFile;

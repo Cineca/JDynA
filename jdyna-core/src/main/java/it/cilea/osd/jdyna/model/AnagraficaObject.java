@@ -162,7 +162,6 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 		invalidateAnagraficaCache();
 	}
 	
-	
 	/**
 	 * {@inheritDoc}
 	 */
