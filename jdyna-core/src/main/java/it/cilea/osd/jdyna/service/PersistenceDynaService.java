@@ -104,12 +104,7 @@ public class PersistenceDynaService extends PersistenceService implements
 			if (prop.getParent() != null && prop.getTypo().isTopLevel()) {
 				((AnagraficaSupport<P, TP>) prop.getParent())
 						.removeProprieta(prop);
-			} else {
-				// se sto cancellando una sottoproprieta
-				if (prop.getPropertyParent() != null) {
-					deleteProprieta(prop, prop.getPropertyParent());
-				}
-			}
+			} 
 		}
 	}
 
@@ -129,13 +124,7 @@ public class PersistenceDynaService extends PersistenceService implements
 				&& proprietaPadre.getTypo().isTopLevel()) {
 			((AnagraficaSupport<P, TP>) proprietaPadre.getParent())
 					.removeProprieta(propDaRimuovere);
-		} else {
-			// se sto cancellando una sottoproprieta
-			if (proprietaPadre.getPropertyParent() != null) {
-				deleteProprieta(propDaRimuovere, proprietaPadre
-						.getPropertyParent());
-			}
-		}
+		} 
 
 	}
 
@@ -222,7 +211,17 @@ public class PersistenceDynaService extends PersistenceService implements
 		return modelList;
 	}
 
-
+    /**
+     * {@inheritDoc}
+     */
+    public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetCombo(
+            Class<TP> classTipologiaProprieta) {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .findAllWithWidgetCombo();
+        return modelList;
+    }
+    
 	/**
 	 * {@inheritDoc}
 	 */
@@ -457,23 +456,7 @@ public class PersistenceDynaService extends PersistenceService implements
 			{
 				if (oggetto.getProprietaDellaTipologia(tpo).size() == 0)
 					oggetto.createProprieta(tpo);
-				// se combo bisogna inizializzare anche le sotto proprieta
-				if (tpo.getRendering() instanceof WidgetCombo
-						&& oggetto.getProprietaDellaTipologia(tpo).size() != 0) {
-					for (P proprieta : oggetto.getProprietaDellaTipologia(tpo)) {
-						List<TP> sottoTipologieCombo = ((WidgetCombo<P, TP>) tpo
-								.getRendering()).getSottoTipologie();
-						for (TP tipologiaProprieta : sottoTipologieCombo) {
-							if (oggetto
-									.getProprietaDellaTipologiaInValoreMulti(
-											(MultiValue<P, TP>) proprieta
-													.getValue(),
-											tipologiaProprieta).size() == 0)
-								oggetto.createProprieta(proprieta,
-										tipologiaProprieta);
-						}
-					}
-				}
+				
 			}
 		}
 	}

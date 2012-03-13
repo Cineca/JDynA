@@ -142,23 +142,6 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 		this.id = id;
 	}
 
-	/**
-	 * Restituisce la proprieta' contenente la proprieta' corrente o <code>null</code> se la proprieta' e' di primo livello
-	 * 
-	 * @return l'eventuale proprieta' nel cui valore (MultiValue) e' contenuta la proprieta' corrente
-	 * @see MultiValue
-	 */
-	@Transient
-	public abstract Property<TP> getPropertyParent();
-	
-	/**
-	 * Setter per la proprieta' contenitore.<br>
-	 * <b>Attenzione</b> la proprieta' contenitore deve essere della medesima classe della proprieta' corrente, altrimenti
-	 * deve essere sollevata una <code>ClassCastException</code>
-	 * 
-	 * @param proprieta' nel cui valore (MultiValue) e' contenuta la proprieta' corrente, <code>null</code> se la proprieta' e' di primo livello
-	 */
-	public abstract void setParentProperty(Property<TP> property);	
 	
 	/**
 	 * Restituisce la tipologia di proprieta' associata.

@@ -32,7 +32,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class ValoreDTO implements Serializable {
 	/** The real contents entered/showed by the UI */
 	private Object object;
-	private Boolean visibility;
+	private Boolean visibility = true;
 		
 	public ValoreDTO() {
 	}
@@ -54,7 +54,7 @@ public class ValoreDTO implements Serializable {
 		return object;
 	}
 
-	void setObject(Object object) {
+	public void setObject(Object object) {
 		this.object = object;
 	}
 	

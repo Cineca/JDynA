@@ -118,19 +118,8 @@ public class AnagraficaBridge<P extends Property<TP>, TP extends PropertiesDefin
 			for (P prop : anagrafica) {
 				if (prop != null) {
 					
-					//dato che l'anagrafica contiene solo proprieta first level allora le sotto proprieta della combo devono essere indicizzate a parte
-					if(prop.getTypo().getRendering() instanceof WidgetCombo) {
-						MultiValue<P,TP> valoreMulti = (MultiValue<P, TP>)prop.getValue();
-						List<P> sottoProprieta = valoreMulti.getObject();
-						for(P sottoProp : sottoProprieta) {
-							indicizzaProprieta(sottoProp, name, obj, doc, store, idx, boost);
-						}
-					}
+					indicizzaProprieta(prop, name, obj, doc, store, idx, boost);
 					
-					else {
-						indicizzaProprieta(prop, name, obj, doc, store, idx, boost);
-					}
-
 				}
 			}
 		}

@@ -104,7 +104,7 @@
 	<c:when test="${!isCombo}">
 		<c:forEach var="subvalue" items="${subValues}" varStatus="valueStatus">
 
-			<c:if test="${subvalue.visibility == 1}">
+			<c:if test="${subvalue.visibility}">
 				<c:set var="subshowit" value="true" target="java.lang.Boolean" />
 			</c:if>
 		</c:forEach>
@@ -146,7 +146,7 @@
 			
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -163,7 +163,7 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${dyna:display(subtip,value.value.real)}" />
+			<c:set var="displayObject" value="${dyna:display(subtip,value.object)}" />
 			<c:choose>
 				<c:when test="${!empty dyna:getFileIsOnServer(displayObject)}">			
 				
@@ -201,7 +201,7 @@
 		<c:when test="${isLink}">
 			<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
 
-				<c:if test="${value.visibility == 1}">
+				<c:if test="${value.visibility}">
 					<c:if test="${valueStatus.count != 1}">
 						<br />
 					</c:if>
@@ -222,7 +222,7 @@
 						<c:set var="style" value="style=\" ${minwidth}\"" />
 					</c:if>
 					<c:set var="displayObject"
-						value="${dyna:display(subtip,value.value.real)}" />
+						value="${dyna:display(subtip,value.object)}" />
 					<c:choose>
 				<c:when test="${!empty dyna:getLinkValue(displayObject)}">			
 				<a target="_blank" href="${dyna:getLinkValue(displayObject)}">
@@ -270,7 +270,7 @@
 				<c:if test="${!empty minwidth && !subElement}">
 					<c:set var="style" value="style=\" ${minwidth}\"" />
 				</c:if>
-				<span ${style}>${subValue.value.real}</span>
+				<span ${style}>${subValue.object}</span>
 			</c:forEach>
 		</c:when>
 		<c:when test="${isSubTextArea}">
@@ -291,7 +291,7 @@
 					<c:set var="style" value="style=\" ${minheight}${minwidth}\"" />
 				</c:if>
 				<div ${style}>${subtip.rendering.htmlToolbar eq
-				'nessuna'?dyna:nl2br(subValue.value.real):subValue.value.real}</div>
+				'nessuna'?dyna:nl2br(subValue.object):subValue.object}</div>
 			</c:forEach>
 		</c:when>
 		<c:when
@@ -301,7 +301,7 @@
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-								${subValue.value.real.nome}
+								${subValue.object.nome}
 							</c:forEach>
 		</c:when>
 		<c:when test="${isSubPuntatore}">
@@ -310,7 +310,7 @@
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-								${dyna:getDisplayValue(subValue.value.real,subtip.rendering.display)}
+								${dyna:getDisplayValue(subValue.object,subtip.rendering.display)}
 							</c:forEach>
 		</c:when>
 		<c:when test="${isSubBoolean}">
@@ -319,7 +319,7 @@
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-								${subValue.value.real?'Si':'No'}
+								${subValue.object?'Si':'No'}
 							</c:forEach>
 		</c:when>
 
@@ -338,7 +338,7 @@
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-				<div class="number"${style}>${dyna:display(subtip,subValue.value.real)}</div>
+				<div class="number"${style}>${dyna:display(subtip,subValue.object)}</div>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
@@ -347,7 +347,7 @@
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-								${dyna:display(subtip,subValue.value.real)}
+								${dyna:display(subtip,subValue.object)}
 							</c:forEach>
 		</c:otherwise>
 	</c:choose>

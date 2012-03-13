@@ -26,6 +26,7 @@
 package it.cilea.osd.jdyna.util;
 
 import it.cilea.osd.common.model.Identifiable;
+import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.event.ISubscriber;
 import it.cilea.osd.jdyna.event.JPAEvent;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
@@ -62,7 +63,7 @@ import org.springframework.util.StringUtils;
  * @author pascarelli
  * 
  */
-
+@Deprecated
 public class FormulaManager implements ISubscriber<JPAEvent> {
 	/** Logger for this class and subclasses */
     protected static final Log log = LogFactory.getLog(FormulaManager.class);
@@ -430,14 +431,14 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 						if (result == true) {
 							// cancello tutte le proprieta risultato della
 							// formula della combo
-							MultiValue<P, TP> valori = (MultiValue<P, TP>) p.getValue();
-							List<P> proprietaDaCancellare = oggetto
+							MultiValue valori = (MultiValue) p.getValue();
+							List<ValoreDTO> proprietaDaCancellare = oggetto
 									.getProprietaDellaTipologiaInValoreMulti(
 											valori, tip);
 
 							for (int i = 0; i < proprietaDaCancellare.size(); i++) {
-								oggetto.removeProprieta(proprietaDaCancellare
-										.get(proprietaDaCancellare.size() - 1 - i));
+//								oggetto.removeProprieta(proprietaDaCancellare
+//										.get(proprietaDaCancellare.size() - 1 - i));
 							}
 
 							// se non e' null calcolo il result number della formula
@@ -493,7 +494,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 												+ valoreObject + " class: "
 												+ valoreObject.getClass());
 									}
-									P proprieta = oggetto.createProprieta(p,tip);
+									P proprieta = null;//oggetto.createProprieta(p,tip);
 									proprieta.getValue().setOggetto(
 											valoreObject);
 									log.debug("creata proprieta in combo per il risultato numero" + i);
@@ -562,10 +563,11 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 		//List<String> variabiliWidget = getVariabili(wf);
 		List<String> variabiliWidget = wf.getVariabili();
 		
-		Integer idx = p.getPropertyParent() != null ? p
-				.getPropertyParent().getPosition() : null;
+//		Integer idx = p.getPropertyParent() != null ? p
+//				.getPropertyParent().getPosition() : null;
 
-		return getEventiVariabili(variabiliWidget, p.getParent(), idx);
+//		return getEventiVariabili(variabiliWidget, p.getParent(), idx);
+		return null;
 	}
 	
 	private Set<ModelEventoString> getEventiVariabili(List<String> variabiliWidget, Object rootObject, Integer idx){

@@ -60,6 +60,14 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	 */
 	public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetFormula(
 			Class<TP> classTipologiaProprieta);
+	
+	/**
+     * Resituisce tutte le tipologie di proprieta che hanno rendering un widget
+     * combo
+     */
+    public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetCombo(
+            Class<TP> classTipologiaProprieta);
+
 
 //	/** Cancella gli oggetti da ricalcolare 
 //	 * 

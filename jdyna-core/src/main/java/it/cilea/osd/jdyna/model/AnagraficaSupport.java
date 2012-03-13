@@ -26,6 +26,8 @@
 package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.Selectable;
+import it.cilea.osd.jdyna.dto.AnagraficaObjectDTO;
+import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.value.MultiValue;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
 
@@ -125,33 +127,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
      * @param tipologiaProprieta La tipologia di proprieta' da considerare
      * @return la lista di sottoproprieta della tipologia tipologiaProprieta contenute nel combo specificato
      */
-	public List<P> getProprietaDellaTipologiaInValoreMulti(MultiValue<P,TP> valoreMulti,TP tipologiaProprieta);	
-	
-	/**
-     * Crea una nuova proprieta, della tipologia specificata, e la inserisce tra i ValoriMulti della proprieta
-     * padre specificata. La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) nella posizione 
-     * specificata da <code>posizione</code> modificando coerentemente la posizione delle altre proprieta'. Nel caso in cui
-     * la posizione specificata fosse superiore al numero di proprieta' della tipologia specificata 
-     * ({@link #getProprietaDellaTipologiaInValoreMulti(MultiValue, PropertiesDefinition)}), la nuova proprieta' sara' inserita in ultima 
-     * posizione. 
-     * 
-     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' applicabile alla proprieta' padre
-     * 		   ({@link WidgetCombo#getSottoTipologie()}
-     * @return la nuova proprieta creata 
-     */	
-	public P createProprieta(P proprieta, TP tipologiaProprieta, Integer posizione);
-
-	
-	/**
-     * Crea una nuova proprieta, della tipologia specificata, e la inserisce tra i ValoriMulti della proprieta
-     * padre specificata. La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) in coda 
-     * alle altre eventuali proprieta' della medesima tipologia.  
-     * 
-     * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' applicabile alla proprieta' padre
-     * 		   ({@link WidgetCombo#getSottoTipologie()}
-     * @return la nuova proprieta creata 
-     */
-	public P createProprieta(P proprieta, TP tipologiaProprieta);
+	public List<ValoreDTO> getProprietaDellaTipologiaInValoreMulti(MultiValue valoreMulti,TP tipologiaProprieta);	
 
 	/** 
 	 * Restituisce la classe di proprieta' utilizzata per l'anagrafica dell'oggetto.

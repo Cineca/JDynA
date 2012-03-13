@@ -42,5 +42,6 @@ public interface PropertiesDefinitionDao<T extends PropertiesDefinition> extends
 	public List<T> findAdvancedSearchAndClassificazione();
 	public T uniqueTipologiaProprietaCombo(T tipologiaProprieta);
 	public List<T> findAdvancedSearchAndBoolean();
-	public T findPropertiesDefinitionByWidget(AWidget widget);		
+	public T findPropertiesDefinitionByWidget(AWidget widget);
+	public List<T> findAllWithWidgetCombo();
 }

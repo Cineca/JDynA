@@ -109,7 +109,7 @@
 <c:choose>
 <c:when test="${!isCombo}">
 <c:forEach var="value" items="${values}" varStatus="valueStatus">		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${(subElement?value.visibility:(value.visibility==1))}">
 			<c:set var="showit" value="true" target="java.lang.Boolean"/>
 		</c:if>
 </c:forEach>
@@ -120,9 +120,9 @@
 		<c:set var="values" value="${dyna:hideComboRow(values)}" />		
 		<c:if test="${!empty values}">
 			<c:set var="showit" value="true" target="java.lang.Boolean"/>
-		</c:if>
+		</c:if>		
 	</c:when>	
-	<c:otherwise>
+	<c:otherwise>		
 		<c:set var="showit" value="true" target="java.lang.Boolean"/>
 	</c:otherwise>
 </c:choose>	
@@ -166,7 +166,7 @@
 	<c:when test="${isFile}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -183,7 +183,7 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${dyna:display(tipologia,value.value.real)}" />
+			<c:set var="displayObject" value="${(subElement==true?(dyna:display(tipologia,value.object)):(dyna:display(tipologia,value.value.real)))}" />			
 			<c:choose>
 				<c:when test="${!empty dyna:getFileIsOnServer(displayObject)}">			
 				
@@ -221,7 +221,7 @@
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -238,7 +238,7 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${dyna:display(tipologia,value.value.real)}" />
+			<c:set var="displayObject" value="${(subElement==true?(dyna:display(tipologia,value.object)):(dyna:display(tipologia,value.value.real)))}" />
 			<c:choose>
 				<c:when test="${!empty dyna:getLinkValue(displayObject)}">			
 				<a target="_blank" href="${dyna:getLinkValue(displayObject)}">
@@ -266,7 +266,7 @@
 	</c:when>
 	<c:when test="${isText}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -283,7 +283,8 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<span ${style}>${value.value.real}</span>
+			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<span ${style}>${displayObject}</span>
 		</c:if>
 		</c:forEach>
 	</c:when>
@@ -301,31 +302,37 @@
 			<c:if test="${!empty minheight || !empty minwidth}">
 				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
 			</c:if>
-			<div ${style}>${tipologia.rendering.htmlToolbar eq 'nessuna'?dyna:nl2br(value.value.real):value.value.real}</div>
+			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<div ${style}>${tipologia.rendering.htmlToolbar eq 'nessuna'?dyna:nl2br(displayObject):displayObject}</div>
 		</c:forEach>
 	</c:when>	
 	<c:when test="${isClassificazione || isRadio || isCheckbox}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			${value.value.real.nome}
+			<c:set var="displayObject" value="${(subElement==true?value.object.nome:value.value.real.nome)}" />
+			${displayObject}
 		</c:forEach>
 	</c:when>
 	<c:when test="${isSoggettario}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			${value.value.real.voce}
+			<c:set var="displayObject" value="${(subElement==true?value.object.voce:value.value.real.voce)}" />
+			${displayObject}
+			
 		</c:forEach>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			${dyna:getDisplayValue(value.value.real,tipologia.rendering.display)}
+			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}
 		</c:forEach>
 	</c:when>
 	<c:when test="${isBoolean}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			${value.value.real?'Si':'No'}
+			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			${displayObject?'Si':'No'}
 		</c:forEach>
 	</c:when>
 	<c:when test="${isCombo && tipologia.rendering.inline}">
@@ -348,7 +355,7 @@
 				</c:if>
 				
 					<display-el:column style="${subLabelMinWidth}" title="${subtip.label}"  
-						sortProperty="value.anagrafica4view['${subtip.shortName}'][0].value.sortValue" 
+						sortProperty="value.object.anagraficaProperties['${subtip.shortName}'][0].object.sortValue" 
 						sortable="false">
 					<c:set var="nameriga" value="${tipologia.shortName}_RowNum" scope="request" />
 					<c:set var="numtip"
@@ -358,7 +365,7 @@
 					<c:set var="count" value="${count+1}" />
 					
 					<dyna:display tipologia="${subtip}" subElement="true" 
-						values="${values[numriga].value.anagrafica4view[subtip.shortName]}" />
+						values="${values[numriga].object.anagraficaProperties[subtip.shortName]}"/>
 			
 					</display-el:column>
 				
@@ -381,7 +388,7 @@
 			<c:forEach var="subtip" items="${subTypesSortered}">
 				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 				
-				<dyna:display-combo-inline subValues="${value.value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" />
+				<dyna:display-combo-inline subValues="${value.object.anagraficaProperties[subtip.shortName]}" subtip="${subtip}" />
 				
 				<%-- FINE DEL COPIA INCOLLA --%>
 			</c:forEach>
@@ -418,9 +425,10 @@
 	</c:when>
 	<c:otherwise>
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-	  	<c:if test="${value.visibility == 1}">
+		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			${dyna:display(tipologia,value.value.real)}
+			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			${dyna:display(tipologia,displayObject)}
 		</c:if>
 		</c:forEach>
 	</c:otherwise>
