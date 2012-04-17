@@ -47,7 +47,7 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 
 
 /**
- * Classe puntatore
+ * Widget to manage date
  * 
  * @author biondo,pascarelli
  * 
@@ -123,8 +123,8 @@ public class WidgetDate extends AWidget {
 
 	@Override
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {
-		CustomDateEditor propertyEditor = new CustomDateEditor(
-				new SimpleDateFormat(time?"dd-MM-yyyy HH:mm":"dd-MM-yyyy"),true); 
+		CustomDateEditor propertyEditor = new CustomDateEditor(        
+				time?DateValue.dateFormatterFull:DateValue.dateFormatter,true); 
 		return propertyEditor;
 	}
 
@@ -163,4 +163,5 @@ public class WidgetDate extends AWidget {
 		}
 		
 	}
+		
 }

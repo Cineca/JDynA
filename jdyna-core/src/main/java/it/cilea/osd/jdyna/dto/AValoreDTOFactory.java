@@ -36,40 +36,46 @@ import java.util.LinkedList;
 import org.apache.commons.collections.Factory;
 import org.apache.commons.collections.list.LazyList;
 
-
 /**
- * Wrapper della classe AWidget che implementa l'interfaccia Factory di apache commons-collection
+ * Wrapper della classe AWidget che implementa l'interfaccia Factory di apache
+ * commons-collection
+ * 
  * @author bollini
- *
+ * 
  */
 public class AValoreDTOFactory<P extends Property<TP>, TP extends PropertiesDefinition>
- implements Factory, Serializable {
+        implements Factory, Serializable
+{
 
-	private AWidget widget;
-	
-	
-	public AValoreDTOFactory(AWidget widget) {
-		super();
-		this.widget = widget;
-	}
+    private AWidget widget;
 
-	public ValoreDTO create() {
-		ValoreDTO valoreDTO = new ValoreDTO();
-		if (widget instanceof WidgetCombo) {
-			WidgetCombo<P,TP> combo = (WidgetCombo<P, TP>) widget;
-			AnagraficaObjectDTO subDTO = new AnagraficaObjectDTO();
-			for (TP subtp : combo.getSottoTipologie()) {
-				subDTO.getAnagraficaProperties().put(
-						subtp.getShortName(),
-						LazyList.decorate(new LinkedList<ValoreDTO>(),
-								new AValoreDTOFactory(subtp.getRendering())));
-			}
-			valoreDTO.setObject(subDTO);
-			return valoreDTO;
-		}
-		else {
-		//valoreDTO.setObject(null);
-		return valoreDTO;
-		}
-	}
+    public AValoreDTOFactory(AWidget widget)
+    {
+        super();
+        this.widget = widget;
+    }
+
+    public ValoreDTO create()
+    {
+        ValoreDTO valoreDTO = new ValoreDTO();
+        if (widget instanceof WidgetCombo)
+        {
+            WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) widget;
+            AnagraficaObjectDTO subDTO = new AnagraficaObjectDTO();
+            for (TP subtp : combo.getSottoTipologie())
+            {
+                subDTO.getAnagraficaProperties().put(
+                        subtp.getShortName(),
+                        LazyList.decorate(new LinkedList<ValoreDTO>(),
+                                new AValoreDTOFactory(subtp.getRendering())));
+            }
+            valoreDTO.setObject(subDTO);
+            return valoreDTO;
+        }
+        else
+        {
+            // valoreDTO.setObject(null);
+            return valoreDTO;
+        }
+    }
 }

@@ -44,7 +44,8 @@ public class DateValue extends AValue<Date> {
 	@Column(name="dateValue")
 	private Date real;
 	
-	private static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+	public static final DateFormat dateFormatter = new SimpleDateFormat("dd-MM-yyyy");
+	public static final DateFormat dateFormatterFull = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
 
 	@Override
 	public Date getObject() {
@@ -73,5 +74,10 @@ public class DateValue extends AValue<Date> {
 	@Override
 	public Date getDefaultValue() {
 		return new Date();
+	}
+	
+	@Override
+	public String toString()	{	 
+	    return real!=null?dateFormatterFull.format(real):null;
 	}
 }
