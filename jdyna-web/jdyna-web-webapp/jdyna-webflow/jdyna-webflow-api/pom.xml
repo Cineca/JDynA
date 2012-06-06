@@ -32,32 +32,31 @@
   		<artifactId>jdyna-classification</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
-  		<sc0.1cope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-formula</groupId>
   		<artifactId>jdyna-formula</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
-  		<scope>compile0.1/dependency>
+  		<scope>compile</scope></dependency>
   	<dependency>
   		<groupId>jdyna-webmvc-api</groupId>
   		<artifactId>jdyna-webmvc-api</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
-  		<scope>compile</scope>
- 0.1>
+  		<scope>compile</scope> 
   	<dependency>
   		<groupId>jdyna-subject</groupId>
   		<artifactId>jdyna-subject</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
-  	</depende0.1ndency>
+  	</dependency>
+  	<dependency>
   		<groupId>jdyna-checkradio</groupId>
   		<artifactId>jdyna-checkradio</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
-  </d0.1</project>
+</project>
