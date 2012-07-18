@@ -70,7 +70,7 @@ public class ExportUtils implements ApplicationContextAware {
 
 	/** Crea un marcatore xml */
 	public static Element createTagXML(Element root, String tag) {
-		Element marcatore = new Element(tag);
+		Element marcatore = new Element(tag, root.getNamespacePrefix(), root.getNamespaceURI());
 		root.addContent(marcatore);
 		return marcatore;
 	}
@@ -107,7 +107,7 @@ public class ExportUtils implements ApplicationContextAware {
 	public static Element createCustomPropertyWithCustomAttributes(
 			Element root, String tag, List<String> attributes,
 			List<String> valuesAttributes) {
-		Element prop = new Element(tag);
+		Element prop = new Element(tag, root.getNamespacePrefix(), root.getNamespaceURI());
 		int i = 0;
 		for (String attribute : attributes) {
 			prop.setAttribute(attribute, valuesAttributes.get(i));
@@ -134,7 +134,7 @@ public class ExportUtils implements ApplicationContextAware {
 	 */
 	public static Element createCustomPropertyWithCustomAttribute(Element root,
 			String tag, String attribute, String valuesAttribute) {
-		Element prop = new Element(tag);
+		Element prop = new Element(tag,root.getNamespacePrefix(), root.getNamespaceURI());
 		prop.setAttribute(attribute, valuesAttribute);
 		root.addContent(prop);
 		return prop;
@@ -163,7 +163,7 @@ public class ExportUtils implements ApplicationContextAware {
 		Element prop = new Element(tag);
 		int i = 0;
 		for (String tagValue : tagValues) {
-			Element valueElement = new Element(tagValue);
+			Element valueElement = new Element(tagValue, root.getNamespacePrefix(), root.getNamespaceURI());
 			valueElement.addContent(values.get(i));
 			prop.addContent(valueElement);
 			i++;
@@ -189,7 +189,7 @@ public class ExportUtils implements ApplicationContextAware {
 	public static Element createCustomValue(Element root, String tagValue,
 			String value) {
 		if (value != null && !value.isEmpty()) {
-			Element valueElement = new Element(tagValue);
+			Element valueElement = new Element(tagValue, root.getNamespacePrefix(), root.getNamespaceURI());
 			valueElement.addContent(value);
 			root.addContent(valueElement);
 		}
@@ -213,7 +213,7 @@ public class ExportUtils implements ApplicationContextAware {
 			List<String> valuesAttributes) {
 
 		if (value != null && !value.isEmpty()) {
-			Element valueElement = new Element(tagValue);
+			Element valueElement = new Element(tagValue, root.getNamespacePrefix(), root.getNamespaceURI());
 			int i = 0;
 			for (String attribute : attributes) {
 				String valueAttribute = valuesAttributes.get(i);				
@@ -225,4 +225,20 @@ public class ExportUtils implements ApplicationContextAware {
 		}
 		return root;
 	}
+
+    public static void createCoinvestigator(Element root, String real,
+            String value, List<String> attributes, List<String> valuesAttributes)
+    {
+        if (value != null && !value.isEmpty()) {            
+            Element coinvestigator = new Element("coInvestigator", root.getNamespacePrefix(), root.getNamespaceURI());
+            int i = 0;
+            for (String attribute : attributes) {
+                String valueAttribute = valuesAttributes.get(i);                
+                coinvestigator.setAttribute(attribute, valueAttribute==null?"":valueAttribute);
+                i++;
+            }
+            coinvestigator.addContent(value);            
+            root.addContent(coinvestigator);
+        }        
+    }
 }

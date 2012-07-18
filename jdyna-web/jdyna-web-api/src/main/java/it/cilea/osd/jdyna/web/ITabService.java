@@ -52,15 +52,25 @@ public interface ITabService extends IPersistenceDynaService {
 
 	/**
 	 * Find all containables, this method internally send a call to customization method
-	 * 
+	 * @deprecated {@link ITabService#newFindAllContainables(Class)}
 	 * @param <TP>
 	 * @param classTipologiaProprieta
 	 * @return
 	 * @throws InstantiationException
 	 * @throws IllegalAccessException
 	 */
+	@Deprecated
 	public <TP extends PropertiesDefinition> List<IContainable> findAllContainables(Class<TP> classTipologiaProprieta) throws InstantiationException, IllegalAccessException;
-
+	/**
+     * Find all containables, this method internally send a call to customization method
+     * 
+     * @param <TP>
+     * @param classTipologiaProprieta
+     * @return
+     * @throws InstantiationException
+     * @throws IllegalAccessException
+     */    
+	public <TP extends PropertiesDefinition> List<IContainable> newFindAllContainables(Class<TP> classTipologiaProprieta) throws InstantiationException, IllegalAccessException;
 	/**
 	 * 
 	 * Delete containable 

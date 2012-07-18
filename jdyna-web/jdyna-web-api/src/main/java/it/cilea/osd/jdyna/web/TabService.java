@@ -79,6 +79,7 @@ public abstract class TabService extends PersistenceDynaService implements
 	/**
 	 * {@inheritDoc}
 	 */
+	@Deprecated
 	public <TP extends PropertiesDefinition> List<IContainable> findAllContainables(Class<TP> classTipologiaProprieta) throws InstantiationException, IllegalAccessException {
 		List<IContainable> containables = new LinkedList<IContainable>();
 		List<TP> listTP = new LinkedList<TP>();
@@ -94,13 +95,34 @@ public abstract class TabService extends PersistenceDynaService implements
 		return containables;
 	}
 	
+    public <TP extends PropertiesDefinition> List<IContainable> newFindAllContainables(Class<TP> classTipologiaProprieta) throws InstantiationException, IllegalAccessException {
+        List<IContainable> containables = new LinkedList<IContainable>();
+        List<TP> listTP = new LinkedList<TP>();
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        listTP.addAll(modelTipologiaProprietaDao.findAllTipologieProprietaFirstLevel());
+        
+        for(TP tp : listTP) {               
+            ContainableDao<Containable> dao =  (ContainableDao<Containable>) getDaoByModel(tp.getDecoratorClass());         
+            containables.add(dao.uniqueContainableByDecorable(tp.getId()));
+        }
+        findOtherContainables(containables, classTipologiaProprieta.getName());
+        Collections.sort(containables);
+        return containables;
+    }	
 
 	/** Extends this method to add other containables object type */
+	@Deprecated
 	protected abstract void findOtherContainables(List<IContainable> containables);
 	
+	protected abstract void findOtherContainables(List<IContainable> containables, String extraPrefixConfiguration);
+		
 	/** Extends this method to add other containables object type */
+	@Deprecated
 	public abstract void findOtherContainablesInBoxByConfiguration(String holderName,
 			List<IContainable> containables);
+	/** Extends this method to add other containables object type */
+    public abstract void findOtherContainablesInBoxByConfiguration(String holderName,
+            List<IContainable> containables, String extraPrefixConfiguration);
 	
 	/**
 	 * {@inheritDoc}
