@@ -1,0 +1,110 @@
+
+# /
+/.settings
+/.project
+
+# /extensions/
+/extensions/.settings
+/extensions/.project
+
+# /extensions/jdyna-boolean/
+/extensions/jdyna-boolean/target
+/extensions/jdyna-boolean/.classpath
+/extensions/jdyna-boolean/.project
+/extensions/jdyna-boolean/.settings
+
+# /extensions/jdyna-checkradio/
+/extensions/jdyna-checkradio/target
+/extensions/jdyna-checkradio/.classpath
+/extensions/jdyna-checkradio/.project
+/extensions/jdyna-checkradio/.settings
+
+# /extensions/jdyna-classification/
+/extensions/jdyna-classification/target
+/extensions/jdyna-classification/.settings
+/extensions/jdyna-classification/.classpath
+
+# /extensions/jdyna-date/
+/extensions/jdyna-date/target
+/extensions/jdyna-date/.settings
+/extensions/jdyna-date/.classpath
+/extensions/jdyna-date/.project
+
+# /extensions/jdyna-formula/
+/extensions/jdyna-formula/target
+/extensions/jdyna-formula/.settings
+/extensions/jdyna-formula/.classpath
+/extensions/jdyna-formula/.project
+
+# /extensions/jdyna-number/
+/extensions/jdyna-number/target
+/extensions/jdyna-number/.settings
+/extensions/jdyna-number/.classpath
+/extensions/jdyna-number/.project
+
+# /extensions/jdyna-pointer/
+/extensions/jdyna-pointer/target
+/extensions/jdyna-pointer/.settings
+/extensions/jdyna-pointer/.classpath
+/extensions/jdyna-pointer/.project
+
+# /extensions/jdyna-subject/
+/extensions/jdyna-subject/target
+/extensions/jdyna-subject/.classpath
+/extensions/jdyna-subject/.project
+/extensions/jdyna-subject/.settings
+
+# /jdyna-core/
+/jdyna-core/target
+/jdyna-core/.settings
+/jdyna-core/.classpath
+/jdyna-core/.project
+
+# /jdyna-web/
+/jdyna-web/.settings
+/jdyna-web/.project
+
+# /jdyna-web/jdyna-web-api/
+/jdyna-web/jdyna-web-api/target
+/jdyna-web/jdyna-web-api/.settings
+/jdyna-web/jdyna-web-api/.classpath
+/jdyna-web/jdyna-web-api/.project
+
+# /jdyna-web/jdyna-web-api/build/
+/jdyna-web/jdyna-web-api/build/classes
+
+# /jdyna-web/jdyna-web-webapp/
+/jdyna-web/jdyna-web-webapp/.settings
+/jdyna-web/jdyna-web-webapp/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webflow/
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-api/
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-api/target
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-api/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-api/.classpath
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-api/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-webapp/
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-webapp/target
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-webapp/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-webapp/.classpath
+/jdyna-web/jdyna-web-webapp/jdyna-webflow/jdyna-webflow-webapp/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webmvc/
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-api/
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-api/target
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-api/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-api/.classpath
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-api/.project
+
+# /jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-webapp/
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-webapp/.classpath
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-webapp/.project
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-webapp/.settings
+/jdyna-web/jdyna-web-webapp/jdyna-webmvc/jdyna-webmvc-webapp/target
