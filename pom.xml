@@ -61,13 +61,11 @@
 			</dependency>
 
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-annotations</artifactId>
-				<version>3.4.0.GA</version>
+			<groupId>org.hibernate</groupId>
+  				<artifactId>hibernate-entitymanager</artifactId>
+  				<version>3.6.10.Final</version>
 			</dependency>
-
-
-
+					
 			<dependency>
 				<groupId>commons-lang</groupId>
 				<artifactId>commons-lang</artifactId>
@@ -134,20 +132,59 @@
 				<artifactId>jdom</artifactId>
 				<version>1.1</version>
 			</dependency>
+			
+		    <dependency>
+				<artifactId>spring-core</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+
 			<dependency>
 				<groupId>org.springframework</groupId>
-				<artifactId>spring</artifactId>
-				<version>2.5.6.SEC02</version>
+				<artifactId>spring-orm</artifactId>
+				<version>3.0.5.RELEASE</version>
 			</dependency>
+			
 			<dependency>
-				<groupId>org.hibernate</groupId>
-				<artifactId>hibernate-core</artifactId>
-				<version>3.3.2.GA</version>
+				<artifactId>spring-beans</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
 			</dependency>
+
+			<dependency>
+				<artifactId>spring-aop</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<artifactId>spring-context</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<artifactId>spring-tx</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+
+			<dependency>
+				<artifactId>spring-jdbc</artifactId>
+				<groupId>org.springframework</groupId>
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>org.springframework</groupId>
+				<artifactId>spring-webmvc</artifactId>		
+				<version>3.0.5.RELEASE</version>
+			</dependency>
+			
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-search</artifactId>
-				<version>3.1.0.GA</version>
+				<version>3.4.0.Final</version>
 			</dependency>
 			<!--dependency>
 				<groupId>postgresql</groupId>
