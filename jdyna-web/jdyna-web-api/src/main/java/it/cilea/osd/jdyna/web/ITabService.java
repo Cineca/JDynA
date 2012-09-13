@@ -1,5 +1,7 @@
 package it.cilea.osd.jdyna.web;
 
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.widget.WidgetCombo;

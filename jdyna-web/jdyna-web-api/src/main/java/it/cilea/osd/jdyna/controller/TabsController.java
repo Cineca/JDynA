@@ -1,7 +1,7 @@
 package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
-import it.cilea.osd.jdyna.web.Containable;
+import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;

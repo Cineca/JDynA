@@ -146,7 +146,13 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	/** Indica se la tipologia proprieta e' da indicizzare per la ricerca avanzata*/
 	private boolean advancedSearch;
 	
-	public Integer getLabelMinSize() {
+	   
+    /**
+     * Level access of metadata value {@see AccessLevelConstants}
+     */
+    private Integer accessLevel;
+    
+    public Integer getLabelMinSize() {
 		return labelMinSize;
 	}
 
@@ -336,5 +342,18 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	 * */	
 	@Transient
 	public abstract Class getDecoratorClass();
+
+    public void setAccessLevel(Integer accessLevel)
+    {
+        this.accessLevel = accessLevel;
+    }
+
+    public Integer getAccessLevel()
+    {
+        if(accessLevel == null) {
+            this.accessLevel = AccessLevelConstants.ADMIN_ACCESS;
+        }
+        return accessLevel;
+    }
 	
 }

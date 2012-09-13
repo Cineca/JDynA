@@ -1,6 +1,7 @@
 package it.cilea.osd.jdyna.web;
 
 import it.cilea.osd.common.model.Identifiable;
+import it.cilea.osd.jdyna.model.Containable;
 
 import java.util.List;
 

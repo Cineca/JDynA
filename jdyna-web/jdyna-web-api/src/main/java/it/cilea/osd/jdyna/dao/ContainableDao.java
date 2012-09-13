@@ -26,7 +26,7 @@
 package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
-import it.cilea.osd.jdyna.web.IContainable;
+import it.cilea.osd.jdyna.model.IContainable;
 
 public interface ContainableDao<C extends IContainable> extends PaginableObjectDao<C,Integer> {
 

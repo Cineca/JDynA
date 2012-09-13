@@ -26,7 +26,7 @@
 package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
-import it.cilea.osd.jdyna.web.Containable;
+import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.Tab;
 

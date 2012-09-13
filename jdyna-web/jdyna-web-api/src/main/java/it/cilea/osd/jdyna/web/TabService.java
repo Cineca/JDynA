@@ -4,6 +4,8 @@ import it.cilea.osd.jdyna.dao.ContainableDao;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyHolderDao;
 import it.cilea.osd.jdyna.dao.TabDao;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.PersistenceDynaService;
 import it.cilea.osd.jdyna.widget.WidgetCombo;
