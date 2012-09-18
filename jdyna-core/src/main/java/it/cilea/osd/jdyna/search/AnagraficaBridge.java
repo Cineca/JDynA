@@ -30,8 +30,6 @@ import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
-import it.cilea.osd.jdyna.value.MultiValue;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.List;
 

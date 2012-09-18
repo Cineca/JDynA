@@ -339,7 +339,7 @@ ${status.value[0]}c
 			<c:if test="${status.errorMessage != null && status.errorMessage != ''}">
 				<span class="fieldError">
 					<img id="${status.expression}_error"
-						src="<c:url value="/images/icons/error.png"/>"
+						src="<c:url value="/image/icons/error.png"
 						alt="error"/>
 					${status.errorMessage}
 				</span>

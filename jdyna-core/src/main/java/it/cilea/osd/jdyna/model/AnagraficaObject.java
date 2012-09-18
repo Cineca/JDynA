@@ -26,11 +26,8 @@
 package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.IdentifiableObject;
-import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.util.Anagrafica4View;
-import it.cilea.osd.jdyna.value.MultiValue;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -208,21 +205,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
 
         return rimossa;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    public List<ValoreDTO> getProprietaDellaTipologiaInValoreMulti(MultiValue multi,TP tipologiaProprieta)
-    {
-        
-        List<ValoreDTO> result = multi.getObject().getAnagraficaProperties().get(tipologiaProprieta.getShortName());
-        
-        if(result == null) {
-            return new ArrayList<ValoreDTO>();
-        }
-        return result;
-        
-    }
+
 
     /**
      * {@inheritDoc}

@@ -30,10 +30,13 @@ import it.cilea.osd.common.service.IPersistenceService;
 import it.cilea.osd.jdyna.dao.MultiTypeDaoSupport;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
+import it.cilea.osd.jdyna.model.ANestedObject;
+import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
+import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATipologia;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
-import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
@@ -313,4 +316,18 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	 * @return
 	 */
 	public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(AWidget widget);
+	
+	
+	   
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<NP> getNestedPropertiesByParentIDAndShortnameTypo(
+            Integer dynamicFieldID, String shortNameTypo, Class<ANO> model);
+
+    
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(Integer id, Class<ANO> model);
+    
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(Integer id, String typoShortname, Class<ANO> model);
+    
+    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id, String typoShortname, Class<ANO> model);
+    
+    
 }

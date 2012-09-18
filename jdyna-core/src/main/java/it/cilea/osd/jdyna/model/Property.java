@@ -26,7 +26,6 @@
 package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.IdentifiableObject;
-import it.cilea.osd.jdyna.value.MultiValue;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

@@ -1,20 +1,14 @@
 package it.cilea.osd.jdyna.validator;
 
 import it.cilea.osd.jdyna.dto.AnagraficaObjectAreaDTO;
-import it.cilea.osd.jdyna.dto.AnagraficaObjectDTO;
-import it.cilea.osd.jdyna.dto.ValoreDTO;
-import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaObject;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
-import it.cilea.osd.jdyna.util.AnagraficaUtils;
-import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -22,7 +16,6 @@ import java.util.List;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.validation.Errors;
-import org.springframework.validation.Validator;
 
 public class AnagraficaObjectDTOAreaValidator<P extends Property<TP>, TP extends PropertiesDefinition, I extends IPropertyHolder<Containable>, T extends Tab<I>, EO extends AnagraficaObject<P, TP>>
 		extends AnagraficaObjectDTOValidator<P, TP, I, EO> {

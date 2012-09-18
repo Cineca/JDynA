@@ -26,10 +26,6 @@
 package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.Selectable;
-import it.cilea.osd.jdyna.dto.AnagraficaObjectDTO;
-import it.cilea.osd.jdyna.dto.ValoreDTO;
-import it.cilea.osd.jdyna.value.MultiValue;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.List;
 import java.util.Map;
@@ -116,18 +112,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
      * @return la lista di proprieta dell'anagrafica della tipologia tipologiaProprieta
      */
 	public List<P> getProprietaDellaTipologia(TP tipologiaProprieta);	
-	
-	/**
-     * Data una tipologia di proprieta', restituisce la lista di proprieta' di quella tipologia
-     * presenti nella combo specificata. La determinazione della corrispondenza tra la tipologia
-     * delle proprieta' in anagrafica e la tipologia di proprieta' passata come argomento e' effettuata
-     * utilizzando il metodo <code>equals()</code>.
-     * 
-     * @see PropertiesDefinition#equals(Object)
-     * @param tipologiaProprieta La tipologia di proprieta' da considerare
-     * @return la lista di sottoproprieta della tipologia tipologiaProprieta contenute nel combo specificato
-     */
-	public List<ValoreDTO> getProprietaDellaTipologiaInValoreMulti(MultiValue valoreMulti,TP tipologiaProprieta);	
+		
 
 	/** 
 	 * Restituisce la classe di proprieta' utilizzata per l'anagrafica dell'oggetto.

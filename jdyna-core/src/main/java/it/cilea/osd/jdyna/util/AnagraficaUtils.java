@@ -27,15 +27,19 @@ package it.cilea.osd.jdyna.util;
 
 import it.cilea.osd.jdyna.dto.AValoreDTOFactory;
 import it.cilea.osd.jdyna.dto.AnagraficaObjectDTO;
+import it.cilea.osd.jdyna.dto.AnagraficaObjectWithTypeDTO;
 import it.cilea.osd.jdyna.dto.IAnagraficaObjectDTO;
+import it.cilea.osd.jdyna.dto.IAnagraficaObjectWithTypeDTO;
 import it.cilea.osd.jdyna.dto.ValoreDTO;
+import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
+import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
+import it.cilea.osd.jdyna.model.TypeSupport;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-import it.cilea.osd.jdyna.value.MultiValue;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.beans.PropertyEditor;
 import java.io.PrintWriter;
@@ -63,7 +67,7 @@ import org.apache.commons.collections.list.LazyList;
 public class AnagraficaUtils
 {
 
-    private IPersistenceDynaService applicationService;
+    private static IPersistenceDynaService applicationService;
 
     private Map<Class<? extends AValue>, PropertyEditor> valorePropertyEditors;
 
@@ -108,23 +112,12 @@ public class AnagraficaUtils
                     + valoreClass.getCanonicalName() + "\">\n");
             writer.print("                        <property name=\"real\">\n");
 
-            if (proprieta.getTypo().getRendering() instanceof WidgetCombo)
-            {
-                writer.print("                       <list>\n");
-                toXML(writer, (List<P>) proprieta.getValue().getObject(),
-                        proprietaClass);
-                writer.print("                       </list>\n");
-            }
-            else
-            {
-                PropertyEditor propertyEditor = valorePropertyEditors
-                        .get(proprieta.getTypo().getRendering()
-                                .getValoreClass());
+            PropertyEditor propertyEditor = valorePropertyEditors.get(proprieta
+                    .getTypo().getRendering().getValoreClass());
 
-                propertyEditor.setValue(proprieta.getValue());
-                writer.print("                           <value><![CDATA["
-                        + propertyEditor.getAsText() + "]]></value>\n");
-            }
+            propertyEditor.setValue(proprieta.getValue());
+            writer.print("                           <value><![CDATA["
+                    + propertyEditor.getAsText() + "]]></value>\n");
 
             writer.print("                         </property>\n");
             writer.print("                     </bean>\n");
@@ -140,6 +133,17 @@ public class AnagraficaUtils
         this.valorePropertyEditors = valorePropertyEditors;
     }
 
+    /**
+     * Fill DTO with properties get off by anagraficaSupport object, those are all property of the properties definition list passed as parameter.     
+     * 
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param dto
+     * @param anagraficaSupport
+     * @param tipologie
+     * @param nestedObjects
+     */
     public static <P extends Property<TP>, TP extends PropertiesDefinition> void fillDTO(
             IAnagraficaObjectDTO dto,
             AnagraficaSupport<P, TP> anagraficaSupport, List<TP> tipologie)
@@ -152,26 +156,7 @@ public class AnagraficaUtils
                                     new LinkedList<ValoreDTO>(),
                                     new AValoreDTOFactory(tipProprieta
                                             .getRendering())));
-            // LazyList.decorate(new LinkedList<Object>(),
-            // new AValoreDTOFactory(tipProprieta.getRendering())));
-            if (tipProprieta.getRendering() instanceof WidgetCombo)
-            {
-                // devo predisporre almeno la prima riga
-                AnagraficaObjectDTO subDTO = new AnagraficaObjectDTO();
-                WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipProprieta
-                        .getRendering();
-                for (TP subtp : combo.getSottoTipologie())
-                {
-                    subDTO.getAnagraficaProperties()
-                            .put(subtp.getShortName(),
-                                    LazyList.decorate(
-                                            new LinkedList<ValoreDTO>(),
-                                            new AValoreDTOFactory(subtp
-                                                    .getRendering())));
-                }
-                dto.getAnagraficaProperties().get(tipProprieta.getShortName())
-                        .add(new ValoreDTO(subDTO));
-            }
+
         }
 
         if (anagraficaSupport != null)
@@ -183,46 +168,9 @@ public class AnagraficaUtils
                 for (P proprieta : anagraficaSupport
                         .getProprietaDellaTipologia(tipProprieta))
                 {
-                    if (tipProprieta.getRendering() instanceof WidgetCombo)
-                    {
-                        AnagraficaObjectDTO subDTO = new AnagraficaObjectDTO();
-                        WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipProprieta
-                                .getRendering();
-                        for (TP subtp : combo.getSottoTipologie())
-                        {
-                            subDTO.getAnagraficaProperties().put(
-                                    subtp.getShortName(),
-                                    LazyList.decorate(
-                                            new ArrayList<ValoreDTO>(),
-                                            new AValoreDTOFactory(subtp
-                                                    .getRendering())));
-                            
-                            ArrayList<ValoreDTO> subavalori = new ArrayList<ValoreDTO>();
-                            List<ValoreDTO> proprietaDellaTipologiaInValoreMulti = anagraficaSupport
-                                    .getProprietaDellaTipologiaInValoreMulti(
-                                            ((MultiValue) proprieta.getValue()),
-                                            subtp);
-                            for (ValoreDTO subprop : proprietaDellaTipologiaInValoreMulti)
-                            {
+                    avalori.add(new ValoreDTO(proprieta.getValue().getObject(),
+                            (proprieta.getVisibility() == 0) ? false : true));
 
-                                subavalori.add(new ValoreDTO(subprop
-                                        .getObject(), subprop.getVisibility()));
-
-                            }
-
-                            subDTO.getAnagraficaProperties()
-                                    .get(subtp.getShortName())
-                                    .addAll(subavalori);
-                        }
-                        avalori.add(new ValoreDTO(subDTO));
-                    }
-                    else
-                    {
-                        avalori.add(new ValoreDTO(proprieta.getValue()
-                                .getObject(),
-                                (proprieta.getVisibility() == 0) ? false : true));
-
-                    }
                 }
                 if (avalori.size() != 0)
                 {
@@ -233,8 +181,10 @@ public class AnagraficaUtils
                 }
             }
         }
+
     }
 
+    
     public static <P extends Property<TP>, TP extends PropertiesDefinition> void reverseDTO(
             IAnagraficaObjectDTO dto,
             AnagraficaSupport<P, TP> anagraficaSupport, List<TP> tipologie)
@@ -255,34 +205,13 @@ public class AnagraficaUtils
             else
             {
 
-                if (tipProprieta.getRendering() instanceof WidgetCombo)
+                int tmp = 0;
+                for (ValoreDTO aval : avaloriDTO)
                 {
-                    WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipProprieta
-                            .getRendering();
-                    int tmp = 0;
-                    for (ValoreDTO aval : avaloriDTO)
-                    {
-                        AnagraficaObjectDTO subDTO = aval != null ? (AnagraficaObjectDTO) aval
-                                .getObject() : null;
-                        if (subDTO != null
-                                && !AnagraficaUtils.<P, TP> checkIsAllNull(
-                                        subDTO, combo.getSottoTipologie()))
-                        {
-                            tmp++;
-                        }
-                    }
-                    avaloriDTOsize = tmp;
+                    if (aval != null && aval.getObject() != null)
+                        tmp++;
                 }
-                else
-                {
-                    int tmp = 0;
-                    for (ValoreDTO aval : avaloriDTO)
-                    {
-                        if (aval != null && aval.getObject() != null)
-                            tmp++;
-                    }
-                    avaloriDTOsize = tmp;
-                }
+                avaloriDTOsize = tmp;
 
             }
             int propDaCreare = (avaloriDTOsize - proprieta.size() > 0) ? avaloriDTOsize
@@ -308,117 +237,27 @@ public class AnagraficaUtils
             if (avaloriDTOsize > 0)
             {
 
-                if (tipProprieta.getRendering() instanceof WidgetCombo)
-                {
-                    WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipProprieta
-                            .getRendering();
-                    int i = 0;
-                    for (ValoreDTO valoreDTO : avaloriDTO)
-                    {
-                        AnagraficaObjectDTO subDTO = valoreDTO != null ? (AnagraficaObjectDTO) valoreDTO
-                                .getObject() : null;
-                        if (subDTO != null
-                                && !AnagraficaUtils.<P, TP> checkIsAllNull(
-                                        subDTO, combo.getSottoTipologie()))
-                        {
-                            MultiValue multi = (MultiValue) proprieta.get(i)
-                                    .getValue();
-                     
-
-                            reverseMultiValueDTO(subDTO, multi,
-                                    ((WidgetCombo<P, TP>) tipProprieta
-                                            .getRendering())
-                                            .getSottoTipologie());
-
-                            i++; // 3.90 M33-3
-
-                        }
-                    }
-                }
-                else
-                {
-
-                    int i = 0;
-                    for (ValoreDTO valoreDTO : avaloriDTO)
-                    {
-                        if (valoreDTO != null && valoreDTO.getObject() != null)
-                        {
-                            proprieta.get(i).getValue()
-                                    .setOggetto(valoreDTO.getObject());
-                            proprieta.get(i).setVisibility(
-                                    valoreDTO.getVisibility() == false ? 0 : 1);
-                            // proprieta.get(i).getValore().setOggetto(avaloriDTO.get(i));
-                            i++;
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public static <P extends Property<TP>, TP extends PropertiesDefinition> void reverseMultiValueDTO(
-            IAnagraficaObjectDTO dto, MultiValue multi, List<TP> tipologie)
-    {
-        
-        multi.getObject().getAnagraficaProperties().clear();
-        
-        for (TP tipProprieta : tipologie)
-        {
-            List<ValoreDTO> avaloriDTO = dto.getAnagraficaProperties().get(
-                    tipProprieta.getShortName());
-                  
-            
-            if (tipProprieta.getRendering() instanceof WidgetCombo)
-            {
-                WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tipProprieta
-                        .getRendering();
-                int i = 0;
-                for (ValoreDTO valoreDTO : avaloriDTO)
-                {
-                    AnagraficaObjectDTO subDTO = valoreDTO != null ? (AnagraficaObjectDTO) valoreDTO
-                            .getObject() : null;
-                    if (subDTO != null
-                            && !AnagraficaUtils.<P, TP> checkIsAllNull(subDTO,
-                                    combo.getSottoTipologie()))
-                    {
-                        MultiValue subMulti = (MultiValue) valoreDTO
-                                .getObject();
-                        
-                        reverseMultiValueDTO(subDTO, subMulti,
-                                ((WidgetCombo<P, TP>) tipProprieta
-                                        .getRendering()).getSottoTipologie());
-
-                        i++; // 3.90 M33-3
-                    }
-                }
-            }
-            else
-            {
-
                 int i = 0;
                 for (ValoreDTO valoreDTO : avaloriDTO)
                 {
                     if (valoreDTO != null && valoreDTO.getObject() != null)
                     {
-                        if (!(multi.getObject().getAnagraficaProperties()
-                                .containsKey(tipProprieta.getShortName())))
-                        {
-                            multi.getObject()
-                                    .getAnagraficaProperties()
-                                    .put(tipProprieta.getShortName(),
-                                            new ArrayList<ValoreDTO>());
-                        }
-                        multi.getObject().getAnagraficaProperties()
-                                .get(tipProprieta.getShortName())
-                                .add(valoreDTO);
+                        proprieta.get(i).getValue()
+                                .setOggetto(valoreDTO.getObject());
+                        proprieta.get(i).setVisibility(
+                                valoreDTO.getVisibility() == false ? 0 : 1);
+                        // proprieta.get(i).getValore().setOggetto(avaloriDTO.get(i));
                         i++;
                     }
                 }
+
             }
         }
-
+         
+       
     }
 
+    
     public static <P extends Property<TP>, TP extends PropertiesDefinition> boolean checkIsAllNull(
             AnagraficaObjectDTO valore, List<TP> sottoTipologie)
     {
@@ -428,23 +267,12 @@ public class AnagraficaUtils
             for (Object subvalore : valore.getAnagraficaProperties().get(
                     tp.getShortName()))
             {
-                if (tp.getRendering() instanceof WidgetCombo)
+
+                if (subvalore != null)
                 {
-                    WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) tp
-                            .getRendering();
-                    if (!AnagraficaUtils.<P, TP> checkIsAllNull(
-                            (AnagraficaObjectDTO) subvalore, sottoTipologie))
-                    {
-                        return false;
-                    }
+                    return false;
                 }
-                else
-                {
-                    if (subvalore != null)
-                    {
-                        return false;
-                    }
-                }
+
             }
         }
         return isAllNull;
@@ -507,22 +335,6 @@ public class AnagraficaUtils
                 .getImportPropertyEditor(applicationService);
 
         P proprieta = null;
-        // se e' una combo la tipologia devo creare la proprieta' per il valore
-        // multi e cancellare le sotto proprieta create di default per ogni
-        // sotto tipologia
-        // in modo tale che quando capitero' nel caso della combo creo le sole
-        // sotto proprieta' descritte dall'xml
-        if (tipologiaDaImportare.getRendering() instanceof WidgetCombo)
-        {
-            proprieta = anagraficaObject.createProprieta(tipologiaDaImportare);
-            // ((MultiValue<P, TP>)proprieta.getValore()).getOggetto().clear();
-            // for(P p : ((MultiValue<P,
-            // TP>)proprieta.getValore()).getOggetto()) {
-            // anagraficaObject.removeProprieta(p);
-            // }
-            ((MultiValue) proprieta.getValue())
-                    .setOggetto(new AnagraficaObjectDTO());
-        }
 
         if (oggetto instanceof String)
         {
@@ -616,36 +428,24 @@ public class AnagraficaUtils
             List lista = (List) oggetto;
 
             for (int w = 0; w < lista.size(); w++)
-            {
-                Object elementList = lista.get(w);
-                // caso base
-                if (elementList instanceof String)
-                {
+            {                
 
-                    pe.setAsText((String) oggetto);
-                    ArrayList<ValoreDTO> arraylist;
-                    if (anagraficaObject.getAnagraficaProperties()
-                            .get(tipologiaDaImportareInCombo).isEmpty())
-                    {
-                        arraylist = new ArrayList<ValoreDTO>();
-                        arraylist.add(new ValoreDTO(pe.getValue()));
-                        anagraficaObject.getAnagraficaProperties().put(
-                                tipologiaDaImportareInCombo.getShortName(),
-                                arraylist);
-                    }
-                    else
-                    {
-                        anagraficaObject.getAnagraficaProperties()
-                                .get(tipologiaDaImportareInCombo)
-                                .add(new ValoreDTO(pe.getValue()));
-                    }
+                pe.setAsText((String) oggetto);
+                ArrayList<ValoreDTO> arraylist;
+                if (anagraficaObject.getAnagraficaProperties()
+                        .get(tipologiaDaImportareInCombo).isEmpty())
+                {
+                    arraylist = new ArrayList<ValoreDTO>();
+                    arraylist.add(new ValoreDTO(pe.getValue()));
+                    anagraficaObject.getAnagraficaProperties().put(
+                            tipologiaDaImportareInCombo.getShortName(),
+                            arraylist);
                 }
                 else
                 {
-                    // e' una combo...
-                    importSottoProprieta(new AnagraficaObjectDTO(),
-                            (ImportPropertyAnagraficaUtil) elementList,
-                            tipologiaDaImportareInCombo.getClass());
+                    anagraficaObject.getAnagraficaProperties()
+                            .get(tipologiaDaImportareInCombo)
+                            .add(new ValoreDTO(pe.getValue()));
                 }
             }
 
@@ -676,20 +476,4 @@ public class AnagraficaUtils
         return null;
     }
 
-    public static Map<String, ValoreDTO> getFirstSingleValue(MultiValue mvrp,
-            String[] listMetadataShortname)
-    {
-        Map<String, ValoreDTO> result = new HashMap<String, ValoreDTO>();
-        for (String shortname : listMetadataShortname)
-        {
-            List<ValoreDTO> pp = mvrp.getObject().getAnagraficaProperties()
-                    .get(shortname);
-            if (pp != null && !pp.isEmpty())
-            {
-                result.put(shortname, pp.get(0));
-                return result;
-            }
-        }
-        return null;
-    }
 }

@@ -27,8 +27,6 @@ package it.cilea.osd.jdyna.dto;
 
 import java.io.Serializable;
 
-import org.springframework.web.multipart.MultipartFile;
-
 public class ValoreDTO implements Serializable {
 	/** The real contents entered/showed by the UI */
 	private Object object;

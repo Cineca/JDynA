@@ -7,7 +7,6 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.HashMap;
 import java.util.List;
@@ -84,12 +83,6 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 			//cancello se fanno parte di qualche property holder		
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
 			applicationService.<H, T>deleteContainableInPropertyHolder(holderModel,containable);
-			//cancello il decorator e in cascata la tipologia di proprieta		
-			if(!tip.isTopLevel())
-			{				
-				WidgetCombo wc = applicationService.findComboByChild(targetModel, tip);	
-				wc.getSottoTipologie().remove(tip);			
-			}	
 			applicationService.delete(tip.getDecoratorClass(), containable.getId());
 			
 			saveMessage(request, getText("action.propertiesdefinition.deleted", request

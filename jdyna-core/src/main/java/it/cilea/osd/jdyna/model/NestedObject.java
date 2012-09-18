@@ -29,7 +29,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -52,16 +51,16 @@ import org.hibernate.annotations.OrderBy;
         @NamedQuery(name = "NestedObject.paginate.id.asc", query = "from NestedObject order by id asc"),
         @NamedQuery(name = "NestedObject.paginate.id.desc", query = "from NestedObject order by id desc")
         })
-public class NestedObject extends ANestedObject<NestedProperty, NestedPropertiesDefinition> implements TypeSupport<NestedProperty, NestedPropertiesDefinition>
+public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, NestedPropertiesDefinition>
 {
 
     
-    @OneToMany(mappedBy = "parent", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "parent")
     @Cascade(value = { CascadeType.ALL, CascadeType.DELETE_ORPHAN })    
     @OrderBy(clause="position asc")
     private List<NestedProperty> anagrafica;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne
     private TypeNestedObject typo;
     
     @Transient

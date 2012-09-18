@@ -2,8 +2,8 @@ package it.cilea.osd.jdyna.web.controller;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.jdyna.model.ATipologia;
-import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 
 import java.util.HashMap;

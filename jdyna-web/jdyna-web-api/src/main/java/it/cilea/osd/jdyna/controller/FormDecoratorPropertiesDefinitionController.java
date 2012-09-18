@@ -2,18 +2,14 @@ package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
 import it.cilea.osd.jdyna.model.ADecoratorPropertiesDefinition;
-import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
 
 import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;

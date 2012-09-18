@@ -62,7 +62,7 @@ public abstract class ATipologia<TP extends PropertiesDefinition> extends Identi
 	 * applicabili alla sua particolare tipologia.
 	 * 
 	 * @author bollini
-	 * @see EpiObject#getClassPropertiesDefinition()
+	 * 
 	 * @return la lista delle tipologie di proprieta non applicabili all'oggetto
 	 */
 	@Transient

@@ -1,8 +1,8 @@
 package it.cilea.osd.jdyna.utils;
 
-import java.io.Serializable;
-
 import it.cilea.osd.common.model.Selectable;
+
+import java.io.Serializable;
 
 import javax.persistence.Transient;
 

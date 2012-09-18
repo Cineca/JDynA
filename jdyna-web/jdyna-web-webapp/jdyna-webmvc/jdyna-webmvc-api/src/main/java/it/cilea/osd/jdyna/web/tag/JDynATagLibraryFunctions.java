@@ -2,10 +2,8 @@ package it.cilea.osd.jdyna.web.tag;
 
 import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.FormulaManager;
 import it.cilea.osd.jdyna.utils.HashUtil;
-import it.cilea.osd.jdyna.value.MultiValue;
 import it.cilea.osd.jdyna.value.PointerValue;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 
@@ -14,7 +12,6 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -439,41 +436,7 @@ public class JDynATagLibraryFunctions
         }
     }
 
-    /**
-     * 
-     * Utility method to clean not public visibility from multivale get as
-     * parameter.
-     * 
-     * @param <P>
-     * @param <TP>
-     * @param propertiesList
-     * @return
-     */
-    public static <P extends Property<TP>, TP extends PropertiesDefinition> Object hideComboRow(
-            Object propertiesList)
-    {
-        List<P> list = (List<P>) propertiesList;
-        List<P> toView = new LinkedList<P>();
-        external: for (P p : list)
-        {
-            MultiValue multi = (MultiValue) p.getValue();
-
-            internal: for (String key : multi.getObject().getAnagraficaProperties().keySet())
-            {
-                for (ValoreDTO pp : multi.getObject().getAnagraficaProperties().get(key))
-                {
-                    if (pp.getVisibility())
-                    {
-                        toView.add(p);
-                        break internal;
-                    }
-                }
-
-            }
-        }
-        return toView;
-    }
-
+ 
     /**
      * Sort a list (make attention that parameter list elements must be
      * implements Comparable)

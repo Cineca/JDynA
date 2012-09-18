@@ -33,6 +33,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
 *
 * @author pascarelli
@@ -49,6 +52,7 @@ public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefiniti
     
     @ManyToMany
     @JoinTable(name = "model_jdyna_nestedobject_typo2mask")
+    @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<NestedPropertiesDefinition> mask;
 
     @Override

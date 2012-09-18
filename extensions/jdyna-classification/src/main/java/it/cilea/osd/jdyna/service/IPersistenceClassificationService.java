@@ -1,6 +1,7 @@
 package it.cilea.osd.jdyna.service;
 
 import it.cilea.osd.jdyna.dao.AlberoClassificatorioDao;
+import it.cilea.osd.jdyna.dao.ClassificazioneDao;
 import it.cilea.osd.jdyna.model.AlberoClassificatorio;
 import it.cilea.osd.jdyna.model.Classificazione;
 

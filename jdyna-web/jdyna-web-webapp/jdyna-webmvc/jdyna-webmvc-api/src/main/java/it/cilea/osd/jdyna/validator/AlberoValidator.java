@@ -2,7 +2,6 @@ package it.cilea.osd.jdyna.validator;
 
 import it.cilea.osd.jdyna.dto.DTOAlberoClassificatore;
 import it.cilea.osd.jdyna.service.IValidatorClassificationService;
-import it.cilea.osd.jdyna.service.IValidatorDynaService;
 
 import java.util.ArrayList;
 import java.util.List;

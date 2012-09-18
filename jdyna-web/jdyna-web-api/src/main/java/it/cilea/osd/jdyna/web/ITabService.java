@@ -4,7 +4,6 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.List;
 
@@ -94,15 +93,7 @@ public interface ITabService extends IPersistenceDynaService {
 	public <IC> IC findContainableByDecorable(Class decoratorClass,
 			Integer decorable);
 
-	/**
-	 * Find widget combo by child
-	 * 
-	 * @param <TP>
-	 * @param clazz
-	 * @param tip
-	 * @return
-	 */
-	public <TP extends PropertiesDefinition> WidgetCombo findComboByChild(Class<TP> clazz, TP tip);
+
 
 	/**
 	 * Find a tab by shortname

@@ -1,7 +1,6 @@
 package it.cilea.osd.jdyna.utils;
 
 import it.cilea.osd.jdyna.service.ISearchDynaService;
-import it.cilea.osd.jdyna.service.SearchService;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.event.ContextClosedEvent;

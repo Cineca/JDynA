@@ -6,7 +6,6 @@ import it.cilea.osd.jdyna.service.IValidatorClassificationService;
 import it.cilea.osd.jdyna.service.ValidatorService.ValidationResult;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
 import it.cilea.osd.jdyna.widget.WidgetClassificazione;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 import it.cilea.osd.jdyna.widget.WidgetDate;
 import it.cilea.osd.jdyna.widget.WidgetEmail;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
@@ -129,14 +128,7 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 			if(widgetData.getMaxYear()<widgetData.getMinYear()) {
 				errors.rejectValue("rendering.max","error.message.fallita.validazione.widget.data.max");
 			}
-		}
-		if (aWidget instanceof WidgetCombo) {
-			WidgetCombo widgetCombo = (WidgetCombo) aWidget;
-			//devo verificare se vi sono sottotipologie
-			if(widgetCombo.getSottoTipologie()==null || widgetCombo.getSottoTipologie().size()==0) {
-				errors.rejectValue("rendering.sottoTipologie","error.message.fallita.validazione.widget.combo.sottoTipologie");
-			}
-		}
+		}		
 		if (aWidget instanceof WidgetFormula) {
 			WidgetFormula widgetFormula = (WidgetFormula) aWidget;
 			//verificare solamente che i campi non siano vuoti o nulli

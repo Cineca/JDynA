@@ -91,18 +91,8 @@
 </tag-file>
 
 <tag-file>
-	<name>combo</name>
-	<path>/META-INF/tags/combo.tag</path>
-</tag-file>
-
-<tag-file>
 	<name>display</name>
 	<path>/META-INF/tags/display.tag</path>
-</tag-file>
-
-<tag-file>
-	<name>display-combo-inline</name>
-	<path>/META-INF/tags/display-combo-inline.tag</path>
 </tag-file>
 
 <tag-file>
@@ -285,13 +275,6 @@
 	<name>getLinkDescription</name>
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>String getLinkDescription(java.lang.String)</function-signature>
-</function>
-
-<function>
-	<description>Return anagrafica of combo cleared from properties with not public visibility</description>
-	<name>hideComboRow</name>
-	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
-	<function-signature>Object hideComboRow(java.lang.Object)</function-signature>
 </function>
 
 <function>

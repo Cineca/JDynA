@@ -31,6 +31,10 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Type;
 /**
 *
 * @author pascarelli
@@ -38,7 +42,8 @@ import javax.persistence.SequenceGenerator;
 */
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> extends ATipologia<TP>
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> extends ATipologia<TP> implements Comparable<ATypeNestedObject<TP>>
 {
 
     /** DB Primary key */
@@ -46,6 +51,31 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
     @GeneratedValue(generator = "JDYNA_TYPONESTEDOBJECT_SEQ")
     @SequenceGenerator(name = "JDYNA_TYPONESTEDOBJECT_SEQ", sequenceName = "JDYNA_TYPONESTEDOBJECT_SEQ")    
     private Integer id;
+    
+    /** The fact of being field obligatory */
+    private boolean mandatory;
+    
+    /** Field repeatability*/
+    private boolean repeatable;
+    
+    /** 
+     * Indica la priorita' con cui deve essere visualizzata nei riepiloghi delle 
+     * anagrafiche. Maggiore e' la priorita' prima sara' visualizzata la tipologia (default 0)
+     **/
+    private int priority;
+    
+    @Type(type="text")
+    /**
+     * Testo di help da mostrare durante l'editing di proprieta' di questa tipologia
+     */
+    private String help;
+    
+       
+    /**
+     * Level access of metadata value {@see AccessLevelConstants}
+     */
+    private Integer accessLevel;
+
     
     @Override
     public Integer getId()
@@ -55,5 +85,64 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public boolean isMandatory()
+    {
+        return mandatory;
+    }
+
+    public void setMandatory(boolean mandatory)
+    {
+        this.mandatory = mandatory;
+    }
+
+    public boolean isRepeatable()
+    {
+        return repeatable;
+    }
+
+    public void setRepeatable(boolean repeatable)
+    {
+        this.repeatable = repeatable;
+    }
+
+    public int getPriority()
+    {
+        return priority;
+    }
+
+    public void setPriority(int priority)
+    {
+        this.priority = priority;
+    }
+
+    public String getHelp()
+    {
+        return help;
+    }
+
+    public void setHelp(String help)
+    {
+        this.help = help;
+    }
+
+    public Integer getAccessLevel()
+    {
+        return accessLevel;
+    }
+
+    public void setAccessLevel(Integer accessLevel)
+    {
+        this.accessLevel = accessLevel;
+    }
+    
+    @Override
+    public int compareTo(ATypeNestedObject<TP> o)
+    {
+        if (o == null) return -1;
+        if (getPriority() < o.getPriority()) return -1;
+        else if (getPriority() > o.getPriority()) return 1;
+             else return getNome().compareTo(o.getNome());
     }
 }

@@ -33,19 +33,21 @@ import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.common.service.PersistenceService;
 import it.cilea.osd.jdyna.dao.AnagraficaSupportDao;
 import it.cilea.osd.jdyna.dao.MultiTypeDaoSupport;
+import it.cilea.osd.jdyna.dao.NestedObjectDAO;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
+import it.cilea.osd.jdyna.model.ANestedObject;
+import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
+import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATipologia;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
-import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.model.TypeSupport;
-import it.cilea.osd.jdyna.value.MultiValue;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -503,4 +505,40 @@ public class PersistenceDynaService extends PersistenceService implements
 		return (TP)propertiesDefinitionDao.findPropertiesDefinitionByWidget(widget);
 	}
 
+    @Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<NP> getNestedPropertiesByParentIDAndShortnameTypo(
+            Integer dynamicFieldID, String shortNameTypo, Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+        List<NP> modelList = modelDao.findNestedPropertiesByParentIDAndShortnameTypo(dynamicFieldID,shortNameTypo);
+        return modelList;
+    }
+
+    @Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(
+            Integer id, Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+        List<ANO> modelList = modelDao.findNestedObjectsByParentID(id);
+        return modelList;
+    }
+
+    @Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(
+            Integer id, String typoShortname, Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+        ANO result = modelDao.findNestedObjectByParentIDAndShortnameTypo(id, typoShortname);
+        return result;
+    }
+
+    @Override
+    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(
+            Integer id, String typoShortname, Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+        ANO result = modelDao.findNestedObjectWithTypeSupportByParentIDAndTypoShortname(id, typoShortname);
+        return result;
+    }
+	    
 }

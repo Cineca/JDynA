@@ -88,10 +88,6 @@
 	<c:set var="isEmail" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'combo'}">
-	<c:set var="isCombo" value="true" />
-</c:if>
-
 <c:if test="${tipologia.rendering.triview eq 'calendar'}">
 	<c:set var="isCalendar" value="true" />
 </c:if>
@@ -232,12 +228,7 @@
 	<c:when test="${isFormula}">
 		<dyna:formula propertyPath="${propertyPath}" tipologia="${tipologia}" />
 	</c:when>
-	<c:when test="${isCombo}">
-		<dyna:combo propertyPath="${propertyPath}" repeatable="${repetable}" 
-				tipologia="${tipologia}" required="${required}" 
-				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
-	</c:when>
+
 </c:choose>
 <c:if test="${!subElement}">
 </div>

@@ -26,15 +26,12 @@
 package it.cilea.osd.jdyna.util;
 
 import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.event.ISubscriber;
 import it.cilea.osd.jdyna.event.JPAEvent;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.service.IPersistenceFormulaService;
-import it.cilea.osd.jdyna.value.MultiValue;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
 
 import java.math.BigDecimal;
@@ -391,120 +388,7 @@ public class FormulaManager implements ISubscriber<JPAEvent> {
 						}
 					}
 				}
-						
-				else {
-				// per le combo
 
-				// FIXME l'idx non e' sempre sufficiente, occorrerebbe poter
-				// accedere
-				// anche agli idx del contenitore della combo (>livello2)
-				// probabilmente sarebbe piu' comodo disporre di un "this" come
-				// referenza alla proprieta' in cui inserire il valore
-				// calcolato...
-
-				TP tpCombo = applicationService.getTipologiaProprietaComboWith(tip,oggetto.getClassPropertiesDefinition());
-				//solo se la combo e' di primo livello 
-				if (tpCombo.isTopLevel()) {
-					List<P> pList = oggetto.getProprietaDellaTipologia(tpCombo);
-					if (pList.size() == 0){ 
-						// se non ci sono combo normalemente non devo fare nulla ma se la combo si compone 
-						// solo di formule devo creare almeno una riga (FIXME quante esattamente???)...
-						boolean soloFormule = true;
-						WidgetCombo<P, TP> widgetCombo = (WidgetCombo<P, TP>) tpCombo.getRendering();
-						for (TP subTPCombo : widgetCombo.getSottoTipologie()) {
-							if (!(subTPCombo.getRendering() instanceof WidgetFormula)){
-								soloFormule = false;
-							}
-						}
-						if (soloFormule){
-							oggetto.createProprieta(tpCombo);
-						}
-					}
-					
-					for (P p : pList) {
-						Integer idx = p.getPosition();
-						boolean result = valutaRegolaDiCalcolo(
-								widgetFormula.getRegolaDiRicalcolo(), oggetto,
-								idx);
-
-						log.debug("valuto la regola di ricalcolo... " + result);
-						if (result == true) {
-							// cancello tutte le proprieta risultato della
-							// formula della combo
-							MultiValue valori = (MultiValue) p.getValue();
-							List<ValoreDTO> proprietaDaCancellare = oggetto
-									.getProprietaDellaTipologiaInValoreMulti(
-											valori, tip);
-
-							for (int i = 0; i < proprietaDaCancellare.size(); i++) {
-//								oggetto.removeProprieta(proprietaDaCancellare
-//										.get(proprietaDaCancellare.size() - 1 - i));
-							}
-
-							// se non e' null calcolo il result number della formula
-							// e itero per ricalcolare le formule
-							// altrimenti devo se e' null vuol dire che non e'
-							// ripetibile
-							String resultNumberString = widgetFormula
-									.getResultNumber();
-							Integer resultNumber = 1;
-							if (resultNumberString != null
-									&& resultNumberString.length()!=0) {
-								resultNumber = (Integer) calcoloValore(
-										resultNumberString, oggetto, idx, null);
-							}
-						
-							for (int i = 0; i < resultNumber; i++) {
-								Object valoreObject = null;
-								try {
-									valoreObject = FormulaManager
-											.calcoloValore(widgetFormula
-													.getExpression(), oggetto,
-													idx, i);
-								} catch (RuntimeException e) {
-									log.warn("Errore nel ricalcolo formula: "
-											+ e.getMessage());
-								}
-
-								if (valoreObject != null) {
-									// set del nuovo valore della proprieta che
-									// contiene il
-									// risultato della formula
-									log.debug("nuovo valore: " + valoreObject
-											+ " class: "
-											+ valoreObject.getClass());
-
-									if (valoreObject instanceof BigInteger) {
-										log
-												.debug("trasformo il risultato in Double");
-										BigInteger bi = (BigInteger) valoreObject;
-										valoreObject = new Double(bi
-												.doubleValue());
-										log.debug("nuovo valore: "
-												+ valoreObject + " class: "
-												+ valoreObject.getClass());
-									}
-									if (valoreObject instanceof BigDecimal) {
-										log
-												.debug("trasformo il risultato in Double");
-										BigDecimal bi = (BigDecimal) valoreObject;
-										valoreObject = new Double(bi
-												.doubleValue());
-										log.debug("nuovo valore: "
-												+ valoreObject + " class: "
-												+ valoreObject.getClass());
-									}
-									P proprieta = null;//oggetto.createProprieta(p,tip);
-									proprieta.getValue().setOggetto(
-											valoreObject);
-									log.debug("creata proprieta in combo per il risultato numero" + i);
-								}
-							}
-
-						}
-					}
-				}
-			}
 		}
 	}
 	

@@ -25,8 +25,8 @@
  */
 package it.cilea.osd.jdyna.util;
 
-import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 
 import java.util.Comparator;
 

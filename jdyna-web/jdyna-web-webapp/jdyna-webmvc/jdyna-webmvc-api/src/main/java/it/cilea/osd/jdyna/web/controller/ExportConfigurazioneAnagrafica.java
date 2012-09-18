@@ -12,7 +12,6 @@ import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
 import it.cilea.osd.jdyna.widget.WidgetCheckRadio;
 import it.cilea.osd.jdyna.widget.WidgetClassificazione;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 import it.cilea.osd.jdyna.widget.WidgetDate;
 import it.cilea.osd.jdyna.widget.WidgetEmail;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
@@ -191,19 +190,6 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 					.getSoggettari()) {
 				writer.print("                                       <value>"
 						+ soggettario.getNome() + "</value>\n");
-			}
-			writer.print("                                  </list>\n");
-			writer.print("                            </property>\n");
-			writer.print("                        </bean>\n\n");
-		} else if (widget instanceof WidgetCombo) {
-			WidgetCombo<? extends Property<TP>, TP> widgetCombo = (WidgetCombo<? extends Property<TP>, TP>) widget;
-			writer
-					.print("                        <bean class=\"it.cilea.osd.jdyna.widget.WidgetCombo\">\n"
-							+ "                            <property name=\"sottoTipologie\">\n"
-							+ "                                  <list>\n");
-			for (TP sottoTP : widgetCombo.getSottoTipologie()) {
-			
-				toXML(writer, sottoTP);		
 			}
 			writer.print("                                  </list>\n");
 			writer.print("                            </property>\n");

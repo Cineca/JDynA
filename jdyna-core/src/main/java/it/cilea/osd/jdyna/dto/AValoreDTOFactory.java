@@ -28,13 +28,10 @@ package it.cilea.osd.jdyna.dto;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.io.Serializable;
-import java.util.LinkedList;
 
 import org.apache.commons.collections.Factory;
-import org.apache.commons.collections.list.LazyList;
 
 /**
  * Wrapper della classe AWidget che implementa l'interfaccia Factory di apache
@@ -58,24 +55,7 @@ public class AValoreDTOFactory<P extends Property<TP>, TP extends PropertiesDefi
     public ValoreDTO create()
     {
         ValoreDTO valoreDTO = new ValoreDTO();
-        if (widget instanceof WidgetCombo)
-        {
-            WidgetCombo<P, TP> combo = (WidgetCombo<P, TP>) widget;
-            AnagraficaObjectDTO subDTO = new AnagraficaObjectDTO();
-            for (TP subtp : combo.getSottoTipologie())
-            {
-                subDTO.getAnagraficaProperties().put(
-                        subtp.getShortName(),
-                        LazyList.decorate(new LinkedList<ValoreDTO>(),
-                                new AValoreDTOFactory(subtp.getRendering())));
-            }
-            valoreDTO.setObject(subDTO);
-            return valoreDTO;
-        }
-        else
-        {
-            // valoreDTO.setObject(null);
-            return valoreDTO;
-        }
+        return valoreDTO;
+
     }
 }

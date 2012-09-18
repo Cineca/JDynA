@@ -10,7 +10,7 @@
 	</c:if>	
 		<span class="fieldError" id="error${status.expression}" ${visibility}><img
 			id="errorImage${status.expression}"
-			src="<c:url value="/images/icons/error.png"/>" alt="error" />
+			src="<c:url value="/image/icons/error.png alt="error" />
 			<a id="errorMsg${status.expression}" >${status.errorMessage}</a></span>
 	
 </spring:bind>

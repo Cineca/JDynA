@@ -34,6 +34,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
 import org.hibernate.annotations.Cache;
@@ -45,7 +47,6 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 */
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition> extends AnagraficaObject<P, TP>
 {
     /** DB Primary key */

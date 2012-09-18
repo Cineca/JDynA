@@ -8,7 +8,6 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.PersistenceDynaService;
-import it.cilea.osd.jdyna.widget.WidgetCombo;
 
 import java.util.Collections;
 import java.util.LinkedList;
@@ -148,17 +147,6 @@ public abstract class TabService extends PersistenceDynaService implements
 		return result;
 	}
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public <TP extends PropertiesDefinition> WidgetCombo findComboByChild(
-			Class<TP> clazz, TP tip) {
-		PropertiesDefinitionDao<TP> dao = (PropertiesDefinitionDao<TP>) getDaoByModel(clazz);
-		return (WidgetCombo)dao.uniqueTipologiaProprietaCombo(tip).getRendering();
-		
-		
-	}
 
 	/**
 	 * {@inheritDoc}

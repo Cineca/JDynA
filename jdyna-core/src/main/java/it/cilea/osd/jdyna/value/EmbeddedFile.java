@@ -28,7 +28,6 @@ package it.cilea.osd.jdyna.value;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
 

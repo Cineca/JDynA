@@ -26,11 +26,6 @@
 	<c:set var="isLink" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'combo'}">
-	<c:set var="subTypesSortered" value="${dyna:sortList(tipologia.rendering.sottoTipologie)}" />
-	<c:set var="isCombo" value="true" />
-</c:if>
-
 <c:if test="${tipologia.rendering.triview eq 'testo' && !tipologia.rendering.multilinea}">
 	<c:set var="isText" value="true" />
 </c:if>
@@ -106,28 +101,12 @@
 </c:if>
 <c:set var="showit" value="false" target="java.lang.Boolean"/>
 
-<c:choose>
-<c:when test="${!isCombo}">
 <c:forEach var="value" items="${values}" varStatus="valueStatus">		
 		<c:if test="${(subElement?value.visibility:(value.visibility==1))}">
 			<c:set var="showit" value="true" target="java.lang.Boolean"/>
 		</c:if>
 </c:forEach>
-</c:when>
-<c:otherwise>
-<c:choose>
-	<c:when test="${isCombo && tipologia.rendering.inline}">
-		<c:set var="values" value="${dyna:hideComboRow(values)}" />		
-		<c:if test="${!empty values}">
-			<c:set var="showit" value="true" target="java.lang.Boolean"/>
-		</c:if>		
-	</c:when>	
-	<c:otherwise>		
-		<c:set var="showit" value="true" target="java.lang.Boolean"/>
-	</c:otherwise>
-</c:choose>	
-</c:otherwise>
-</c:choose>
+
 
 <c:if test="${!subElement}">
 <c:set var="fieldMinWidth" value="" />
@@ -334,79 +313,6 @@
 			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
 			${displayObject?'Si':'No'}
 		</c:forEach>
-	</c:when>
-	<c:when test="${isCombo && tipologia.rendering.inline}">
-		<c:set var="count" value="0" />
-			
-		<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${tipologia.shortName}"
-			class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="100">
-		<display:setProperty name="paging.banner.no_items_found" value="" />
-		<display:setProperty name="paging.banner.one_item_found" value="" />
-		<display:setProperty name="paging.banner.all_items_found" value="" />
-		<display:setProperty name="paging.banner.page.selected" value="" />
-		<display:setProperty name="paging.banner.onepage" value="" />
-		
-		<c:forEach var="subtip" items="${subTypesSortered}" varStatus="valueStatus">
-				
-									
-				<c:set var="subLabelMinWidth" value="" />
-				<c:if test="${subtip.labelMinSize > 1}">
-					<c:set var="subLabelMinWidth" value="width:${subtip.labelMinSize}em;" />
-				</c:if>
-				
-					<display-el:column style="${subLabelMinWidth}" title="${subtip.label}"  
-						sortProperty="value.object.anagraficaProperties['${subtip.shortName}'][0].object.sortValue" 
-						sortable="false">
-					<c:set var="nameriga" value="${tipologia.shortName}_RowNum" scope="request" />
-					<c:set var="numtip"
-						value="${count % fn:length(tipologia.rendering.sottoTipologie)}" />
-					<c:set var="numriga" 
-						value="${(count - count % fn:length(tipologia.rendering.sottoTipologie))/fn:length(tipologia.rendering.sottoTipologie)}" />
-					<c:set var="count" value="${count+1}" />
-					
-					<dyna:display tipologia="${subtip}" subElement="true" 
-						values="${values[numriga].object.anagraficaProperties[subtip.shortName]}"/>
-			
-					</display-el:column>
-				
-		</c:forEach>
-		</display:table>
-		
-	</c:when>
-	<c:when test="${isCombo && !tipologia.rendering.inline}">
-		<c:set var="values" value="${dyna:hideComboRow(values)}"/>	
-		<c:choose>		
-		<c:when test="${fn:length(values) > 0}">
-		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-			<c:choose>
-				<c:when test="${valueStatus.count == 1 && fn:length(values)==1}"><div class="dynaFieldComboValueFirstLast"></c:when>
-				<c:when test="${valueStatus.count == 1}"><div class="dynaFieldComboValueFirst"></c:when>
-				<c:when test="${valueStatus.count == fn:length(values)}"><div class="dynaFieldComboValueLast"></c:when>
-				<c:otherwise><div class="dynaFieldComboValue"></c:otherwise>
-			</c:choose>
-		
-			<c:forEach var="subtip" items="${subTypesSortered}">
-				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
-				
-				<dyna:display-combo-inline subValues="${value.object.anagraficaProperties[subtip.shortName]}" subtip="${subtip}" />
-				
-				<%-- FINE DEL COPIA INCOLLA --%>
-			</c:forEach>
-		</div>
-		<div class="dynaClear">&nbsp;</div>
-		</c:forEach>
-		</c:when>
-		<c:otherwise>
-		<div class="dynaFieldComboValueFirstLast">
-			<c:forEach var="subtip" items="${subTypesSortered}">
-				<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
-				<dyna:display-combo-inline subtip="${subtip}" />
-				<%-- FINE DEL COPIA INCOLLA --%>			
-			</c:forEach>
-		</div>
-		</c:otherwise>
-		</c:choose>
-	
 	</c:when>
 	<c:when test="${isNumero}">
 	<c:set var="minwidth" value="" />

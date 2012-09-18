@@ -41,7 +41,7 @@ public class AnagraficaObjectDTO implements Serializable, IAnagraficaObjectDTO {
 	 * proprieta' della tipologia individuata dalla chiave
 	 */
 	private Map<String, List<ValoreDTO>> anagraficaProperties = new HashMap<String, List<ValoreDTO>>();
-
+	
 	public Map<String, List<ValoreDTO>> getAnagraficaProperties() {
 		return anagraficaProperties;
 	}
@@ -66,4 +66,5 @@ public class AnagraficaObjectDTO implements Serializable, IAnagraficaObjectDTO {
 	public void setObjectId(Integer objectId) {
 		this.objectId = objectId;
 	}
+
 }
