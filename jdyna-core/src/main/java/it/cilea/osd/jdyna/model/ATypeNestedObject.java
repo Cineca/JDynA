@@ -143,6 +143,6 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
         if (o == null) return -1;
         if (getPriority() < o.getPriority()) return -1;
         else if (getPriority() > o.getPriority()) return 1;
-             else return getNome().compareTo(o.getNome());
+             else return getShortName().compareTo(o.getShortName());
     }
 }

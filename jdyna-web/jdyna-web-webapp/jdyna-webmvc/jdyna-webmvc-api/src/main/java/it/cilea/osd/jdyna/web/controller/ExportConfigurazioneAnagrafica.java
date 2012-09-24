@@ -501,7 +501,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 //
 //		}		
 
-		writer.print("					<property name=\"nome\" value=\"" + type.getNome()
+		writer.print("					<property name=\"nome\" value=\"" + type.getShortName()
 				+ "\" />\n");
 		if (type.getDescrizione() != null) {
 			writer.print("					<property name=\"descrizione\"><value><![CDATA["

@@ -42,9 +42,9 @@ import org.hibernate.search.annotations.Index;
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class ATipologia<TP extends PropertiesDefinition> extends IdentifiableObject implements Selectable {
 	
-	/** nome della tipologia di oggetto **/
+	/** shortName **/
 	@Field(index=Index.TOKENIZED)
-	private String nome;
+	private String shortName;
 	
 	/** descrizione della tipologia di progetto */
 	private String descrizione;
@@ -68,22 +68,22 @@ public abstract class ATipologia<TP extends PropertiesDefinition> extends Identi
 	@Transient
 	public abstract List<TP> getMaschera();
 
-	public String getNome() {
-		return nome;
+	public String getShortName() {
+		return shortName;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setShortName(String nome) {
+		this.shortName = nome;
 	}
 	
 	/**
-	 * Adapter per l'interfaccia {@link Selectable}. Restituisce il nome della tipologia
+	 * Adapter per l'interfaccia {@link Selectable}. Restituisce il shortName della tipologia
 	 * 
 	 * @author bollini
-	 * @return {@link ATipologia#getNome()}  
+	 * @return {@link ATipologia#getShortName()}  
 	 */
 	public String getDisplayValue() {
-		return nome;
+		return shortName;
 	}
 	
 	/**
@@ -100,8 +100,8 @@ public abstract class ATipologia<TP extends PropertiesDefinition> extends Identi
 	public boolean equals(Object object) {
 		try {
 			ATipologia<TP> tipologia2 = (ATipologia<TP>) object;
-			if ((tipologia2.getNome() != null && tipologia2.getNome().equals(nome))
-					|| ((nome == null && tipologia2.getNome() == null))) {
+			if ((tipologia2.getShortName() != null && tipologia2.getShortName().equals(shortName))
+					|| ((shortName == null && tipologia2.getShortName() == null))) {
 				return true;
 			} else
 				return super.equals(object);
@@ -112,8 +112,8 @@ public abstract class ATipologia<TP extends PropertiesDefinition> extends Identi
 	
 	@Override
 	public int hashCode() {
-		if(getNome()!=null){
-			return getNome().hashCode();
+		if(getShortName()!=null){
+			return getShortName().hashCode();
 		}
 		else {
 			return super.hashCode();

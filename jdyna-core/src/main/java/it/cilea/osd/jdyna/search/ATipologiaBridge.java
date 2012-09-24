@@ -59,7 +59,7 @@ public class ATipologiaBridge<TP extends PropertiesDefinition>
 			Store store, Index idx, Float boost) {
 		log.debug("Chiamato l'ATipologiaBridge");	
 		ATipologia<TP> tipologia = (ATipologia<TP>)obj;
-		Field field = new Field("default", tipologia.getNome(), store,idx);
+		Field field = new Field("default", tipologia.getShortName(), store,idx);
 		doc.add(field);
 		if (log.isDebugEnabled()) {
 			log
@@ -67,7 +67,7 @@ public class ATipologiaBridge<TP extends PropertiesDefinition>
 							+ doc);
 			log.debug("-- Field name: " + name);
 			log.debug("-- Field valore: "
-					+ tipologia.getNome());
+					+ tipologia.getShortName());
 			log.debug("-- Idx: " + idx.toString());
 		}
 	}

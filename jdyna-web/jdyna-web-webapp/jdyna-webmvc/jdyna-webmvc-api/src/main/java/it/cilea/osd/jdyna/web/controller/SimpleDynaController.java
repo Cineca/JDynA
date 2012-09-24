@@ -40,7 +40,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	
 	protected Class<H> propertyHolderClass;
 	
-	private String modelPath;
+	protected String modelPath;
 	
 	private String i18nPrefix = "action";
 
@@ -74,7 +74,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 			HttpServletResponse response) throws Exception {
 		ModelAndView retValue = null;
 		if ("details".equals(method))
-			retValue = handleDetails(request);		
+			retValue = handleDetails(request, response);		
 		else if ("delete".equals(method))
 			retValue = handleDelete(request);
 		else if ("list".equals(method))
@@ -103,8 +103,8 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
             return null;
         }
     }
-	
-	protected ModelAndView handleDetails(HttpServletRequest request) throws SQLException, InstantiationException, IllegalAccessException {
+	    
+	protected ModelAndView handleDetails(HttpServletRequest request, HttpServletResponse response) throws SQLException, InstantiationException, IllegalAccessException {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		Integer objectId = getAnagraficaId(request);
@@ -126,7 +126,16 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
 		
 		//collection of edit tabs (all edit tabs created on system associate to visibility)
-		List<T> tabs = findTabsWithVisibility(request);
+		List<T> tabs;
+        try
+        {
+            tabs = findTabsWithVisibility(request, model, response);
+        }
+        catch (Exception e)
+        {
+            log.error("Errore nella ricerca delle tabs visibili");
+            throw new RuntimeException(e); 
+        }
 		
 		Integer tabId = getTabId(request);	
 
@@ -186,7 +195,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	}
 
 	
-	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request) throws SQLException;
+	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request, Map<String, Object> model, HttpServletResponse response) throws SQLException, Exception;
 		
 
 	protected ModelAndView handleList(HttpServletRequest request) {
