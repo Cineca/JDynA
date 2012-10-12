@@ -37,14 +37,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name="model_jdyna_nestedobject_propertiesdefinition")
 @NamedQueries( {
-    @NamedQuery(name = "NestedPropertiesDefinition.findAll", query = "from NestedPropertiesDefinition order by id"),
-    @NamedQuery(name = "NestedPropertiesDefinition.findAllTipologieProprietaFirstLevel", query = "from NestedPropertiesDefinition where topLevel = true order by id"),
-    @NamedQuery(name = "NestedPropertiesDefinition.findValoriOnCreation", query = "from NestedPropertiesDefinition where onCreation=true and topLevel = true"),
+    @NamedQuery(name = "NestedPropertiesDefinition.findAll", query = "from NestedPropertiesDefinition order by id"),    
+    @NamedQuery(name = "NestedPropertiesDefinition.findValoriOnCreation", query = "from NestedPropertiesDefinition where onCreation=true"),
     @NamedQuery(name = "NestedPropertiesDefinition.findSimpleSearch", query = "from NestedPropertiesDefinition where simpleSearch=true"),
     @NamedQuery(name = "NestedPropertiesDefinition.findAdvancedSearch", query = "from NestedPropertiesDefinition where advancedSearch=true"),
     @NamedQuery(name = "NestedPropertiesDefinition.uniqueIdByShortName", query = "select id from NestedPropertiesDefinition where shortName = ?"),
     @NamedQuery(name = "NestedPropertiesDefinition.uniqueByShortName", query = "from NestedPropertiesDefinition where shortName = ?"),
-    @NamedQuery(name = "NestedPropertiesDefinition.findValoriDaMostrare", query = "from NestedPropertiesDefinition where showInList = true and topLevel = true")
+    @NamedQuery(name = "NestedPropertiesDefinition.findValoriDaMostrare", query = "from NestedPropertiesDefinition where showInList = true")
 })
 public class NestedPropertiesDefinition extends ANestedPropertiesDefinition
 {

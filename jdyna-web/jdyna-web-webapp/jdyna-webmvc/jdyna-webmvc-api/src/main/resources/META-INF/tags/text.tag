@@ -105,7 +105,7 @@
 	
 	<script type="text/javascript">
 		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
 									 ${size},'${cssClass}', '${visibility}');
 	</script>	
@@ -179,7 +179,7 @@
 		
 	<script type="text/javascript">
 		var ${dynajs_var} = new AddTextInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
 									 ${size},'${cssClass}', '${visibility}');		
 	</script>

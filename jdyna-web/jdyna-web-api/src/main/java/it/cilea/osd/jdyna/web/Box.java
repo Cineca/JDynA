@@ -1,7 +1,7 @@
 package it.cilea.osd.jdyna.web;
 
 import it.cilea.osd.common.util.Utils;
-import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.IContainable;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ import org.hibernate.annotations.SortType;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Box<C extends Containable> implements IPropertyHolder<C>,Comparable<Box<C>>{
+public abstract class Box<C extends IContainable> implements IPropertyHolder<C>,Comparable<Box<C>>{
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		

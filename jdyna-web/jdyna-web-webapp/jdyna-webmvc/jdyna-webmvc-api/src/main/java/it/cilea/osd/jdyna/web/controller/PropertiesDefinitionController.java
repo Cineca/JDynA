@@ -101,7 +101,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 
 	private ModelAndView handleList(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<TP> listTipologiaProprieta = applicationService.getListTipologieProprietaFirstLevel(targetModel);	 
+		List<TP> listTipologiaProprieta = applicationService.getList(targetModel);	 
 		model.put("tipologiaProprietaList", listTipologiaProprieta);		
 		return new ModelAndView(listView, model);
 	}

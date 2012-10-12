@@ -136,5 +136,5 @@ public interface ITabService extends IPersistenceDynaService {
 	 */
 	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByVisibility(Class<T> model, Boolean isAdmin);
 
-
+   
 }

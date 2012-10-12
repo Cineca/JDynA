@@ -44,6 +44,7 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Index;
 
 /**
  * Rappresenta una singola proprieta' dell'oggetto.
@@ -159,18 +160,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	//FIXME originalmente protetto portato a public per import con spring
 	public abstract void setTypo(TP propertyDefinition);
 	
-	/**
-	 * Definisce il link all'indietro verso l'oggetto proprietario dell'anagrafica 
-	 * @param parent l'oggetto proprietario dell'anagrafica in cui compare la proprieta'
-	 */
-	public abstract void setParent(AnagraficaSupport<? extends Property<TP>, TP> parent);
-
-	/**
-	 * Restituisce l'oggetto proprietario dell'anagrafica
-	 * @return l'oggetto proprietario dell'anagrafica
-     */
-	@Transient
-	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
+	
 	//FIXME valutare l'opportunita' di introdurre il pattern decorator per gestire i vari getObject, toString, toHTML, etc.
 	/**
 	 * Permette di restituire per qualsiasi valore della proprieta il generico
@@ -307,4 +297,8 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 			return getTypo().getRendering().isNull(value.getObject());
 		}
 	}
+	
+	public abstract void setParent(AnagraficaSupport<? extends Property<TP>, TP> parent);
+	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
+	
 }

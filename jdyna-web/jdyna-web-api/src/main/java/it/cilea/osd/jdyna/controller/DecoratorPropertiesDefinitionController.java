@@ -61,7 +61,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 
 	private ModelAndView handleList(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		List<? extends PropertiesDefinition> listTipologiaProprieta = applicationService.getListTipologieProprietaFirstLevel(targetModel);	 
+		List<? extends PropertiesDefinition> listTipologiaProprieta = applicationService.getList(targetModel);	 
 		model.put("tipologiaProprietaList", listTipologiaProprieta);		
 		return new ModelAndView(listView, model);
 	}

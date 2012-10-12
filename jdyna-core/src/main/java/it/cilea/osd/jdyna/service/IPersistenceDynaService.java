@@ -35,6 +35,7 @@ import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
@@ -64,12 +65,6 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetFormula(
 			Class<TP> classTipologiaProprieta);
 	
-	/**
-     * Resituisce tutte le tipologie di proprieta che hanno rendering un widget
-     * combo
-     */
-    public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetCombo(
-            Class<TP> classTipologiaProprieta);
 
 
 //	/** Cancella gli oggetti da ricalcolare 
@@ -85,13 +80,6 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	 */
 	public <P extends Property<TP>, TP extends PropertiesDefinition> List<P> getProprietaByParentAndTipologia(
 			Identifiable oggetto, TP tip);
-
-	/**
-	 * Restituisce la tipologia di proprieta con rendering combo padre della
-	 * tipologia proprieta passata come parametro
-	 */
-	public <TP extends PropertiesDefinition> TP getTipologiaProprietaComboWith(
-			TP sottoTipologiaProprieta, Class<TP> classTipologiaProprieta);
 
 	/**
 	 * Restituisce la tipologia di proprieta' (unica) data dallo shortName passato come parametro 
@@ -182,17 +170,6 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	 */
 	public <TY extends ATipologia<TP>, TP extends PropertiesDefinition> TY findTipologiaByNome(
 			Class<TY> clazz, String nome);
-
-	
-	/**
-	 * Restituisce le tipologie di proprieta di primo livello
-	 * 
-	 * @param <T>
-	 * @param model
-	 * @return
-	 */
-	public <T extends PropertiesDefinition> List<T> getListTipologieProprietaFirstLevel(
-			Class<T> model);
 
 
 	/**
@@ -318,16 +295,35 @@ public interface IPersistenceDynaService extends IPersistenceService {
 	public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(AWidget widget);
 	
 	
-	   
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<NP> getNestedPropertiesByParentIDAndShortnameTypo(
-            Integer dynamicFieldID, String shortNameTypo, Class<ANO> model);
+	
+	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoID(
+	        Integer dynamicFieldID, Integer typoID, Class<ANO> model); 
 
-    
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(Integer id, Class<ANO> model);
-    
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(Integer id, String typoShortname, Class<ANO> model);
-    
-    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id, String typoShortname, Class<ANO> model);
-    
+	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndShortname(
+	        Integer dynamicFieldID, String typoShortname, Class<ANO> model);
+	   
+	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID,
+            Class<ANO> model, int limit, int offset);
+	
+	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID,
+            Class<ANO> model);
+	
+	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(Class<ANO> model, Integer tipologiaID);
+
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> void deleteNestedObjectByTypeID(Class<ANO> model, Integer tipologiaProprietaId);
+	
+//	   
+//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<NP> getNestedPropertiesByParentIDAndShortnameTypo(
+//            Integer dynamicFieldID, String shortNameTypo, Class<ANO> model);
+//
+//    
+//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(Integer id, Class<ANO> model);
+//    
+//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(Integer id, String typoShortname, Class<ANO> model);
+//    
+//    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id, String typoShortname, Class<ANO> model);
+//    
     
 }

@@ -67,8 +67,15 @@
 	<path>/META-INF/tags/textarea.tag</path>
 </tag-file>
 
+<tag-file>
+	<name>display-combo-inline</name>
+	<path>/META-INF/tags/display-combo-inline.tag</path>
+</tag-file>
 
-
+<tag-file>
+	<name>display-nested</name>
+	<path>/META-INF/tags/display-nested.tag</path>
+</tag-file>
 <tag-file>
 	<name>checkbox</name>
 	<path>/META-INF/tags/checkbox.tag</path>
@@ -304,4 +311,12 @@
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>String getFileFolder(java.lang.String)</function-signature>
 </function>
+
+<function>
+	<description>Return propertyPath without command name</description>
+	<name>absolutePropertyPath</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String absolutePropertyPath(java.lang.String)</function-signature>
+</function>
+
 </taglib>

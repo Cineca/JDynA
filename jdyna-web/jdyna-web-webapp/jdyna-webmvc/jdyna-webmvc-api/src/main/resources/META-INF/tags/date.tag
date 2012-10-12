@@ -7,8 +7,8 @@
 <%@ attribute name="helpKey" required="false"%>
 <%@ attribute name="repeatable" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="required" required="false" type="java.lang.Boolean" %>
-<%@ attribute name="dateMin" required="false" type="java.util.Date" %>
-<%@ attribute name="dateMax" required="false" type="java.util.Date" %>
+<%@ attribute name="dateMin" required="false"%>
+<%@ attribute name="dateMax" required="false"%>
 <%@ attribute name="isTime" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
@@ -93,6 +93,9 @@
 		<script type="text/javascript">
 						Calendar.setup(
 							{
+							<c:if test="${!empty dateMin && !empty dateMax}">
+								range : [${dateMin}, ${dateMax}],
+							</c:if>
 							inputField : "${inputName}", // ID of the input field
 							<c:choose>
 								<c:when test="${isTime}">
@@ -121,11 +124,11 @@
 	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:if test="${iterationStatus.count == 1}">
-	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-	<script type="text/javascript">
+	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />	
+	<script type="text/javascript">		
 		var ${dynajs_var} = new DynaDateInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									${isTime},'${visibility}');
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
+									${isTime},'${visibility}', '${dateMin}', '${dateMax}');
 	</script>
 	</c:if>
 	
@@ -182,6 +185,9 @@
 		<script type="text/javascript">
 						Calendar.setup(
 							{
+							<c:if test="${!empty dateMin && !empty dateMax}">
+								range : [${dateMin}, ${dateMax}],
+							</c:if>
 							inputField : "${inputName}", // ID of the input field
 							<c:choose>
 								<c:when test="${isTime}">
@@ -211,8 +217,8 @@
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
 		var ${dynajs_var} = new DynaDateInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
-									${isTime},'${visibility}'); 
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
+									${isTime},'${visibility}', '${dateMin}', '${dateMax}'); 
 	</script>
 	
 	

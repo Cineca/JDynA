@@ -1,6 +1,8 @@
 package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -17,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 
 
 
-public abstract class FormBoxController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends BaseFormController {
+public abstract class FormBoxController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>> extends BaseFormController {
 
 	/**
      * the applicationService for query the Tab db, injected by Spring IoC
@@ -28,9 +30,12 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 
 	private Class<TP> tpClass;
 	
-	public FormBoxController(Class<H> clazzH, Class<TP> clazzTP) {
+	private Class<TTP> ttpClass;
+	
+	public FormBoxController(Class<H> clazzH, Class<TP> clazzTP, Class<TTP> clazzTTP) {
 		this.boxClass = clazzH;
 		this.setTpClass(clazzTP);
+		this.setTtpClass(clazzTTP);
 	}
 	
 	@Override
@@ -41,7 +46,8 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 		
 		List<IContainable> owneredContainables = new LinkedList<IContainable>();
 		
-		List<TP> modelJdynaContainables = applicationService.getListTipologieProprietaFirstLevel(tpClass);
+		List<TP> modelJdynaContainables = applicationService.getList(tpClass);
+		List<TTP> ttps = applicationService.getList(ttpClass);
 		List<IContainable> containables = new LinkedList<IContainable>();
 		for(TP tp : modelJdynaContainables) {
 			IContainable ic = applicationService.findContainableByDecorable(tp.getDecoratorClass(), tp.getId());
@@ -49,6 +55,13 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 				containables.add(ic);
 			}
 		}
+		
+		for(TTP ttp : ttps) {
+            IContainable ic = applicationService.findContainableByDecorable(ttp.getDecoratorClass(), ttp.getId());
+            if(ic!=null) {
+                containables.add(ic);
+            }
+        }
 		if (paramId != null) {
 			Integer id = Integer.parseInt(paramId);
 			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
@@ -88,6 +101,16 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
 	public void setTpClass(Class<TP> tpClass) {
 		this.tpClass = tpClass;
 	}
+
+    public void setTtpClass(Class<TTP> ttpClass)
+    {
+        this.ttpClass = ttpClass;
+    }
+
+    public Class<TTP> getTtpClass()
+    {
+        return ttpClass;
+    }
 
 	
 	

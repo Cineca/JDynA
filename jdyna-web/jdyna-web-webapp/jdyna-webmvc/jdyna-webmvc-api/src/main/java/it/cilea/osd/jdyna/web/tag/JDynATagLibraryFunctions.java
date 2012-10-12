@@ -512,4 +512,9 @@ public class JDynATagLibraryFunctions
             return "";
         }
     }
+    
+    public static String absolutePropertyPath(String pp) {
+        int index = pp.indexOf(".");
+        return pp.substring(index+1);
+    }
 }

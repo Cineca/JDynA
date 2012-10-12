@@ -30,13 +30,15 @@ public class FilePropertyEditor<WF extends WidgetFile> extends
 	public void setAsText(String text) throws IllegalArgumentException {
 		log.debug("FilePropertyEditor - setAsText: " + text);
 		// text: 'description|||link'
-		if (StringUtils.isEmpty(text))
+		if (StringUtils.isEmpty(text)) {
 			setValue(null);
-		else {
+		} else {
 			String[] splitted = text.split("\\|\\|\\|");
 			if (splitted.length < 7) {
-				throw new IllegalArgumentException(
+			    setValue(null);			    
+				log.error(
 						"Invalid text string for file: " + text);
+				return;
 			}
 			EmbeddedFile file = new EmbeddedFile();
 

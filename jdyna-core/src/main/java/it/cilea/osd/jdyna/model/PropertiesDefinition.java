@@ -137,9 +137,6 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	 */
 	private String help;
 	
-	/** Indica se la tipologia e' di primo livello o meno (default true)*/	
-	private boolean topLevel;
-	
 	/** Indica se la tipologia proprieta e' da indicizzare per la ricerca semplice*/
 	private boolean simpleSearch;
 
@@ -177,8 +174,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	}
 
 	//costruttore
-	public PropertiesDefinition() {
-		topLevel = true;
+	public PropertiesDefinition() {		
 		priority = 0;
 		fieldMinSize = new Size();
 		fieldMinSize.setCol(0);
@@ -284,14 +280,6 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 		if (priority < secondTip.priority) return -1;
 		else if (priority > secondTip.priority) return 1;
 			 else return shortName.compareTo(secondTip.getShortName());
-	}
-	
-	public boolean isTopLevel() {
-		return topLevel;
-	}
-	
-	public void setTopLevel(boolean topLevel) {
-		this.topLevel = topLevel;
 	}
 
 	public boolean isSimpleSearch() {

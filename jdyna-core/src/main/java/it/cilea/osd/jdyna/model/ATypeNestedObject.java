@@ -31,6 +31,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
@@ -75,7 +76,13 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
      * Level access of metadata value {@see AccessLevelConstants}
      */
     private Integer accessLevel;
-
+    
+    /** Require new line after it */
+    private boolean newline;
+    
+    
+    /** Render mode table or easy view */
+    private boolean inline;
     
     @Override
     public Integer getId()
@@ -145,4 +152,31 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
         else if (getPriority() > o.getPriority()) return 1;
              else return getShortName().compareTo(o.getShortName());
     }
+    
+    /** Il metodo restituisce il decorator di tipo contenibile per funzionalita' web
+     * */   
+    @Transient
+    public abstract Class getDecoratorClass();
+
+    public boolean isNewline()
+    {
+        return newline;
+    }
+
+    public void setNewline(boolean newline)
+    {
+        this.newline = newline;
+    }
+
+    public boolean isInline()
+    {
+        return inline;
+    }
+
+    public void setInline(boolean inline)
+    {
+        this.inline = inline;
+    }
+
+ 
 }

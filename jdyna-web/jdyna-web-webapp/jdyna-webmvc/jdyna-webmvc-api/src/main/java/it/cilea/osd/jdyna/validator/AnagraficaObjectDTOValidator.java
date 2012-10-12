@@ -43,7 +43,7 @@ public class AnagraficaObjectDTOValidator<P extends Property<TP>, TP extends Pro
         if (dto.getObjectId() != null)
         { // edit
             tipologieDaValidare = applicationService
-                    .getListTipologieProprietaFirstLevel(clazzTipologiaProprieta);
+                    .getList(clazzTipologiaProprieta);
         }
         else
         { // creation

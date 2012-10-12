@@ -51,34 +51,14 @@ public class TypeController<P extends Property<TP>,TP extends PropertiesDefiniti
 		Map<String, Object> model = new HashMap<String, Object>();
 		String typeObjectId = request.getParameter("id");
 		Integer paramTypeObjectId = Integer.valueOf(typeObjectId);
-		A tipologia = applicationService.get(tipologiaModel, paramTypeObjectId);		
-		List<TP> daMostrare = applicationService.getList(tpModel);
-		
-		//Le sottotipologie non vanno mostrate a prescindere
-		List<TP> daRimuovereSempre = new LinkedList<TP>();
-		for(TP t : daMostrare ){
-			if(t.isTopLevel() == false)
-				daRimuovereSempre.add(t);
-		}
-		daMostrare.removeAll(daRimuovereSempre);
+		A tipologia = applicationService.get(tipologiaModel, paramTypeObjectId);	
 		
 		
-		List<TP> maskTipologieProprieta = tipologia.getMaschera();
-		if (maskTipologieProprieta!=null) {
-			List<TP> appoggio = new LinkedList<TP>();
-			for(TP tpp : maskTipologieProprieta) {
-				for(TP tpp1 : daMostrare) {
-					if(tpp.getShortName().equals(tpp1.getShortName())) {
-						appoggio.add(tpp1);
-					}
-				}
-			}			
-			daMostrare.removeAll(appoggio);			
-		}
+		
 		//daMostrare contiene le tipologie dei valori da mostrare
-		model.put("mostraValoriList", daMostrare);
-		model.put("sizeMostraValori", daMostrare.size());
-		model.put("id", request.getParameter("id"));
+		model.put("mostraValoriList", tipologia.getMaschera());
+		model.put("sizeMostraValori", tipologia.getMaschera().size());
+		model.put("id", paramTypeObjectId);
 		model.put("tipologiaObject", tipologia);
 		model.put("addModeType", "display");
 		return new ModelAndView(detailsView, model);

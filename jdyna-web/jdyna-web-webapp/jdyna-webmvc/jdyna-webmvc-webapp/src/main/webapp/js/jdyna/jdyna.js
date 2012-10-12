@@ -425,7 +425,7 @@ function DynaDateInput(contextRoot, jsvar, propertyPath, startIdx, istime) {
 }
 
 function DynaDateInputWithVisibility(contextRoot, jsvar, propertyPath,
-		startIdx, istime, visibility) {
+		startIdx, istime, visibility, dateMin, dateMax) {
 	this.contextRoot = contextRoot;
 	this.jsvar = jsvar;
 	this.propertyPath = propertyPath;
@@ -463,6 +463,7 @@ function DynaDateInputWithVisibility(contextRoot, jsvar, propertyPath,
 
 		if (this.istime) {
 			Calendar.setup({
+				range: [dateMin, dateMax],
 				inputField : name, // ID of the input field
 				ifFormat : "%d-%m-%Y %H:%M", // the date format
 				button : "calendar" + name, // ID of the button
@@ -472,6 +473,7 @@ function DynaDateInputWithVisibility(contextRoot, jsvar, propertyPath,
 			});
 		} else {
 			Calendar.setup({
+				range: [dateMin, dateMax],
 				inputField : name, // ID of the input field
 				ifFormat : "%d-%m-%Y", // the date format
 				button : "calendar" + name, // ID of the button

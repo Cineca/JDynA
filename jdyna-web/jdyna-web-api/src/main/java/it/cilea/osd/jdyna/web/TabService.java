@@ -85,7 +85,7 @@ public abstract class TabService extends PersistenceDynaService implements
 		List<IContainable> containables = new LinkedList<IContainable>();
 		List<TP> listTP = new LinkedList<TP>();
 		PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
-		listTP.addAll(modelTipologiaProprietaDao.findAllTipologieProprietaFirstLevel());
+		listTP.addAll(modelTipologiaProprietaDao.findAll());
 		
 		for(TP tp : listTP) {				
 			ContainableDao<Containable> dao =  (ContainableDao<Containable>) getDaoByModel(tp.getDecoratorClass());			
@@ -100,7 +100,7 @@ public abstract class TabService extends PersistenceDynaService implements
         List<IContainable> containables = new LinkedList<IContainable>();
         List<TP> listTP = new LinkedList<TP>();
         PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
-        listTP.addAll(modelTipologiaProprietaDao.findAllTipologieProprietaFirstLevel());
+        listTP.addAll(modelTipologiaProprietaDao.findAll());
         
         for(TP tp : listTP) {               
             ContainableDao<Containable> dao =  (ContainableDao<Containable>) getDaoByModel(tp.getDecoratorClass());         

@@ -34,14 +34,11 @@ public interface PropertiesDefinitionDao<T extends PropertiesDefinition> extends
 	public T uniqueByShortName(String shortName);
 	public Integer uniqueIdByShortName(String shortName);
 	public List<T> findValoriOnCreation();
-	public List<T> findValoriDaMostrare();
-	public List<T> findAllTipologieProprietaFirstLevel();
+	public List<T> findValoriDaMostrare();	
 	public List<T> findSimpleSearch();
 	public List<T> findAdvancedSearch();
 	public List<T> findAllWithWidgetFormula();
-	public List<T> findAdvancedSearchAndClassificazione();
-	public T uniqueTipologiaProprietaCombo(T tipologiaProprieta);
+	public List<T> findAdvancedSearchAndClassificazione();	
 	public List<T> findAdvancedSearchAndBoolean();
-	public T findPropertiesDefinitionByWidget(AWidget widget);
-	public List<T> findAllWithWidgetCombo();
+	public T findPropertiesDefinitionByWidget(AWidget widget);	
 }

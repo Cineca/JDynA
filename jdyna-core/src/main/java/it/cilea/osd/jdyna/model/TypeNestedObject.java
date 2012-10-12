@@ -64,4 +64,10 @@ public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefiniti
     public void setMaschera(List<NestedPropertiesDefinition> mask) {
         this.mask = mask;
     }
+
+    @Override
+    public Class getDecoratorClass()
+    {
+        return DecoratorTypeNestedObject.class;
+    }
 }

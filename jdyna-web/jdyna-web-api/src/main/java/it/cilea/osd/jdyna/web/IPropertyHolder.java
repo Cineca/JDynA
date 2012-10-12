@@ -1,12 +1,12 @@
 package it.cilea.osd.jdyna.web;
 
 import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.IContainable;
 
 import java.util.List;
 
 
-public interface IPropertyHolder<C extends Containable> extends Identifiable {
+public interface IPropertyHolder<C extends IContainable> extends Identifiable {
 	
 	public String getTitle();
 		

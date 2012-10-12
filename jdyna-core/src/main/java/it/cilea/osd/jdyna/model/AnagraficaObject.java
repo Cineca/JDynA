@@ -59,13 +59,6 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
     public P createProprieta(TP tipologiaProprieta)
     {
 
-        if (!tipologiaProprieta.isTopLevel())
-        {
-            throw new IllegalArgumentException(
-                    "Non e' possibile creare una Property di tipo: "
-                            + tipologiaProprieta.getShortName()
-                            + "al di fuori del relativo combo");
-        }
         List<P> propList = getProprietaDellaTipologia(tipologiaProprieta);
         int numProp = propList.size();
         P proprieta = createProprietaWithoutPosizione(tipologiaProprieta);
@@ -84,11 +77,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
      */
     public P createProprieta(TP tipologiaProprieta, Integer posizione)
     {
-        if (!tipologiaProprieta.isTopLevel())
-            throw new IllegalArgumentException(
-                    "Non e' possibile creare una Property di tipo: "
-                            + tipologiaProprieta.getShortName()
-                            + "al di fuori del relativo combo");
+
         List<P> propList = getProprietaDellaTipologia(tipologiaProprieta);
         int numProp = propList.size();
         for (int idx = posizione; idx < numProp; idx++)
@@ -113,11 +102,10 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
     {
         for (P p : getAnagrafica())
         {
-            if (p.getTypo().isTopLevel())
-            {
-                p.setParent(null);
-                p.getValue().setOggetto(null);
-            }
+
+            p.setParent(null);
+            p.getValue().setOggetto(null);
+
         }
         getAnagrafica().clear();
         if (anagrafica != null)
@@ -147,7 +135,6 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
             log.debug("TP: " + proprieta.getTypo().getShortName() + " V: "
                     + proprieta.getValue().getObject());
         }
-   
 
         // check se la proprieta viene rimossa dall'anagrafica dell'oggetto o
         // dalla lista di proprieta di una combo
@@ -206,7 +193,6 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         return rimossa;
     }
 
-
     /**
      * {@inheritDoc}
      */
@@ -245,8 +231,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
             // }
 
             // in a4v inserisco solo le proprieta' di primo livello!
-            if (property.getParent() != null
-                    && property.getTypo().isTopLevel() == true)
+            if (property.getParent() != null)
             {
                 List<P> appoggio = cacheAnagr4View.get(property.getTypo()
                         .getShortName());
@@ -308,11 +293,9 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         // proprieta.getValore().setProprieta(proprieta);
 
         // aggiungo la proprieta' all'anagrafica se e' top level
-        if (tipologiaProprieta.isTopLevel())
-        {
-            proprieta.setParent(this);
-            getAnagrafica().add(proprieta);
-        }
+
+        proprieta.setParent(this);
+        getAnagrafica().add(proprieta);
 
         return proprieta;
     }
@@ -336,7 +319,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         {
             // lavoro solo le top proprieta', le sotto proprieta' le recupero
             // implicitamente
-            if (prop.getParent() != null && prop.getTypo().isTopLevel())
+            if (prop.getParent() != null)
             {
                 P cloned = createProprieta(prop.getTypo());
                 clonaValore(cloned, prop);
@@ -408,8 +391,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         List<P> propVuote = new LinkedList<P>();
         for (P prop : this.getAnagrafica())
         {
-            if (prop.getTypo().isTopLevel()
-                    && prop.getValue().getObject() == null)
+            if (prop.getValue().getObject() == null)
                 // &&
                 // !prop.getTipologia().getRendering().getClass().isAssignableFrom(WidgetFormula.class))
                 propVuote.add(prop);

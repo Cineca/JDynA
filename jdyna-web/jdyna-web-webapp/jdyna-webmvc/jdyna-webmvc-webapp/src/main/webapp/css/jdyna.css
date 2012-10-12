@@ -1,0 +1,643 @@
+tr.subTable,tr.subTable td {
+	border-style: none !important;
+}
+
+.firstlist {
+	position: absolute;
+	left: 10px;
+	top: 10px;
+}
+
+.secondlist {
+	position: absolute;
+	right: 10px;
+	top: 50px;
+	border: 1px solid white;
+}
+
+ul.sortable li {
+	position: relative;
+}
+
+ul.boxy {
+	list-style-type: none;
+	padding: 4px 4px 0 4px;
+}
+
+ul.boxy li {
+	cursor: move;
+	margin-bottom: 4px;
+	padding: 2px 2px;
+	border: 1px solid #ccc;
+	background-color: #eee;
+}
+
+ul.boxier {
+	list-style-type: none;
+	padding: 4px 4px 0 4px;
+	font-size: 15px;
+	font-family: "Courier New", Courier, monospace;
+	font-variant: small-caps;
+}
+
+ul.boxier li {
+	cursor: move;
+	margin-bottom: 4px;
+	padding: 2px 2px;
+	border: 1px solid #c00;
+	background-color: #eee;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.required {
+	color: red;
+}
+
+.buttonDiv input.button {
+	float: left;
+	width: 5.0em;
+	margin: 10px 0 5px 0;
+	padding: 1px;
+	background: rgb(230, 230, 230);
+	border: solid 1px rgb(150, 150, 150);
+	text-align: center;
+	font-family: verdana, arial, sans-serif;
+	color: rgb(150, 150, 150);
+}
+
+.buttonDiv input.button:hover {
+	cursor: pointer;
+	border: solid 1px rgb(80, 80, 80);
+	background: rgb(220, 220, 220);
+	color: rgb(80, 80, 80);
+}
+
+.lista {
+	margin-top: 1em;
+	background-color: ;
+}
+
+fieldset {
+	border-color: #C00000;
+	border-width: 1px;
+}
+
+.anagrafica {
+	margin-top: 1em;
+}
+
+#tab {
+
+	float: left;
+	width: 100%;
+	font-size: 93%;
+	background: #FFFFFF url(../image/jdyna/bg21.jpg) repeat-x bottom;
+	line-height: normal;
+	margin-bottom: 0px;
+}
+
+#tab ul {
+	margin: 0;
+	padding: 10px 10px 0;
+	list-style: none;
+}
+
+#tab ul li {
+	float: left;
+	background: url(../image/jdyna/left_both.gif) no-repeat left top;
+	margin: 0;
+	padding: 0 0 0 9px;
+	border-bottom: 1px none #765;
+	white-space: nowrap;
+}
+
+#tab a {
+	float: left; //
+	display: block;
+	width: .1em;
+	background: url(../image/jdyna/right_both.gif) no-repeat right top;
+	padding: 5px 15px 5px 6px;
+	text-decoration: none;
+	font-weight: bold;
+	color: #765;
+}
+
+#tab>ul a {
+	width: auto;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+	/* End IE5-Mac hack */
+#tab a:hover {
+	color: #333;
+}
+
+#tab li.selected {
+	background-position: 0 -150px;
+	border-width: 0;
+	color: #333;
+}
+
+#tab li.selected a {
+	background-position: 100% -150px;
+	padding-bottom: 5px;
+	color: #333;
+}
+
+#tab li:hover,#tab li:hover a {
+	background-position: 0% -150px;
+	color: #333;
+}
+
+#tab li:hover a {
+	background-position: 100% -150px;
+}
+
+/* IE doesn't read the padding from content */
+#jdynacontent h2 {
+	margin-top: 30px;
+}
+
+/* Override margin for Mozilla to set to default */
+body>#jdynacontent h2 {
+	margin-top: 15px;
+}
+
+#contenuto {
+	background: #FFFFFF;
+	clear: both;
+	font-size: 11px;
+	color: #000000;
+	padding: 10px;
+	font-family: Verdana, Helvetica, sans-serif;
+}
+
+#subcontenuto {
+	background: #FFFFFF;
+	border: none;
+	border-top: 0;
+	clear: both;
+	margin: 0px;
+	padding: 15px;
+	padding-top: 20px;
+	width: 95%;
+}
+
+.subcontenuto {
+	background: #FFFFFF;
+	border: none;
+	border-top: 0;
+	clear: both;
+	margin: 0px;
+	padding: 15px;
+	padding-top: 20px;
+	width: 95%;
+}
+
+#tipProp {
+	font-size: medium;
+	font-family: Verdana, Helvetica, sans-serif;
+	margin: 0px;
+	padding: 10px;
+}
+
+#jdynacontent {
+background: #FFFFFF;
+	border: 1px solid #cccccc;
+	border-top: 0;
+	clear: both;
+	margin-bottom: 10px;
+	padding: 15px;
+	padding-top: 20px;
+}
+#right {
+	padding-left: 70%;
+	font-size: medium;
+}
+
+#editoriaContent {
+	width: 70%;
+	border: double;
+	margin-bottom: 3em;
+	padding: 1%;
+}
+
+#rightSide {
+	float: left;
+}
+
+#leftSide {
+	float: left;
+}
+
+#aDestra {
+	float: left;
+	padding-left: 60%;
+	position: relative;
+	top: -170px;
+}
+
+#aSinistra {
+	float: right;
+	padding-right: 60%;
+	position: relative;
+}
+
+#invisible {
+	display: none;
+}
+
+#center {
+	position: relative;
+	right: 50%;
+	left: 50%;
+}
+
+#boxUscita {
+	line-height: 1.3em;
+	text-align: center;
+	color: rgb(125, 125, 125);
+	font-weight: normal;
+}
+
+.buttonEdit {
+	background-image: url('../images/edit.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 40px;
+	height: 40px;
+	background-color: FFFFFF;
+}
+
+.buttonDelete {
+	background-image: url('../images/delete.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 40px;
+	height: 40px;
+	background-color: FFFFFF;
+}
+
+.buttonBack {
+	background-image: url('../images/back.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 40px;
+	height: 40px;
+	background-color: FFFFFF;
+}
+
+.buttonPDF {
+	background-image: url('../images/pdf-logo.jpg');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 80px;
+	height: 80px;
+	background-color: FFFFFF;
+	border-style: dotted;
+}
+
+.buttonRicalcolaFormule {
+	background-image: url('../images/icons/formule2.gif');
+	background-repeat: no-repeat;
+	background-position: center center;
+	width: 40px;
+	height: 40px;
+	background-color: FFFFFF;
+}
+
+.ToolText {
+	position: relative;
+}
+
+.ToolTextHover {
+	position: relative;
+}
+
+.ToolText span {
+	display: none;
+}
+
+.ToolTextHover span {
+	display: block;
+	position: absolute;
+	border: 1px solid black;
+	left: 5px;
+	background-color: gray;
+	color: white;
+	text-align: center;
+}
+
+.combo {
+	max-width: 800px;
+	padding: 1em;
+	clear: left;
+	color: black;
+	border: ridge;
+}
+
+/*.field {
+	padding: 1em;
+	float: right;
+	max-width: 800px;
+}
+
+*/.pulsanti {
+	clear: left;
+}
+
+div.fieldLabel {
+	float: left;
+	max-width: 75%;
+	margin-right: 1em;
+}
+
+div.fieldValue {
+	float: left;
+	width: 75%;
+}
+
+div.fieldDisplayTag {
+	float: left;
+	width: 50%;
+	margin-left: 2em;
+}
+
+div.fieldDisplay {
+	margin-bottom: 1em;
+}
+
+/* disabilito la visualizzazione del numero di risultati nei valori combo */
+div.fieldValue .pagebanner {
+	display: none;
+}
+
+div.fieldDisplayTag .pagebanner {
+	display: none;
+}
+
+img.calendar {
+	display: inline;
+	margin: 0px 0px -6px 0px;
+	padding: 1px;
+	clear: none;
+	float: none;
+	cursor: pointer;
+}
+
+img.help {
+	display: inline;
+	margin: 0px;
+	padding: 0px;
+	clear: none;
+	float: none;
+	border: none;
+	vertical-align: middle;
+}
+
+.helpTip {
+	display: none;
+	border: #e0e0e0 dashed thin;
+	padding-left: 1em;
+	padding-right: 1em;
+	padding-top: 1em;
+	padding-bottom: 0em;
+	font-size: 1.3em;
+}
+
+.disattivo {
+	background-color: #E1E1E1 !important;
+}
+
+.disattivo:hover {
+	background-color: #E1E1E1 !important;
+}
+
+.dynaField {
+	display: inline;
+	float: left;
+	clear: right;
+	font-size: 10pt;
+	min-width: 25%;
+}
+
+.dynaLabel,.dynaLabelRequired {
+	display: inline;
+	float: left;
+	min-height: 100%;
+	clear: right;
+	font-size: 10pt;
+	font-weight: bold;
+	padding: 0.3em;
+}
+
+.dynaLabelRequired {
+	color: red;
+}
+
+.number {
+	text-align: right;
+}
+
+.dynaFieldValue { //
+	display: inline;
+	float: left; //
+	clear: right;
+	padding: 0.3em;
+}
+
+.dynaClear {
+	display: block;
+	height 1px;
+	font-size: 0px;
+	clear: both;
+}
+
+.dynaFieldComboValue, .dynaFieldComboValueFirst, 
+.dynaFieldComboValueLast, .dynaFieldComboValueFirstLast {
+	float: left;
+	color: #000;
+	background: #fff;
+	padding: 0.3em;
+}
+
+.dynaFieldComboValue caption {
+	padding: 0 0.6em 0.8em;
+	font-weight: bold;
+	text-align: left;
+	color: #000;
+	background: transparent;
+}
+
+.dynaFieldComboValue th table,.dynaFieldComboValue th table td,
+.dynaFieldComboValueFirst th table,.dynaFieldComboValueFirst th table td,
+.dynaFieldComboValueLast th table,.dynaFieldComboValueLast th table td,
+.dynaFieldComboValueFirstLast th table,.dynaFieldComboValueFirstLast th table td {
+	width: 100%;
+	border: 0px;
+}
+
+.dynaFieldComboValue td,.dynaFieldComboValue th,
+.dynaFieldComboValueFirst td,.dynaFieldComboValueFirst th,
+.dynaFieldComboValueLast td,.dynaFieldComboValueLast th,
+.dynaFieldComboValueFirstLast td,.dynaFieldComboValueFirstLast th {
+	border: 1px solid #e0e0e0;
+	padding: 0.1em;
+}
+
+.dynaFieldComboValue thead th,
+.dynaFieldComboValueFirst thead th,
+.dynaFieldComboValueLast thead th,
+.dynaFieldComboValueFirstLast thead th {
+	border: 1px solid #e0e0e0;
+	text-align: left;
+	font-weight: bold;
+	background: #E0E0E0;
+	font-size: 10pt;
+}
+
+.dynaFieldComboValueHeaderTable td a {
+	text-decoration: none !important;
+}
+
+.dynaFieldComboValue tfoot th,
+.dynaFieldComboValueFirst tfoot th,
+.dynaFieldComboValueLast tfoot th,
+.dynaFieldComboValueFirstLast tfoot th {
+	border: 1px solid #e0e0e0;
+	text-align: left;
+	background: #e8e8cf;
+}
+
+.dynaFieldComboValue tfoot th,
+.dynaFieldComboValueFirst tfoot th,
+.dynaFieldComboValueLast tfoot th,
+.dynaFieldComboValueFirstLast tfoot th {
+	font-weight: bold;
+}
+
+.dynaFieldComboValue tbody td a,
+.dynaFieldComboValueFirst tbody td a,
+.dynaFieldComboValueLast tbody td a,
+.dynaFieldComboValueFirstLast tbody td a {
+	background: transparent;
+	text-decoration: underline;
+}
+
+.dynaFieldComboValue tbody td a:hover,
+.dynaFieldComboValueFist tbody td a:hover,
+.dynaFieldComboValueLast tbody td a:hover,
+.dynaFieldComboValueFirstLast tbody td a:hover {
+	background: transparent;
+	text-decoration: underline;
+}
+
+.dynaFieldComboValue tbody th a,
+.dynaFieldComboValueFirst tbody th a,
+.dynaFieldComboValueLast tbody th a,
+.dynaFieldComboValueFirstLast tbody th a {
+	background: transparent;
+	text-decoration: underline;
+	font-weight: bold;
+}
+
+//
+.dynaFieldComboValue tbody th,.dynaFieldComboValue tbody td { //
+	text-align: left;
+	//
+}
+
+.dynaFieldComboValue tfoot td,
+.dynaFieldComboValueFist tfoot td,
+.dynaFieldComboValueLast tfoot td,
+.dynaFieldComboValueFirstLast tfoot td {
+	border: 1px solid #996;
+}
+
+.dynaFieldComboValue tbody tr:hover,.dynaFieldComboValue tr.over,
+.dynaFieldComboValueFirst tbody tr:hover,.dynaFieldComboValueFirst tr.over,
+.dynaFieldComboValueLast tbody tr:hover,.dynaFieldComboValueLast tr.over,
+.dynaFieldComboValueFirstLast tbody tr:hover,.dynaFieldComboValueFirstLast tr.over {
+	background: #ffffd9 !important;
+	/* important needed for Tapestry, as is .dynaFieldComboValue tr:hover */
+}
+
+.dynaCollision {
+	font-size: 1.4em;
+}
+
+img.addButton,img.deleteButton,img.warn, img.addNestedButton,img.deleteNestedButton, img.editNestedButton {
+	padding: 0px;
+	margin: 0px;
+	float: none;
+	border: none;
+	cursor: pointer;
+}
+
+/* END TABLE */
+	/* ALBERI CLASSIFICATORI: Creazione/modifica classificazioni */
+fieldset#alberiEditForm div#editFormHelp {
+	text-align: center;
+}
+
+#alberodescrizionelabel,#alberonomelabel {
+	width: 10em;
+}
+
+#alberoClassificazioneEditFormHelp {
+	font-size: 2em;
+	width: 15em;
+}
+
+#alberoAddSubClassificazione,#alberoRemoveSubClassificazione {
+	display: inline;
+	clear: right;
+	float: left;
+}
+
+#labelSpantopNome,#labelSpantopCodice,#labelSpaneditNome,#labelSpaneditCodice,#labelSpansubNome,#labelSpansubCodice
+	{
+	width: 10em;
+}
+
+#nuovaSottoClassificazione,#formclassificazione,#alberoRemoveSubClassificazione
+	{
+	display: none;
+}
+
+#nuovaSottoClassificazione {
+	min-width: 30em;
+}
+
+.mask {
+	border: 2px outset #cccccc;
+	margin-bottom: 20px;
+}
+
+.jdynacontainable {
+/*	float: right;
+*/}
+
+.jdynaeditbutton {
+	float: right;
+	margin-right: 4px;
+}
+
+.jdynaremovebutton {
+	float: right;	
+}
+
+table.dynaFieldComboValue tr td,
+table.dynaFieldComboValueFirst tr td,
+table.dynaFieldComboValueLast tr td,
+table.dynaFieldComboValueFirstLast tr td {
+	/*white-space: nowrap;*/
+	empty-cells: show;
+}
+
+.calendar {
+	z-index: 1300;	
+}

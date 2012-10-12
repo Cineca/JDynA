@@ -4,21 +4,40 @@ import java.util.List;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
 import it.cilea.osd.jdyna.model.ANestedObject;
+import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
+import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 
-public interface NestedObjectDAO<ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> extends PaginableObjectDao<ANO, Integer>
+public interface NestedObjectDAO<ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> extends TypeDaoSupport<TTP, NTP>, PaginableObjectDao<ANO, Integer>
 {
 
-    List<NP> findNestedPropertiesByParentIDAndShortnameTypo(
-            Integer dynamicFieldID, String shortNameTypo);
+//    List<NP> findNestedPropertiesByParentIDAndShortnameTypo(
+//            Integer dynamicFieldID, String shortNameTypo);
+//
+//    List<ANO> findNestedObjectsByParentID(Integer id);
+//
+//    ANO findNestedObjectByParentIDAndShortnameTypo(Integer id,
+//            String typoShortname);
+//
+//    ANO findNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id,
+//            String typoShortname);
 
-    List<ANO> findNestedObjectsByParentID(Integer id);
+    List<ANO> findNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+            Integer typoID);
 
-    ANO findNestedObjectByParentIDAndShortnameTypo(Integer id,
+    List<ANO> findNestedObjectsByParentIDAndTypoShortname(Integer dynamicFieldID,
             String typoShortname);
+    
+    public List<ANO> paginateNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+            Integer typoID, String sort, boolean inverse, int firstResult,
+            int maxResults);
 
-    ANO findNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id,
-            String typoShortname);
+    long countNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+            Integer typoID);
 
+    List<ANO> findNestedObjectsByTypoID(Integer typeId);
+
+    void deleteByTypoID(Integer typeId);    
 }

@@ -38,10 +38,10 @@ import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
 import it.cilea.osd.jdyna.model.ANestedObject;
-import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
@@ -103,7 +103,7 @@ public class PersistenceDynaService extends PersistenceService implements
 		// modelDao.deleteAllProprietaByTipologiaProprieta(tip);
 		List<P> props = modelDao.findPropertyByPropertiesDefinition(tip);
 		for (P prop : props) {
-			if (prop.getParent() != null && prop.getTypo().isTopLevel()) {
+			if (prop.getParent() != null) {
 				((AnagraficaSupport<P, TP>) prop.getParent())
 						.removeProprieta(prop);
 			} 
@@ -122,8 +122,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	private <P extends Property<TP>, TP extends PropertiesDefinition> void deleteProprieta(
 			P propDaRimuovere, P proprietaPadre) {
 
-		if (proprietaPadre.getParent() != null
-				&& proprietaPadre.getTypo().isTopLevel()) {
+		if (proprietaPadre.getParent() != null) {
 			((AnagraficaSupport<P, TP>) proprietaPadre.getParent())
 					.removeProprieta(propDaRimuovere);
 		} 
@@ -213,17 +212,7 @@ public class PersistenceDynaService extends PersistenceService implements
 		return modelList;
 	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetCombo(
-            Class<TP> classTipologiaProprieta) {
-        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
-        List<TP> modelList = modelTipologiaProprietaDao
-                .findAllWithWidgetCombo();
-        return modelList;
-    }
-    
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -254,17 +243,6 @@ public class PersistenceDynaService extends PersistenceService implements
 		Collections.sort(results);
 		return results;
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public <TP extends PropertiesDefinition> TP getTipologiaProprietaComboWith(
-			TP sottoTipologiaProprieta, Class<TP> classTipologiaProprieta) {
-		PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
-		return modelTipologiaProprietaDao
-				.uniqueTipologiaProprietaCombo(sottoTipologiaProprieta);
-	}
-
 
 
 	public <T extends PropertiesDefinition> List<T> getValoriDaMostrare(
@@ -446,8 +424,7 @@ public class PersistenceDynaService extends PersistenceService implements
 			AnagraficaSupport<P, TP> oggetto, List<TP> tpoList,
 			boolean onCreation) {
 		for (TP tpo : tpoList) {
-			if (tpo.isTopLevel()
-					&& (!onCreation || (onCreation && tpo.isOnCreation())))
+			if ((!onCreation || (onCreation && tpo.isOnCreation())))
 //					|| tpo.getRendering().getClass().isAssignableFrom(
 //									WidgetFormula.class))) // le formule devono
 //															// sempre essere
@@ -462,17 +439,6 @@ public class PersistenceDynaService extends PersistenceService implements
 			}
 		}
 	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	public <T extends PropertiesDefinition> List<T> getListTipologieProprietaFirstLevel(
-			Class<T> model) {
-		PropertiesDefinitionDao<T> modelDao = (PropertiesDefinitionDao<T>) getDaoByModel(model);
-		List<T> modelList = modelDao.findAllTipologieProprietaFirstLevel();
-		return modelList;
-	}
-
 
 
 	/**
@@ -505,40 +471,88 @@ public class PersistenceDynaService extends PersistenceService implements
 		return (TP)propertiesDefinitionDao.findPropertiesDefinitionByWidget(widget);
 	}
 
+	@Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        List<ANO> modelList = modelDao.findNestedObjectsByParentIDAndTypoID(dynamicFieldID,typoID);
+        return modelList;        
+    }
+
+	@Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID,
+            Class<ANO> model, int limit, int offset)
+    {
+	    NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        List<ANO> modelList = modelDao.paginateNestedObjectsByParentIDAndTypoID(dynamicFieldID,typoID, "asc", false, offset, limit);
+        return modelList;                
+    }
+
+
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<NP> getNestedPropertiesByParentIDAndShortnameTypo(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndShortname(
             Integer dynamicFieldID, String shortNameTypo, Class<ANO> model)
     {
-        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-        List<NP> modelList = modelDao.findNestedPropertiesByParentIDAndShortnameTypo(dynamicFieldID,shortNameTypo);
+        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        List<ANO> modelList = modelDao.findNestedObjectsByParentIDAndTypoShortname(dynamicFieldID,shortNameTypo);
+        return modelList;
+    }
+    
+    @Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID,
+            Class<ANO> model)
+    {
+        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        return modelDao.countNestedObjectsByParentIDAndTypoID(dynamicFieldID,typoID);                     
+    }
+//
+//    @Override
+//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(
+//            Integer id, Class<ANO> model)
+//    {
+//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+//        List<ANO> modelList = modelDao.findNestedObjectsByParentID(id);
+//        return modelList;
+//    }
+//
+//    @Override
+//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(
+//            Integer id, String typoShortname, Class<ANO> model)
+//    {
+//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+//        ANO result = modelDao.findNestedObjectByParentIDAndShortnameTypo(id, typoShortname);
+//        return result;
+//    }
+//
+//    @Override
+//    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(
+//            Integer id, String typoShortname, Class<ANO> model)
+//    {
+//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
+//        ANO result = modelDao.findNestedObjectWithTypeSupportByParentIDAndTypoShortname(id, typoShortname);
+//        return result;
+//    }
+
+
+    @Override
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(
+            Class<ANO> model, Integer tipologiaID)
+    {
+        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        List<ANO> modelList = modelDao.findNestedObjectsByTypoID(tipologiaID);
         return modelList;
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(
-            Integer id, Class<ANO> model)
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> void deleteNestedObjectByTypeID(Class<ANO> model, Integer typeId)
     {
-        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-        List<ANO> modelList = modelDao.findNestedObjectsByParentID(id);
-        return modelList;
-    }
-
-    @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(
-            Integer id, String typoShortname, Class<ANO> model)
-    {
-        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-        ANO result = modelDao.findNestedObjectByParentIDAndShortnameTypo(id, typoShortname);
-        return result;
-    }
-
-    @Override
-    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(
-            Integer id, String typoShortname, Class<ANO> model)
-    {
-        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-        ANO result = modelDao.findNestedObjectWithTypeSupportByParentIDAndTypoShortname(id, typoShortname);
-        return result;
+        
+        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        modelDao.deleteByTypoID(typeId);
+        
     }
 	    
 }

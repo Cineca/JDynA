@@ -30,6 +30,7 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.Tab;
 
+import java.util.Collection;
 import java.util.List;
 
 public interface TabDao<H extends IPropertyHolder<Containable>, T extends Tab<H>> extends PaginableObjectDao<T,Integer> {
@@ -37,4 +38,7 @@ public interface TabDao<H extends IPropertyHolder<Containable>, T extends Tab<H>
 	public List<T> findTabsByHolder(H holder);
 	public T uniqueTabByShortName(String title);
 	public List<T> findByAccessLevel(Integer admin);
+    public List<T> findByAnonimous();
+    public List<T> findByAdmin();
+    public List<T> findByOwner();
 }

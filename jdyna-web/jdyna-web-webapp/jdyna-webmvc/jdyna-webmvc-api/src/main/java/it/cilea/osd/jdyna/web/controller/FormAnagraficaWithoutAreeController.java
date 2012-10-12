@@ -118,7 +118,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
         if (anagraficaObjectDTO.getObjectId() != null)
         {
             tipProprieta = applicationService
-                    .getListTipologieProprietaFirstLevel(clazzTipologiaProprieta);
+                    .getList(clazzTipologiaProprieta);
         }
         else
         {
@@ -150,7 +150,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
             object = applicationService
                     .get(clazzAnagraficaObject, anagraficaId);
             tipProprieta = applicationService
-                    .getListTipologieProprietaFirstLevel(clazzTipologiaProprieta);
+                    .getList(clazzTipologiaProprieta);
             anagraficaObjectDTO.setObjectId(anagraficaId);
         }
         else
@@ -183,7 +183,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
             anagraficaObject = applicationService.get(clazzAnagraficaObject,
                     anagraficaObjectDTO.getObjectId());
             tipProprieta = applicationService
-                    .getListTipologieProprietaFirstLevel(clazzTipologiaProprieta);
+                    .getList(clazzTipologiaProprieta);
         }
         else
         {
@@ -217,7 +217,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
         if (dto.getObjectId() != null)
         {
             tipProprieta = applicationService
-                    .getListTipologieProprietaFirstLevel(clazzTipologiaProprieta);
+                    .getList(clazzTipologiaProprieta);
         }
         else
         {

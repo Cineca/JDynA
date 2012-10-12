@@ -50,6 +50,11 @@ import org.hibernate.annotations.OrderBy;
         @NamedQuery(name = "NestedObject.findAll", query = "from NestedObject order by id"),
         @NamedQuery(name = "NestedObject.paginate.id.asc", query = "from NestedObject order by id asc"),
         @NamedQuery(name = "NestedObject.paginate.id.desc", query = "from NestedObject order by id desc")
+//        @NamedQuery(name = "NestedObject.findNestedObjectsByParentIDAndTypoID", query = "from NestedObject where parent.id = ? and typo.id = ?"),
+//        @NamedQuery(name = "NestedObject.paginateNestedObjectsByParentIDAndTypoID.asc.asc", query = "from NestedObject where parent.id = ? and typo.id = ?"),
+//        @NamedQuery(name = "NestedObject.countNestedObjectsByParentIDAndTypoID", query = "select count(*) from NestedObject where parent.id = ? and typo.id = ?"),
+//        @NamedQuery(name = "NestedObject.findNestedObjectsByTypoID", query = "from NestedObject where typo.id = ?"),
+//        @NamedQuery(name = "NestedObject.deleteNestedObjectsByTypoID", query = "delete from NestedObject where typo.id = ?")
         })
 public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, NestedPropertiesDefinition>
 {

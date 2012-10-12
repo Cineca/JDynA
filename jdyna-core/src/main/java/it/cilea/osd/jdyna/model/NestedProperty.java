@@ -35,6 +35,7 @@ import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
+import org.hibernate.annotations.Index;
 
 /**
  * @author pascarelli
@@ -59,8 +60,8 @@ public class NestedProperty extends ANestedProperty<NestedPropertiesDefinition>
     
     
     @ManyToOne  
+    @Index(name = "model_jdyna_nestedobject_prop_parent_id")
     private NestedObject parent;
-
 
     @Override
     public NestedPropertiesDefinition getTypo()
@@ -82,8 +83,10 @@ public class NestedProperty extends ANestedProperty<NestedPropertiesDefinition>
     }
 
     @Override
-    public NestedObject getParent()
+    public AnagraficaSupport<? extends Property<NestedPropertiesDefinition>, NestedPropertiesDefinition> getParent()
     {
-        return this.parent;
+        // TODO Auto-generated method stub
+        return null;
     }
+
 }

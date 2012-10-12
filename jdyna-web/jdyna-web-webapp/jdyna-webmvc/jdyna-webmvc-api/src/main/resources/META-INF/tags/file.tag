@@ -131,7 +131,7 @@
 	
 	<script type="text/javascript">
 		var ${dynajs_var} = new AddFileInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
 									 ${size},${repeatable},									 
 									 '${cssClass}','${visibility}');
@@ -235,7 +235,7 @@
 	
 	<script type="text/javascript">
 		var ${dynajs_var} = new AddFileInputWithVisibility('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(functionValidation)}',
 									 ${size},${repeatable},	
 									 '${cssClass}','${visibility}');		

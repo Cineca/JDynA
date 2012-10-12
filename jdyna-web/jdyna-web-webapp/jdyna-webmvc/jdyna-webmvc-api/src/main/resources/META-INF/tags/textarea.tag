@@ -73,7 +73,7 @@
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
 		var ${dynajs_var} = new DynaTextAreaInput('${root}','${dynajs_var}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${cols}','${rows}','${toolbar}');
 	</script>
 	</c:if>
@@ -129,7 +129,7 @@
 		<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 		<script type="text/javascript">
 			var ${dynajs_var} = new DynaTextAreaInput('${root}','${dynajs_var}',
-										'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+										'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 										'${cols}','${rows}','${toolbar}');
 		</script>
 		

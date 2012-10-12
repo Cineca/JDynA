@@ -201,7 +201,7 @@
 				size="${tipologia.rendering.size}" required="${required}" repeatable="${repetable}" onchange="${onchange}" ajaxValidation="${ajaxValidation}" validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isCalendar}">
-		<dyna:date propertyPath="${propertyPath}" isTime="${tipologia.rendering.time}"
+		<dyna:date propertyPath="${propertyPath}" isTime="${tipologia.rendering.time}" dateMin="${tipologia.rendering.minYear}" dateMax="${tipologia.rendering.maxYear}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		

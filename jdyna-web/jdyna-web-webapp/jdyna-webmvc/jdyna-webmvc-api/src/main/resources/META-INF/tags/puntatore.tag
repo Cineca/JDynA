@@ -121,7 +121,7 @@
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
 		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
 									 ${size},'${cssClass}');
 	</script>
@@ -211,7 +211,7 @@
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 	<script type="text/javascript">
 		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
-									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
 									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
 									 ${size},'${cssClass}');
 	</script>
