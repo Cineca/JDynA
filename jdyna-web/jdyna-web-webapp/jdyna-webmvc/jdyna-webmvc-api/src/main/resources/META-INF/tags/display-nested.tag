@@ -6,7 +6,7 @@
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
-<c:set var="subTypesSortered" value="${dyna:sortList(typeDefinition.real.maschera)}" />																			
+<c:set var="subTypesSortered" value="${dyna:sortList(typeDefinition.real.mask)}" />																			
 <script type="text/javascript">									
 
 		jQuery(".editNestedButton${typeDefinition.shortName}")
@@ -97,9 +97,9 @@
 					sortable="false">
 				<c:set var="nameriga" value="${typeDefinition.shortName}_RowNum" scope="request" />
 				<c:set var="numtip"
-					value="${count % fn:length(typeDefinition.real.maschera)}" />
+					value="${count % fn:length(typeDefinition.real.mask)}" />
 				<c:set var="numriga" 
-					value="${(count - count % fn:length(typeDefinition.real.maschera))/fn:length(typeDefinition.real.maschera)}" />
+					value="${(count - count % fn:length(typeDefinition.real.mask))/fn:length(typeDefinition.real.mask)}" />
 				<c:set var="count" value="${count+1}" />
 				
 				<dyna:display hideLabel="true" tipologia="${subtip}" values="${values[numriga].anagrafica4view[subtip.shortName]}"/>
