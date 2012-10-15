@@ -46,27 +46,26 @@ public abstract class ATipologia<TP extends PropertiesDefinition> extends Identi
 	@Field(index=Index.TOKENIZED)
 	private String shortName;
 	
-	/** descrizione della tipologia di progetto */
-	private String descrizione;
+	/** label della tipologia di progetto */
+	private String label;
 
-	public String getDescrizione() {
-		return descrizione;
+	public String getLabel() {
+		return label;
 	}
 
-	public void setDescrizione(String descrizione) {
-		this.descrizione = descrizione;
+	public void setLabel(String descrizione) {
+		this.label = descrizione;
 	}
 
 	/**
-	 * Restituisce la lista delle tipologie di proprieta della classe prevista per l'oggetto non
-	 * applicabili alla sua particolare tipologia.
+	 * Restituisce la lista delle tipologie di proprieta della classe prevista per l'oggetto applicabili alla sua particolare tipologia.
 	 * 
 	 * @author bollini
 	 * 
-	 * @return la lista delle tipologie di proprieta non applicabili all'oggetto
+	 * @return la lista delle tipologie di proprieta applicabili all'oggetto
 	 */
 	@Transient
-	public abstract List<TP> getMaschera();
+	public abstract List<TP> getMask();
 
 	public String getShortName() {
 		return shortName;

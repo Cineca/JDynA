@@ -508,34 +508,6 @@ public class PersistenceDynaService extends PersistenceService implements
         NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
         return modelDao.countNestedObjectsByParentIDAndTypoID(dynamicFieldID,typoID);                     
     }
-//
-//    @Override
-//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentID(
-//            Integer id, Class<ANO> model)
-//    {
-//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-//        List<ANO> modelList = modelDao.findNestedObjectsByParentID(id);
-//        return modelList;
-//    }
-//
-//    @Override
-//    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectByParentIDAndShortnameTypo(
-//            Integer id, String typoShortname, Class<ANO> model)
-//    {
-//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-//        ANO result = modelDao.findNestedObjectByParentIDAndShortnameTypo(id, typoShortname);
-//        return result;
-//    }
-//
-//    @Override
-//    public <ANO extends ANestedObjectWithTypeSupport<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectWithTypeSupportByParentIDAndTypoShortname(
-//            Integer id, String typoShortname, Class<ANO> model)
-//    {
-//        NestedObjectDAO<ANO, NP, NTP> modelDao = (NestedObjectDAO<ANO, NP, NTP>) getDaoByModel(model);
-//        ANO result = modelDao.findNestedObjectWithTypeSupportByParentIDAndTypoShortname(id, typoShortname);
-//        return result;
-//    }
-
 
     @Override
     public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(
@@ -551,8 +523,9 @@ public class PersistenceDynaService extends PersistenceService implements
     {
         
         NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
-        modelDao.deleteByTypoID(typeId);
+        modelDao.deleteNestedObjectsByTypoID(typeId);
         
     }
+
 	    
 }

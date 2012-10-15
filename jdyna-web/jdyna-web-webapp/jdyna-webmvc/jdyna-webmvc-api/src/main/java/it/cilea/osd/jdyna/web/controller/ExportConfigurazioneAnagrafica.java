@@ -523,14 +523,14 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
 
         writer.print("					<property name=\"nome\" value=\""
                 + type.getShortName() + "\" />\n");
-        if (type.getDescrizione() != null)
+        if (type.getLabel() != null)
         {
             writer.print("					<property name=\"descrizione\"><value><![CDATA["
-                    + type.getDescrizione() + "]]></value></property>\n");
+                    + type.getLabel() + "]]></value></property>\n");
         }
         writer.print("                            <property name=\"maschera\">\n"
                 + "                                  <list>\n");
-        for (TP tip : type.getMaschera())
+        for (TP tip : type.getMask())
         {
 
             writer.print("                                       <ref local=\""

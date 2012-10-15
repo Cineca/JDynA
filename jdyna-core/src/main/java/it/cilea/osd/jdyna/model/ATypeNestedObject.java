@@ -136,6 +136,9 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
 
     public Integer getAccessLevel()
     {
+        if(accessLevel == null) {
+            this.accessLevel = AccessLevelConstants.ADMIN_ACCESS;
+        }
         return accessLevel;
     }
 

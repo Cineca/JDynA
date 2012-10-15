@@ -61,8 +61,8 @@ public class DecoratorATypeNestedController<A extends ATypeNestedObject<NTP>, NP
               
         
         //daMostrare contiene le tipologie dei valori da mostrare
-        model.put("mostraValoriList", tipologia.getMaschera());
-        model.put("sizeMostraValori", tipologia.getMaschera().size());
+        model.put("mostraValoriList", tipologia.getMask());
+        model.put("sizeMostraValori", tipologia.getMask().size());
         model.put("id", paramTypeObjectId);
         model.put("tipologiaObject", tipologia);
         model.put("addModeType", "display");
@@ -88,7 +88,7 @@ public class DecoratorATypeNestedController<A extends ATypeNestedObject<NTP>, NP
 		try {
 
 			A tip = applicationService.get(targetModel, tipologiaProprietaId);
-			
+						
 			applicationService.deleteNestedObjectByTypeID(objectModel, tipologiaProprietaId);			
 			
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);

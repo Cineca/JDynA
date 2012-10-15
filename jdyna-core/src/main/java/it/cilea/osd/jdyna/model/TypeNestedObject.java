@@ -56,7 +56,7 @@ public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefiniti
     private List<NestedPropertiesDefinition> mask;
 
     @Override
-    public List<NestedPropertiesDefinition> getMaschera()
+    public List<NestedPropertiesDefinition> getMask()
     {
         return mask;
     }

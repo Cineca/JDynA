@@ -13,17 +13,6 @@ import it.cilea.osd.jdyna.model.ATypeNestedObject;
 public interface NestedObjectDAO<ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> extends TypeDaoSupport<TTP, NTP>, PaginableObjectDao<ANO, Integer>
 {
 
-//    List<NP> findNestedPropertiesByParentIDAndShortnameTypo(
-//            Integer dynamicFieldID, String shortNameTypo);
-//
-//    List<ANO> findNestedObjectsByParentID(Integer id);
-//
-//    ANO findNestedObjectByParentIDAndShortnameTypo(Integer id,
-//            String typoShortname);
-//
-//    ANO findNestedObjectWithTypeSupportByParentIDAndTypoShortname(Integer id,
-//            String typoShortname);
-
     List<ANO> findNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
             Integer typoID);
 
@@ -39,5 +28,5 @@ public interface NestedObjectDAO<ANO extends ANestedObject<NP, NTP>, NP extends 
 
     List<ANO> findNestedObjectsByTypoID(Integer typeId);
 
-    void deleteByTypoID(Integer typeId);    
+    void deleteNestedObjectsByTypoID(Integer typeId);    
 }

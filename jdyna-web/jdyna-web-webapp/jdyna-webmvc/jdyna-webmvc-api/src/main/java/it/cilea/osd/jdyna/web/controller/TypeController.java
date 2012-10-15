@@ -56,8 +56,8 @@ public class TypeController<P extends Property<TP>,TP extends PropertiesDefiniti
 		
 		
 		//daMostrare contiene le tipologie dei valori da mostrare
-		model.put("mostraValoriList", tipologia.getMaschera());
-		model.put("sizeMostraValori", tipologia.getMaschera().size());
+		model.put("mostraValoriList", tipologia.getMask());
+		model.put("sizeMostraValori", tipologia.getMask().size());
 		model.put("id", paramTypeObjectId);
 		model.put("tipologiaObject", tipologia);
 		model.put("addModeType", "display");

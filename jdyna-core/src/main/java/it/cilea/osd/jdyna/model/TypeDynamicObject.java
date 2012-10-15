@@ -6,7 +6,7 @@ public class TypeDynamicObject extends ATipologia<DynamicPropertiesDefinition>
 {
 
     @Override
-    public List<DynamicPropertiesDefinition> getMaschera()
+    public List<DynamicPropertiesDefinition> getMask()
     {
         // TODO Auto-generated method stub
         return null;
