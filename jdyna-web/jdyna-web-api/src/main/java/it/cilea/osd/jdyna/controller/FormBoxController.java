@@ -16,91 +16,132 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.validation.BindException;
+import org.springframework.web.servlet.ModelAndView;
 
+public class FormBoxController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>>
+        extends BaseFormController
+{
 
-public abstract class FormBoxController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>> extends BaseFormController {
-
-	/**
+    /**
      * the applicationService for query the Tab db, injected by Spring IoC
      */
-	protected ITabService applicationService;
-	
-	private Class<H> boxClass;
+    protected ITabService applicationService;
 
-	private Class<TP> tpClass;
-	
-	private Class<TTP> ttpClass;
-	
-	public FormBoxController(Class<H> clazzH, Class<TP> clazzTP, Class<TTP> clazzTTP) {
-		this.boxClass = clazzH;
-		this.setTpClass(clazzTP);
-		this.setTtpClass(clazzTTP);
-	}
-	
-	@Override
-	protected Map referenceData(HttpServletRequest request) throws Exception {
+    private Class<H> boxClass;
 
-		Map<String, Object> map = new HashMap<String, Object>();
-		String paramId = request.getParameter("id");
-		
-		List<IContainable> owneredContainables = new LinkedList<IContainable>();
-		
-		List<TP> modelJdynaContainables = applicationService.getList(tpClass);
-		List<TTP> ttps = applicationService.getList(ttpClass);
-		List<IContainable> containables = new LinkedList<IContainable>();
-		for(TP tp : modelJdynaContainables) {
-			IContainable ic = applicationService.findContainableByDecorable(tp.getDecoratorClass(), tp.getId());
-			if(ic!=null) {
-				containables.add(ic);
-			}
-		}
-		
-		for(TTP ttp : ttps) {
-            IContainable ic = applicationService.findContainableByDecorable(ttp.getDecoratorClass(), ttp.getId());
-            if(ic!=null) {
+    private Class<TP> tpClass;
+
+    private Class<TTP> ttpClass;
+
+    private String specificPartPath;
+    
+    public FormBoxController(Class<H> clazzH, Class<TP> clazzTP,
+            Class<TTP> clazzTTP)
+    {
+        this.boxClass = clazzH;
+        this.setTpClass(clazzTP);
+        this.setTtpClass(clazzTTP);
+    }
+
+    @Override
+    protected Map referenceData(HttpServletRequest request) throws Exception
+    {
+
+        Map<String, Object> map = new HashMap<String, Object>();
+        String paramId = request.getParameter("id");
+        String tabId = request.getParameter("tabId");
+
+        List<IContainable> owneredContainables = new LinkedList<IContainable>();
+
+        List<TP> modelJdynaContainables = applicationService.getList(tpClass);
+        List<TTP> ttps = applicationService.getList(ttpClass);
+        List<IContainable> containables = new LinkedList<IContainable>();
+        for (TP tp : modelJdynaContainables)
+        {
+            IContainable ic = applicationService.findContainableByDecorable(
+                    tp.getDecoratorClass(), tp.getId());
+            if (ic != null)
+            {
                 containables.add(ic);
             }
         }
-		if (paramId != null) {
-			Integer id = Integer.parseInt(paramId);
-			owneredContainables = applicationService.findContainableInPropertyHolder(boxClass, id);
-		}
-		
-		map.put("containablesList", containables);
-		map.put("owneredContainables", owneredContainables);
-		return map;
 
-	}	
-	
-	
-	@Override
-	protected Object formBackingObject(HttpServletRequest request)
-			throws Exception {
-		String paramId = request.getParameter("id");
-		H box = null;
-		if (paramId == null) {
-			box = boxClass.newInstance();
-		
-		} else {
-			box = applicationService.get(boxClass, Integer.parseInt(paramId));
-		}
-		return box;
-	}
-	
+        for (TTP ttp : ttps)
+        {
+            IContainable ic = applicationService.findContainableByDecorable(
+                    ttp.getDecoratorClass(), ttp.getId());
+            if (ic != null)
+            {
+                containables.add(ic);
+            }
+        }
+        if (paramId != null)
+        {
+            Integer id = Integer.parseInt(paramId);
+            owneredContainables = applicationService
+                    .findContainableInPropertyHolder(boxClass, id);
+        }
 
-	public void setApplicationService(ITabService applicationService) {
-		this.applicationService = applicationService;
-	}
+        map.put("tabId", tabId);
+        map.put("containablesList", containables);
+        map.put("owneredContainables", owneredContainables);
+        map.put("specificPartPath", getSpecificPartPath());
+        return map;
 
+    }
 
-	public void setboxClass(Class<H> boxClass) {
-		this.boxClass = boxClass;
-	}
+    @Override
+    protected Object formBackingObject(HttpServletRequest request)
+            throws Exception
+    {
+        String paramId = request.getParameter("id");
+        H box = null;
+        if (paramId == null)
+        {
+            box = boxClass.newInstance();
 
-	public void setTpClass(Class<TP> tpClass) {
-		this.tpClass = tpClass;
-	}
+        }
+        else
+        {
+            box = applicationService.get(boxClass, Integer.parseInt(paramId));
+        }
+        return box;
+    }
+
+    @Override
+    protected ModelAndView onSubmit(HttpServletRequest request,
+            HttpServletResponse response, Object command, BindException errors)
+            throws Exception
+    {
+
+        H object = (H) command;
+        String tabId = request.getParameter("tabId");
+        applicationService.saveOrUpdate(boxClass, object);
+        saveMessage(
+                request,
+                getText("action.box.edited",
+                        new Object[] { object.getShortName() },
+                        request.getLocale()));
+        return new ModelAndView(getSuccessView() + "?id=" + object.getId());
+    }
+
+    public void setApplicationService(ITabService applicationService)
+    {
+        this.applicationService = applicationService;
+    }
+
+    public void setboxClass(Class<H> boxClass)
+    {
+        this.boxClass = boxClass;
+    }
+
+    public void setTpClass(Class<TP> tpClass)
+    {
+        this.tpClass = tpClass;
+    }
 
     public void setTtpClass(Class<TTP> ttpClass)
     {
@@ -112,6 +153,12 @@ public abstract class FormBoxController<TP extends PropertiesDefinition, H exten
         return ttpClass;
     }
 
-	
-	
+
+    public String getSpecificPartPath() {
+        return specificPartPath;
+    }
+
+    public void setSpecificPartPath(String specificPartPath) {
+        this.specificPartPath = specificPartPath;
+    }
 }

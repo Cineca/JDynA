@@ -42,7 +42,7 @@ import org.hibernate.annotations.Index;
  *
  */
 @Entity
-@Table(name="model_jdyna_nestedobject_prop", 
+@Table(name="jdyna_nestedobject_prop", 
         uniqueConstraints = {@UniqueConstraint(columnNames={"position","typo_id","parent_id"})})
 @NamedQueries( {
     @NamedQuery(name = "NestedProperty.findPropertyByPropertiesDefinition", query = "from NestedProperty where typo = ? order by position"),
@@ -60,7 +60,7 @@ public class NestedProperty extends ANestedProperty<NestedPropertiesDefinition>
     
     
     @ManyToOne  
-    @Index(name = "model_jdyna_nestedobject_prop_parent_id")
+    @Index(name = "jdyna_nestedobject_prop_parent_id")
     private NestedObject parent;
 
     @Override

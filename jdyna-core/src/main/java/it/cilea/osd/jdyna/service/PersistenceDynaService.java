@@ -148,13 +148,13 @@ public class PersistenceDynaService extends PersistenceService implements
 		TypeDaoSupport<?, TP> tipologiaProprietaDao = (TypeDaoSupport<?, TP>) getDaoByModel(epiObjectWithTypeSupport
 				.getClassPropertiesDefinition());
 
-		if (epiObjectWithTypeSupport.getTipologia() == null)
+		if (epiObjectWithTypeSupport.getTypo() == null)
 			throw new IllegalArgumentException(
 					"La tipologia non puo' essere NULL");
 
 		List<TP> results = tipologiaProprietaDao
 				.findTipologieProprietaInTipologia(epiObjectWithTypeSupport
-						.getTipologia());
+						.getTypo());
 		Collections.sort(results);
 		return results;
 	}
@@ -367,7 +367,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
 			TypeSupport<P, TP> oggetto) {
 		log.debug("Predispongo le proprieta' per la tipologia: "
-				+ oggetto.getTipologia());
+				+ oggetto.getTypo());
 		List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
 		fitAnagrafica(oggetto, tpoList, false);
 	}
@@ -378,7 +378,7 @@ public class PersistenceDynaService extends PersistenceService implements
 	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
 			TypeSupport<P, TP> oggetto) {
 		log.debug("Predispongo le proprieta' per la tipologia: "
-				+ oggetto.getTipologia());
+				+ oggetto.getTypo());
 		List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
 		fitAnagrafica(oggetto, tpoList, true);
 	}

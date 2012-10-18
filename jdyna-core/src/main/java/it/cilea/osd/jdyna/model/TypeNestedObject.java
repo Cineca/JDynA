@@ -42,7 +42,7 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 *
 */
 @Entity
-@Table(name = "model_jdyna_nestedobject_typo")
+@Table(name = "jdyna_nestedobject_typo")
 @NamedQueries ({
     @NamedQuery(name="TypeNestedObject.findAll", query = "from TypeNestedObject order by id" ),
     @NamedQuery(name="TypeNestedObject.uniqueByNome", query = "from TypeNestedObject where shortName = ?" )
@@ -51,7 +51,7 @@ public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefiniti
 {
     
     @ManyToMany
-    @JoinTable(name = "model_jdyna_nestedobject_typo2mask")
+    @JoinTable(name = "jdyna_nestedobject_typo2mask")
     @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<NestedPropertiesDefinition> mask;
 

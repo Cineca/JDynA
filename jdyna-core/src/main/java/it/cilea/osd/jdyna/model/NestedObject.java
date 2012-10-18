@@ -45,7 +45,7 @@ import org.hibernate.annotations.OrderBy;
  *
  */
 @Entity
-@Table(name = "model_jdyna_nestedobject")
+@Table(name = "jdyna_nestedobject")
 @NamedQueries( {
         @NamedQuery(name = "NestedObject.findAll", query = "from NestedObject order by id"),
         @NamedQuery(name = "NestedObject.paginate.id.asc", query = "from NestedObject order by id asc"),
@@ -92,15 +92,34 @@ public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, N
     }
 
     @Override
-    public TypeNestedObject getTipologia()
+    public TypeNestedObject getTypo()
     {
         return typo;
     }
 
     @Override
+    public void setTypo(ATipologia<NestedPropertiesDefinition> typo)
+    {
+        this.typo = (TypeNestedObject)typo;        
+    }
+
+    @Override
     public DynamicObject getParent()
     {
-        return this.parent;
+        return parent;
+    }
+
+    @Override
+    public <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(
+            AnagraficaSupport<PP, PTP> parent)
+    {
+        this.parent = (DynamicObject)parent;
+    }
+
+    @Override
+    public Class getClassParent()
+    {
+       return DynamicObject.class;
     }
 
 }

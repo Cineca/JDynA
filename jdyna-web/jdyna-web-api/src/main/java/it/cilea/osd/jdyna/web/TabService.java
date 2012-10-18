@@ -1,6 +1,7 @@
 package it.cilea.osd.jdyna.web;
 
 import it.cilea.osd.jdyna.dao.ContainableDao;
+import it.cilea.osd.jdyna.dao.EditTabDao;
 import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyHolderDao;
 import it.cilea.osd.jdyna.dao.TabDao;
@@ -185,4 +186,104 @@ public abstract class TabService extends PersistenceDynaService implements
 
 	/** Extends this method to add other containables on creation */
 	protected abstract void getOtherContainableOnCreation(List<IContainable> containables);
+	
+    /**
+     * Decouple edit tab wrapper from display tab id, check persistence object
+     * is alive and after unhook it.
+     * 
+     * @param tabId
+     */
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void decoupleEditTabByDisplayTab(int tabId, Class<T> clazz)
+    {
+
+        T editTab = getEditTabByDisplayTab(tabId, clazz);
+        if (editTab != null)
+        {
+            for (H box : editTab.getDisplayTab().getMask())
+            {
+                editTab.getMask().add(box);
+            }
+            editTab.setDisplayTab(null);
+            saveOrUpdate(clazz, editTab);
+        }
+    }
+
+    /**
+     * Hook edit tab with display tab
+     * 
+     * @param id
+     */
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void hookUpEditTabToDisplayTab(Integer editTabId,
+            Integer displayTabId, Class<T> clazz)
+    {
+        T editTab = get(clazz, editTabId);
+        if (editTab != null)
+        {
+            D displayTab = get(editTab.getDisplayTabClass(), displayTabId);
+            editTab.setDisplayTab(displayTab);
+            saveOrUpdate(clazz, editTab);
+        }
+
+    }
+
+    /**
+     * Get edit tab by display tab id
+     * 
+     * @param tabId
+     * @return
+     */
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> T getEditTabByDisplayTab(Integer tabId, Class<T> clazz)
+    {
+        EditTabDao<H, D, T> dao = (EditTabDao<H, D, T>) getDaoByModel(clazz);
+        T editTab = dao.uniqueByDisplayTab(tabId);
+        return editTab;
+    }
+
+    /**
+     * 
+     * Find by access level, @see {@link VisibilityTabConstant}
+     * 
+     * 
+     * @param isAdmin
+     *            three mode, null get all visibility (ADMIN and OWNER
+     *            visibility), true get all admin access level, false get all
+     *            owner rp access level
+     * @return
+     */
+    @Override
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByVisibility(
+            Class<T> model, Boolean isAdmin)
+    {
+
+        TabDao<H, T> dao = (TabDao<H, T>) getDaoByModel(model);
+        List<T> tabs = new LinkedList<T>();
+        if (isAdmin == null)
+        {
+            tabs.addAll(dao.findByAnonimous());
+//            tabs.addAll(dao.findByAccessLevel(VisibilityTabConstant.HIGH));
+        }
+        else
+        {
+            if (isAdmin)
+            {
+                tabs.addAll(dao.findByAdmin());
+//                tabs.addAll(dao.findByAccessLevel(VisibilityTabConstant.HIGH));
+//                tabs.addAll(dao.findByAccessLevel(VisibilityTabConstant.ADMIN));
+//                tabs.addAll(dao
+//                        .findByAccessLevel(VisibilityTabConstant.STANDARD));
+            }
+            else
+            {
+                tabs.addAll(dao.findByOwner());
+//                tabs.addAll(dao.findByAccessLevel(VisibilityTabConstant.HIGH));
+//                tabs.addAll(dao
+//                        .findByAccessLevel(VisibilityTabConstant.STANDARD));
+//                tabs.addAll(dao.findByAccessLevel(VisibilityTabConstant.LOW));
+            }
+        }
+
+        Collections.sort(tabs);
+        return tabs;
+
+    }
 }

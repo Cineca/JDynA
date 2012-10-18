@@ -27,5 +27,6 @@ package it.cilea.osd.jdyna.model;
 
 
 public interface TypeSupport<P extends Property<TP>, TP extends PropertiesDefinition> extends AnagraficaSupport<P, TP> {
-	public ATipologia<TP> getTipologia();
+	public ATipologia<TP> getTypo();
+	public void setTypo(ATipologia<TP> typo);
 }

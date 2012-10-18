@@ -34,10 +34,17 @@ public class DynamicObject extends AnagraficaObject<DynamicProperty, DynamicProp
     }
 
     @Override
-    public TypeDynamicObject getTipologia()
+    public TypeDynamicObject getTypo()
     {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void setTypo(ATipologia<DynamicPropertiesDefinition> typo)
+    {
+        // TODO Auto-generated method stub
+        
     }
 
 }

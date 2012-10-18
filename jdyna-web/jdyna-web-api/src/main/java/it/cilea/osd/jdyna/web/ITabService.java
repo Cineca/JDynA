@@ -17,7 +17,12 @@ import java.util.List;
 public interface ITabService extends IPersistenceDynaService {
 
 
-	/**
+	public final static String PREFIX_TITLE_EDIT_BOX = "Edit ";
+    public final static String PREFIX_SHORTNAME_EDIT_BOX = "edit";
+    public final static String PREFIX_TITLE_EDIT_TAB = "Edit ";
+    public final static String PREFIX_SHORTNAME_EDIT_TAB = "edit";
+
+    /**
 	 * Find all properties holder (box) in tab
 	 * 
 	 * @param <H>
@@ -136,5 +141,10 @@ public interface ITabService extends IPersistenceDynaService {
 	 */
 	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByVisibility(Class<T> model, Boolean isAdmin);
 
-   
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void decoupleEditTabByDisplayTab(int tabId, Class<T> clazz);
+    
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void hookUpEditTabToDisplayTab(Integer editTabId,
+            Integer displayTabId, Class<T> clazz);
+    
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> T getEditTabByDisplayTab(Integer tabId, Class<T> clazz);
 }

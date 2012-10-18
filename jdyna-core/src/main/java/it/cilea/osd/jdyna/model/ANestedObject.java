@@ -93,4 +93,8 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     }
     
     public abstract <PP extends Property<PTP>, PTP extends PropertiesDefinition> AnagraficaSupport<PP, PTP> getParent();
+    
+    public abstract <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(AnagraficaSupport<PP, PTP> parent);
+    
+    public abstract Class getClassParent();
 }
