@@ -2,6 +2,7 @@ package it.cilea.osd.jdyna.web.controller;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.common.util.displaytag.DisplayTagData;
+import it.cilea.osd.jdyna.components.IComponent;
 import it.cilea.osd.jdyna.model.ATipologia;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.Containable;
@@ -12,12 +13,15 @@ import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
 
+import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -44,6 +48,14 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	
 	private String i18nPrefix = "action";
 
+    private Map<String, IComponent> components;
+
+    public void setComponents(Map<String, IComponent> components)
+    {
+        this.components = components;
+    }
+
+    
 	public void setTypeClass(Class<? extends ATipologia<TP>> typeClass) {
 		this.typeClass = typeClass;
 	}
@@ -95,7 +107,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
     protected Integer getAnagraficaId(HttpServletRequest request)
     {
-        String param = request.getParameter("anagraficaId");
+        String param = request.getParameter("id");
         try {
             return Integer.valueOf(param);
         }
@@ -104,7 +116,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
     }
 	    
-	protected ModelAndView handleDetails(HttpServletRequest request, HttpServletResponse response) throws SQLException, InstantiationException, IllegalAccessException {
+	protected ModelAndView handleDetails(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
 		Integer objectId = getAnagraficaId(request);
@@ -116,86 +128,116 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		else {
 			jdynaObject = objectClass.newInstance();
 		}
-		
-		if(jdynaObject==null){
-			throw new RuntimeException("La url non corrisponde a nessun oggetto valido nella piattaforma");
-		}
-	
-		//this map contains key-values pairs, key = box shortname and values = collection of metadata
-		Map<String, List<IContainable>> mapBoxToContainables = new HashMap<String, List<IContainable>>();
-		Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
-		
-		//collection of edit tabs (all edit tabs created on system associate to visibility)
-		List<T> tabs;
+			
+	    // this map contains key-values pairs, key = box shortname and values =
+        // collection of metadata
+        Map<String, List<IContainable>> mapBoxToContainables = new HashMap<String, List<IContainable>>();
+        Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
+        List<IContainable> pDInTab = new LinkedList<IContainable>();
+        List<H> propertyHolders = new LinkedList<H>();
+        List<T> tabs = findTabsWithVisibility(request, model, response);
+        Integer tabId = getTabId(request);
         try
         {
-            tabs = findTabsWithVisibility(request, model, response);
+            
+            T t = null; 
+                
+            if (tabId == null)
+            {                
+                if(tabs!=null && !tabs.isEmpty()) {
+                    t = tabs.get(0);
+                    tabId = t.getId();
+                }
+            }
+            else {
+                t = applicationService.get(tabClass,
+                        tabId);                
+            }
+
+            if (tabId == null)
+            {
+                throw new RuntimeException(
+                        "No tabs to display contact administrator");
+            }
+
+      
+            if (!tabs.contains(t))
+            {
+                throw new RuntimeException(
+                        "You not have needed authorization level to display this tab");
+            }
+
+            // collection of boxs
+            propertyHolders = t.getMask();
+
+            String openbox = extractAnchorId(request);
+            // this piece of code get containables object from boxs and put them
+            // on map
+            for (H box : propertyHolders)
+            {
+
+                String boxShortName = box.getShortName();
+                List<IContainable> temp = applicationService
+                .<H, T>findContainableInPropertyHolder(propertyHolderClass,
+                        box.getId());       
+                Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
+                
+                if (components != null)
+                {
+                    IComponent comp = components.get(boxShortName);
+                    if (comp != null)
+                    {
+                        comp.evalute(request, response);
+                    }
+                }
+
+                if (box.getShortName().equals(openbox))
+                {
+                    if (box.isCollapsed())
+                    {
+                        box.setCollapsed(false);                        
+                    }
+                }
+                
+                for(IContainable tt : temp) {
+                    tempMap.put(tt.getShortName(), tt);
+                }           
+
+                mapBoxToContainables.put(box.getShortName(), temp);
+                mapBoxToMapContainables.put(box.getShortName(), tempMap);
+                pDInTab.addAll(temp);
+            }
+            jdynaObject.inizializza();
+
         }
         catch (Exception e)
         {
-            log.error("Errore nella ricerca delle tabs visibili");
-            throw new RuntimeException(e); 
-        }
-		
-		Integer tabId = getTabId(request);	
-
-        if (tabId == null && tabs != null && tabs.size() > 0)
-        {
-            tabId = tabs.get(0).getId();
+            log.error(e.getMessage(), e);           
+            sendRedirect(request, response, e, ""+objectId);
+            throw new RuntimeException(e);
         }
         
-        if (tabId == null)
-        {
-            throw new RuntimeException(
-                    "No tabs to display contact administrator");
-        }
-
-        T t = applicationService.get(tabClass, tabId);
-        if (!tabs.contains(t))
-        {
-            throw new RuntimeException(
-                    "You not have needed authorization level to display this tab");
-        }
-
-        // collection of boxs
-        List<H> propertyHolders = applicationService.findPropertyHolderInTab(
-                tabClass, tabId);
-
-		//this piece of code get containables object from boxs and put them on map
-		List<IContainable> pDInTab = new LinkedList<IContainable>();
-		for (H iph : propertyHolders) {
-			
-				List<IContainable> temp = applicationService
-						.<H, T>findContainableInPropertyHolder(propertyHolderClass,
-								iph.getId());
-				Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
-				for(IContainable tt : temp) {
-					tempMap.put(tt.getShortName(), tt);
-				}				
-				mapBoxToContainables.put(iph.getShortName(), temp);
-				mapBoxToMapContainables.put(iph.getShortName(), tempMap);
-				pDInTab.addAll(temp);
-			
-		}
-		jdynaObject.inizializza();
-		
-		
-		
-		model.put("propertiesHolders", propertyHolders);
-		model.put("propertiesDefinitionsInTab", pDInTab);
-		model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
-		model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
-		model.put("tabList", tabs);
-		model.put("tabId", tabId);  	    
-	 	model.put("path", modelPath);     
-		model.put("anagraficaObject", jdynaObject);				
-		model.put("addModeType", "display");
-		
+        Collections.sort(propertyHolders);
+        model.put("propertiesHolders", propertyHolders);
+        model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
+        model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
+        model.put("tabList", tabs);
+        model.put("tabId", tabId);
+        model.put("path", modelPath);
+        model.put("anagraficaObject", jdynaObject);
+        model.put("addModeType", "display");
+        		
 		return new ModelAndView(detailsView, model);
 	}
 
 	
-	protected abstract List<T> findTabsWithVisibility(HttpServletRequest request, Map<String, Object> model, HttpServletResponse response) throws SQLException, Exception;
+	protected abstract String extractAnchorId(HttpServletRequest request);
+    
+
+    protected abstract void sendRedirect(HttpServletRequest request, HttpServletResponse response, Exception ex, String objectId) throws IOException, ServletException;
+    
+
+    protected abstract List<T> findTabsWithVisibility(HttpServletRequest request, Map<String, Object> model, HttpServletResponse response) throws SQLException, Exception;
 		
 
 	protected ModelAndView handleList(HttpServletRequest request) {
@@ -279,4 +321,10 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	public ITabService getApplicationService() {
 		return applicationService;
 	}
+
+
+    public Map<String, IComponent> getComponents()
+    {
+        return components;
+    }
 }

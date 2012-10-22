@@ -23,7 +23,7 @@ import org.hibernate.annotations.SortType;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Box<C extends IContainable> implements IPropertyHolder<C>,Comparable<Box<C>>{
+public abstract class Box<C extends IContainable> implements IPropertyHolder<C> {
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
@@ -149,12 +149,14 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C>,
 	 * 
 	 * @return
 	 * 
-	 */	
-	public int compareTo(Box secondTip) {		
+	 */
+    @Override
+	public int compareTo(IPropertyHolder<C> secondTip) {		
 		if (secondTip == null) return -1;
-		if (priority < secondTip.priority) return -1;
-		else if (priority > secondTip.priority) return 1;
+		if (priority < secondTip.getPriority()) return -1;
+		else if (priority > secondTip.getPriority()) return 1;
 			 else return shortName.compareTo(secondTip.getShortName());
 	}
+
 	
 }
