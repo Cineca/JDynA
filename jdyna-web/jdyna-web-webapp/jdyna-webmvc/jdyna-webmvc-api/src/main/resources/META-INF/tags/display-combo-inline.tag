@@ -2,6 +2,7 @@
 	type="java.util.Collection"%>
 <%@ attribute name="subtip" required="true"
 	type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
+<%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 

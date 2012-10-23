@@ -277,7 +277,28 @@ public class AnagraficaUtils
         }
         return isAllNull;
     }
+    
+    public static <P extends Property<TP>, TP extends PropertiesDefinition> boolean checkIsVisible(
+            AnagraficaObjectDTO valore, List<TP> sottoTipologie)
+    {
+        boolean isVisible = false;
+        for (TP tp : sottoTipologie)
+        {
+            for (ValoreDTO subvalore : valore.getAnagraficaProperties().get(
+                    tp.getShortName()))
+            {
 
+                if (subvalore != null && subvalore.getVisibility())
+                {
+                    return true;                    
+                }
+
+            }
+        }
+        return isVisible;
+    }
+    
+    
     // /**
     // * Cerca, nella lista passata come secondo argomento, la tipologia di
     // * proprieta' che referenzia la combo in cui e' contenuta la TP figlia.

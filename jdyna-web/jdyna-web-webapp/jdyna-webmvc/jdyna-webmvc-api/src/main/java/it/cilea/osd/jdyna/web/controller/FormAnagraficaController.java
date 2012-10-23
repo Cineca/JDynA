@@ -149,8 +149,8 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
     protected Object formBackingObject(HttpServletRequest request)
             throws Exception
     {
-        String paramAreaId = request.getParameter("areaId");
-        String paramAnagraficaObjectId = request.getParameter("anagraficaId");
+        String paramAreaId = request.getParameter("tabId");
+        String paramAnagraficaObjectId = request.getParameter("id");
         
         List<T> aree = applicationService.getList(clazzTab);
         Integer areaId;
@@ -208,7 +208,7 @@ public class FormAnagraficaController<P extends Property<TP>, TP extends Propert
                 + anagraficaObjectDTO.getObjectId() + "&areaId="
                 + anagraficaObjectDTO.getTabId();
 
-        if (request.getParameter("annulla") != null)
+        if (request.getParameter("cancel") != null)
         {
             return new ModelAndView(exitPage);
         }

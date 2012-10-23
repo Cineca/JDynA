@@ -1,6 +1,7 @@
 <%@ attribute name="values" required="true" type="java.util.Collection" %>
 <%@ attribute name="tipologia" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
+<%@ attribute name="editMode" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="hideLabel" required="false" type="java.lang.Boolean"%>
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -101,12 +102,18 @@
 </c:if>
 <c:set var="showit" value="false" target="java.lang.Boolean"/>
 
+<c:choose>
+<c:when test="${editMode}">
+	<c:set var="showit" value="true" target="java.lang.Boolean"/>
+</c:when>
+<c:otherwise>
 <c:forEach var="value" items="${values}" varStatus="valueStatus">		
-		<c:if test="${(subElement?value.visibility:(value.visibility==1))}">
+		<c:if test="${value.visibility==1}">
 			<c:set var="showit" value="true" target="java.lang.Boolean"/>
 		</c:if>
 </c:forEach>
-
+</c:otherwise>
+</c:choose>
 
 <c:if test="${!subElement}">
 <c:set var="fieldMinWidth" value="" />
@@ -145,7 +152,7 @@
 	<c:when test="${isFile}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -162,7 +169,7 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${(subElement==true?(dyna:display(tipologia,value.object)):(dyna:display(tipologia,value.value.real)))}" />			
+			<c:set var="displayObject" value="${(dyna:display(tipologia,value.value.real))}" />			
 			<c:choose>
 				<c:when test="${!empty dyna:getFileIsOnServer(displayObject)}">			
 				
@@ -200,7 +207,7 @@
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -217,7 +224,7 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${(subElement==true?(dyna:display(tipologia,value.object)):(dyna:display(tipologia,value.value.real)))}" />
+			<c:set var="displayObject" value="${(dyna:display(tipologia,value.value.real))}" />
 			<c:choose>
 				<c:when test="${!empty dyna:getLinkValue(displayObject)}">			
 				<a target="_blank" href="${dyna:getLinkValue(displayObject)}">
@@ -245,7 +252,7 @@
 	</c:when>
 	<c:when test="${isText}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -262,13 +269,14 @@
 			<c:if test="${!empty minwidth && !subElement}">
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<c:set var="displayObject" value="${value.value.real}" />
 			<span ${style}>${displayObject}</span>
 		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isTextArea}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1}">
 			<c:set var="minheight" value="" />
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -281,37 +289,45 @@
 			<c:if test="${!empty minheight || !empty minwidth}">
 				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
 			</c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<c:set var="displayObject" value="${value.value.real}" />
 			<div ${style}>${tipologia.rendering.htmlToolbar eq 'nessuna'?dyna:nl2br(displayObject):displayObject}</div>
+		</c:if>
 		</c:forEach>
 	</c:when>	
 	<c:when test="${isClassificazione || isRadio || isCheckbox}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object.nome:value.value.real.nome)}" />
+			<c:set var="displayObject" value="${value.value.real.nome}" />
 			${displayObject}
+		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isSoggettario}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object.voce:value.value.real.voce)}" />
+			<c:set var="displayObject" value="${value.value.real.voce}" />
 			${displayObject}
-			
+		</c:if>	
 		</c:forEach>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<c:set var="displayObject" value="${value.value.real}" />
 			${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}
+		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isBoolean}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<c:set var="displayObject" value="${value.value.real}" />
 			${displayObject?'Si':'No'}
+		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isNumero}">
@@ -325,15 +341,17 @@
 		</c:if>			
 	
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
+	  	<c:if test="${value.visibility == 1}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<div class="number" ${style}>${dyna:display(tipologia,value.value.real)}</div>			
+		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${(subElement==true?value.visibility:(value.visibility == 1))}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${(subElement==true?value.object:value.value.real)}" />
+			<c:set var="displayObject" value="${value.value.real}" />
 			${dyna:display(tipologia,displayObject)}
 		</c:if>
 		</c:forEach>

@@ -34,12 +34,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
-
-import org.hibernate.annotations.Cache;
-import org.hibernate.annotations.CacheConcurrencyStrategy;
 /**
 *
 * @author pascarelli
@@ -57,11 +52,13 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     
     @Column(nullable = false, unique = true)
     private String uuid;
+    
+    private Boolean status = true;
    
     /** timestamp info for creation and last modify */
     @Embedded
     private TimeStampInfo timeStampInfo;
-    
+            
     public Integer getId()
     {
         return id;
@@ -97,4 +94,14 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     public abstract <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(AnagraficaSupport<PP, PTP> parent);
     
     public abstract Class getClassParent();
+
+    public Boolean getStatus()
+    {
+        return status;
+    }
+
+    public void setStatus(Boolean status)
+    {
+        this.status = status;
+    }
 }

@@ -48,7 +48,7 @@ public class FormAddToNestedDefinitionController<W extends AWidget, TP extends A
         if (rendering != null) {
             nested = getApplicationService().get(typeModel, Integer.parseInt(rendering));         
         }
-        DTP object = (DTP)super.formBackingObject(request);     
+        DTP object = (DTP)super.formBackingObject(request);        
         nested.getReal().getMask().add(object.getReal());
         return object;
         
@@ -63,8 +63,11 @@ public class FormAddToNestedDefinitionController<W extends AWidget, TP extends A
         String boxId = request.getParameter("boxId");
         String tabId = request.getParameter("tabId");
         DTP object = (DTP)command;
-        getApplicationService().saveOrUpdate(object.getDecoratorClass(), object);      
         DTT rPd = getApplicationService().get(typeModel, Integer.parseInt(rendering));
+        
+        object.getReal().setAccessLevel(rPd.getAccessLevel());
+        getApplicationService().saveOrUpdate(object.getDecoratorClass(), object);      
+        
         return new ModelAndView(getSuccessView()+"?pDId="+rPd.getReal().getId()+"&boxId="+boxId+"&tabId="+tabId);
     }
 

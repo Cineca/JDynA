@@ -45,274 +45,279 @@ import it.cilea.osd.jdyna.model.TypeSupport;
 
 import java.util.List;
 
-public interface IPersistenceDynaService extends IPersistenceService {
-		
+public interface IPersistenceDynaService extends IPersistenceService
+{
 
-//	/**
-//	 * Trova gli oggetti da ricalcolare utilizzando le informazioni clazz e id
-//	 * del JPAEvent. NB: al momento la tipologia di evento non viene utilizzata,
-//	 * il dato e' stato memorizzato solo per la comodita' di sfruttare la
-//	 * defininizione del JPAEvent all'interno della definizione di
-//	 * OggettoDaRicalcolare
-//	 */
-//	public <TP extends PropertiesDefinition, P extends Property<TP>> Set<AnagraficaSupport<P, TP, A>> findOggettoDaRicalcolareByEvento(
-//			JPAEvent evento);
+    // /**
+    // * Trova gli oggetti da ricalcolare utilizzando le informazioni clazz e id
+    // * del JPAEvent. NB: al momento la tipologia di evento non viene
+    // utilizzata,
+    // * il dato e' stato memorizzato solo per la comodita' di sfruttare la
+    // * defininizione del JPAEvent all'interno della definizione di
+    // * OggettoDaRicalcolare
+    // */
+    // public <TP extends PropertiesDefinition, P extends Property<TP>>
+    // Set<AnagraficaSupport<P, TP, A>> findOggettoDaRicalcolareByEvento(
+    // JPAEvent evento);
 
-	/**
-	 * Resituisce tutte le tipologie di proprieta che hanno rendering un widget
-	 * formula
-	 */
-	public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetFormula(
-			Class<TP> classTipologiaProprieta);
-	
-
-
-//	/** Cancella gli oggetti da ricalcolare 
-//	 * 
-//	 * @param id - l'id dell'oggetto
-//	 * @param canonicalName - il nome della classe
-//	 * */
-//	void deleteOggettoDaRicalcolareByOggetto(Integer id, String canonicalName);
-
-	/**
-	 * Trova tutte le proprieta' con il parent e la tipologia passata come
-	 * parametro
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> List<P> getProprietaByParentAndTipologia(
-			Identifiable oggetto, TP tip);
-
-	/**
-	 * Restituisce la tipologia di proprieta' (unica) data dallo shortName passato come parametro 
-	 * 
-	 * @see PropertiesDefinitionDao#uniqueByShortName(String)
-	 * @param clazz - la classe di tipologia proprieta su cui cercare 
-	 * @param shortName - il codice univoco della tipologia di proprieta
-	 * @return la tipologia di proprieta per quello shortname
-	 */
-	public <T extends PropertiesDefinition> T findPropertiesDefinitionByShortName(
-			Class<T> clazz, String shortName);
-
-
-
-
-	/**
-     * Restituisce la lista di tipologie proprieta associabili 
-     *
-     *	@see TypeDaoSupport#findTipologieProprietaInTipologia(ATipologia)
-     *  @param TypeSupport, oggetto che supporta una singola tipologia
-     *  @return lista Tipologie di Prope
+    /**
+     * Resituisce tutte le tipologie di proprieta che hanno rendering un widget
+     * formula
      */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabili(
-			TypeSupport<P, TP> anagraficaObjectWithTypeSupport);
+    public <TP extends PropertiesDefinition> List<TP> getAllTipologieProprietaWithWidgetFormula(
+            Class<TP> classTipologiaProprieta);
 
+    // /** Cancella gli oggetti da ricalcolare
+    // *
+    // * @param id - l'id dell'oggetto
+    // * @param canonicalName - il nome della classe
+    // * */
+    // void deleteOggettoDaRicalcolareByOggetto(Integer id, String
+    // canonicalName);
 
-	
-	
-	/**
-	 * Restituisce la lista di tipologie proprieta che sono assegnabili alla tipologia passata come area e visibili (showInList = true)
-	 *   
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param tipProprieta
-	 * @param tipologia
-	 * @return
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliAndShowInList(
-			Class<? extends PropertiesDefinition> tipProprieta,
-			ATipologia<TP> tipologia);
+    /**
+     * Trova tutte le proprieta' con il parent e la tipologia passata come
+     * parametro
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> List<P> getProprietaByParentAndTipologia(
+            Identifiable oggetto, TP tip);
 
-	
-	/**
-	 * @see MultiTypeDaoSupport
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param objectWithMultiTypeSupport
-	 * @return
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliPerMultiTipologie(
-			MultiTypeSupport<P, TP> objectWithMultiTypeSupport);
+    /**
+     * Restituisce la tipologia di proprieta' (unica) data dallo shortName
+     * passato come parametro
+     * 
+     * @see PropertiesDefinitionDao#uniqueByShortName(String)
+     * @param clazz
+     *            - la classe di tipologia proprieta su cui cercare
+     * @param shortName
+     *            - il codice univoco della tipologia di proprieta
+     * @return la tipologia di proprieta per quello shortname
+     */
+    public <T extends PropertiesDefinition> T findPropertiesDefinitionByShortName(
+            Class<T> clazz, String shortName);
 
-	
-	/** Cancella tutte le proprieta per la tipologia di metadato passata come parametro 
-	 *
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param model
-	 * @param tip
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void deleteAllProprietaByTipologiaProprieta(
-			Class model, TP tip);
+    /**
+     * Restituisce la lista di tipologie proprieta associabili
+     * 
+     * @see TypeDaoSupport#findTipologieProprietaInTipologia(ATipologia)
+     * @param TypeSupport
+     *            , oggetto che supporta una singola tipologia
+     * @return lista Tipologie di Prope
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabili(
+            TypeSupport<P, TP> anagraficaObjectWithTypeSupport);
 
+    /**
+     * Restituisce la lista di tipologie proprieta che sono assegnabili alla
+     * tipologia passata come area e visibili (showInList = true)
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param tipProprieta
+     * @param tipologia
+     * @return
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliAndShowInList(
+            Class<? extends PropertiesDefinition> tipProprieta,
+            ATipologia<TP> tipologia);
 
+    /**
+     * @see MultiTypeDaoSupport
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param objectWithMultiTypeSupport
+     * @return
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliPerMultiTipologie(
+            MultiTypeSupport<P, TP> objectWithMultiTypeSupport);
+
+    /**
+     * Cancella tutte le proprieta per la tipologia di metadato passata come
+     * parametro
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param model
+     * @param tip
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void deleteAllProprietaByTipologiaProprieta(
+            Class model, TP tip);
 
     /**
      * 
      * @param <T>
      * @param model
-     * @return Lista delle tipologie di proprieta che devono essere mostrate come colonne delle tabelle
-     * 		   di visualizzazione della lista di oggetti (showInList = TRUE).
+     * @return Lista delle tipologie di proprieta che devono essere mostrate
+     *         come colonne delle tabelle di visualizzazione della lista di
+     *         oggetti (showInList = TRUE).
      */
-	public <T extends PropertiesDefinition> List<T> getValoriDaMostrare(
-			Class<T> model);
+    public <T extends PropertiesDefinition> List<T> getValoriDaMostrare(
+            Class<T> model);
 
+    /**
+     * 
+     * @see TypeDaoSupport#uniqueByNome(String)
+     * @param <TY>
+     * @param <TP>
+     * @param clazz
+     * @param nome
+     * @return
+     */
+    public <TY extends ATipologia<TP>, TP extends PropertiesDefinition> TY findTipologiaByNome(
+            Class<TY> clazz, String nome);
 
-	/**
-	 * 
-	 * @see TypeDaoSupport#uniqueByNome(String)
-	 * @param <TY>
-	 * @param <TP>
-	 * @param clazz
-	 * @param nome
-	 * @return
-	 */
-	public <TY extends ATipologia<TP>, TP extends PropertiesDefinition> TY findTipologiaByNome(
-			Class<TY> clazz, String nome);
+    /**
+     * Restituisce la lista ordinata di tipologia di proprieta richieste in
+     * creazione (quelle che hanno oncreation == true)
+     * 
+     * @see PropertiesDefinitionDao#findValoriOnCreation()
+     * @see PropertiesDefinition#compareTo(PropertiesDefinition)
+     * @param model
+     *            - la classe di tipologia proprieta da cui riprendere il dao
+     * @return la lista di tipologie di proprieta richieste in creazione
+     */
+    public <T extends PropertiesDefinition> List<T> getTipologiaOnCreation(
+            Class<T> model);
 
+    /**
+     * Conta il numero di dati(le proprieta') associati alla tipologia di
+     * proprieta
+     * 
+     * @param tipologiaProprietaID
+     *            : l'id della tipologia
+     * @return il numero di proprieta trovate con quella tipologia
+     * */
+    public long countValoriByTipologiaProprieta(Integer tipologiaProprietaID);
 
-	/**
-	 * Restituisce la lista ordinata di tipologia di proprieta richieste in creazione (quelle che hanno oncreation == true)
-	 * 
-	 * @see PropertiesDefinitionDao#findValoriOnCreation()
-	 * @see PropertiesDefinition#compareTo(PropertiesDefinition)
-	 * @param model - la classe di tipologia proprieta da cui riprendere il dao
-	 * @return la lista di tipologie di proprieta richieste in creazione 
-	 */
-	public <T extends PropertiesDefinition> List<T> getTipologiaOnCreation(
-			Class<T> model);
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
+            AnagraficaSupport<P, TP> oggetto);
 
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
+            AnagraficaSupport<P, TP> oggetto);
 
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
+            TypeSupport<P, TP> oggetto);
 
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
+            TypeSupport<P, TP> oggetto);
 
-	/** Conta il numero di dati(le proprieta') associati alla tipologia di proprieta 
-	 * 
-	 * @param tipologiaProprietaID : l'id della tipologia
-	 * @return il numero di proprieta trovate con quella tipologia
-	 * */
-	public long countValoriByTipologiaProprieta(Integer tipologiaProprietaID);
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
+            MultiTypeSupport<P, TP> oggetto);
 
+    /**
+     * Metodo di supporto per la realizzazione del fitObject, inizializza
+     * sull'oggetto passato come parametro le proprieta che risultano nulle.
+     * 
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param oggetto
+     */
+    public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
+            MultiTypeSupport<P, TP> oggetto);
 
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
-			AnagraficaSupport<P, TP> oggetto);
-	
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
-			AnagraficaSupport<P, TP> oggetto);
+    /**
+     * Metodo per la paginazione degli oggetti usando come criterio la tipologia
+     * di proprieta
+     * 
+     * @param <T>
+     * @param <P>
+     * @param <TP>
+     * @param <A>
+     * @param model
+     * @param tipologiaId
+     * @param inverse
+     * @param page
+     * @param maxResults
+     * @return
+     */
+    public <T extends AnagraficaSupport<P, TP>, P extends Property<TP>, TP extends PropertiesDefinition> List<T> getPaginateListByTipologiaProprieta(
+            Class<T> model, Integer tipologiaId, boolean inverse, int page,
+            int maxResults);
 
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
-			TypeSupport<P, TP> oggetto);
+    /**
+     * 
+     * Return properties definition by widget
+     * 
+     * @param <TP>
+     * @param widget
+     * @return
+     */
+    public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(
+            AWidget widget);
 
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
-			TypeSupport<P, TP> oggetto);
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagrafica(
-			MultiTypeSupport<P, TP> oggetto);
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndShortname(
+            Integer dynamicFieldID, String typoShortname, Class<ANO> model);
 
-	/**
-	 * Metodo di supporto per la realizzazione del fitObject, inizializza sull'oggetto passato come parametro 
-	 * le proprieta che risultano nulle.
-	 *  
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param oggetto
-	 */
-	public <P extends Property<TP>, TP extends PropertiesDefinition> void fitAnagraficaOnCreation(
-			MultiTypeSupport<P, TP> oggetto);
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset);
 
-	/**
-	 * Metodo per la paginazione degli oggetti usando come criterio la tipologia di proprieta 
-	 * 
-	 * @param <T>
-	 * @param <P>
-	 * @param <TP>
-	 * @param <A>
-	 * @param model
-	 * @param tipologiaId
-	 * @param inverse
-	 * @param page
-	 * @param maxResults
-	 * @return
-	 */
-	public <T extends AnagraficaSupport<P, TP>, P extends Property<TP>, TP extends PropertiesDefinition> List<T> getPaginateListByTipologiaProprieta(
-			Class<T> model, Integer tipologiaId, boolean inverse, int page,
-			int maxResults);
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-	/**
-	 * 
-	 * Return properties definition by widget
-	 * 
-	 * @param <TP>
-	 * @param widget
-	 * @return
-	 */
-	public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(AWidget widget);
-	
-	
-	
-	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoID(
-	        Integer dynamicFieldID, Integer typoID, Class<ANO> model); 
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset);
 
-	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndShortname(
-	        Integer dynamicFieldID, String typoShortname, Class<ANO> model);
-	   
-	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
-            Integer dynamicFieldID, Integer typoID,
-            Class<ANO> model, int limit, int offset);
-	
-	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countNestedObjectsByParentIDAndTypoID(
-            Integer dynamicFieldID, Integer typoID,
-            Class<ANO> model);
-	
-	public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(Class<ANO> model, Integer tipologiaID);
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countActiveNestedObjectsByParentIDAndTypoID(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> void deleteNestedObjectByTypeID(Class<ANO> model, Integer tipologiaProprietaId);
-	   
-    
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(
+            Class<ANO> model, Integer tipologiaID);
+
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> void deleteNestedObjectByTypeID(
+            Class<ANO> model, Integer tipologiaProprietaId);
+
 }

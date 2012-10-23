@@ -2,6 +2,7 @@
 <%@ attribute name="typeDefinition" required="true" type="it.cilea.osd.jdyna.model.ADecoratorTypeDefinition"%>
 <%@ attribute name="editmode" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="parentID" required="true"%>
+<%@ attribute name="specificPartPath" required="true"%>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -17,7 +18,7 @@
 							jQuery('#nestedfragmentcontent_${typeDefinition.shortName}').html("");
 							jQuery(".ui-dialog-titlebar").html("");
 							var parameterId = this.id;																	
-							var ajaxurlrelations = "<%= request.getContextPath() %>/rp/editNested.htm";
+							var ajaxurlrelations = "<%= request.getContextPath() %>/cris/${specificPartPath}/editNested.htm";
 							jQuery.ajax( {
 								url : ajaxurlrelations,
 								data : {																			
@@ -49,7 +50,7 @@
 					Loader.write("Delete object...");															
 					
 					var parameterId = this.id;
-					var ajaxurlrelations = "<%= request.getContextPath() %>/rp/deleteNested.htm";
+					var ajaxurlrelations = "<%= request.getContextPath() %>/cris/${specificPartPath}/deleteNested.htm";
 					jQuery.ajax( {
 						url : ajaxurlrelations,
 						data : {																			
@@ -102,7 +103,7 @@
 					value="${(count - count % fn:length(typeDefinition.real.mask))/fn:length(typeDefinition.real.mask)}" />
 				<c:set var="count" value="${count+1}" />
 				
-				<dyna:display hideLabel="true" tipologia="${subtip}" values="${values[numriga].anagrafica4view[subtip.shortName]}"/>
+				<dyna:display hideLabel="true" tipologia="${subtip}" values="${values[numriga].anagrafica4view[subtip.shortName]}" editMode="${editMode}" subElement="true"/>
 		
 				</display-el:column>
 			
@@ -129,7 +130,7 @@
 		<c:forEach var="subtip" items="${subTypesSortered}">
 			<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 			
-			<dyna:display-combo-inline subValues="${value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" />
+			<dyna:display-combo-inline subValues="${value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" subElement="false"/>
 			
 			<%-- FINE DEL COPIA INCOLLA --%>
 		</c:forEach>

@@ -34,6 +34,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
     private Class<ANO> targetClass;
     private Class<TP> typeClass;
     private Class<PD> propertyDefinitionClass;
+    private String specificPartPath;
     
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception
@@ -52,6 +53,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         model.put("elementID", typo.getShortName());
         model.put("typeNestedID", typeNestedStringID);
         model.put("editmode", editmode);
+        model.put("specificPartPath", getSpecificPartPath());
         return model;
     }
 
@@ -100,12 +102,15 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         if(anagraficaObjectDTO.getObjectId()!=null) {
             myObject = applicationService.get(targetClass, anagraficaObjectDTO.getObjectId());          
         }
-                
+        
+        boolean visible = AnagraficaUtils.checkIsVisible(anagraficaObjectDTO, typo.getMask());
         AnagraficaUtils.reverseDTO(anagraficaObjectDTO, myObject, typo.getMask());
         
         myObject.pulisciAnagrafica();
         myObject.setParent((AnagraficaSupport<P, PD>)applicationService.get(myObject.getClassParent(), anagraficaObjectDTO.getParentId()));
         myObject.setTypo(typo);
+        myObject.setStatus(visible);
+                
         getApplicationService().saveOrUpdate(targetClass, myObject);
        
         Map<String, Object> model = new HashMap<String, Object>(); 
@@ -124,6 +129,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         model.put("parentID", parentID);
         model.put("totalHit", countAll.intValue());
         model.put("hitPageSize", results.size());
+        model.put("specificPartPath", getSpecificPartPath());
         return new ModelAndView(getSuccessView(), model);// + anagraficaObjectDTO.getParentId() + "#viewnested_" + typo.getShortName());
     }
 
@@ -225,6 +231,16 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
     public void setPropertyDefinitionClass(Class<PD> propertyDefinitionClass)
     {
         this.propertyDefinitionClass = propertyDefinitionClass;
+    }
+
+    public void setSpecificPartPath(String specificPartPath)
+    {
+        this.specificPartPath = specificPartPath;
+    }
+
+    public String getSpecificPartPath()
+    {
+        return specificPartPath;
     }
 
 }

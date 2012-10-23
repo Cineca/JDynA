@@ -50,6 +50,8 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
     private Map<String, IComponent> components;
 
+    private String specificPartPath;
+    
     public void setComponents(Map<String, IComponent> components)
     {
         this.components = components;
@@ -226,7 +228,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         model.put("path", modelPath);
         model.put("anagraficaObject", jdynaObject);
         model.put("addModeType", "display");
-        		
+        model.put("specificPartPath", getSpecificPartPath());
 		return new ModelAndView(detailsView, model);
 	}
 
@@ -326,5 +328,17 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
     public Map<String, IComponent> getComponents()
     {
         return components;
+    }
+
+
+    public void setSpecificPartPath(String specificPartPath)
+    {
+        this.specificPartPath = specificPartPath;
+    }
+
+
+    public String getSpecificPartPath()
+    {
+        return specificPartPath;
     }
 }

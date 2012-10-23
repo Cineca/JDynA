@@ -26,6 +26,18 @@ public interface NestedObjectDAO<ANO extends ANestedObject<NP, NTP>, NP extends 
     long countNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
             Integer typoID);
 
+    
+    List<ANO> findActiveNestedObjectsByParentIDAndTypoShortname(Integer dynamicFieldID,
+            String typoShortname);
+    
+    public List<ANO> paginateActiveNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+            Integer typoID, String sort, boolean inverse, int firstResult,
+            int maxResults);
+
+    long countActiveNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+            Integer typoID);
+    
+    
     List<ANO> findNestedObjectsByTypoID(Integer typeId);
 
     void deleteNestedObjectsByTypoID(Integer typeId);    
