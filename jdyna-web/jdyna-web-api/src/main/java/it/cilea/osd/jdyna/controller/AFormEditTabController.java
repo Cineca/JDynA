@@ -2,12 +2,15 @@ package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
 import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.util.TabUtils;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -17,18 +20,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.validation.BindException;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 public abstract class AFormEditTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
         extends BaseFormController
 {
 
+    public static final String DIRECTORY_TAB_ICON = "icon";
+
+    public static final String PREFIX_TAB_ICON = "tab_";
+
+    
     /**
      * the applicationService for query the Tab db, injected by Spring IoC
      */
     protected ITabService applicationService;
-
-    protected TabUtils tabUtils;
 
     protected Class<T> tabClass;
 
@@ -109,14 +116,50 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
         this.boxClass = boxClass;
     }
 
-    public TabUtils getTabUtils()
+    /**
+     * 
+     * Load tab icon and copy to default directory.
+     * 
+     * @param researcher
+     * @param rp
+     * @param itemImage
+     *            MultipartFile to use in webform
+     * @throws IOException
+     * @throws FileNotFoundException
+     */
+    public void loadTabIcon(ET tab, String iconName, MultipartFile itemImage)
+            throws IOException, FileNotFoundException
     {
-        return tabUtils;
+        String pathImage = tab.getFileSystemPath();
+        String ext = itemImage.getOriginalFilename().substring(
+                itemImage.getOriginalFilename().lastIndexOf(".") + 1);
+        File dir = new File(pathImage + File.separatorChar + DIRECTORY_TAB_ICON);
+        dir.mkdir();
+        File file = new File(dir, PREFIX_TAB_ICON + iconName + "." + ext);
+        file.createNewFile();
+        FileOutputStream out = new FileOutputStream(file);
+        it.cilea.osd.common.util.Utils.bufferedCopy(itemImage.getInputStream(), out);
+        out.close();
+        tab.setExt(ext);
+        tab.setMime(itemImage.getContentType());
     }
 
-    public void setTabUtils(TabUtils tabUtils)
+    /**
+     * Remove tab icon from the server.
+     * 
+     * @param researcher
+     */
+    public void removeTabIcon(ET tab)
     {
-        this.tabUtils = tabUtils;
+
+        File image = new File(
+                tab.getFileSystemPath()
+                        + File.separatorChar + DIRECTORY_TAB_ICON
+                        + File.separatorChar + PREFIX_TAB_ICON + tab.getId()
+                        + "." + tab.getExt());
+        image.delete();
+        tab.setExt(null);
+        tab.setMime(null);
     }
 
 }

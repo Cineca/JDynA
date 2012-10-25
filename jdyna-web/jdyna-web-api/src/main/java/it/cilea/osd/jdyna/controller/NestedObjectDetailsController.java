@@ -27,6 +27,8 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
     private Class<DTP> decoratorClazz;
     
     private String specificPartPath;
+    private String specificContextPath;
+    
     
     public NestedObjectDetailsController(Class<T> model, Class<DTP> decoratorClazz)
     {
@@ -89,6 +91,7 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         model.put("totalHit", countAll.intValue());
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", specificPartPath);
+        model.put("specificContextPath", specificContextPath);
         return new ModelAndView(detailsView, model);
     }
 
@@ -142,7 +145,7 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         model.put("totalHit", countAll.intValue());
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", specificPartPath);
-        
+        model.put("specificContextPath", specificContextPath);
         return new ModelAndView(detailsView, model);
     }
 
@@ -164,6 +167,16 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
     public String getSpecificPartPath()
     {
         return specificPartPath;
+    }
+
+    public void setSpecificContextPath(String specificContextPath)
+    {
+        this.specificContextPath = specificContextPath;
+    }
+
+    public String getSpecificContextPath()
+    {
+        return specificContextPath;
     }
 
 

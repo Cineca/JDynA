@@ -24,7 +24,7 @@ public abstract class AjaxNavigationController<B extends Box, T extends Tab>
 
     private Class<T> tabClazz;
 
-    private String specificPath;
+    private String specificPartPath;
     
     private Map<String, IComponent> components;
 
@@ -95,7 +95,7 @@ public abstract class AjaxNavigationController<B extends Box, T extends Tab>
         model.put("areatitle", tab.getTitle());
         model.put("currentOpenedTabId", request.getParameter("currentOpenedTabId"));
         model.put("authority", request.getParameter("authority"));
-        model.put("specificPath", getSpecificPath());
+        model.put("specificPartPath", getSpecificPartPath());
         return new ModelAndView(detailsView, model);
 
     }
@@ -125,14 +125,14 @@ public abstract class AjaxNavigationController<B extends Box, T extends Tab>
         this.components = components;
     }
 
-    public String getSpecificPath()
+    public String getSpecificPartPath()
     {
-        return specificPath;
+        return specificPartPath;
     }
 
-    public void setSpecificPath(String specificPath)
+    public void setSpecificPartPath(String specificPath)
     {
-        this.specificPath = specificPath;
+        this.specificPartPath = specificPath;
     }
 
 }

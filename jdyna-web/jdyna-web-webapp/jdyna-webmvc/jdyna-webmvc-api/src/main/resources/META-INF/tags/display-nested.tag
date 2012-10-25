@@ -18,7 +18,7 @@
 							jQuery('#nestedfragmentcontent_${typeDefinition.shortName}').html("");
 							jQuery(".ui-dialog-titlebar").html("");
 							var parameterId = this.id;																	
-							var ajaxurlrelations = "<%= request.getContextPath() %>/cris/${specificPartPath}/editNested.htm";
+							var ajaxurlrelations = "<%= request.getContextPath() %>${specificPartPath}/editNested.htm";
 							jQuery.ajax( {
 								url : ajaxurlrelations,
 								data : {																			
@@ -50,7 +50,7 @@
 					Loader.write("Delete object...");															
 					
 					var parameterId = this.id;
-					var ajaxurlrelations = "<%= request.getContextPath() %>/cris/${specificPartPath}/deleteNested.htm";
+					var ajaxurlrelations = "<%= request.getContextPath() %>${specificPartPath}/deleteNested.htm";
 					jQuery.ajax( {
 						url : ajaxurlrelations,
 						data : {																			
@@ -103,7 +103,7 @@
 					value="${(count - count % fn:length(typeDefinition.real.mask))/fn:length(typeDefinition.real.mask)}" />
 				<c:set var="count" value="${count+1}" />
 				
-				<dyna:display hideLabel="true" tipologia="${subtip}" values="${values[numriga].anagrafica4view[subtip.shortName]}" editMode="${editMode}" subElement="true"/>
+				<dyna:display hideLabel="true" tipologia="${subtip}" values="${values[numriga].anagrafica4view[subtip.shortName]}" editMode="${editmode}" subElement="true"/>
 		
 				</display-el:column>
 			
@@ -130,7 +130,7 @@
 		<c:forEach var="subtip" items="${subTypesSortered}">
 			<%-- Dovrei richiamare dyna:display per ricorsione ma non funziona... --%>
 			
-			<dyna:display-combo-inline subValues="${value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" subElement="false"/>
+			<dyna:display-combo-inline subValues="${value.anagrafica4view[subtip.shortName]}" subtip="${subtip}" subElement="false" editMode="${editmode}"/>
 			
 			<%-- FINE DEL COPIA INCOLLA --%>
 		</c:forEach>

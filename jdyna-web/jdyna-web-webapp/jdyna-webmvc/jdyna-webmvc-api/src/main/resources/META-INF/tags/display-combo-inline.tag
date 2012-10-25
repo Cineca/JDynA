@@ -3,6 +3,7 @@
 <%@ attribute name="subtip" required="true"
 	type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
+<%@ attribute name="editMode" required="false" type="java.lang.Boolean"%>
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
@@ -100,6 +101,11 @@
 
 <c:set var="subshowit" value="false" target="java.lang.Boolean" />
 
+<c:choose>
+<c:when test="${editMode}">
+	<c:set var="subshowit" value="true" target="java.lang.Boolean" />
+</c:when>
+<c:otherwise>
 
 		<c:forEach var="subvalue" items="${subValues}" varStatus="valueStatus">
 
@@ -107,7 +113,8 @@
 				<c:set var="subshowit" value="true" target="java.lang.Boolean" />
 			</c:if>
 		</c:forEach>
-
+</c:otherwise>
+</c:choose>
 
 <c:if test="${!subElement}">
 	<c:set var="fieldMinWidth" value="" />
@@ -131,7 +138,7 @@
 			<c:set var="labelMinWidth" value="width:${subtip.labelMinSize}em;" />
 		</c:if> <c:if test="${!empty labelMinWidth}">
 			<c:set var="labelStyle" value="style=\" ${labelMinWidth}\"" />
-		</c:if> <span class="dynaLabel"${labelStyle}>${subtip.label}:</span>
+		</c:if> <span class="dynaLabel"${labelStyle}>${subtip.label}</span>
 		<div id="${subtip.shortName}Div" class="dynaFieldValue">
 	</c:if>
 </c:if>
@@ -141,7 +148,7 @@
 			
 		<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility==1}">
+		<c:if test="${value.visibility==1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -190,13 +197,23 @@
 				
 				</c:otherwise>
 			</c:choose>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 		</c:when>
 		<c:when test="${isLink}">
 			<c:forEach var="value" items="${subValues}" varStatus="valueStatus">
 
-				<c:if test="${value.visibility==1}">
+				<c:if test="${value.visibility==1 || editMode}">
 					<c:if test="${valueStatus.count != 1}">
 						<br />
 					</c:if>
@@ -240,12 +257,23 @@
 				
 				</c:otherwise>
 				</c:choose>
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
 				</c:if>
 			</c:forEach>
 		</c:when>
 		<c:when test="${isSubText}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
@@ -266,11 +294,24 @@
 					<c:set var="style" value="style=\" ${minwidth}\"" />
 				</c:if>
 				<span ${style}>${subValue.object}</span>
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				
+			</c:if>
 			</c:forEach>
 		</c:when>
 		<c:when test="${isSubTextArea}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:set var="minheight" value="" />
 				<c:set var="minwidth" value="" />
 				<c:set var="style" value="" />
@@ -287,35 +328,84 @@
 				</c:if>
 				<div ${style}>${subtip.rendering.htmlToolbar eq
 				'nessuna'?dyna:nl2br(subValue.object):subValue.object}</div>
+				
+								<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
 			</c:forEach>
 		</c:when>
 		<c:when
 			test="${isSubClassificazione|| isSubSoggettario || isSubRadio || isSubCheckbox}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
 								${subValue.object.nome}
-							</c:forEach>
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
+			</c:forEach>
 		</c:when>
 		<c:when test="${isSubPuntatore}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
 								${dyna:getDisplayValue(subValue.object,subtip.rendering.display)}
-							</c:forEach>
+								
+								<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
+			</c:forEach>
 		</c:when>
 		<c:when test="${isSubBoolean}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
 								${subValue.object?'Si':'No'}
-							</c:forEach>
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
+			</c:forEach>
 		</c:when>
 
 		<c:when test="${isSubNumero}">
@@ -330,20 +420,44 @@
 
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
 				<div class="number"${style}>${dyna:display(subtip,subValue.object)}</div>
+								<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
 			</c:forEach>
 		</c:when>
 		<c:otherwise>
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
 				</c:if>
-								${dyna:display(subtip,subValue.object)}
-							</c:forEach>
+				${dyna:display(subtip,subValue.object)}
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
+			</c:forEach>
 		</c:otherwise>
 	</c:choose>
 	</div>

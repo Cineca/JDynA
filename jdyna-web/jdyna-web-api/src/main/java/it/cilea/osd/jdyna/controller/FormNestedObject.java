@@ -35,6 +35,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
     private Class<TP> typeClass;
     private Class<PD> propertyDefinitionClass;
     private String specificPartPath;
+    private String specificContextPath;
     
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception
@@ -48,12 +49,15 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         model.put("maschera", typo.getMask());               
         String parentStringID = request.getParameter("parentID");
         String editmode = request.getParameter("editmode");
+        String isAdmin = request.getParameter("admin");
                 
         model.put("parentID", parentStringID);
         model.put("elementID", typo.getShortName());
         model.put("typeNestedID", typeNestedStringID);
         model.put("editmode", editmode);
         model.put("specificPartPath", getSpecificPartPath());
+        model.put("specificContextPath", getSpecificContextPath());
+        model.put("admin", isAdmin);
         return model;
     }
 
@@ -130,6 +134,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         model.put("totalHit", countAll.intValue());
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", getSpecificPartPath());
+        model.put("specificContextPath", getSpecificContextPath());
         return new ModelAndView(getSuccessView(), model);// + anagraficaObjectDTO.getParentId() + "#viewnested_" + typo.getShortName());
     }
 
@@ -241,6 +246,16 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
     public String getSpecificPartPath()
     {
         return specificPartPath;
+    }
+
+    public void setSpecificContextPath(String specificContextPath)
+    {
+        this.specificContextPath = specificContextPath;
+    }
+
+    public String getSpecificContextPath()
+    {
+        return specificContextPath;
     }
 
 }

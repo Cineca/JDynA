@@ -141,6 +141,9 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	@Transient
 	public abstract void setMask(List<H> mascherate);
 	
+	@Transient
+	public abstract String getFileSystemPath();
+	
 	public int getPriority() {
 		return priority;
 	}

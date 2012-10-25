@@ -152,7 +152,7 @@
 	<c:when test="${isFile}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -201,13 +201,23 @@
 				
 				</c:otherwise>
 			</c:choose>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
@@ -247,6 +257,16 @@
 				
 				</c:otherwise>
 			</c:choose>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>
@@ -271,12 +291,22 @@
 			</c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			<span ${style}>${displayObject}</span>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isTextArea}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:set var="minheight" value="" />
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -291,42 +321,92 @@
 			</c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			<div ${style}>${tipologia.rendering.htmlToolbar eq 'nessuna'?dyna:nl2br(displayObject):displayObject}</div>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>	
 	<c:when test="${isClassificazione || isRadio || isCheckbox}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real.nome}" />
 			${displayObject}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isSoggettario}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real.voce}" />
 			${displayObject}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>	
 		</c:forEach>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>		
 		</c:if>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isBoolean}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1}">
+		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			${displayObject?'Si':'No'}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:when>
@@ -341,9 +421,19 @@
 		</c:if>			
 	
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-	  	<c:if test="${value.visibility == 1}">
+	  	<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<div class="number" ${style}>${dyna:display(tipologia,value.value.real)}</div>			
+			<div class="number" ${style}>${dyna:display(tipologia,value.value.real)}</div>
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>		
 		</c:if>
 		</c:forEach>
 	</c:when>
@@ -353,6 +443,16 @@
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			${dyna:display(tipologia,displayObject)}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
 		</c:if>
 		</c:forEach>
 	</c:otherwise>

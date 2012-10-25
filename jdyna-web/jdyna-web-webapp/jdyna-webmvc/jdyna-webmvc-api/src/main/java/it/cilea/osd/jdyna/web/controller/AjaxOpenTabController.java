@@ -24,7 +24,7 @@ public abstract class AjaxOpenTabController<B extends Box, T extends Tab>
 
     private Class<T> tabClazz;
 
-    private String specificPath;
+    private String specificPartPath;
 
     private Map<String, IComponent> components;
 
@@ -60,7 +60,7 @@ public abstract class AjaxOpenTabController<B extends Box, T extends Tab>
         model.put("areaid", tab.getId());
         model.put("areatitle", tab.getTitle());        
         model.put("authority", request.getParameter("authority"));
-        model.put("specificPath", getSpecificPath());
+        model.put("specificPartPath", getSpecificPartPath());
         model.put("showtab", visible);
         return new ModelAndView(detailsView, model);
 
@@ -88,14 +88,14 @@ public abstract class AjaxOpenTabController<B extends Box, T extends Tab>
         this.components = components;
     }
 
-    public String getSpecificPath()
+    public String getSpecificPartPath()
     {
-        return specificPath;
+        return specificPartPath;
     }
 
-    public void setSpecificPath(String specificPath)
+    public void setSpecificPartPath(String specificPath)
     {
-        this.specificPath = specificPath;
+        this.specificPartPath = specificPath;
     }
 
 

@@ -58,7 +58,7 @@ public class FormTabController<H extends IPropertyHolder<Containable>, T extends
             Boolean deleteImage = Boolean.parseBoolean(deleteImage_s);
             if (deleteImage)
             {
-                tabUtils.removeTabIcon(object);
+                removeTabIcon(object);
             }
         }
 
@@ -75,7 +75,7 @@ public class FormTabController<H extends IPropertyHolder<Containable>, T extends
         // if there is a remote url we don't upload the file
         if (itemIcon != null && !itemIcon.getOriginalFilename().isEmpty())
         {
-            tabUtils.loadTabIcon(object, object.getId().toString(),
+            loadTabIcon(object, object.getId().toString(),
                     object.getIconFile());
             applicationService.saveOrUpdate(tabClass,
                     object);
