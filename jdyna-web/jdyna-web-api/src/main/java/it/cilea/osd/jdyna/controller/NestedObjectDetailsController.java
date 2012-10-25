@@ -57,6 +57,7 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         String pageString = request.getParameter("pageCurrent");
         String offsetString = request.getParameter("offset");
         String editmode = request.getParameter("editmode");
+        String admin = request.getParameter("admin");
         Boolean edit = false;
         if(editmode!=null && !editmode.isEmpty()) {
             edit = Boolean.parseBoolean(editmode);            
@@ -92,6 +93,7 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", specificPartPath);
         model.put("specificContextPath", specificContextPath);
+        model.put("admin", admin);
         return new ModelAndView(detailsView, model);
     }
 
@@ -107,7 +109,8 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         
         
         String parentStringID = request.getParameter("parentID");
-        String typeNestedStringID = request.getParameter("typeNestedID");        
+        String typeNestedStringID = request.getParameter("typeNestedID");
+        String admin = request.getParameter("admin");
         String editmode = request.getParameter("editmode");
         Boolean edit = false;
         if(editmode!=null && !editmode.isEmpty()) {
@@ -146,6 +149,7 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", specificPartPath);
         model.put("specificContextPath", specificContextPath);
+        model.put("admin", admin);
         return new ModelAndView(detailsView, model);
     }
 

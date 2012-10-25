@@ -3,6 +3,7 @@
 <%@ attribute name="editmode" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="parentID" required="true"%>
 <%@ attribute name="specificPartPath" required="true"%>
+<%@ attribute name="admin" required="false"%>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -25,7 +26,8 @@
 									"elementID" : parameterId,
 									"parentID" : ${parentID},
 									"typeNestedID" : ${typeDefinition.real.id},
-									"editmode": ${editmode}
+									"editmode": ${editmode},
+									"admin": ${admin}
 								},
 								success : function(data) {																
 									jQuery('#nestedfragment_${typeDefinition.shortName}').dialog("open");		
@@ -57,7 +59,8 @@
 							"elementID" : parameterId,
 							"parentID" : ${parentID},
 							"typeNestedID" : ${typeDefinition.real.id},
-							"editmode": ${editmode}							
+							"editmode": ${editmode},
+							"admin": ${admin}
 						},
 						success : function(data) {															
 							j('#viewnested_${typeDefinition.shortName}').html(data);								

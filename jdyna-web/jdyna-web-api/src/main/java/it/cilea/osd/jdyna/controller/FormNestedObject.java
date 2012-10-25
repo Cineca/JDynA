@@ -135,6 +135,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", getSpecificPartPath());
         model.put("specificContextPath", getSpecificContextPath());
+        model.put("admin", request.getAttribute("is.admin"));
         return new ModelAndView(getSuccessView(), model);// + anagraficaObjectDTO.getParentId() + "#viewnested_" + typo.getShortName());
     }
 
