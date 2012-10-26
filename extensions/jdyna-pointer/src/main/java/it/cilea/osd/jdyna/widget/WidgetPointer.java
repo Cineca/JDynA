@@ -152,31 +152,6 @@ public class WidgetPointer extends AWidget {
 		}
 	}
 
-	/**
-	 * Calcola il valore da stampare valutando l'espressione contenuta
-	 * nell'attributo display sull'oggetto <em>value</em> passato come
-	 * parametro. Il calcolo del valore e' fatto da FormulaManager usato come
-	 * classe di utilita' per i widget. Torna la stringa vuota se l'oggetto e'
-	 * null. FIXME attualmente non cattura l'eccezione ognl
-	 * 
-	 * @see FormulaManager
-	 * @param value :
-	 *            l'oggetto da valutare per stampare la sua descrizione testuale
-	 * @exception OgnlException
-	 * @return la stringa da visualizzare
-	 */
-	@Override
-	public String toString(Object value) {
-		if (value == null) {
-			log.debug("widgetPointer - il value e' null");
-			return "";
-		}
-		Object result = FormulaManager.calcoloValore(display, value, null, 0);
-		if (result == null) {
-			return "";
-		}
-		return (String) result;
-	}
 
 	public String getDisplay() {
 		return display;

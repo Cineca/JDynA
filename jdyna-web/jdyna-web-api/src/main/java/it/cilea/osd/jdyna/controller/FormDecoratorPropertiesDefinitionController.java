@@ -87,6 +87,7 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
         String tabId = request.getParameter("tabId");
         
         DTP object = (DTP) command;
+                
         applicationService.saveOrUpdate(object.getDecoratorClass(), object);
                 
         if(boxId!=null && !boxId.isEmpty()) {
@@ -120,5 +121,15 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
     public void setSpecificPartPath(String specificPartPath)
     {
         this.specificPartPath = specificPartPath;
+    }
+
+    public Class<W> getRenderingModel()
+    {
+        return renderingModel;
+    }
+
+    public Class<H> getBoxModel()
+    {
+        return boxModel;
     }
 }

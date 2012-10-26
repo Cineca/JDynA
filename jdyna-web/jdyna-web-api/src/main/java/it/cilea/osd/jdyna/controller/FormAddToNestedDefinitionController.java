@@ -71,4 +71,14 @@ public class FormAddToNestedDefinitionController<W extends AWidget, TP extends A
         return new ModelAndView(getSuccessView()+"?pDId="+rPd.getReal().getId()+"&boxId="+boxId+"&tabId="+tabId);
     }
 
+    public Class<DTT> getTypeModel()
+    {
+        return typeModel;
+    }
+
+    public void setTypeModel(Class<DTT> typeModel)
+    {
+        this.typeModel = typeModel;
+    }
+
 }
