@@ -82,7 +82,7 @@
 	<c:set var="isSubRadio" value="true" />
 </c:if>
 
-<c:if test="${subtip.rendering.triview eq 'puntatore'}">
+<c:if test="${subtip.rendering.triview eq 'pointer'}">
 	<c:set var="isSubPuntatore" value="true" />
 </c:if>
 
@@ -370,10 +370,10 @@
 				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
-				</c:if>
-								${dyna:getDisplayValue(subValue.object,subtip.rendering.display)}
-								
-								<c:if test="${editMode}">
+				</c:if>								
+				<spring:message text="${subtip.rendering.display}" var="displayPointer"/>
+				${displayPointer}
+				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
   					<img src="${root}/image/jdyna/checkbox.png"/>

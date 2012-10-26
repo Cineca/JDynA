@@ -32,11 +32,13 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
     private final String TYPO_ADDDATE = "date";
     private final String TYPO_ADDLINK = "link";
     private final String TYPO_ADDFILE = "file";
+    private final String TYPO_ADDPOINTER = "pointer";
 
     private String addTextView;
     private String addDateView;
     private String addLinkView;
     private String addFileView;
+    private String addPointerView;
 
     private ITabService applicationService;
 
@@ -114,6 +116,12 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
         if (maprequest.containsKey(TYPO_ADDFILE))
         {
             return new ModelAndView(addFileView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId);
+        }
+        if (maprequest.containsKey(TYPO_ADDPOINTER))
+        {
+            return new ModelAndView(addPointerView.trim() + "?renderingparent="
                     + object.getId() + "&boxId=" + boxId
                     + "&tabId=" + tabId);
         }
@@ -201,6 +209,16 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
     public void setDecoratorClass(Class<ATN> decoratorClass)
     {
         this.decoratorClass = decoratorClass;
+    }
+
+    public String getAddPointerView()
+    {
+        return addPointerView;
+    }
+
+    public void setAddPointerView(String addPointerView)
+    {
+        this.addPointerView = addPointerView;
     }
 
  

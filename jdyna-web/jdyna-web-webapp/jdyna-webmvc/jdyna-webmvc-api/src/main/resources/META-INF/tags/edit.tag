@@ -64,7 +64,7 @@
 	<c:set var="isFormula" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'puntatore'}">
+<c:if test="${tipologia.rendering.triview eq 'pointer'}">
 	<c:set var="isPuntatore" value="true" />
 </c:if>
 

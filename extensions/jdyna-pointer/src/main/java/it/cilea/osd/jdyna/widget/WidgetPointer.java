@@ -52,7 +52,7 @@ import org.hibernate.annotations.Type;
  * 
  */
 @Entity
-@Table(name="dyna_widget_pointer")
+@Table(name="jdyna_widget_pointer")
 @NamedQueries( {
 		@NamedQuery(name = "WidgetPointer.findAll", query = "from WidgetPointer order by id"),
 		@NamedQuery(name = "WidgetPointer.findWidgetByTarget", query = "from WidgetPointer where target = ?") 
@@ -60,7 +60,7 @@ import org.hibernate.annotations.Type;
 public class WidgetPointer extends AWidget {
 	
 	protected String target;
-	
+		
 	/** E'il valore che si vuole mostrare sulla view.
 	 *  display conterra' stringhe immesse dall'amministratore del
 	 *  tipo '${cognome}+", "+${nome}.substring(0,1)'.
@@ -77,7 +77,10 @@ public class WidgetPointer extends AWidget {
 	 * filtro da utilizzare nell'autocompletamento per la ricerca. Ad es
 	 * (pointer -> ContattoFisico) +type.name:"cliente"
 	 */
+	@Type(type = "text")
 	protected String filtro;
+	
+	protected String indexName;
 	
 	/** size of input box */
 	protected int size = 20;
@@ -195,7 +198,7 @@ public class WidgetPointer extends AWidget {
 
 	@Override
 	public String getTriview() {
-		return "puntatore";
+		return "pointer";
 	}
 
 	@Deprecated
@@ -223,4 +226,14 @@ public class WidgetPointer extends AWidget {
 	public ValidationMessage valida(Object valore) {
 		return null;
 	}
+
+    public String getIndexName()
+    {
+        return indexName;
+    }
+
+    public void setIndexName(String indexName)
+    {
+        this.indexName = indexName;
+    }
 }

@@ -28,6 +28,8 @@ package it.cilea.osd.jdyna.value;
 import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.jdyna.model.AValue;
 
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
 import javax.persistence.Transient;
 
 public abstract class PointerValue<P extends Identifiable> extends AValue<P> {
