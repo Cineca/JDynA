@@ -75,7 +75,7 @@
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 		<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
-		<c:if test="${disabled}">		
+		<c:if test="${!disabled}">		
 			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden"/>		
 		</c:if>
 		<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
