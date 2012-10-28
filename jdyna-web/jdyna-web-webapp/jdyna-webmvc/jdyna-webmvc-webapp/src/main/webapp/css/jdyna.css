@@ -641,3 +641,8 @@ table.dynaFieldComboValueFirstLast tr td {
 .calendar {
 	z-index: 1300;	
 }
+span.spandatabind {display: none !important;}
+div.viewnested{margin: 0px !important; padding: 0px !important;}
+span.nestedPagination {display: block; text-align: center;}
+span.nestedPagination a {text-decoration: none; color: #2E6E9E;}
+span.nestedPagination a.current {font-weight: bold; color: #E17009;}

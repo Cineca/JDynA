@@ -25,7 +25,7 @@
 		</plugins>
 	</build>
 
-	<repositories>
+	<!-- <repositories>
 		<repository>
 			<id>repository.jboss.org</id>
 			<name>JBoss Maven Repository</name>
@@ -44,7 +44,7 @@
 
 
 	</repositories>
-
+ -->
 	<modules>
 		<module>jdyna-core</module>
 		<module>extensions</module>

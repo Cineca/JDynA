@@ -55,7 +55,6 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         String typeNestedStringID = request.getParameter("typeNestedID");
         String limitString = request.getParameter("limit");        
         String pageString = request.getParameter("pageCurrent");
-        String offsetString = request.getParameter("offset");
         String editmode = request.getParameter("editmode");
         String admin = request.getParameter("admin");
         Boolean edit = false;
@@ -67,7 +66,6 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         Integer typeNestedID = Integer.parseInt(typeNestedStringID);        
         Integer limit = Integer.parseInt(limitString);
         Integer page = Integer.parseInt(pageString);
-        Integer offset = Integer.parseInt(offsetString);
         
         List<T> results = null;
         Long countAll = null;
@@ -84,7 +82,6 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
         model.put("results", results);           
-        model.put("offset", offset + limit);
         model.put("limit", limit);
         model.put("pageCurrent", page);   
         model.put("editmode", edit);
@@ -121,8 +118,6 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         Integer typeNestedID = Integer.parseInt(typeNestedStringID);        
         Integer limit = 5;
         Integer page = 0;
-        Integer offset = 0;
-        
         
         List<T> results = null;
         Long countAll = null;
@@ -140,7 +135,6 @@ public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP ext
         
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
         model.put("results", results);           
-        model.put("offset", offset + limit);
         model.put("limit", limit);
         model.put("pageCurrent", page);   
         model.put("editmode", edit);
