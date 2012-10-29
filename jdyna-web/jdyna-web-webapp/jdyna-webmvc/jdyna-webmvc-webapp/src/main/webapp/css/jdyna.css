@@ -462,6 +462,7 @@ img.help {
 	color: #000;
 	background: #fff;
 	padding: 0.3em;
+	width: 100%;
 }
 
 .dynaFieldComboValue caption {
@@ -557,23 +558,22 @@ img.help {
 	border: 1px solid #996;
 }
 
-.dynaFieldComboValue tbody tr:hover,.dynaFieldComboValue tr.over,
-.dynaFieldComboValueFirst tbody tr:hover,.dynaFieldComboValueFirst tr.over,
-.dynaFieldComboValueLast tbody tr:hover,.dynaFieldComboValueLast tr.over,
-.dynaFieldComboValueFirstLast tbody tr:hover,.dynaFieldComboValueFirstLast tr.over {
-	background: #ffffd9 !important;
-	/* important needed for Tapestry, as is .dynaFieldComboValue tr:hover */
-}
-
 .dynaCollision {
 	font-size: 1.4em;
 }
 
-img.addButton,img.deleteButton,img.warn, img.addNestedButton,img.deleteNestedButton, img.editNestedButton {
+img.jdyna-icon {
+	width: 16px;
+	vertical-align: middle;
+}
+img.addButton,img.deleteButton,img.warn, img.nested_add_button,img.nested_delete_button, img.nested_edit_button 
+{
+	width: 16px;
 	padding: 0px;
 	margin: 0px;
 	float: none;
 	border: none;
+	vertical-align: middle;
 	cursor: pointer;
 }
 
@@ -647,3 +647,4 @@ span.nestedPagination {display: block; text-align: center;}
 span.nestedPagination a {text-decoration: none; color: #2E6E9E;}
 span.nestedPagination a.current {font-weight: bold; color: #E17009;}
 div.jdyna-form-button {text-align: right; border-top: 3px solid grey;padding-top:30px;}
+div.nested_actions {margin: 0px; display: inline;}
