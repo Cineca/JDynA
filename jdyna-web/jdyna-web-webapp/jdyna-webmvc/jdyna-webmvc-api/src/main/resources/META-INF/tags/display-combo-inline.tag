@@ -200,10 +200,10 @@
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 			</c:if>
@@ -260,10 +260,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -297,10 +297,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -332,10 +332,10 @@
 								<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -354,10 +354,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -376,10 +376,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -397,10 +397,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -428,10 +428,10 @@
 								<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>
@@ -449,10 +449,10 @@
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">
-  					<img src="${root}/image/jdyna/checkbox.png"/>
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
 				</c:when>
 				<c:otherwise>
-					<img src="${root}/image/jdyna/checkbox_unchecked.png"/>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
 				</c:otherwise>
 				</c:choose>
 				</c:if>

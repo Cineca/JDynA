@@ -71,10 +71,11 @@
 			
 			<%-- FINE DEL COPIA INCOLLA --%>
 		</c:forEach>
-		<c:if test="${editmode}">			
+		<c:if test="${editmode}">
+		<div class="nested_actions">		
 		<img id="nested_${typeDefinition.real.id}_edit_${value.id}" src="${root}/image/jdyna/edit.gif" class="nested_edit_button nested_edit_button_${typeDefinition.real.id} nested_edit_button_${typeDefinition.shortName}"/>
 		<img id="nested_${typeDefinition.real.id}_delete_${value.id}" src="${root}/image/jdyna/delete_icon.gif" class="nested_delete_button nested_delete_button_${typeDefinition.real.id} nested_delete_button_${typeDefinition.shortName}"/>					
-
+		</div>
 		</c:if>
 	</div>
 	<div class="dynaClear">&nbsp;</div>
