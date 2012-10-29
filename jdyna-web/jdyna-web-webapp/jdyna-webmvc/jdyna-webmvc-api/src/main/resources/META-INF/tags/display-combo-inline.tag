@@ -139,7 +139,7 @@
 		</c:if> <c:if test="${!empty labelMinWidth}">
 			<c:set var="labelStyle" value="style=\" ${labelMinWidth}\"" />
 		</c:if> <span class="dynaLabel"${labelStyle}>${subtip.label}</span>
-		<div id="${subtip.shortName}Div" class="dynaFieldValue">
+		<div class="dynaFieldValue">
 	</c:if>
 </c:if>
 <c:if test="${subshowit}">

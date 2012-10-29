@@ -9,78 +9,12 @@
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
 <c:set var="subTypesSortered" value="${dyna:sortList(typeDefinition.real.mask)}" />																			
-<script type="text/javascript">									
-
-		jQuery(".editNestedButton${typeDefinition.shortName}")
-				.click(
-						function() {						
-							jQuery("#log3").dialog("open");									
-							Loader.write("Loading form...");
-							jQuery('#nestedfragmentcontent_${typeDefinition.shortName}').html("");
-							jQuery(".ui-dialog-titlebar").html("");
-							var parameterId = this.id;																	
-							var ajaxurlrelations = "<%= request.getContextPath() %>${specificPartPath}/editNested.htm";
-							jQuery.ajax( {
-								url : ajaxurlrelations,
-								data : {																			
-									"elementID" : parameterId,
-									"parentID" : ${parentID},
-									"typeNestedID" : ${typeDefinition.real.id},
-									"editmode": ${editmode},
-									"admin": ${admin}
-								},
-								success : function(data) {																
-									jQuery('#nestedfragment_${typeDefinition.shortName}').dialog("open");		
-									jQuery(".ui-dialog-titlebar").html("${typeDefinition.label} &nbsp; <a class='ui-dialog-titlebar-close ui-corner-all' href='#' role='button'><span class='ui-icon ui-icon-closethick'>close</span></a>");jQuery(".ui-dialog-titlebar").show();		
-									jQuery('#nestedfragmentcontent_${typeDefinition.shortName}').html(data);
-									jQuery('#nestedfragment_${typeDefinition.shortName}').dialog('option', 'position', 'center');
-									jQuery("#log3").dialog("close");
-								},
-								error : function(data) {
-																												
-									Log.write(data.statusText);
-									
-								}
-							});
-	
-						});
-		
-		jQuery(".deleteNestedButton${typeDefinition.shortName}")
-		.click(
-				function() {						
-					jQuery("#log3").dialog("open");									
-					Loader.write("Delete object...");															
-					
-					var parameterId = this.id;
-					var ajaxurlrelations = "<%= request.getContextPath() %>${specificPartPath}/deleteNested.htm";
-					jQuery.ajax( {
-						url : ajaxurlrelations,
-						data : {																			
-							"elementID" : parameterId,
-							"parentID" : ${parentID},
-							"typeNestedID" : ${typeDefinition.real.id},
-							"editmode": ${editmode},
-							"admin": ${admin}
-						},
-						success : function(data) {															
-							j('#viewnested_${typeDefinition.shortName}').html(data);								
-							j("#log3").dialog("close");
-						},
-						error : function(data) {
-																										
-							Log.write(data.statusText);
-							
-						}
-					});
-
-				});
-	</script>
-												
+											
 <c:choose>								  						
 	<c:when test="${!typeDefinition.real.inline}">
 	<c:set var="count" value="0" />													
 												
-	<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${typeDefinition.shortName}"
+	<display:table name="${values}" cellspacing="0" cellpadding="0" uid="${typeDefinition.real.id}"
 		class="dynaFieldComboValue" requestURI="" sort="list" export="false" pagesize="100">
 	<display:setProperty name="paging.banner.no_items_found" value="" />
 	<display:setProperty name="paging.banner.one_item_found" value="" />
@@ -113,8 +47,8 @@
 	</c:forEach>
 	<c:if test="${editmode}">
 	<display:column>		
-		<img id="edit${typeDefinition.shortName}_${values[numriga].id}" src="${root}/image/jdyna/edit.gif" class="editNestedButton editNestedButton${typeDefinition.shortName}"/>
-		<img id="delete${typeDefinition.shortName}_${values[numriga].id}" src="${root}/image/jdyna/delete_icon.gif" class="deleteNestedButton deleteNestedButton${typeDefinition.shortName}"/>					
+		<img id="nested_${typeDefinition.real.id}_edit_${values[numriga].id}" src="${root}/image/jdyna/edit.gif" class="nested_edit_button nested_edit_button_${typeDefinition.real.id} nested_edit_button_${typeDefinition.shortName}"/>
+		<img id="nested_${typeDefinition.real.id}_delete_${values[numriga].id}" src="${root}/image/jdyna/delete_icon.gif" class="nested_delete_button nested_delete_button_${typeDefinition.real.id} nested_delete_button_${typeDefinition.shortName}"/>					
 	</display:column>
 	</c:if>
 	</display:table>	
@@ -138,8 +72,9 @@
 			<%-- FINE DEL COPIA INCOLLA --%>
 		</c:forEach>
 		<c:if test="${editmode}">			
-			<img id="edit${typeDefinition.shortName}_${value.id}" src="${root}/image/jdyna/edit.gif" class="editNestedButton editNestedButton${typeDefinition.shortName}"/>
-			<img id="delete${typeDefinition.shortName}_${value.id}" src="${root}/image/jdyna/delete_icon.gif" class="deleteNestedButton deleteNestedButton${typeDefinition.shortName}"/>
+		<img id="nested_${typeDefinition.real.id}_edit_${value.id}" src="${root}/image/jdyna/edit.gif" class="nested_edit_button nested_edit_button_${typeDefinition.real.id} nested_edit_button_${typeDefinition.shortName}"/>
+		<img id="nested_${typeDefinition.real.id}_delete_${value.id}" src="${root}/image/jdyna/delete_icon.gif" class="nested_delete_button nested_delete_button_${typeDefinition.real.id} nested_delete_button_${typeDefinition.shortName}"/>					
+
 		</c:if>
 	</div>
 	<div class="dynaClear">&nbsp;</div>

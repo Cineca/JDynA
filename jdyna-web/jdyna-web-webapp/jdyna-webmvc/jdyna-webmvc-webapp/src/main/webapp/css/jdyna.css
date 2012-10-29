@@ -557,19 +557,12 @@ img.help {
 	border: 1px solid #996;
 }
 
-.dynaFieldComboValue tbody tr:hover,.dynaFieldComboValue tr.over,
-.dynaFieldComboValueFirst tbody tr:hover,.dynaFieldComboValueFirst tr.over,
-.dynaFieldComboValueLast tbody tr:hover,.dynaFieldComboValueLast tr.over,
-.dynaFieldComboValueFirstLast tbody tr:hover,.dynaFieldComboValueFirstLast tr.over {
-	background: #ffffd9 !important;
-	/* important needed for Tapestry, as is .dynaFieldComboValue tr:hover */
-}
-
 .dynaCollision {
 	font-size: 1.4em;
 }
 
-img.addButton,img.deleteButton,img.warn, img.addNestedButton,img.deleteNestedButton, img.editNestedButton {
+img.addButton,img.deleteButton,img.warn, img.nested_add_button,img.nested_delete_button, img.nested_edit_button 
+{
 	padding: 0px;
 	margin: 0px;
 	float: none;
