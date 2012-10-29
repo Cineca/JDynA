@@ -646,3 +646,4 @@ div.viewnested{margin: 0px !important; padding: 0px !important;}
 span.nestedPagination {display: block; text-align: center;}
 span.nestedPagination a {text-decoration: none; color: #2E6E9E;}
 span.nestedPagination a.current {font-weight: bold; color: #E17009;}
+div.jdyna-form-button {text-align: right; border-top: 3px solid grey;padding-top:30px;}
