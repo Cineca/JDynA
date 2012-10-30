@@ -70,4 +70,22 @@ public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefiniti
     {
         return DecoratorTypeNestedObject.class;
     }
+
+    @Override
+    public Class getAnagraficaHolderClass()
+    {
+        return NestedObject.class;
+    }
+
+    @Override
+    public Class getPropertyHolderClass()
+    {
+        return NestedProperty.class;
+    }
+
+    @Override
+    public AWidget getRendering()
+    {        
+        return null;
+    }
 }

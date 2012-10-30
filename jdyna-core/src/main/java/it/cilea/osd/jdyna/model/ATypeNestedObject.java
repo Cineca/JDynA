@@ -44,7 +44,7 @@ import org.hibernate.annotations.Type;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> extends ATipologia<TP> implements Comparable<ATypeNestedObject<TP>>
+public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> extends ATipologia<TP> implements Comparable<ATypeNestedObject<TP>>, IPropertiesDefinition
 {
 
     /** DB Primary key */

@@ -189,7 +189,7 @@
 								
 								
 								<div
-									id="viewpointer_${tipologia.shortName}"
+									id="viewpointer_pointer_searchbox_${tipologia.shortName}"
 									class="previewfragment">
 										
 										<div id="log1_${tipologia.shortName}" class="log">
@@ -200,10 +200,10 @@
 								</div>
 
 								<div
-									id="pointerdialog_${tipologia.shortName}"
+									id="pointerdialog_pointer_searchbox_${tipologia.shortName}"
 									class="dialogfragment">
 									<div
-										id="pointerfragmentcontent_${tipologia.shortName}">
+										id="pointerfragmentcontent_pointer_searchbox_${tipologia.shortName}">
 										<div id="log2_${tipologia.shortName}" class="log">
 											<img
 												src="<%=request.getContextPath()%>/image/cris/bar-loader.gif"
@@ -212,46 +212,6 @@
 										</div>
 									</div>
 								</div>
-
-
-									<script type="text/javascript">		
-
-									j("#pointersearchbuttonid_${tipologia.shortName}").click(function()
-									{
-										j('#pointerdialog_${tipologia.shortName}').dialog({width: '800', closeOnEscape: true, modal: true, autoOpen: false, resizable: true, open: function(event, ui) { j(".ui-dialog-titlebar").hide();}});
-										j(".ui-dialog-titlebar").click(function() {	j('#pointerdialog_${tipologia.shortName}').dialog("close");});
-										
-										var parameterId = this.id;																	
-										var ajaxurlrelations = "searchPointer.htm";
-										j.ajax( {
-											url : ajaxurlrelations,
-											data : {																			
-												"elementID" : parameterId,
-												"parentID" : ${researcher.id},
-												"typeNestedID" : ${tipologia.id}								
-												
-											},
-											success : function(data) {																										
-												j('#pointerfragmentcontent_${tipologia.shortName}').html(data);								
-												
-											},
-											error : function(data) {
-												
-												LoaderSnippet.write(data.statusText, "logcontent1_${tipologia.shortName}");
-												
-											}
-										});
-									
-										
-										
-										
-										
-								    });				
-
-								
-								
-									</script>
-	
 	
 		<dyna:puntatore propertyPath="${propertyPath}" size="${tipologia.rendering.size}" 
 				target="${dyna:getTargetClass(tipologia.rendering)}" 

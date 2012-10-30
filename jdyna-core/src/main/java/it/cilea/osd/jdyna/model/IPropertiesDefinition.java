@@ -18,4 +18,6 @@ public interface IPropertiesDefinition {
 	public String getLabel();
 	
 	public int getPriority();
+	
+	public Integer getId();
 }
