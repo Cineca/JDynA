@@ -182,43 +182,29 @@
 	</c:when>
 	<c:when test="${isPuntatore}">
 								
-								<div id="pointer_searchbox_${tipologia.shortName}" class="pointersearchbox">									
-									<input type="text" id="pointersearchinput_${tipologia.shortName}" value=""/>
-									<input type="button" id="pointersearchbuttonid_${tipologia.shortName}"/> 
-								</div>
+			<div id="pointer_searchbox_${tipologia.shortName}" class="pointersearchbox">									
+					<input type="text" id="pointersearchinput_pointersearch_${tipologia.shortName}" value=""/>
+					<input type="button" class="pointersearchbutton" id="pointersearch_${tipologia.shortName}" value="Search"/> 
+			</div>
 								
 								
-								<div
-									id="viewpointer_pointer_searchbox_${tipologia.shortName}"
-									class="previewfragment">
-										
-										<div id="log1_${tipologia.shortName}" class="log">
-											<img src="<%=request.getContextPath()%>/image/cris/bar-loader.gif" id="loader1_${tipologia.shortName}" class="loader" />
-											<div id="logcontent1_${tipologia.shortName}" class="logcontent"></div>
-										</div>
+			<div
+					id="viewpointer_pointersearch_${tipologia.shortName}"
+					class="previewfragment">
+																			
 									
-								</div>
+			</div>
 
-								<div
-									id="pointerdialog_pointer_searchbox_${tipologia.shortName}"
-									class="dialogfragment">
-									<div
-										id="pointerfragmentcontent_pointer_searchbox_${tipologia.shortName}">
-										<div id="log2_${tipologia.shortName}" class="log">
-											<img
-												src="<%=request.getContextPath()%>/image/cris/bar-loader.gif"
-												id="loader2_${tipologia.shortName}" class="loader"/>
-											<div id="logcontent2_${tipologia.shortName}" class="logcontent"></div>
-										</div>
-									</div>
-								</div>
+			<div
+				id="pointerdialog_pointersearch_${tipologia.shortName}"
+				class="dialogfragment">
+				<div
+					id="pointerfragmentcontent_pointersearch_${tipologia.shortName}">
+								
+				</div>
+			</div>
 	
-		<dyna:puntatore propertyPath="${propertyPath}" size="${tipologia.rendering.size}" 
-				target="${dyna:getTargetClass(tipologia.rendering)}" 
-				display="${tipologia.rendering.display}" 
-				required="${required}" repeatable="${repetable}" 
-				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+	
 	</c:when>
 	<c:when test="${isClassificazione}">
 		<dyna:classificazione propertyPath="${propertyPath}" 

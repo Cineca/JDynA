@@ -60,10 +60,7 @@
 <spring:bind path="${propertyPath}">
 	<c:set var="values" value="${status.value}" />
 </spring:bind>
-
-<c:if test="${empty controllerURL}">
-	<c:set var="controllerURL" value="ajaxFrontPuntatore.htm"></c:set>
-</c:if>		   
+		   
 <c:catch var="exNoIndexedValue">
 <c:forEach var="value" items="${values}" varStatus="iterationStatus">	
 	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
@@ -84,46 +81,27 @@
 					
 		<input type="hidden" name="${inputName}" 
 				id="${inputName}" value="${inputValue}" />			
+		
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-		
- 		<input type="text" name="suggestbox${inputName}" id="suggestbox${inputName}" size="${size}" 
- 				value="${dyna:getDisplayValue(value,display)}" <dyna:javascriptEvents onchange="${onchangeJS}"/>/>
- 				
- 	  	<input type="hidden" id="display${inputName}" name="display${inputName}" 
- 	  			value="${dyna:replaceApiciDoppi(display)}"/>
-		
-		<c:if test="${not empty inputValue}">
-		  	<script type="text/javascript">				  	 
-		  		disabilitaTextBox('suggestbox${inputName}');
-		  	</script>
-		</c:if>
-		
-		<%-- Svuota il campo hidden e la box--%>
-		<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
-		<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/image/jdyna/indicator.gif" />"/></span>				  
-		<span id="message${inputName}"></span>
+				
+ 		<spring:message text="${display}" var="displayPointer"/>
+		${displayPointer}
+ 	 	
 		
 
 		 				
 	</spring:bind>
 	
-	<c:if test="${repeatable}">
-	<c:if test="${iterationStatus.count == 1}">
-	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-	
-	</c:if>
 
 	<c:choose>
-	<c:when test="${iterationStatus.count == fn:length(values)}">
-	<img src="${root}/image/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create()" />
+	<c:when test="${repeatable && iterationStatus.count == fn:length(values)}">
+	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"/>
 	</c:when>
 	<c:otherwise>
-	<img src="${root}/image/icons/delete_icon.gif" class="deleteButton"
-		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
+	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"/>
 	</c:otherwise>
 	</c:choose>
-	</c:if>
+	
 	
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
 </c:forEach>
@@ -165,29 +143,11 @@
 	
 	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 	
-	<input type="text" name="suggestbox${inputName}" id="suggestbox${inputName}" size="${size}"
-		value="${dyna:getDisplayValue(objectBehindPropertyPath,display)}" <dyna:javascriptEvents onchange="${onchangeJS}" />/>
-				
-  	<input type="hidden" id="display${inputName}" name="display${inputName}" 
-		value="${dyna:replaceApiciDoppi(display)}"/>
-	
-	<c:if test="${not empty inputValue}">
-	  	<script type="text/javascript">				  	 
-	  		disabilitaTextBox('suggestbox${inputName}');
-	  	</script>
-	</c:if>
-	
-	<%-- Svuota il campo hidden e la box--%>
-	<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
-	<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/image/jdyna/indicator.gif"/>" alt=""/></span>				  
-	<span id="message${inputName}"></span>
+	<spring:message text="${display}" var="displayPointer"/>
+	${displayPointer}
 		
-	<c:if test="${repeatable}">
-	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-	
-
-	<img src="${root}/image/main_plus.gif" class="addButton"
-		onclick="${dynajs_var}.create()" />
+	<c:if test="${repeatable}">	
+		<img src="${root}/image/jdyna/main_plus.gif" class="addButton" />
 	</c:if>
        
        <dyna:validation propertyPath="${validation}" />
