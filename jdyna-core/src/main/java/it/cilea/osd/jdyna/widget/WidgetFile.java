@@ -76,7 +76,7 @@ public abstract class WidgetFile extends AWidget {
 		String pathCV = getBasePath();
 		String ext = null;
 		File dir = new File(pathCV + File.separatorChar + folder);
-		dir.mkdir();
+		dir.mkdirs();
 		File file = null;
 		if(originalFilename.lastIndexOf(".")==-1) {			
 			fileName = originalFilename;
@@ -93,7 +93,7 @@ public abstract class WidgetFile extends AWidget {
 		int i = 1;
 		while(!file.createNewFile()) {
 			fileName = fileName +"_" + i;
-			file = new File(dir, fileName + ((ext!=null)?"":("."+ ext)));
+			file = new File(dir, fileName + ((ext!=null)?("."+ ext):""));
 			i++;
 		}
 		

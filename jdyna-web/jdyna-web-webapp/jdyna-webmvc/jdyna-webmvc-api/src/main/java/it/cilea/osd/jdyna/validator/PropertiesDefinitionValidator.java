@@ -3,6 +3,7 @@ package it.cilea.osd.jdyna.validator;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.IValidatorClassificationService;
+import it.cilea.osd.jdyna.service.IValidatorDynaService;
 import it.cilea.osd.jdyna.service.ValidatorService.ValidationResult;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
 import it.cilea.osd.jdyna.widget.WidgetClassificazione;
@@ -23,12 +24,12 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 	
    	private List<String> messages;
 
-    public PropertiesDefinitionValidator(IValidatorClassificationService validatorService) {
+    public PropertiesDefinitionValidator(IValidatorDynaService validatorService) {
 		super(validatorService);
 	}
    	
    	public boolean supports(Class clazz) {
-		return clazz.isAssignableFrom(PropertiesDefinition.class);
+		return PropertiesDefinition.class.isAssignableFrom(clazz);
 	}
 	
 	

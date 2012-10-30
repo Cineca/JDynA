@@ -100,40 +100,26 @@
 		
 		<%-- Svuota il campo hidden e la box--%>
 		<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
-		<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/images/indicator.gif" />"/></span>				  
+		<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/image/jdyna/indicator.gif" />"/></span>				  
 		<span id="message${inputName}"></span>
 		
 
-		<ajax:autocomplete
-        		baseUrl="${pageContext.request.contextPath}/${controllerURL}"
-        		source="suggestbox${inputName}"
-        		target="${inputName}"
-        		className="autocomplete"
-        		indicator="indicator${inputName}"        				
-        		minimumCharacters="3"       				        				
-		       	parameters="filtro=${filtro},query={suggestbox${inputName}},model=${target},display={display${inputName}}"			        		        	
-        		parser="new ResponseXmlToHtmlListParser()">
-        </ajax:autocomplete> 				
+		 				
 	</spring:bind>
 	
 	<c:if test="${repeatable}">
 	<c:if test="${iterationStatus.count == 1}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-	<script type="text/javascript">
-		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
-									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
-									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}');
-	</script>
+	
 	</c:if>
 
 	<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
-	<img src="${root}/images/main_plus.gif" class="addButton"
+	<img src="${root}/image/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:when>
 	<c:otherwise>
-	<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+	<img src="${root}/image/icons/delete_icon.gif" class="deleteButton"
 		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
 	</c:otherwise>
 	</c:choose>
@@ -193,30 +179,14 @@
 	
 	<%-- Svuota il campo hidden e la box--%>
 	<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
-	<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/images/indicator.gif"/>" alt=""/></span>				  
+	<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/image/jdyna/indicator.gif"/>" alt=""/></span>				  
 	<span id="message${inputName}"></span>
-			   
-	<ajax:autocomplete
-       		baseUrl="${pageContext.request.contextPath}/${controllerURL}"
-       		source="suggestbox${inputName}"
-       		target="${inputName}"
-       		className="autocomplete"
-       		indicator="indicator${inputName}"        				
-       		minimumCharacters="3"       				        				
-	       	parameters="filtro=${filtro},query={suggestbox${inputName}},model=${target},display={display${inputName}}"			        		        	
-       		parser="new ResponseXmlToHtmlListParser()">
-       </ajax:autocomplete>
-       
+		
 	<c:if test="${repeatable}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
-	<script type="text/javascript">
-		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
-									'${dyna:absolutePropertyPath(propertyPath)}',${fn:length(values)},
-									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
-									 ${size},'${cssClass}');
-	</script>
+	
 
-	<img src="${root}/images/main_plus.gif" class="addButton"
+	<img src="${root}/image/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:if>
        

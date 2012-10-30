@@ -1,5 +1,7 @@
 package it.cilea.osd.jdyna.service;
 
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
+import it.cilea.osd.jdyna.model.IPropertiesDefinition;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
 /** Classe di utilita' per la validazione delle singole proprieta', 
@@ -84,6 +86,17 @@ public class ValidatorService implements IValidatorDynaService {
 		}
 		return new ValidationResult();
 	}
+
+	/**
+     * {@inheritDoc}
+     */
+    public ValidationResult checkShortName(Class clazz,ATypeNestedObject metadato) {
+        if(metadato.getId()==null || !applicationService.exist(metadato.getClass(), metadato.getId())) {
+            if(applicationService.findTipologiaByNome(clazz, metadato.getShortName())!=null)
+                return new ValidationResult("error.message.validation.shortname",false,"Error");
+        }
+        return new ValidationResult();
+    }
 
 
 	public IPersistenceDynaService getApplicationService() {
