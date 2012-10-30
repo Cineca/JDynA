@@ -86,5 +86,11 @@ public class LinkValue extends AValue<EmbeddedLinkValue> {
 	public String getDescriptionLink() {
 		return real.getDescriptionLink();
 	}
+	
+	@Override
+	public String toString()
+	{
+	    return getDescriptionLink() + " ["+getValueLink()+"]";
+	}
 
 }
