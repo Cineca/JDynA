@@ -228,7 +228,7 @@
 											data : {																			
 												"elementID" : parameterId,
 												"parentID" : ${researcher.id},
-												"typeNestedID" : ${tipologia.real.id}								
+												"typeNestedID" : ${tipologia.id}								
 												
 											},
 											success : function(data) {																										

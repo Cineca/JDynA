@@ -25,6 +25,7 @@
  */
 package it.cilea.osd.jdyna.widget;
 
+import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.jdyna.editor.ModelPropertyEditor;
 import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AWidget;
@@ -96,16 +97,68 @@ public class WidgetPointer extends AWidget {
 	@Override
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService)
 	{
-		ModelPropertyEditor propertyEditor = new ModelPropertyEditor(getInstanceValore().getTargetClass());
+		ModelPropertyEditor propertyEditor = new ModelPropertyEditor(getTargetValoreClass());
 		propertyEditor.setApplicationService(applicationService);
 		return propertyEditor;
 	}
 	
 	
 	@Override
-	public PointerValue getInstanceValore() {
+	public PointerValue<?> getInstanceValore() {
 		try {
-			return (PointerValue) Class.forName(target).newInstance();
+		    PointerValue pointer = new PointerValue()
+            {
+
+                @Override
+                public Class getTargetClass()
+                {
+                   return getTargetValoreClass();
+                }
+
+                @Override
+                public Object getObject()
+                {                    
+                    try
+                    {
+                        return getTargetValoreClass().newInstance();
+                    }
+                    catch (InstantiationException e)
+                    {
+                        log.error(e);
+                    }
+                    catch (IllegalAccessException e)
+                    {
+                        log.error(e);
+                    }
+                    return null;
+                }
+
+                @Override
+                protected void setReal(Object oggetto)
+                {
+                    
+                }
+
+                @Override
+                public Object getDefaultValue()
+                {                   
+                    try
+                    {
+                        return getTargetValoreClass().newInstance();
+                    }
+                    catch (InstantiationException e)
+                    {
+                        log.error(e);
+                    }
+                    catch (IllegalAccessException e)
+                    {
+                        log.error(e);
+                    }
+                    return null;
+                }
+
+            };
+			return pointer;
 		} catch (Exception e) {
 			log.error(e);
 			throw new IllegalStateException("Il tipo di valore associato al widget pointer non e' consentito",e);
@@ -139,9 +192,9 @@ public class WidgetPointer extends AWidget {
 	 * @return l'oggetto class utilizzato come valore da questo widget
 	 * 
 	 */
-	public Class<? extends PointerValue> getTargetValoreClass() {
+	public Class<? extends Identifiable> getTargetValoreClass() {
 		try {
-			return (Class<? extends PointerValue>) Class.forName(target);
+			return (Class<? extends Identifiable>) Class.forName(target);
 		} catch (ClassNotFoundException e) {
 			log.error(e);
 			throw new IllegalStateException(

@@ -34,6 +34,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 /**
 *
@@ -42,6 +44,19 @@ import javax.persistence.SequenceGenerator;
 */
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+@NamedQueries({
+        @NamedQuery(name = "ANestedObject.findAll", query = "from ANestedObject order by id"),
+        @NamedQuery(name = "ANestedObject.paginate.id.asc", query = "from ANestedObject order by id asc"),
+        @NamedQuery(name = "ANestedObject.paginate.id.desc", query = "from ANestedObject order by id desc"),
+        @NamedQuery(name = "ANestedObject.findNestedObjectsByParentIDAndTypoID", query = "from ANestedObject where parent.id = ? and typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.paginateNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.countNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.findActiveNestedObjectsByParentIDAndTypoID", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
+        @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
+        @NamedQuery(name = "ANestedObject.countActiveNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
+        @NamedQuery(name = "ANestedObject.findNestedObjectsByTypoID", query = "from ANestedObject where typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?")
+})
 public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition> extends AnagraficaObject<P, TP>
 {
     /** DB Primary key */
