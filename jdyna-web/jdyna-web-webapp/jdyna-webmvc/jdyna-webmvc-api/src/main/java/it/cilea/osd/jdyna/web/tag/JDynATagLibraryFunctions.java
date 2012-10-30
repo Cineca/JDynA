@@ -102,16 +102,9 @@ public class JDynATagLibraryFunctions
 
     public static String getTargetClass(WidgetPointer wpointer)
     {
-        PointerValue vp;
-        try
-        {
-            vp = wpointer.getTargetValoreClass().newInstance();
-            return vp.getTargetClass().getName();
-        }
-        catch (Exception e)
-        {
-            throw new RuntimeException(e);
-        }
+        
+        return wpointer.getTargetValoreClass().toString();
+        
     }
 
     public static Object getReferencedObject(Object root, String propertyPath)
