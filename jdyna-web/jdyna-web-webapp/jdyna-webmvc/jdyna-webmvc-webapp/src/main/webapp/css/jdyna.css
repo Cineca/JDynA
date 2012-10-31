@@ -566,6 +566,12 @@ img.jdyna-icon {
 	width: 16px;
 	vertical-align: middle;
 }
+
+img.jdyna-icon-action
+{
+	cursor: pointer;	
+}
+
 img.addButton,img.deleteButton,img.warn, img.nested_add_button,img.nested_delete_button, img.nested_edit_button 
 {
 	width: 16px;
