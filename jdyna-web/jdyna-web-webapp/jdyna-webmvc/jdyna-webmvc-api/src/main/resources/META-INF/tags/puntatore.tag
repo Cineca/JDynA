@@ -60,7 +60,10 @@
 <spring:bind path="${propertyPath}">
 	<c:set var="values" value="${status.value}" />
 </spring:bind>
-		   
+
+<c:if test="${empty controllerURL}">
+	<c:set var="controllerURL" value="ajaxFrontPuntatore.htm"></c:set>
+</c:if>		   
 <c:catch var="exNoIndexedValue">
 <c:forEach var="value" items="${values}" varStatus="iterationStatus">	
 	<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
@@ -81,27 +84,60 @@
 					
 		<input type="hidden" name="${inputName}" 
 				id="${inputName}" value="${inputValue}" />			
-		
 		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-				
- 		<spring:message text="${display}" var="displayPointer"/>
-		${displayPointer}
- 	 	
+		
+ 		<input type="text" name="suggestbox${inputName}" id="suggestbox${inputName}" size="${size}" 
+ 				value="${dyna:getDisplayValue(value,display)}" <dyna:javascriptEvents onchange="${onchangeJS}"/>/>
+ 				
+ 	  	<input type="hidden" id="display${inputName}" name="display${inputName}" 
+ 	  			value="${dyna:replaceApiciDoppi(display)}"/>
+		
+		<c:if test="${not empty inputValue}">
+		  	<script type="text/javascript">				  	 
+		  		disabilitaTextBox('suggestbox${inputName}');
+		  	</script>
+		</c:if>
+		
+		<%-- Svuota il campo hidden e la box--%>
+		<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
+		<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/images/indicator.gif" />"/></span>				  
+		<span id="message${inputName}"></span>
 		
 
-		 				
+		<ajax:autocomplete
+        		baseUrl="${pageContext.request.contextPath}/${controllerURL}"
+        		source="suggestbox${inputName}"
+        		target="${inputName}"
+        		className="autocomplete"
+        		indicator="indicator${inputName}"        				
+        		minimumCharacters="3"       				        				
+		       	parameters="filtro=${filtro},query={suggestbox${inputName}},model=${target},display={display${inputName}}"			        		        	
+        		parser="new ResponseXmlToHtmlListParser()">
+        </ajax:autocomplete> 				
 	</spring:bind>
 	
+	<c:if test="${repeatable}">
+	<c:if test="${iterationStatus.count == 1}">
+	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
+	<script type="text/javascript">
+		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
+									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
+									 ${size},'${cssClass}');
+	</script>
+	</c:if>
 
 	<c:choose>
-	<c:when test="${repeatable && iterationStatus.count == fn:length(values)}">
-	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"/>
+	<c:when test="${iterationStatus.count == fn:length(values)}">
+	<img src="${root}/images/main_plus.gif" class="addButton"
+		onclick="${dynajs_var}.create()" />
 	</c:when>
 	<c:otherwise>
-	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"/>
+	<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
 	</c:otherwise>
 	</c:choose>
-	
+	</c:if>
 	
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
 </c:forEach>
@@ -143,11 +179,45 @@
 	
 	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
 	
-	<spring:message text="${display}" var="displayPointer"/>
-	${displayPointer}
-		
-	<c:if test="${repeatable}">	
-		<img src="${root}/image/jdyna/main_plus.gif" class="addButton" />
+	<input type="text" name="suggestbox${inputName}" id="suggestbox${inputName}" size="${size}"
+		value="${dyna:getDisplayValue(objectBehindPropertyPath,display)}" <dyna:javascriptEvents onchange="${onchangeJS}" />/>
+				
+  	<input type="hidden" id="display${inputName}" name="display${inputName}" 
+		value="${dyna:replaceApiciDoppi(display)}"/>
+	
+	<c:if test="${not empty inputValue}">
+	  	<script type="text/javascript">				  	 
+	  		disabilitaTextBox('suggestbox${inputName}');
+	  	</script>
+	</c:if>
+	
+	<%-- Svuota il campo hidden e la box--%>
+	<input id="button${inputName}" type="button" onclick="document.getElementById('suggestbox${inputName}').readOnly = false;document.getElementById('${inputName}').value='';document.getElementById('suggestbox${inputName}').value='';document.getElementById('suggestbox${inputName}').className = '${cssClass}'" value="X" title="Azzera"/>	   
+	<span id="indicator${inputName}" style="display:none;"><img src="<c:url value="/images/indicator.gif"/>" alt=""/></span>				  
+	<span id="message${inputName}"></span>
+			   
+	<ajax:autocomplete
+       		baseUrl="${pageContext.request.contextPath}/${controllerURL}"
+       		source="suggestbox${inputName}"
+       		target="${inputName}"
+       		className="autocomplete"
+       		indicator="indicator${inputName}"        				
+       		minimumCharacters="3"       				        				
+	       	parameters="filtro=${filtro},query={suggestbox${inputName}},model=${target},display={display${inputName}}"			        		        	
+       		parser="new ResponseXmlToHtmlListParser()">
+      </ajax:autocomplete>
+       
+	<c:if test="${repeatable}">
+	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
+	<script type="text/javascript">
+		var ${dynajs_var} = new DynaPointerInput('${root}','${dynajs_var}','${filtro}','${target}','${dyna:escapeApici(display)}',
+									'${fn:replace(propertyPath,'anagraficadto.','')}',${fn:length(values)},
+									'${dyna:escapeApici(functionValidation)};${dyna:escapeApici(onchange)}',
+									 ${size},'${cssClass}');
+	</script>
+
+	<img src="${root}/images/main_plus.gif" class="addButton"
+		onclick="${dynajs_var}.create()" />
 	</c:if>
        
        <dyna:validation propertyPath="${validation}" />

@@ -79,8 +79,8 @@ public class JDynATagLibraryFunctions
                 ValoreDTO valoreDTO = (ValoreDTO) obj;
                 if (valoreDTO.getObject() != null)
                 {
-                    result = FormulaManager.calcoloValore(display,
-                            valoreDTO.getObject(), null, 0).toString();
+                    result = DisplayPointerTagLibrary.evaluate(valoreDTO.getObject(), display).toString();
+                    
                 }
                 else
                 {
@@ -89,7 +89,7 @@ public class JDynATagLibraryFunctions
             }
             else
             {
-                result = FormulaManager.calcoloValore(display, obj, null, 0)
+                result =  DisplayPointerTagLibrary.evaluate(obj, display)
                         .toString();
             }
         }

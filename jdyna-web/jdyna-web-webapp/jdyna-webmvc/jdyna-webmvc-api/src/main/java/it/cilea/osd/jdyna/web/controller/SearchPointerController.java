@@ -1,25 +1,34 @@
 package it.cilea.osd.jdyna.web.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import it.cilea.osd.jdyna.model.IPropertiesDefinition;
+import flexjson.JSONSerializer;
+import it.cilea.osd.common.model.Selectable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.slf4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
 
-public class SearchPointerController<PD extends PropertiesDefinition> extends ParameterizableViewController
+public abstract class SearchPointerController<PD extends PropertiesDefinition, T extends Selectable>
+        extends ParameterizableViewController
 {
-    
+    protected final Log logger = LogFactory.getLog(getClass());
+
     private ITabService applicationService;
+
     private Class<PD> clazzPD;
-    
+
     @Override
     public ModelAndView handleRequest(HttpServletRequest request,
             HttpServletResponse response) throws Exception
@@ -27,17 +36,27 @@ public class SearchPointerController<PD extends PropertiesDefinition> extends Pa
         Map<String, Object> model = new HashMap<String, Object>();
         String elementID = request.getParameter("elementID");
         String query = request.getParameter("query");
-        String parentID = request.getParameter("parentID");
-        
-        PD pd = applicationService.findPropertiesDefinitionByShortName(clazzPD, elementID.substring(elementID.indexOf("_")+1));
-        WidgetPointer widgetPointer = (WidgetPointer)pd.getRendering();
+
+        PD pd = applicationService.get(clazzPD, Integer.parseInt(elementID));
+        WidgetPointer widgetPointer = (WidgetPointer) pd.getRendering();
         String filtro = widgetPointer.getFiltro();
         Class target = widgetPointer.getTargetValoreClass();
-        model.put("results", applicationService.getList(target));
-        model.put("test", "test");
-        return new ModelAndView(getViewName(),model);
-        
+        List results = getResult(target, filtro, query,
+                widgetPointer.getDisplay());
+
+        JSONSerializer serializer = new JSONSerializer();
+        serializer.rootName("pointers");
+        serializer.exclude("class");
+        serializer.deepSerialize(results, response.getWriter());
+        response.setContentType("application/json");
+
+        return null;
+
     }
+
+    protected abstract List<SelectableDTO> getResult(Class<T> target, String filtro,
+            String query, String expression);
+    
 
     public void setApplicationService(ITabService applicationService)
     {
@@ -58,6 +77,58 @@ public class SearchPointerController<PD extends PropertiesDefinition> extends Pa
     {
         this.clazzPD = clazzPD;
     }
-    
-    
+
+    public class SelectableDTO implements Selectable
+    {
+
+        private Integer id;
+
+        private String display;
+
+        public SelectableDTO(Integer id, String display)
+        {
+            this.id = id;
+            this.display = display;
+        }
+
+        public SelectableDTO(String id, String display)
+        {
+            this.id = Integer.valueOf(id);
+            this.display = display;
+        }
+
+        @Override
+        public String getIdentifyingValue()
+        {
+            return String.valueOf(id);
+        }
+
+        @Override
+        public String getDisplayValue()
+        {
+            return display;
+        }
+
+        public void setId(Integer id)
+        {
+            this.id = id;
+        }
+
+        public Integer getId()
+        {
+            return id;
+        }
+
+        public void setDisplay(String display)
+        {
+            this.display = display;
+        }
+
+        public String getDisplay()
+        {
+            return display;
+        }
+
+    }
+
 }
