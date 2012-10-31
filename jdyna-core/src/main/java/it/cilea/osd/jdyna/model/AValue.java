@@ -101,4 +101,13 @@ public abstract class AValue<P> extends IdentifiableObject {
 	public boolean isModified() {		
 		return modified;
 	}
+	
+	@Override
+	public String toString()
+	{	 
+	    if(getObject()!=null) {
+	        return getObject().toString();
+	    }
+	    return "";
+	}
 }

@@ -19,6 +19,7 @@
 	<c:set var="required" value="true" />
 </c:if>		
 
+<c:set var="repetable" value="false" />
 <c:if test="${tipologia.repeatable != false}">
 	<c:set var="repetable" value="true" />
 </c:if>		
@@ -181,44 +182,51 @@
 				validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isPuntatore}">
-								
-								<div id="pointer_searchbox_${tipologia.shortName}" class="pointersearchbox">									
-									<input type="text" id="pointersearchinput_${tipologia.shortName}" value=""/>
-									<input type="button" id="pointersearchbuttonid_${tipologia.shortName}"/> 
-								</div>
-								
-								
-								<div
-									id="viewpointer_pointer_searchbox_${tipologia.shortName}"
-									class="previewfragment">
-										
-										<div id="log1_${tipologia.shortName}" class="log">
-											<img src="<%=request.getContextPath()%>/image/cris/bar-loader.gif" id="loader1_${tipologia.shortName}" class="loader" />
-											<div id="logcontent1_${tipologia.shortName}" class="logcontent"></div>
-										</div>
-									
-								</div>
 
-								<div
-									id="pointerdialog_pointer_searchbox_${tipologia.shortName}"
-									class="dialogfragment">
-									<div
-										id="pointerfragmentcontent_pointer_searchbox_${tipologia.shortName}">
-										<div id="log2_${tipologia.shortName}" class="log">
-											<img
-												src="<%=request.getContextPath()%>/image/cris/bar-loader.gif"
-												id="loader2_${tipologia.shortName}" class="loader"/>
-											<div id="logcontent2_${tipologia.shortName}" class="logcontent"></div>
-										</div>
-									</div>
-								</div>
-	
-		<dyna:puntatore propertyPath="${propertyPath}" size="${tipologia.rendering.size}" 
-				target="${dyna:getTargetClass(tipologia.rendering)}" 
-				display="${tipologia.rendering.display}" 
-				required="${required}" repeatable="${repetable}" 
-				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+		<spring:bind path="${propertyPath}">
+			<c:set var="values" value="${status.value}" />
+		</spring:bind>
+		
+		<span id="pointer_${tipologia.id}_repeatable" class="spandatabind">${repetable}</span>			 
+		<span id="pointer_${tipologia.id}_path" class="spandatabind">${propertyPath}</span>
+		<span id="pointer_${tipologia.id}_tot" class="spandatabind">${fn:length(values)}</span>
+		<span class="spandatabind pointerinfo">${tipologia.id}</span>
+		<input class="searchboxpointer" id="searchboxpointer_${tipologia.id}" />
+			
+		
+		<div id="pointer_${tipologia.id}_selected">	
+		
+		
+			
+			<c:forEach var="value" items="${values}" varStatus="iterationStatus">	
+				<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
+					<c:if test="${iterationStatus.count > 1}">
+					<br/>
+					</c:if>
+					<%-- Se sono riuscito a fare il bind allora è una proprietà indicizzata --%>
+					<c:set var="inputShowed" value="true" />
+					<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
+					<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
+						
+								
+					<input type="hidden" name="${inputName}" 
+							id="${inputName}" value="${inputValue}" />			
+					<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+										
+				
+					<span>${dyna:getDisplayValue(value,tipologia.rendering.display)}</span>
+					
+				</spring:bind>
+				<img src="${root}/image/jdyna/delete_icon.gif" class="jdyna-icon jdyna-icon-action jdyna-delete-button"/>
+
+
+
+				
+				<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
+		</c:forEach>
+		
+		
+		</div>
 	</c:when>
 	<c:when test="${isClassificazione}">
 		<dyna:classificazione propertyPath="${propertyPath}" 
