@@ -17,7 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormAddToNestedDefinitionController<W extends AWidget, TP extends ANestedPropertiesDefinition, DTP extends ADecoratorNestedPropertiesDefinition<TP>, ATN extends ATypeNestedObject<TP>, DTT extends ADecoratorTypeDefinition<ATN, TP>, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends FormDecoratorPropertiesDefinitionController<W, TP, DTP, H, T>
+public class FormAddToNestedDefinitionController<W extends AWidget, TP extends ANestedPropertiesDefinition, 
+    DTP extends ADecoratorNestedPropertiesDefinition<TP>, ATN extends ATypeNestedObject<TP>, 
+    DTT extends ADecoratorTypeDefinition<ATN, TP>, H extends IPropertyHolder<Containable>, T extends Tab<H>>
+        extends FormDecoratorPropertiesDefinitionController<W, TP, DTP, H, T>
 {
 
     private Class<DTT> typeModel;
@@ -40,7 +43,7 @@ public class FormAddToNestedDefinitionController<W extends AWidget, TP extends A
     }
     
     @Override
-    protected Object formBackingObject(HttpServletRequest request)
+    protected DTP formBackingObject(HttpServletRequest request)
             throws Exception {
         
         DTT nested = null;
@@ -48,7 +51,7 @@ public class FormAddToNestedDefinitionController<W extends AWidget, TP extends A
         if (rendering != null) {
             nested = getApplicationService().get(typeModel, Integer.parseInt(rendering));         
         }
-        DTP object = (DTP)super.formBackingObject(request);        
+        DTP object = super.formBackingObject(request);        
         nested.getReal().getMask().add(object.getReal());
         return object;
         

@@ -182,51 +182,10 @@
 				validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isPuntatore}">
-
-		<spring:bind path="${propertyPath}">
-			<c:set var="values" value="${status.value}" />
-		</spring:bind>
-		
-		<span id="pointer_${tipologia.id}_repeatable" class="spandatabind">${repetable}</span>			 
-		<span id="pointer_${tipologia.id}_path" class="spandatabind">${propertyPath}</span>
-		<span id="pointer_${tipologia.id}_tot" class="spandatabind">${fn:length(values)}</span>
-		<span class="spandatabind pointerinfo">${tipologia.id}</span>
-		<input class="searchboxpointer" id="searchboxpointer_${tipologia.id}" />
-			
-		
-		<div id="pointer_${tipologia.id}_selected">	
-		
-		
-			
-			<c:forEach var="value" items="${values}" varStatus="iterationStatus">	
-				<spring:bind path="${propertyPath}[${iterationStatus.count - 1}]">
-					<c:if test="${iterationStatus.count > 1}">
-					<br/>
-					</c:if>
-					<%-- Se sono riuscito a fare il bind allora è una proprietà indicizzata --%>
-					<c:set var="inputShowed" value="true" />
-					<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
-					<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
-						
-								
-					<input type="hidden" name="${inputName}" 
-							id="${inputName}" value="${inputValue}" />			
-					<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
-										
-				
-					<span>${dyna:getDisplayValue(value,tipologia.rendering.display)}</span>
-					
-				</spring:bind>
-				<img src="${root}/image/jdyna/delete_icon.gif" class="jdyna-icon jdyna-icon-action jdyna-delete-button"/>
-
-
-
-				
-				<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
-		</c:forEach>
-		
-		
-		</div>
+		<dyna:puntatore propertyPath="${propertyPath}" 
+				id="${tipologia.id}" display="${tipologia.rendering.display}"
+				required="${required}" repeatable="${repetable}"
+				validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isClassificazione}">
 		<dyna:classificazione propertyPath="${propertyPath}" 

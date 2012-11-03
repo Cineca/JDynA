@@ -53,7 +53,7 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
     }
 
     @Override
-    protected Object formBackingObject(HttpServletRequest request)
+    protected DTP formBackingObject(HttpServletRequest request)
             throws Exception
     {
         DTP decorator = null;

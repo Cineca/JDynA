@@ -58,7 +58,7 @@ import org.hibernate.annotations.Type;
 		@NamedQuery(name = "WidgetPointer.findAll", query = "from WidgetPointer order by id"),
 		@NamedQuery(name = "WidgetPointer.findWidgetByTarget", query = "from WidgetPointer where target = ?") 
 })
-public class WidgetPointer extends AWidget {
+public class WidgetPointer<AV extends PointerValue> extends AWidget {
 	
 	protected String target;
 		
@@ -106,58 +106,7 @@ public class WidgetPointer extends AWidget {
 	@Override
 	public PointerValue<?> getInstanceValore() {
 		try {
-		    PointerValue pointer = new PointerValue()
-            {
-
-                @Override
-                public Class getTargetClass()
-                {
-                   return getTargetValoreClass();
-                }
-
-                @Override
-                public Object getObject()
-                {                    
-                    try
-                    {
-                        return getTargetValoreClass().newInstance();
-                    }
-                    catch (InstantiationException e)
-                    {
-                        log.error(e);
-                    }
-                    catch (IllegalAccessException e)
-                    {
-                        log.error(e);
-                    }
-                    return null;
-                }
-
-                @Override
-                protected void setReal(Object oggetto)
-                {
-                    
-                }
-
-                @Override
-                public Object getDefaultValue()
-                {                   
-                    try
-                    {
-                        return getTargetValoreClass().newInstance();
-                    }
-                    catch (InstantiationException e)
-                    {
-                        log.error(e);
-                    }
-                    catch (IllegalAccessException e)
-                    {
-                        log.error(e);
-                    }
-                    return null;
-                }
-
-            };
+		    PointerValue pointer = getValoreClass().newInstance();
 			return pointer;
 		} catch (Exception e) {
 			log.error(e);
@@ -166,9 +115,9 @@ public class WidgetPointer extends AWidget {
 	}
 
 	@Override
-	public Class<? extends AValue> getValoreClass() {
+	public Class<AV> getValoreClass() {
 		try {
-			return (Class<? extends AValue>) Class.forName(target);
+			return (Class<AV>) Class.forName(target);
 		} catch (ClassNotFoundException e) {
 			log.error(e);
 			throw new IllegalStateException("Il tipo di valore associato al widget pointer non e' consentito",e);
@@ -192,16 +141,16 @@ public class WidgetPointer extends AWidget {
 	 * @return l'oggetto class utilizzato come valore da questo widget
 	 * 
 	 */
-	public Class<? extends Identifiable> getTargetValoreClass() {
+	public <AVO extends Identifiable> Class<AVO> getTargetValoreClass() {
 		try {
-			return (Class<? extends Identifiable>) Class.forName(target);
-		} catch (ClassNotFoundException e) {
+			return ((Class<PointerValue<AVO>>) Class.forName(target)).newInstance().getTargetClass();
+		} catch (Exception e) {
 			log.error(e);
 			throw new IllegalStateException(
 					"Il widget pointer id:"
 							+ getId()
-							+ " non e' configurato propriamente - valore target inesistente: "
-							+ target);
+							+ " non e' configurato propriamente - valore target inesistente o non valido: "
+							+ target, e);
 		}
 	}
 
@@ -227,19 +176,6 @@ public class WidgetPointer extends AWidget {
 	@Override
 	public String getTriview() {
 		return "pointer";
-	}
-
-	@Deprecated
-	@SuppressWarnings("unchecked")
-	public String getConfiguration() {
-		PointerValue vp;
-		try {
-			vp = ((Class<PointerValue>) Class.forName(target)).newInstance();
-			return display + ";" + filtro + ";" + vp.getTargetClass().getName();
-		} catch (Exception e) {
-			new RuntimeException(e);
-		}
-		return null;
 	}
 
 	public String getFiltro() {

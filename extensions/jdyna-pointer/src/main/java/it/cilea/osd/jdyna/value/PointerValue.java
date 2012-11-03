@@ -34,7 +34,7 @@ import javax.persistence.Transient;
 
 public abstract class PointerValue<P extends Identifiable> extends AValue<P> {
 	@Transient
-	public abstract Class<P> getTargetClass();
+	public abstract Class<P> getTargetClass();	
 
 	@Override
 	public String[] getTokenizedValue() {
