@@ -228,7 +228,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         model.put("path", modelPath);
         model.put("anagraficaObject", jdynaObject);
         model.put("addModeType", "display");
-        model.put("specificPartPath", getSpecificPartPath());
+        model.put("specificPartPath", getSpecificPartPath());        
 		return new ModelAndView(detailsView, model);
 	}
 

@@ -11,7 +11,6 @@ import it.cilea.osd.jdyna.web.json.TabJSON;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -21,9 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.ModelAndView;
 
-public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab> extends BaseAbstractController
+public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
+        extends BaseAbstractController
 {
-    
+
     @Autowired
     private ITabService applicationService;
 
@@ -31,39 +31,38 @@ public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
 
     private String specificPartPath;
 
-    private Map<String, IComponent> components;
+    private Map<String, IComponent> components = new HashMap<String, IComponent>();
 
     public AjaxJSONNavigationController(Class<T> tabClazz)
     {
         this.tabClazz = tabClazz;
     }
-    
-    
+
     @Override
     protected ModelAndView handleRequestInternal(HttpServletRequest request,
             HttpServletResponse response) throws Exception
     {
-        
+
         Map<String, Object> model = new HashMap<String, Object>();
-        List<TabJSON> tabs = loadNavigation(request.getParameter("objectId"));        
-        
+        List<TabJSON> tabs = loadNavigation(request, response);
+
         JSONSerializer serializer = new JSONSerializer();
         serializer.rootName("navigation");
         serializer.exclude("class");
         serializer.deepSerialize(tabs, response.getWriter());
-        response.setContentType("application/json");        
+        response.setContentType("application/json");
         return null;
-    } 
-    
-    public List<TabJSON> loadNavigation(String objectId)
-            throws Exception
+    }
+
+    public List<TabJSON> loadNavigation(HttpServletRequest request,
+            HttpServletResponse response) throws Exception
     {
 
-        Integer id = Integer.parseInt(objectId);
+        Integer id = Integer.parseInt(request.getParameter("objectId"));
 
         List<T> tabs = applicationService.getList(tabClazz);
         List<TabJSON> realTabs = new ArrayList<TabJSON>();
-        
+
         for (T tab : tabs)
         {
             TabJSON tabJSON = new TabJSON();
@@ -74,24 +73,42 @@ public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
             for (B box : boxs)
             {
                 BoxJSON boxJson = null;
-                            
-                if (!box.isUnrelevant() && !isBoxHidden(id, box))
+
+                IComponent comp = components.get(box.getShortName());
+                if (comp != null)
                 {
-                    if(boxJson==null) {
+                    request.setAttribute("entityID", id);
+                    List<String[]> compSubLinks = comp.sublinks(request,
+                            response);           
+                    for(String[] compSubLink : compSubLinks) {                        
                         boxJson = new BoxJSON();
+                        boxJson.setCollapsed(false);
+                        boxJson.setShortName(compSubLink[0]);
+                        boxJson.setTitle(compSubLink[1]);
+                        boxJson.setCountBoxPublicMetadata(Integer.parseInt(compSubLink[2]));
+                        tabJSON.getBoxes().add(boxJson);
                     }
-                    boxJson.setCollapsed(box.isCollapsed());
-                    boxJson.setId(box.getId());
-                    boxJson.setShortName(box.getShortName());
-                    boxJson.setTitle(box.getTitle());                 
-                    
-
-                    int countBoxPublicMetadata = countBoxPublicMetadata(
-                                id, box, true);
-                    boxJson.setCountBoxPublicMetadata(countBoxPublicMetadata);
-                    tabJSON.getBoxes().add(boxJson);
                 }
+                else
+                {
 
+                    if (!box.isUnrelevant() && !isBoxHidden(id, box))
+                    {
+                        if (boxJson == null)
+                        {
+                            boxJson = new BoxJSON();
+                        }
+                        boxJson.setCollapsed(box.isCollapsed());
+                        boxJson.setId(box.getId());
+                        boxJson.setShortName(box.getShortName());
+                        boxJson.setTitle(box.getTitle());
+
+                        int countBoxPublicMetadata = countBoxPublicMetadata(id,
+                                box, true);
+                        boxJson.setCountBoxPublicMetadata(countBoxPublicMetadata);
+                        tabJSON.getBoxes().add(boxJson);
+                    }
+                }
             }
             realTabs.add(tabJSON);
         }
@@ -100,7 +117,8 @@ public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
 
     }
 
-    public abstract int countBoxPublicMetadata(Integer objectID, B box, boolean b);
+    public abstract int countBoxPublicMetadata(Integer objectID, B box,
+            boolean b);
 
     public abstract boolean isBoxHidden(Integer objectID, B box);
 
