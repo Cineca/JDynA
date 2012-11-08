@@ -25,6 +25,7 @@
  */
 package it.cilea.osd.jdyna.dto;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,4 +43,7 @@ public interface IAnagraficaObjectDTO  {
 	public Integer getObjectId();	
 
 	public void setObjectId(Integer objectId);
+	
+	public Date getTimeStampCreated();
+	public Date getTimeStampModified();
 }

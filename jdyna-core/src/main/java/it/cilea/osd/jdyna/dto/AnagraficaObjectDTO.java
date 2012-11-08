@@ -26,6 +26,7 @@
 package it.cilea.osd.jdyna.dto;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,6 +36,10 @@ public class AnagraficaObjectDTO implements Serializable, IAnagraficaObjectDTO {
 	private Integer parentId;
 	
 	private Integer objectId;
+	
+	private Date timeStampCreated;
+	private Date timeStampModified;
+	
 	/**
 	 * La chiave della mappa e lo shortName della tipologia di proprieta'. 
 	 * I valori rappresentano la lista ordinata dei valori associati alle
@@ -66,5 +71,27 @@ public class AnagraficaObjectDTO implements Serializable, IAnagraficaObjectDTO {
 	public void setObjectId(Integer objectId) {
 		this.objectId = objectId;
 	}
+
+    
+    public Date getTimeStampCreated()
+    {
+       return timeStampCreated;
+    }
+
+    
+    public Date getTimeStampModified()
+    {
+        return timeStampModified;
+    }
+
+    public void setTimeStampCreated(Date timeStampCreated)
+    {
+        this.timeStampCreated = timeStampCreated;
+    }
+
+    public void setTimeStampModified(Date timeStampModified)
+    {
+        this.timeStampModified = timeStampModified;
+    }
 
 }
