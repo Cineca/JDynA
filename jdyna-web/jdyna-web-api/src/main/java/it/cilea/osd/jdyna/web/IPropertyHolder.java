@@ -20,4 +20,6 @@ public interface IPropertyHolder<C extends IContainable> extends Identifiable, C
 	
 	public boolean isCollapsed();
 	public void setCollapsed(boolean collapsed);
+	
+	public String getExternalJSP();
 }

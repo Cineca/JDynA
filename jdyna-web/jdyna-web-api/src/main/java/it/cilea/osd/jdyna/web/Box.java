@@ -55,6 +55,8 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
      */
 	private boolean unrelevant;
 	
+	private String externalJSP;
+	
 	// accessori e setter
 	public Integer getId() {
 		return id;
@@ -157,6 +159,16 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 		else if (priority > secondTip.getPriority()) return 1;
 			 else return shortName.compareTo(secondTip.getShortName());
 	}
+
+    public void setExternalJSP(String externalJSP)
+    {
+        this.externalJSP = externalJSP;
+    }
+
+    public String getExternalJSP()
+    {
+        return externalJSP;
+    }
 
 	
 }

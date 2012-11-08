@@ -78,7 +78,7 @@
 		</c:choose>
 		<div class="dynaField">
 			<div class="helpTip" id="help_${status.expression}" >
-			<img src="${root}/image/jdyna/delete.gif" onclick="hideHelp('help_${status.expression}')" class="close" alt="hide help"/>
+			<img src="${root}/image/jdyna/close_help.gif" onclick="hideHelp('help_${status.expression}')" class="close" alt="hide help"/>
 			<p><c:out value="${messageHelp}"/></p>
 			</div>
 	

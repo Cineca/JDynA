@@ -178,17 +178,18 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
             for (H box : propertyHolders)
             {
 
-                String boxShortName = box.getShortName();
+                String boxExternalPage = box.getExternalJSP();
                 List<IContainable> temp = applicationService
                 .<H, T>findContainableInPropertyHolder(propertyHolderClass,
                         box.getId());       
                 Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
                 
-                if (components != null)
+                if (components != null && boxExternalPage!=null && !boxExternalPage.isEmpty())
                 {
-                    IComponent comp = components.get(boxShortName);
+                    IComponent comp = components.get(box.getShortName());
                     if (comp != null)
                     {
+                        comp.setShortName(box.getShortName());
                         comp.evalute(request, response);
                     }
                 }

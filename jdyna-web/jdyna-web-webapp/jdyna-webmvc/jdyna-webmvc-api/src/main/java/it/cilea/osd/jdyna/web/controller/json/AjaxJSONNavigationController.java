@@ -78,6 +78,7 @@ public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
                 if (comp != null)
                 {
                     request.setAttribute("entityID", id);
+                    comp.setShortName(box.getShortName());
                     List<String[]> compSubLinks = comp.sublinks(request,
                             response);           
                     for(String[] compSubLink : compSubLinks) {                        

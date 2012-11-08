@@ -18,4 +18,8 @@ public interface IComponent
     Map<String, IBeanComponent> getTypes();
     
     long count(String type, Integer id);
+
+    void setShortName(String shortName);
+    
+    String getShortName();
 }
