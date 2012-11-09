@@ -561,7 +561,7 @@ img.help {
 .dynaCollision {
 	font-size: 1.4em;
 }
-
+a img.jdyna-icon {border: none;}
 img.jdyna-icon {
 	width: 16px;
 	vertical-align: middle;
