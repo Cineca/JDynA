@@ -259,7 +259,17 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
 	
 	protected abstract String extractAnchorId(HttpServletRequest request);
-    
+	protected abstract Integer getRealPersistentIdentifier(String persistentIdentifier);
+	
+    protected Integer extractEntityId(HttpServletRequest request)
+    {
+        String path = request.getPathInfo().substring(1); // remove first /
+        String[] splitted = path.split("/");
+        request.setAttribute("authority", splitted[1]);
+        Integer id = getRealPersistentIdentifier(splitted[1]);
+        request.setAttribute("entityID", id);
+        return id;
+    }
 
     protected abstract void sendRedirect(HttpServletRequest request, HttpServletResponse response, Exception ex, String objectId) throws IOException, ServletException;
     
