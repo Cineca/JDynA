@@ -171,6 +171,12 @@ public class WidgetPointer<AV extends PointerValue> extends AWidget {
 		}
 		return toString(valore);
 	}
+	
+	@Override
+	public String toString(Object valore)
+	{
+	    return valore != null?valore.toString():null;
+	}
 
 	@Override
 	public String getTriview() {
