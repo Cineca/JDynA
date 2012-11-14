@@ -318,7 +318,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
 	protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
-		String paramId = request.getParameter("anagraficaid");
+		String paramId = request.getParameter("id");
 		Integer epiobjectID = Integer.valueOf(paramId);
 		/* uso il delete controllato */
 		AnagraficaSupport<P,TP> a= applicationService.get(objectClass,epiobjectID);
