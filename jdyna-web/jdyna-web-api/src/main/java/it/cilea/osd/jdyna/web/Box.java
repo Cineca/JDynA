@@ -179,8 +179,8 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
     @Override
 	public int compareTo(IPropertyHolder<C> secondTip) {		
 		if (secondTip == null) return -1;
-		if (priority < secondTip.getPriority()) return -1;
-		else if (priority > secondTip.getPriority()) return 1;
+		if (priority < secondTip.getPriority()) return 1;
+		else if (priority > secondTip.getPriority()) return -1;
 			 else return shortName.compareTo(secondTip.getShortName());
 	}
 

@@ -276,8 +276,8 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	 */	
 	public int compareTo(PropertiesDefinition secondTip) {		
 		if (secondTip == null) return -1;
-		if (priority < secondTip.priority) return -1;
-		else if (priority > secondTip.priority) return 1;
+		if (priority < secondTip.priority) return 1;
+		else if (priority > secondTip.priority) return -1;
 			 else return shortName.compareTo(secondTip.getShortName());
 	}
 
