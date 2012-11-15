@@ -51,7 +51,7 @@
 								
 			<c:set var="subLabelMinWidth" value="" />
 			<c:if test="${subtip.labelMinSize > 1}">
-				<c:set var="subLabelMinWidth" value="width:${subtip.labelMinSize}em;" />
+				<c:set var="subLabelMinWidth" value="width:${subtip.labelMinSize}${subtip.labelMinSizeUnit};" />
 			</c:if>
 			
 				<display-el:column style="${subLabelMinWidth}" title="${subtip.label}"  

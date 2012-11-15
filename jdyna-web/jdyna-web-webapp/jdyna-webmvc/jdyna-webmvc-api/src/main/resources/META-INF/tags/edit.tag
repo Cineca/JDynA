@@ -122,10 +122,10 @@
 <c:set var="fieldMinHeight" value="" />
 <c:set var="fieldStyle" value="" />
 <c:if test="${tipologia.fieldMinSize.col > 1}">
-	<c:set var="fieldMinWidth" value="min-width:${tipologia.fieldMinSize.col}em;" />
+	<c:set var="fieldMinWidth" value="min-width:${tipologia.fieldMinSize.col}${tipologia.fieldMinSize.measurementUnitCol};" />
 </c:if>
 <c:if test="${tipologia.fieldMinSize.row > 1}">
-	<c:set var="fieldMinHeight" value="min-height:${tipologia.fieldMinSize.row}em;" />
+	<c:set var="fieldMinHeight" value="min-height:${tipologia.fieldMinSize.row}${tipologia.fieldMinSize.measurementUnitRow};" />
 </c:if>
 <c:if test="${!empty fieldMinHeight || !empty fieldMinWidth}">
 	<c:set var="fieldStyle" value="style=\"${fieldMinHeight}${fieldMinWidth}\"" />
@@ -135,7 +135,7 @@
 <c:set var="labelMinWidth" value="" />
 <c:set var="labelStyle" value="" />
 <c:if test="${tipologia.labelMinSize > 1}">
-	<c:set var="labelMinWidth" value="width:${tipologia.labelMinSize}em;" />
+	<c:set var="labelMinWidth" value="width:${tipologia.labelMinSize}${tipologia.labelMinSizeUnit};" />
 </c:if>
 <c:if test="${!empty labelMinWidth}">
 	<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />

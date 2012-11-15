@@ -146,11 +146,11 @@
 	<c:set var="fieldStyle" value="" />
 	<c:if test="${subtip.fieldMinSize.col > 1}">
 		<c:set var="fieldMinWidth"
-			value="min-width:${subtip.fieldMinSize.col}em;" />
+			value="min-width:${subtip.fieldMinSize.col}${subtip.fieldMinSize.measurementUnitCol};" />
 	</c:if>
 	<c:if test="${subtip.fieldMinSize.row > 1}">
 		<c:set var="fieldMinHeight"
-			value="min-height:${subtip.fieldMinSize.row}em;" />
+			value="min-height:${subtip.fieldMinSize.row}${subtip.fieldMinSize.measurementUnitRow};" />
 	</c:if>
 	<c:if test="${!empty fieldMinHeight || !empty fieldMinWidth}">
 		<c:set var="fieldStyle" value="style=\" ${fieldMinHeight}${fieldMinWidth}\"" />
@@ -159,7 +159,7 @@
 		<div class="dynaField"${fieldStyle}><c:set var="labelMinWidth"
 			value="" /> <c:set var="labelStyle" value="" /> <c:if
 			test="${subtip.labelMinSize > 1}">
-			<c:set var="labelMinWidth" value="width:${subtip.labelMinSize}em;" />
+			<c:set var="labelMinWidth" value="width:${subtip.labelMinSize}${subtip.labelMinSizeUnit};" />
 		</c:if> <c:if test="${!empty labelMinWidth}">
 			<c:set var="labelStyle" value="style=\" ${labelMinWidth}\"" />
 		</c:if> <span class="dynaLabel"${labelStyle}>${subtip.label}</span>

@@ -92,13 +92,20 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	 * Label min size 
 	 */
 	private int labelMinSize;
-	
+    
+	/**
+     * Label size measurement unit 
+     */
+    private String labelMinSizeUnit = Size.EM_MEASURE;
+    
 	/**
 	 * Field row and column min size
 	 */
 	@AttributeOverrides(value = {
 			@AttributeOverride(name = "col", column = @Column(name= "fieldmin_col")),
-			@AttributeOverride(name = "row", column = @Column(name= "fieldmin_row"))
+			@AttributeOverride(name = "row", column = @Column(name= "fieldmin_row")),
+			@AttributeOverride(name = "measurementUnitCol", column = @Column(name= "fieldmin_col_unit")),
+			@AttributeOverride(name = "measurementUnitRow", column = @Column(name= "fieldmin_row_unit"))
 	})	
 	private Size fieldMinSize;
 	
@@ -341,6 +348,16 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
             this.accessLevel = AccessLevelConstants.ADMIN_ACCESS;
         }
         return accessLevel;
+    }
+
+    public void setLabelMinSizeUnit(String labelMinSizeUnit)
+    {
+        this.labelMinSizeUnit = labelMinSizeUnit;
+    }
+
+    public String getLabelMinSizeUnit()
+    {
+        return labelMinSizeUnit;
     }
 	
 }
