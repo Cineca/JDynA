@@ -46,13 +46,17 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
     private final String TYPO_ADDDATE = "date";
     private final String TYPO_ADDLINK = "link";
     private final String TYPO_ADDFILE = "file";
-    private final String TYPO_ADDPOINTER = "pointer";
+    private final String TYPO_ADDPOINTERRP = "pointerrp";
+    private final String TYPO_ADDPOINTEROU = "pointerou";
+    private final String TYPO_ADDPOINTERPJ = "pointerpj";
 
     private String addTextView;
     private String addDateView;
     private String addLinkView;
     private String addFileView;
-    private String addPointerView;
+    private String addPointerRPView;
+    private String addPointerOUView;
+    private String addPointerPJView;
 
     private ITabService applicationService;
 
@@ -133,9 +137,21 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
                     + object.getId() + "&boxId=" + boxId
                     + "&tabId=" + tabId);
         }
-        if (maprequest.containsKey(TYPO_ADDPOINTER))
+        if (maprequest.containsKey(TYPO_ADDPOINTERRP))
         {
-            return new ModelAndView(addPointerView.trim() + "?renderingparent="
+            return new ModelAndView(addPointerRPView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId);
+        }
+        if (maprequest.containsKey(TYPO_ADDPOINTERPJ))
+        {
+            return new ModelAndView(addPointerPJView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId);
+        }
+        if (maprequest.containsKey(TYPO_ADDPOINTEROU))
+        {
+            return new ModelAndView(addPointerOUView.trim() + "?renderingparent="
                     + object.getId() + "&boxId=" + boxId
                     + "&tabId=" + tabId);
         }
@@ -225,14 +241,34 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
         this.decoratorClass = decoratorClass;
     }
 
-    public String getAddPointerView()
+    public String getAddPointerRPView()
     {
-        return addPointerView;
+        return addPointerRPView;
     }
 
-    public void setAddPointerView(String addPointerView)
+    public void setAddPointerRPView(String addPointerRPView)
     {
-        this.addPointerView = addPointerView;
+        this.addPointerRPView = addPointerRPView;
+    }
+
+    public String getAddPointerOUView()
+    {
+        return addPointerOUView;
+    }
+
+    public void setAddPointerOUView(String addPointerOUView)
+    {
+        this.addPointerOUView = addPointerOUView;
+    }
+
+    public String getAddPointerPJView()
+    {
+        return addPointerPJView;
+    }
+
+    public void setAddPointerPJView(String addPointerPJView)
+    {
+        this.addPointerPJView = addPointerPJView;
     }
 
  

@@ -26,6 +26,16 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-search</artifactId>
+			<exclusions>
+				<exclusion>
+					<artifactId>solr-core</artifactId>
+					<groupId>org.apache.solr</groupId>
+				</exclusion>
+				<exclusion>
+					<artifactId>solr-solrj</artifactId>
+					<groupId>org.apache.solr</groupId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 		
 		<dependency>
