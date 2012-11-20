@@ -4,11 +4,10 @@
 	<parent>
 		<artifactId>jdyna-web</artifactId>
 		<groupId>jdyna-web</groupId>
-		<version>0.1</version>
+		<version>3.0-alpha</version>
 	</parent>
 	<groupId>jdyna-web-api</groupId>
 	<artifactId>jdyna-web-api</artifactId>
-	<version>0.1</version>
 	<dependencies>
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -18,7 +17,7 @@
 		<dependency>
 			<groupId>commons-cilea-webapi</groupId>
 			<artifactId>commons-cilea-webapi</artifactId>
-			<version>0.1</version>
+			<version>1.0</version>
 		</dependency>
 	</dependencies>
 

@@ -3,11 +3,10 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>0.1</version>
+    <version>3.0-alpha</version>
   </parent>
   <groupId>jdyna-number</groupId>
   <artifactId>jdyna-number</artifactId>
-  <version>0.1</version>
   <dependencies>
   	<dependency>
   		<groupId>jdyna-core</groupId>

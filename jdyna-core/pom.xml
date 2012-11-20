@@ -4,13 +4,12 @@
 	<parent>
 		<artifactId>jdyna</artifactId>
 		<groupId>jdyna</groupId>
-		<version>0.1</version>
+		<version>3.0-alpha</version>
 	</parent>
 
 	<groupId>jdyna-core</groupId>
 	<artifactId>jdyna-core</artifactId>
-	<version>0.1</version>
-
+	
 	<dependencies>
 
 		<dependency>

@@ -6,11 +6,10 @@
 	<parent>
 		<artifactId>jdyna-webmvc</artifactId>
 		<groupId>jdyna-webmvc</groupId>
-		<version>0.1</version>
+		<version>3.0-alpha</version>
 	</parent>
 	<groupId>jdyna-webmvc-webapp</groupId>
 	<artifactId>jdyna-webmvc-webapp</artifactId>
-	<version>0.1</version>
 	<packaging>war</packaging>
 	<name>jdyna-webmvc-webapp Maven Webapp</name>
 	<url>http://maven.apache.org</url>
@@ -24,13 +23,13 @@
 		<dependency>
 			<groupId>jdyna-classification</groupId>
 			<artifactId>jdyna-classification</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 
 		</dependency>
 		<dependency>
 			<groupId>jdyna-core</groupId>
 			<artifactId>jdyna-core</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -64,8 +63,7 @@
 		
 		<dependency>
 			<groupId>org.springframework</groupId>
-			<artifactId>spring-webmvc</artifactId>
-			<version>3.0.5.RELEASE</version>						
+			<artifactId>spring-webmvc</artifactId>									
 		</dependency>
 
 		<dependency>

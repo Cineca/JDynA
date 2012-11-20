@@ -3,12 +3,11 @@
   <parent>
     <artifactId>jdyna</artifactId>
     <groupId>jdyna</groupId>
-    <version>0.1</version>
+    <version>3.0-alpha</version>
   </parent>
   <groupId>jdyna</groupId>
   <artifactId>extensions</artifactId>
   <packaging>pom</packaging>
-  <version>0.1</version>
   <modules>
   	<module>jdyna-date</module>
   	<module>jdyna-classification</module>
