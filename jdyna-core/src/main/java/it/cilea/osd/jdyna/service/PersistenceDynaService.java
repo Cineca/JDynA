@@ -499,21 +499,21 @@ public class PersistenceDynaService extends PersistenceService implements
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoID(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao.findNestedObjectsByParentIDAndTypoID(
                 dynamicFieldID, typoID);
         return modelList;
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao
                 .paginateNestedObjectsByParentIDAndTypoID(dynamicFieldID,
                         typoID, "asc", false, offset, limit);
@@ -521,11 +521,11 @@ public class PersistenceDynaService extends PersistenceService implements
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao
                 .paginateActiveNestedObjectsByParentIDAndTypoID(dynamicFieldID,
                         typoID, "asc", false, offset, limit);
@@ -533,10 +533,10 @@ public class PersistenceDynaService extends PersistenceService implements
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> getNestedObjectsByParentIDAndShortname(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndShortname(
             Integer dynamicFieldID, String shortNameTypo, Class<ANO> model)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao
                 .findNestedObjectsByParentIDAndTypoShortname(dynamicFieldID,
                         shortNameTypo);
@@ -544,38 +544,38 @@ public class PersistenceDynaService extends PersistenceService implements
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countNestedObjectsByParentIDAndTypoID(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         return modelDao.countNestedObjectsByParentIDAndTypoID(dynamicFieldID,
                 typoID);
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> long countActiveNestedObjectsByParentIDAndTypoID(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countActiveNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         return modelDao.countActiveNestedObjectsByParentIDAndTypoID(dynamicFieldID,
                 typoID);
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> List<ANO> findNestedObjectByTypeID(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> findNestedObjectByTypeID(
             Class<ANO> model, Integer tipologiaID)
     {
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao.findNestedObjectsByTypoID(tipologiaID);
         return modelList;
     }
 
     @Override
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>> void deleteNestedObjectByTypeID(
+    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> void deleteNestedObjectByTypeID(
             Class<ANO> model, Integer typeId)
     {
 
-        NestedObjectDAO<ANO, NP, NTP, TTP> modelDao = (NestedObjectDAO<ANO, NP, NTP, TTP>) getDaoByModel(model);
+        NestedObjectDAO<ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<ANO, NP, NTP, ?>) getDaoByModel(model);
         modelDao.deleteNestedObjectsByTypoID(typeId);
 
     }
