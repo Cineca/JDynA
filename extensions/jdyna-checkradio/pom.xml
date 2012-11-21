@@ -11,14 +11,14 @@
   	<dependency>
   		<groupId>jdyna-classification</groupId>
   		<artifactId>jdyna-classification</artifactId>
-  		<version>0.1</version>
+  		<version>${project.version}</version>  		
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-subject</groupId>
   		<artifactId>jdyna-subject</artifactId>
-  		<version>0.1</version>
+  		<version>${project.version}</version>  		
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>

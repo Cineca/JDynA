@@ -111,6 +111,11 @@ public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, N
         return parent;
     }
 
+    public void setParent(DynamicObject parent)
+    {
+        this.parent = parent;
+    }
+    
     @Override
     public <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(
             AnagraficaSupport<PP, PTP> parent)

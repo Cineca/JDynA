@@ -11,13 +11,13 @@
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>0.1</version>
+  		<version>${project.version}</version>  		
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
   		<groupId>jdyna-formula</groupId>
   		<artifactId>jdyna-formula</artifactId>
-  		<version>0.1</version>
+  		<version>${project.version}</version>  		
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
