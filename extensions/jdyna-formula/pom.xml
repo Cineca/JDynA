@@ -11,7 +11,7 @@
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>${project.version}</version>  		
+  		<version>3.0-alpha</version>  		
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
