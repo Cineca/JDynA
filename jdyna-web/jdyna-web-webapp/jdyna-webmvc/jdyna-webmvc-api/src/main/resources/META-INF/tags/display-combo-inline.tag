@@ -394,7 +394,8 @@
 				<c:if test="${subValue.visibility==1 || editMode}">
 				<c:if test="${valueStatus.count != 1}">
 					<br />
-				</c:if>								
+				</c:if>		
+				<c:set var="displayObject" value="${subValue.value.real}" />						
 				<spring:message text="${subtip.rendering.display}" var="displayPointer"/>
 				${displayPointer}
 				<c:if test="${editMode}">
