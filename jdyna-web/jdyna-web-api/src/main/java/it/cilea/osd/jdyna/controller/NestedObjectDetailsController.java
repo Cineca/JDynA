@@ -30,6 +30,8 @@ import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.web.ITabService;
 
 import java.util.HashMap;
@@ -42,7 +44,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class NestedObjectDetailsController<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, T extends ANestedObjectWithTypeSupport<P, TP>, AT extends ATypeNestedObject<TP>, DTP extends ADecoratorTypeDefinition<AT, TP>> extends BaseAbstractController 
+public class NestedObjectDetailsController<SP extends Property<STP>, STP extends PropertiesDefinition, P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, T extends ANestedObjectWithTypeSupport<P, TP, SP, STP>, AT extends ATypeNestedObject<TP>, DTP extends ADecoratorTypeDefinition<AT, TP>> extends BaseAbstractController 
 {
     
     private ITabService applicationService;

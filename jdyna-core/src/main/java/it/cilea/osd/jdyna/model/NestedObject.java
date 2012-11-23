@@ -58,7 +58,7 @@ import org.hibernate.annotations.OrderBy;
 //        @NamedQuery(name = "NestedObject.findNestedObjectsByTypoID", query = "from NestedObject where typo.id = ?"),
 //        @NamedQuery(name = "NestedObject.deleteNestedObjectsByTypoID", query = "delete from NestedObject where typo.id = ?")
         })
-public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, NestedPropertiesDefinition>
+public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, NestedPropertiesDefinition, DynamicProperty, DynamicPropertiesDefinition>
 {
 
     
@@ -105,27 +105,24 @@ public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, N
         this.typo = (TypeNestedObject)typo;        
     }
 
-    @Override
+    
     public DynamicObject getParent()
     {
         return parent;
     }
-
-    public void setParent(DynamicObject parent)
-    {
-        this.parent = parent;
-    }
-        
-    public <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(
-            AnagraficaSupport<PP, PTP> parent)
-    {
-        setParent((DynamicObject)parent);
-    }
-
+ 
     @Override
     public Class getClassParent()
     {
        return DynamicObject.class;
     }
+
+    @Override
+    public void setParent(
+            AnagraficaSupport<? extends Property<DynamicPropertiesDefinition>, DynamicPropertiesDefinition> parent)
+    {
+        this.parent = (DynamicObject) parent;        
+    }
+
 
 }

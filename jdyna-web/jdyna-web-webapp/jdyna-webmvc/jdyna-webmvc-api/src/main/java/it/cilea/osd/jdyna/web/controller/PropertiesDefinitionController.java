@@ -140,7 +140,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 
 			TP tip = applicationService.get(targetModel, tipologiaProprietaId);
 			//cancello tutte le proprieta' salvate in passato
-			applicationService.<it.cilea.osd.jdyna.model.Property<TP>, TP>deleteAllProprietaByTipologiaProprieta(targetModel, tip);
+			applicationService.deleteAllProprietaByTipologiaProprieta(targetModel, tip);
 						
 			//cancello la tipologia di proprieta
 			applicationService.delete(targetModel, tipologiaProprietaId);

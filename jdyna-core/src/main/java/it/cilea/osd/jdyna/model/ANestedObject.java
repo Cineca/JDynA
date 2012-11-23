@@ -36,13 +36,14 @@ import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
+
 /**
-*
-* @author pascarelli
-*
-*/
+ * 
+ * @author pascarelli
+ * 
+ */
 @Entity
-@Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @NamedQueries({
         @NamedQuery(name = "ANestedObject.findAll", query = "from ANestedObject order by id"),
         @NamedQuery(name = "ANestedObject.paginate.id.asc", query = "from ANestedObject order by id asc"),
@@ -54,25 +55,25 @@ import javax.persistence.SequenceGenerator;
         @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.countActiveNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.findNestedObjectsByTypoID", query = "from ANestedObject where typo.id = ?"),
-        @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?")
-})
-public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition> extends AnagraficaObject<P, TP>
+        @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?") })
+public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, PP extends Property<PTP>, PTP extends PropertiesDefinition>
+        extends AnagraficaObject<P, TP>
 {
     /** DB Primary key */
     @Id
     @GeneratedValue(generator = "JDYNA_NESTEDOBJECT_SEQ")
-    @SequenceGenerator(name = "JDYNA_NESTEDOBJECT_SEQ", sequenceName = "JDYNA_NESTEDOBJECT_SEQ")    
+    @SequenceGenerator(name = "JDYNA_NESTEDOBJECT_SEQ", sequenceName = "JDYNA_NESTEDOBJECT_SEQ")
     private Integer id;
-    
+
     @Column(nullable = false, unique = true)
     private String uuid;
-    
+
     private Boolean status = true;
-   
+
     /** timestamp info for creation and last modify */
     @Embedded
     private TimeStampInfo timeStampInfo;
-            
+
     public Integer getId()
     {
         return id;
@@ -102,11 +103,12 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     {
         this.timeStampInfo = timeStampInfo;
     }
-    
-    public abstract <PP extends Property<PTP>, PTP extends PropertiesDefinition> AnagraficaSupport<PP, PTP> getParent();
-    
-    public abstract <PP extends Property<PTP>, PTP extends PropertiesDefinition> void setParent(AnagraficaSupport<PP, PTP> parent);
-    
+
+    public abstract AnagraficaSupport<PP, PTP> getParent();
+
+    public abstract void setParent(
+            AnagraficaSupport<? extends Property<PTP>, PTP> parent);
+
     public abstract Class getClassParent();
 
     public Boolean getStatus()

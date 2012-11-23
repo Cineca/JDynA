@@ -31,6 +31,8 @@ import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
@@ -44,7 +46,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class DecoratorATypeNestedController<A extends ATypeNestedObject<NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ANO extends ANestedObject<NP, NTP>> extends BaseAbstractController {
+public class DecoratorATypeNestedController<P extends Property<TP>, TP extends PropertiesDefinition, A extends ATypeNestedObject<NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ANO extends ANestedObject<NP, NTP, P, TP>> extends BaseAbstractController {
 
     private Class<A> targetModel;
     private Class<ANO> objectModel;

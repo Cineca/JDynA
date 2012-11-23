@@ -31,7 +31,7 @@ import javax.persistence.MappedSuperclass;
 *
 */
 @MappedSuperclass
-public abstract class ANestedObjectWithMultiTypeSupport<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition> extends ANestedObject<P,TP> implements MultiTypeSupport<P, TP>
+public abstract class ANestedObjectWithMultiTypeSupport<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, PP extends Property<PTP>, PTP extends PropertiesDefinition> extends ANestedObject<P,TP,PP,PTP> implements MultiTypeSupport<P, TP>
 {
 
 }

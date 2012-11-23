@@ -36,6 +36,8 @@ import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.util.AnagraficaUtils;
 import it.cilea.osd.jdyna.web.ITabService;
 
@@ -51,7 +53,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.bind.ServletRequestDataBinder;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedPropertiesDefinition, TP extends ATypeNestedObject<PD>, ATN extends ADecoratorTypeDefinition<TP, PD>, ANO extends ANestedObjectWithTypeSupport<P, PD>> extends BaseFormController
+public class FormNestedObject<SP extends Property<STP>, STP extends PropertiesDefinition, P extends ANestedProperty<PD>, PD extends ANestedPropertiesDefinition, TP extends ATypeNestedObject<PD>, ATN extends ADecoratorTypeDefinition<TP, PD>, ANO extends ANestedObjectWithTypeSupport<P, PD, SP, STP>> extends BaseFormController
 {
 
     private ITabService applicationService;
@@ -135,7 +137,7 @@ public class FormNestedObject<P extends ANestedProperty<PD>, PD extends ANestedP
         AnagraficaUtils.reverseDTO(anagraficaObjectDTO, myObject, typo.getMask());
         
         myObject.pulisciAnagrafica();
-        myObject.setParent((AnagraficaSupport<P, PD>)applicationService.get(myObject.getClassParent(), anagraficaObjectDTO.getParentId()));
+        myObject.setParent((AnagraficaSupport<SP, STP>)applicationService.get(myObject.getClassParent(), anagraficaObjectDTO.getParentId()));
         myObject.setTypo(typo);
         myObject.setStatus(visible);
                 

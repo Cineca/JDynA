@@ -293,30 +293,30 @@ public interface IPersistenceDynaService extends IPersistenceService
     public <TP extends PropertiesDefinition> TP getPropertiesDefinitionByWidget(
             AWidget widget);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoID(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndShortname(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndShortname(
             Integer dynamicFieldID, String typoShortname, Class<ANO> model);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countNestedObjectsByParentIDAndTypoID(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countActiveNestedObjectsByParentIDAndTypoID(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countActiveNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> findNestedObjectByTypeID(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> findNestedObjectByTypeID(
             Class<ANO> model, Integer tipologiaID);
 
-    public <ANO extends ANestedObject<NP, NTP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> void deleteNestedObjectByTypeID(
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> void deleteNestedObjectByTypeID(
             Class<ANO> model, Integer tipologiaProprietaId);
 
 }
