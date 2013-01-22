@@ -34,15 +34,12 @@ import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.search.annotations.Field;
-import org.hibernate.search.annotations.Index;
 
 @MappedSuperclass
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class ATipologia<TP extends PropertiesDefinition> extends IdentifiableObject implements Selectable {
 	
 	/** shortName **/
-	@Field(index=Index.TOKENIZED)
 	private String shortName;
 	
 	/** label della tipologia di progetto */

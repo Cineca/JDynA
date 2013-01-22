@@ -26,14 +26,11 @@ package it.cilea.osd.jdyna.web.tag;
 
 import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.util.FormulaManager;
 import it.cilea.osd.jdyna.utils.HashUtil;
-import it.cilea.osd.jdyna.value.PointerValue;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 
 import java.beans.PropertyEditor;
 import java.io.IOException;
-import java.io.StringReader;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -47,9 +44,6 @@ import ognl.OgnlException;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.lucene.analysis.Token;
-import org.apache.lucene.analysis.Tokenizer;
-import org.apache.lucene.analysis.standard.StandardTokenizer;
 
 public class JDynATagLibraryFunctions
 {
@@ -281,18 +275,19 @@ public class JDynATagLibraryFunctions
     public static String getCollisioniQuery(String inputValue)
             throws IOException
     {
-        StringBuffer inputToken = new StringBuffer();
-        Tokenizer tokenizer = new StandardTokenizer(
-                new StringReader(inputValue));
-        Token token = tokenizer.next();
-        while (token != null)
-        {
-            inputToken.append(new String(token.termBuffer(), 0, token
-                    .termLength()));
-            inputToken.append("~");
-            token = tokenizer.next();
-        }
-        return inputToken.toString();
+    	return null;
+//        StringBuffer inputToken = new StringBuffer();
+//        Tokenizer tokenizer = new StandardTokenizer(
+//                new StringReader(inputValue));
+//        Token token = tokenizer.next();
+//        while (token != null)
+//        {
+//            inputToken.append(new String(token.termBuffer(), 0, token
+//                    .termLength()));
+//            inputToken.append("~");
+//            token = tokenizer.next();
+//        }
+//        return inputToken.toString();
     }
 
     public static String getObjectFromPropertyPath(String propertyPath)

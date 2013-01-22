@@ -26,10 +26,8 @@ package it.cilea.osd.jdyna.widget;
 
 import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.jdyna.editor.ModelPropertyEditor;
-import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-import it.cilea.osd.jdyna.util.FormulaManager;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.value.PointerValue;
 
@@ -40,8 +38,6 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.Transient;
-
-import ognl.OgnlException;
 
 import org.hibernate.annotations.Type;
 

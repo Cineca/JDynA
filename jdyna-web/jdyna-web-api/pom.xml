@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>jdyna-web</artifactId>
 		<groupId>jdyna-web</groupId>
-		<version>3.0-alpha</version>
+		<version>3.0-beta</version>
 	</parent>
 	<groupId>jdyna-web-api</groupId>
 	<artifactId>jdyna-web-api</artifactId>
