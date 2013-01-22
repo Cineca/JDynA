@@ -39,9 +39,6 @@ import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import ognl.Ognl;
-import ognl.OgnlException;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -126,47 +123,47 @@ public class JDynATagLibraryFunctions
     }
 
     public static Object getReferencedObject(Object root, String propertyPath)
-            throws OgnlException
     {
-
-        /*
-         * considero anche il caso in cui le stringhe mi arrivino gia' con gli
-         * apici
-         */
-        String pattern = "\\[([^\\]']*[^'0-9\\]]{1,}[^\\]']*[^'])\\]";
-        String propertyPathWithOutRoot = propertyPath.substring(
-                propertyPath.indexOf(".") + 1).replaceAll(pattern, "['$1']");
-
-        if (root == null)
-        {
-            return "";
-        }
-        Object result;
-        try
-        {
-            if (root instanceof ValoreDTO)
-            {
-                ValoreDTO valoreDTO = (ValoreDTO) root;
-                if (valoreDTO.getObject() != null)
-                {
-                    result = Ognl.getValue(propertyPathWithOutRoot,
-                            valoreDTO.getObject());
-                }
-                else
-                {
-                    return "";
-                }
-            }
-            else
-            {
-                result = Ognl.getValue(propertyPathWithOutRoot, root);
-            }
-        }
-        catch (RuntimeException e)
-        {
-            result = "";
-        }
-        return result;
+    	return null;
+//
+//        /*
+//         * considero anche il caso in cui le stringhe mi arrivino gia' con gli
+//         * apici
+//         */
+//        String pattern = "\\[([^\\]']*[^'0-9\\]]{1,}[^\\]']*[^'])\\]";
+//        String propertyPathWithOutRoot = propertyPath.substring(
+//                propertyPath.indexOf(".") + 1).replaceAll(pattern, "['$1']");
+//
+//        if (root == null)
+//        {
+//            return "";
+//        }
+//        Object result;
+//        try
+//        {
+//            if (root instanceof ValoreDTO)
+//            {
+//                ValoreDTO valoreDTO = (ValoreDTO) root;
+//                if (valoreDTO.getObject() != null)
+//                {
+//                    result = Ognl.getValue(propertyPathWithOutRoot,
+//                            valoreDTO.getObject());
+//                }
+//                else
+//                {
+//                    return "";
+//                }
+//            }
+//            else
+//            {
+//                result = Ognl.getValue(propertyPathWithOutRoot, root);
+//            }
+//        }
+//        catch (RuntimeException e)
+//        {
+//            result = "";
+//        }
+//        return result;
     }
 
     /**
