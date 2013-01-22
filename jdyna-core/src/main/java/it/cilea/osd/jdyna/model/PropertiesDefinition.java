@@ -154,31 +154,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
      * Level access of metadata value {@see AccessLevelConstants}
      */
     private Integer accessLevel;
-    
-    public Integer getLabelMinSize() {
-		return labelMinSize;
-	}
-
-	public void setLabelMinSize(Integer labelMinSize) {
-		this.labelMinSize = labelMinSize;
-	}
-
-	public Size getFieldMinSize() {
-		return fieldMinSize;
-	}
-
-	public void setFieldMinSize(Size fieldMinSize) {
-		this.fieldMinSize = fieldMinSize;
-	}
-
-	public boolean isNewline() {
-		return newline;
-	}
-
-	public void setNewline(boolean newline) {
-		this.newline = newline;
-	}
-
+ 
 	//costruttore
 	public PropertiesDefinition() {		
 		priority = 0;
@@ -359,5 +335,29 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
     {
         return labelMinSizeUnit;
     }
-	
+
+    
+    public Integer getLabelMinSize() {
+        return labelMinSize;
+    }
+
+    public void setLabelMinSize(Integer labelMinSize) {
+        this.labelMinSize = labelMinSize;
+    }
+
+    public Size getFieldMinSize() {
+        return fieldMinSize;
+    }
+
+    public void setFieldMinSize(Size fieldMinSize) {
+        this.fieldMinSize = fieldMinSize;
+    }
+
+    public boolean isNewline() {
+        return newline;
+    }
+
+    public void setNewline(boolean newline) {
+        this.newline = newline;
+    }
 }

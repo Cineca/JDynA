@@ -84,6 +84,17 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	 */
 	private Integer visibility;
 	
+	
+	/**
+	 * setting 1 to update property only with a batch procedure 
+	 */
+	private Integer lock;
+	
+	
+	/**
+	 * utility attribute, here you can set for example currency, language or name of subject or classification parent 
+	 */
+	private String scope;
 	/**
      * Getter method.
      *
@@ -299,5 +310,25 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	
 	public abstract void setParent(AnagraficaSupport<? extends Property<TP>, TP> parent);
 	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
+
+    public Integer getLock()
+    {
+        return lock;
+    }
+
+    public void setLock(Integer lock)
+    {
+        this.lock = lock;
+    }
+
+    public String getScope()
+    {
+        return scope;
+    }
+
+    public void setScope(String scope)
+    {
+        this.scope = scope;
+    }
 	
 }
