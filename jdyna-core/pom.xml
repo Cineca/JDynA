@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>jdyna</artifactId>
 		<groupId>jdyna</groupId>
-		<version>3.0-alpha</version>
+		<version>3.0-beta</version>
 	</parent>
 
 	<groupId>jdyna-core</groupId>
@@ -20,27 +20,6 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-search</artifactId>
-			<exclusions>
-				<exclusion>
-					<artifactId>solr-core</artifactId>
-					<groupId>org.apache.solr</groupId>
-				</exclusion>
-				<exclusion>
-					<artifactId>solr-solrj</artifactId>
-					<groupId>org.apache.solr</groupId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.apache.lucene</groupId>
-			<artifactId>lucene-core</artifactId>
-
 		</dependency>
 
 		<dependency>
@@ -61,11 +40,6 @@
 		<dependency>
 			<groupId>org.directwebremoting</groupId>
 			<artifactId>dwr</artifactId>
-		</dependency>
-
-		<dependency>
-			<groupId>ognl</groupId>
-			<artifactId>ognl</artifactId>
 		</dependency>
 
 		<dependency>

@@ -3,7 +3,7 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>3.0-alpha</version>
+    <version>3.0-beta</version>
   </parent>
   <groupId>jdyna-formula</groupId>
   <artifactId>jdyna-formula</artifactId>
@@ -11,7 +11,7 @@
   	<dependency>
   		<groupId>jdyna-core</groupId>
   		<artifactId>jdyna-core</artifactId>
-  		<version>3.0-alpha</version>  		
+  		<version>3.0-beta</version>  		
   		<scope>compile</scope>
   	</dependency>
   	<dependency>

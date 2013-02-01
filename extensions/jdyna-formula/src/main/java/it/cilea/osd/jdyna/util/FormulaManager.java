@@ -33,15 +33,10 @@ import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.service.IPersistenceFormulaService;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
 
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import ognl.Ognl;
-import ognl.OgnlException;
 
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.logging.Log;
@@ -94,7 +89,7 @@ public class FormulaManager implements ISubscriber<JPAEvent>
      * @throws ClassNotFoundException
      */
     public <TP extends PropertiesDefinition, P extends Property<TP>> void ricalcoloFormula(
-            JPAEvent evento) throws OgnlException
+            JPAEvent evento)
     {
         // prendo gli oggetti che hanno proprieta da ricalcolare
         Set<AnagraficaSupport<P, TP>> oggettoConFormule = applicationService
@@ -189,10 +184,11 @@ public class FormulaManager implements ISubscriber<JPAEvent>
      * @throws OgnlException
      * */
     public static boolean valutaRegolaDiCalcolo(String expression,
-            Object rootObject, Integer idx) throws OgnlException
+            Object rootObject, Integer idx)
     {
-        return (Boolean) Ognl.getValue(getOgnlExpression(expression, idx, 0),
-                rootObject);
+//        return (Boolean) Ognl.getValue(getOgnlExpression(expression, idx, 0),
+//                rootObject);
+        return false;
     }
 
     /**
@@ -211,59 +207,60 @@ public class FormulaManager implements ISubscriber<JPAEvent>
     public static Object calcoloValore(String expression, Object rootObject,
             Integer idx, Integer resultIdx)
     {
-        // OgnlRuntime.setNullHandler(Property.class, new
-        // ProprietaNullHandler());
-        // OgnlRuntime.setNullHandler(Anagrafica4View.class, new
-        // Anagrafica4ViewNullHandler(applicationService));
-        // OgnlRuntime.setNullHandler(Identifiable.class, new
-        // HibernateProxyNullHandler());
-        String ognlExp = getOgnlExpression(expression, idx, resultIdx);
-        // Object preParser = null;
-        try
-        {
-            Object result = null;
-            // verifica dell'espressione
-            // preParser = Ognl.parseExpression(ognlExp);
-            // //pre valutazione dell'espressione ... prove tecniche per la
-            // trasmissione...in modo tale da gestire subito l'eventuale
-            // espressione malformata o qualunque altro tipo di eccezione
-            // Ognl.getValue(preParser,rootObject);
-            // try {
-            if (rootObject != null)
-            {
-                result = Ognl.getValue(ognlExp, rootObject);
-            }
-            log.debug("Valore calcolato: " + result);
-            // log.warn("Valore calcolato: " + result);
-            return result;
-            // }
-            // catch (OgnlException e)
-            // {
-            // log.error("Errore nella valutazione dell'espressione
-            // "+expression+" -> " +
-            // ognlExp +" sull'oggetto root "+rootObject);
-            // throw new RuntimeException(e);
-            //
-            // }
-
-        }
-        catch (OgnlException e)
-        {
-            log.error("Errore nella valutazione dell'espressione " + expression
-                    + " -> " + ognlExp + " sull'oggetto root " + rootObject);
-            // log.error("Errore nel pre parsering dell'espressione "+ ognlExp +
-            // "---> oggetto pre parser :"+preParser);
-            throw new RuntimeException(e);
-        }
-
-        catch (Exception e)
-        {
-            // log.error("Errore nel pre parsering dell'espressione "+ ognlExp +
-            // "---> oggetto pre parser :"+preParser);
-            log.error("Errore nella valutazione dell'espressione " + expression
-                    + " -> " + ognlExp + " sull'oggetto root " + rootObject);
-            throw new RuntimeException(e);
-        }
+    	return null;
+//        // OgnlRuntime.setNullHandler(Property.class, new
+//        // ProprietaNullHandler());
+//        // OgnlRuntime.setNullHandler(Anagrafica4View.class, new
+//        // Anagrafica4ViewNullHandler(applicationService));
+//        // OgnlRuntime.setNullHandler(Identifiable.class, new
+//        // HibernateProxyNullHandler());
+//        String ognlExp = getOgnlExpression(expression, idx, resultIdx);
+//        // Object preParser = null;
+//        try
+//        {
+//            Object result = null;
+//            // verifica dell'espressione
+//            // preParser = Ognl.parseExpression(ognlExp);
+//            // //pre valutazione dell'espressione ... prove tecniche per la
+//            // trasmissione...in modo tale da gestire subito l'eventuale
+//            // espressione malformata o qualunque altro tipo di eccezione
+//            // Ognl.getValue(preParser,rootObject);
+//            // try {
+//            if (rootObject != null)
+//            {
+//                result = Ognl.getValue(ognlExp, rootObject);
+//            }
+//            log.debug("Valore calcolato: " + result);
+//            // log.warn("Valore calcolato: " + result);
+//            return result;
+//            // }
+//            // catch (OgnlException e)
+//            // {
+//            // log.error("Errore nella valutazione dell'espressione
+//            // "+expression+" -> " +
+//            // ognlExp +" sull'oggetto root "+rootObject);
+//            // throw new RuntimeException(e);
+//            //
+//            // }
+//
+//        }
+//        catch (OgnlException e)
+//        {
+//            log.error("Errore nella valutazione dell'espressione " + expression
+//                    + " -> " + ognlExp + " sull'oggetto root " + rootObject);
+//            // log.error("Errore nel pre parsering dell'espressione "+ ognlExp +
+//            // "---> oggetto pre parser :"+preParser);
+//            throw new RuntimeException(e);
+//        }
+//
+//        catch (Exception e)
+//        {
+//            // log.error("Errore nel pre parsering dell'espressione "+ ognlExp +
+//            // "---> oggetto pre parser :"+preParser);
+//            log.error("Errore nella valutazione dell'espressione " + expression
+//                    + " -> " + ognlExp + " sull'oggetto root " + rootObject);
+//            throw new RuntimeException(e);
+//        }
     }
 
     /**
@@ -340,127 +337,128 @@ public class FormulaManager implements ISubscriber<JPAEvent>
      * @throws ClassNotFoundException
      */
     public <P extends Property<TP>, TP extends PropertiesDefinition> void ricalcolaFormule(
-            AnagraficaSupport<P, TP> oggetto) throws OgnlException
+            AnagraficaSupport<P, TP> oggetto)
     {
-        // FIXME bisogna verificare se va in loop
-
-        log.debug("Chiamato il RICALCOLAFORMULE in FORMULAMANAGER...");
-
-        List<TP> tipologieConRenderingFormula = applicationService
-                .getAllTipologieProprietaWithWidgetFormula(oggetto
-                        .getClassPropertiesDefinition());
-
-        for (TP tip : tipologieConRenderingFormula)
-        {
-            log.debug("ciclando sulle tipologie di proprieta per trovare tp con rendering widgetformula in ricalcolaFormule");
-
-            log.debug("la tipologia di proprieta': " + tip.getShortName()
-                    + " e' una formula");
-            WidgetFormula widgetFormula = (WidgetFormula) tip.getRendering();
-
-            boolean result = valutaRegolaDiCalcolo(
-                    widgetFormula.getRegolaDiRicalcolo(), oggetto, null);
-
-            if (result)
-            {
-                // cancello tutte le proprieta del metadato con rendering
-                // formula
-
-                if (((Identifiable) oggetto).getId() != null)
-                {
-                    List<P> proprietaDaCancellare = applicationService
-                            .<P, TP> getProprietaByParentAndTipologia(
-                                    (Identifiable) oggetto, tip);
-
-                    for (P prop : proprietaDaCancellare)
-                    {
-                        oggetto.removeProprieta(prop);
-                    }
-                }
-                // List<P> proprietaDaCancellare = oggetto
-                // .getProprietaDellaTipologia(tip);
-                //
-                // int size = proprietaDaCancellare.size();
-                //
-                // for (int w = 0; w < size; w++) {
-                //
-                // P pro = proprietaDaCancellare
-                // .get(size - 1 - w);
-                // oggetto.removeProprieta(pro);
-                //
-                // }
-                //
-                // se non e' null calcolo il result number della formula e itero
-                // per ricalcolare le formule
-                // altrimenti devo se e' null vuol dire che non e' ripetibile
-                String resultNumberString = widgetFormula.getResultNumber();
-                Integer resultNumber = 1;
-                if (resultNumberString != null
-                        && resultNumberString.length() != 0)
-                {
-                    try
-                    {
-                        resultNumber = (Integer) calcoloValore(
-                                resultNumberString, oggetto, null, null);
-                    }
-                    catch (RuntimeException e)
-                    {
-                        resultNumber = 0;
-                        log.warn("non e' stato possibile calcolare il resultNumber"
-                                + e.getStackTrace());
-                    }
-                }
-                for (int i = 0; i < resultNumber; i++)
-                {
-
-                    log.debug("valuto la regola di ricalcolo... " + result);
-
-                    Object valoreObject = null;
-                    try
-                    {
-                        valoreObject = FormulaManager
-                                .calcoloValore(widgetFormula.getExpression(),
-                                        oggetto, null, i);
-                    }
-                    catch (RuntimeException e)
-                    {
-                        log.warn("Errore nel ricalcolo formula: "
-                                + e.getMessage());
-                    }
-
-                    if (valoreObject != null)
-                    {
-                        // set del nuovo valore della proprieta che
-                        // contiene il
-                        // risultato della formula
-                        log.debug("nuovo valore: " + valoreObject + " class: "
-                                + valoreObject.getClass());
-
-                        if (valoreObject instanceof BigInteger)
-                        {
-                            log.debug("trasformo il risultato in Double");
-                            BigInteger bi = (BigInteger) valoreObject;
-                            valoreObject = new Double(bi.doubleValue());
-                            log.debug("nuovo valore: " + valoreObject
-                                    + " class: " + valoreObject.getClass());
-                        }
-                        if (valoreObject instanceof BigDecimal)
-                        {
-                            log.debug("trasformo il risultato in Double");
-                            BigDecimal bi = (BigDecimal) valoreObject;
-                            valoreObject = new Double(bi.doubleValue());
-                            log.debug("nuovo valore: " + valoreObject
-                                    + " class: " + valoreObject.getClass());
-                        }
-
-                        P proprieta = oggetto.createProprieta(tip);
-                        proprieta.getValue().setOggetto(valoreObject);
-                        log.debug("creata proprieta in posizione " + i);
-                    }
-                }
-            }
-
-        }
+    	return;
+//        // FIXME bisogna verificare se va in loop
+//
+//        log.debug("Chiamato il RICALCOLAFORMULE in FORMULAMANAGER...");
+//
+//        List<TP> tipologieConRenderingFormula = applicationService
+//                .getAllTipologieProprietaWithWidgetFormula(oggetto
+//                        .getClassPropertiesDefinition());
+//
+//        for (TP tip : tipologieConRenderingFormula)
+//        {
+//            log.debug("ciclando sulle tipologie di proprieta per trovare tp con rendering widgetformula in ricalcolaFormule");
+//
+//            log.debug("la tipologia di proprieta': " + tip.getShortName()
+//                    + " e' una formula");
+//            WidgetFormula widgetFormula = (WidgetFormula) tip.getRendering();
+//
+//            boolean result = valutaRegolaDiCalcolo(
+//                    widgetFormula.getRegolaDiRicalcolo(), oggetto, null);
+//
+//            if (result)
+//            {
+//                // cancello tutte le proprieta del metadato con rendering
+//                // formula
+//
+//                if (((Identifiable) oggetto).getId() != null)
+//                {
+//                    List<P> proprietaDaCancellare = applicationService
+//                            .<P, TP> getProprietaByParentAndTipologia(
+//                                    (Identifiable) oggetto, tip);
+//
+//                    for (P prop : proprietaDaCancellare)
+//                    {
+//                        oggetto.removeProprieta(prop);
+//                    }
+//                }
+//                // List<P> proprietaDaCancellare = oggetto
+//                // .getProprietaDellaTipologia(tip);
+//                //
+//                // int size = proprietaDaCancellare.size();
+//                //
+//                // for (int w = 0; w < size; w++) {
+//                //
+//                // P pro = proprietaDaCancellare
+//                // .get(size - 1 - w);
+//                // oggetto.removeProprieta(pro);
+//                //
+//                // }
+//                //
+//                // se non e' null calcolo il result number della formula e itero
+//                // per ricalcolare le formule
+//                // altrimenti devo se e' null vuol dire che non e' ripetibile
+//                String resultNumberString = widgetFormula.getResultNumber();
+//                Integer resultNumber = 1;
+//                if (resultNumberString != null
+//                        && resultNumberString.length() != 0)
+//                {
+//                    try
+//                    {
+//                        resultNumber = (Integer) calcoloValore(
+//                                resultNumberString, oggetto, null, null);
+//                    }
+//                    catch (RuntimeException e)
+//                    {
+//                        resultNumber = 0;
+//                        log.warn("non e' stato possibile calcolare il resultNumber"
+//                                + e.getStackTrace());
+//                    }
+//                }
+//                for (int i = 0; i < resultNumber; i++)
+//                {
+//
+//                    log.debug("valuto la regola di ricalcolo... " + result);
+//
+//                    Object valoreObject = null;
+//                    try
+//                    {
+//                        valoreObject = FormulaManager
+//                                .calcoloValore(widgetFormula.getExpression(),
+//                                        oggetto, null, i);
+//                    }
+//                    catch (RuntimeException e)
+//                    {
+//                        log.warn("Errore nel ricalcolo formula: "
+//                                + e.getMessage());
+//                    }
+//
+//                    if (valoreObject != null)
+//                    {
+//                        // set del nuovo valore della proprieta che
+//                        // contiene il
+//                        // risultato della formula
+//                        log.debug("nuovo valore: " + valoreObject + " class: "
+//                                + valoreObject.getClass());
+//
+//                        if (valoreObject instanceof BigInteger)
+//                        {
+//                            log.debug("trasformo il risultato in Double");
+//                            BigInteger bi = (BigInteger) valoreObject;
+//                            valoreObject = new Double(bi.doubleValue());
+//                            log.debug("nuovo valore: " + valoreObject
+//                                    + " class: " + valoreObject.getClass());
+//                        }
+//                        if (valoreObject instanceof BigDecimal)
+//                        {
+//                            log.debug("trasformo il risultato in Double");
+//                            BigDecimal bi = (BigDecimal) valoreObject;
+//                            valoreObject = new Double(bi.doubleValue());
+//                            log.debug("nuovo valore: " + valoreObject
+//                                    + " class: " + valoreObject.getClass());
+//                        }
+//
+//                        P proprieta = oggetto.createProprieta(tip);
+//                        proprieta.getValue().setOggetto(valoreObject);
+//                        log.debug("creata proprieta in posizione " + i);
+//                    }
+//                }
+//            }
+//
+//        }
     }
 
     /**
