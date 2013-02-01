@@ -406,7 +406,7 @@ public class AnagraficaUtils
      * @param anagraficaObject
      * @param importBean
      */
-    private <P extends Property<TP>, TP extends PropertiesDefinition, AV extends AValue> void importSottoProprieta(
+    private <P extends Property<TP>, TP extends PropertiesDefinition> void importSottoProprieta(
             AnagraficaObjectDTO anagraficaObject,
             ImportPropertyAnagraficaUtil importBean, Class<TP> clazzTP)
     {

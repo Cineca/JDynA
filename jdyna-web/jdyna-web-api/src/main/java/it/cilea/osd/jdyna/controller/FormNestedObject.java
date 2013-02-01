@@ -149,7 +149,7 @@ public class FormNestedObject<SP extends Property<STP>, STP extends PropertiesDe
         
         List<ANO> results = applicationService.getNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, targetClass, 5, 0);             
         
-        Long countAll = applicationService.countNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, targetClass);        
+        long countAll = applicationService.countNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, targetClass);        
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(typo.getDecoratorClass(), typeNestedID));
         model.put("results", results);           
         model.put("offset", 5);
@@ -157,7 +157,7 @@ public class FormNestedObject<SP extends Property<STP>, STP extends PropertiesDe
         model.put("pageCurrent", 0);   
         model.put("editmode", true);
         model.put("parentID", parentID);
-        model.put("totalHit", countAll.intValue());
+        model.put("totalHit", (int)countAll);
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", getSpecificPartPath());
         model.put("specificContextPath", getSpecificContextPath());

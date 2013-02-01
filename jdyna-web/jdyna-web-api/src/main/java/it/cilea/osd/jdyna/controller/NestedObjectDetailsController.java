@@ -94,7 +94,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         Integer page = Integer.parseInt(pageString);
         
         List<T> results = null;
-        Long countAll = null;
+        long countAll = 0;
         if(edit) {
             results = applicationService.getNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, modelClazz, limit, page*limit);
             countAll = applicationService.countNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, modelClazz);
@@ -112,7 +112,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         model.put("pageCurrent", page);   
         model.put("editmode", edit);
         model.put("parentID", parentID);
-        model.put("totalHit", countAll.intValue());
+        model.put("totalHit", (int)countAll);        
         model.put("hitPageSize", results.size());
         model.put("specificPartPath", specificPartPath);
         model.put("specificContextPath", specificContextPath);
