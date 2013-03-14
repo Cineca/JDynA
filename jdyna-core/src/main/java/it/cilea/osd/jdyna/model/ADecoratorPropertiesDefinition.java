@@ -33,5 +33,4 @@ import javax.persistence.MappedSuperclass;
 */
 @MappedSuperclass
 public abstract class ADecoratorPropertiesDefinition<TP extends PropertiesDefinition> extends Containable<TP> implements IPropertiesDefinition {
-	
 }

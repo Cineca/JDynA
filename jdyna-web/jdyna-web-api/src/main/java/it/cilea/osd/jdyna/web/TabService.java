@@ -129,10 +129,17 @@ public abstract class TabService extends PersistenceDynaService implements
         
         for(TP tp : listTP) {               
             ContainableDao<Containable> dao =  (ContainableDao<Containable>) getDaoByModel(tp.getDecoratorClass());         
-            containables.add(dao.uniqueContainableByDecorable(tp.getId()));
+            Containable uniqueContainableByDecorable = dao.uniqueContainableByDecorable(tp.getId());
+            if (uniqueContainableByDecorable != null)
+            {
+                containables.add(uniqueContainableByDecorable);
+            }
         }
         findOtherContainables(containables, classTipologiaProprieta.getName());
-        Collections.sort(containables);
+        if (containables.size() > 0)
+        {
+            Collections.sort(containables);
+        }
         return containables;
     }	
 
