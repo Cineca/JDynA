@@ -476,7 +476,7 @@ img.help {
 
 .dynaClear {
 	display: block;
-	height 1px;
+	height: 1px;
 	font-size: 0px;
 	clear: both;
 }

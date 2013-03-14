@@ -83,6 +83,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         String pageString = request.getParameter("pageCurrent");
         String editmode = request.getParameter("editmode");
         String admin = request.getParameter("admin");
+        String externalJSP = request.getParameter("externalJSP");
         Boolean edit = false;
         if(editmode!=null && !editmode.isEmpty()) {
             edit = Boolean.parseBoolean(editmode);            
@@ -117,6 +118,9 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         model.put("specificPartPath", specificPartPath);
         model.put("specificContextPath", specificContextPath);
         model.put("admin", admin);
+        if(externalJSP!=null && !externalJSP.isEmpty()) {
+        	return new ModelAndView(externalJSP, model);
+        }
         return new ModelAndView(detailsView, model);
     }
 

@@ -40,32 +40,49 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name="jdyna_containables")
-@Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Containable<P> extends IdentifiableObject implements IContainable {
+@Table(name = "jdyna_containables")
+@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
+@Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public abstract class Containable<P> extends IdentifiableObject implements
+        IContainable
+{
 
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTAINABLE_SEQ")
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTAINABLE_SEQ")
     @SequenceGenerator(name = "CONTAINABLE_SEQ", sequenceName = "CONTAINABLE_SEQ")
-	private Integer id;	
-		
-	public abstract void setReal(P object);
-	
-	@Transient
-	public abstract P getObject();
-	
-	@Transient
-	public P getReal(){
-		return getObject();
-	}
-	
-	public Integer getId() {
-		return id;
-	}
-	
-	public void setId(Integer id) {
-		this.id = id;
-	}
+    private Integer id;
+
+    public abstract void setReal(P object);
+
+    private String externalJSP;
+
+    @Transient
+    public abstract P getObject();
+
+    @Transient
+    public P getReal()
+    {
+        return getObject();
+    }
+
+    public Integer getId()
+    {
+        return id;
+    }
+
+    public void setId(Integer id)
+    {
+        this.id = id;
+    }
+
+    public void setExternalJSP(String externalJSP)
+    {
+        this.externalJSP = externalJSP;
+    }
+
+    public String getExternalJSP()
+    {
+        return externalJSP;
+    }
+
 }
