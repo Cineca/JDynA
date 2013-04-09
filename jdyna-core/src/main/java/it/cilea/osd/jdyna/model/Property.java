@@ -312,7 +312,10 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
 
     public Integer getLock()
-    {
+    {        
+        if(this.lock==null) {
+            return 0;
+        }
         return lock;
     }
 

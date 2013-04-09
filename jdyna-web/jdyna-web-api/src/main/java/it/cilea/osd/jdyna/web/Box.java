@@ -27,20 +27,28 @@ package it.cilea.osd.jdyna.web;
 import it.cilea.osd.common.util.Utils;
 import it.cilea.osd.jdyna.model.IContainable;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 
@@ -80,6 +88,11 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 	private boolean unrelevant;
 	
 	private String externalJSP;
+	
+    @OneToMany(fetch=FetchType.EAGER)
+    @JoinColumn(name="parent_id")        
+    @Cascade(value = { CascadeType.ALL, CascadeType.DELETE_ORPHAN })
+	private List<BoxMessage> messages;
 	
 	// accessori e setter
 	public Integer getId() {
@@ -192,6 +205,20 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
     public String getExternalJSP()
     {
         return externalJSP;
+    }
+
+    public void setMessages(List<BoxMessage> messages)
+    {
+        this.messages = messages;
+    }
+
+    public List<BoxMessage> getMessages()
+    {
+        if(messages==null || messages.isEmpty()) {
+            messages = new LinkedList<BoxMessage>();
+            messages.add(new BoxMessage());
+        }
+        return messages;
     }
 
 	

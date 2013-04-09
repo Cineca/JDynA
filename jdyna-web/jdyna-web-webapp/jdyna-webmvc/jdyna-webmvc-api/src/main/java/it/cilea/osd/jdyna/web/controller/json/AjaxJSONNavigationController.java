@@ -98,7 +98,14 @@ public abstract class AjaxJSONNavigationController<B extends Box, T extends Tab>
             {
                 BoxJSON boxJson = null;
 
-                IComponent comp = components.get(box.getShortName());
+                IComponent comp = null;
+                try {
+                    comp = components.get(box.getShortName());
+                }
+                catch(NullPointerException ex) {
+                    log.warn("Components empty for this entity class", ex);
+                }
+                
                 if (comp != null)
                 {
                     request.setAttribute("entityID", id);

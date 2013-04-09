@@ -145,7 +145,9 @@
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>	
-	
+	<c:if test="${inputName}.lock">
+			<span style="padding-left: 10px;color: red;">###</span>	
+	</c:if>
 	</spring:bind>
 	
 	<c:if test="${empty disabled}">
@@ -226,7 +228,9 @@
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>
-	
+	<c:if test="${inputName}.lock">
+		<span style="padding-left: 10px;color: red;">###</span>	
+	</c:if>
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="" />
 	<c:if test="${!empty ajaxValidation}">

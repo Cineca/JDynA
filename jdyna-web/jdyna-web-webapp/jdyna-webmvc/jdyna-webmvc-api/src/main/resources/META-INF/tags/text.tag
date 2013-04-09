@@ -41,6 +41,7 @@
 <%@ attribute name="collision" required="false" type="java.lang.Boolean" description="parameter to search object on database whit same value (search conflict name on property value)"%>
 <%@ attribute name="collisionClass" required="false" type="java.lang.Class" description="class to verify collision"%>
 <%@ attribute name="collisionField" required="false" type="java.lang.String" description="field of search with search engine"%>
+<%@ attribute name="lock" required="false" type="java.lang.Boolean" %>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -114,9 +115,19 @@
 	
 		<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
 			value="${inputValue}" onchange="${functionValidation}${onchange}" onkeyup="${oncollisione}"  ${cssClassAttribute} ${autocomplete}/>
+		<c:if test="${lock}">
+		<spring:bind path="${inputName}.lock">
+			<c:if test="${status.value}">
+				<span style="padding-left: 10px;color: red;">###</span>	
+			</c:if>
+		</spring:bind>				 
+		</c:if>	
+		
 		<c:if test="${visibility}">
 			<dyna:boolean propertyPath="${inputName}.visibility"/>
 		</c:if>	
+		
+		
 	<c:if test="${!repeatable && collision}">
 		<div id="collision${inputName}" class="dynaCollision"></div>
 	</c:if>
@@ -189,10 +200,18 @@
 	<input name="${inputName}" id="${inputName}" size="${size}" ${type} ${disabled}
 		value="${inputValue}" onchange="${functionValidation};${onchange}" onkeyup="${oncollisione}" ${cssClassAttribute} ${autocomplete}/>
 	
+	<c:if test="${lock}">
+		<spring:bind path="${inputName}.lock">
+			<c:if test="${status.value}">
+				<span style="padding-left: 10px;color: red;">###</span>	
+			</c:if>
+		</spring:bind>				 
+	</c:if>
+	
 	<c:if test="${visibility}">
 		<dyna:boolean propertyPath="${inputName}.visibility"/>
 	</c:if>
-	
+		
 	<c:if test="${!repeatable && collision}">
 		<div id="collision${inputName}" class="dynaCollision"></div>
 	</c:if>

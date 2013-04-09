@@ -167,8 +167,10 @@ public class AnagraficaUtils
                 for (P proprieta : anagraficaSupport
                         .getProprietaDellaTipologia(tipProprieta))
                 {
-                    avalori.add(new ValoreDTO(proprieta.getValue().getObject(),
-                            (proprieta.getVisibility() == 0) ? false : true));
+                    ValoreDTO avaloredto = new ValoreDTO(proprieta.getValue().getObject(),
+                            (proprieta.getVisibility() == 0) ? false : true);
+                    avaloredto.setLock(proprieta.getLock() == 0 ? false : true);
+                    avalori.add(avaloredto);
 
                 }
                 if (avalori.size() != 0)

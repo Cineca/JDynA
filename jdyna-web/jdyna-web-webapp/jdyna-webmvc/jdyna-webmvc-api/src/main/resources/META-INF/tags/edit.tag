@@ -31,6 +31,7 @@
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
 <%@ attribute name="isCreation" required="false" type="java.lang.Boolean" description="active all functionality only for creation of object"%>
 <%@ attribute name="hideLabel" required="false" type="java.lang.Boolean" %>
+<%@ attribute name="lock" required="false" type="java.lang.Boolean" %>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
@@ -177,7 +178,7 @@
 		<dyna:text propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}" lock="${lock}"/>		
 	</c:when>	
 	<c:when test="${isTextWithCollisioni}">		
 		<dyna:text propertyPath="${propertyPath}" size="${tipologia.rendering.dimensione.col}"
@@ -253,6 +254,7 @@
 	</c:when>
 
 </c:choose>
+
 <c:if test="${!subElement}">
 </div>
 </div>

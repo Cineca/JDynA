@@ -30,6 +30,7 @@ public class ValoreDTO implements Serializable {
 	/** The real contents entered/showed by the UI */
 	private Object object;
 	private Boolean visibility = true;
+	private Boolean lock = false;
 		
 	public ValoreDTO() {
 	}
@@ -75,5 +76,15 @@ public class ValoreDTO implements Serializable {
 		}
 		return visibility;
 	}
+
+    public void setLock(Boolean lock)
+    {
+        this.lock = lock;
+    }
+
+    public Boolean getLock()
+    {
+        return lock;
+    }
 
 }
