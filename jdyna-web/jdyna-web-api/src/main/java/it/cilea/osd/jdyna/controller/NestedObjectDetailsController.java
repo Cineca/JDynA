@@ -109,6 +109,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         }
  
         Collections.sort(results);
+        
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
         model.put("results", results);           
         model.put("limit", limit);

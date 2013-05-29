@@ -140,11 +140,24 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     }
 
     public int compareTo(ANestedObject<P, TP, PP, PTP> o)
-    {
-        if (this.getPosition() > o.getPosition())
-            return 1;
-        if (this.getPosition() < o.getPosition())
-            return -1;
-        return 0;
+    {        
+        if(o!=null) {
+            if(o.getPosition()!=null) {
+                if(this.getPosition()==null) {
+                    return 1;
+                }
+                if (this.getPosition() > o.getPosition())
+                    return 1;
+                if (this.getPosition() < o.getPosition())
+                    return -1;
+                return 0;                
+            }
+            else { 
+                if(this.getPosition()==null) {
+                    return 0;
+                }
+            }
+        }
+        return -1;
     }
 }
