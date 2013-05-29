@@ -25,8 +25,9 @@
 package it.cilea.osd.jdyna.components;
 
 import java.util.List;
+import java.util.Map;
 
-public interface IBeanComponent
+public interface IBeanSubComponent
 {
     String getComponentIdentifier();
     
@@ -41,4 +42,6 @@ public interface IBeanComponent
     List<String> getFilters();
     
     String getQuery();
+    
+    Map<String, String> getSubQueries();
 }

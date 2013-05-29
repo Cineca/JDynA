@@ -34,6 +34,7 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
@@ -44,7 +45,8 @@ import org.hibernate.annotations.OrderBy;
  *
  */
 @Entity
-@Table(name = "jdyna_nestedobject")
+@Table(name = "jdyna_nestedobject") 
+    //uniqueConstraints = {@UniqueConstraint(columnNames={"position","typo_id","parent_id"})})
 @NamedQueries( {
         @NamedQuery(name = "NestedObject.findAll", query = "from NestedObject order by id"),
         @NamedQuery(name = "NestedObject.paginate.id.asc", query = "from NestedObject order by id asc"),
@@ -123,6 +125,5 @@ public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, N
     {
         this.parent = (DynamicObject) parent;        
     }
-
 
 }

@@ -34,6 +34,9 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.web.ITabService;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -104,9 +107,8 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
             results = applicationService.getActiveNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, modelClazz, limit, page*limit);
             countAll = applicationService.countActiveNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, modelClazz);
         }
-
-        
-        
+ 
+        Collections.sort(results);
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
         model.put("results", results);           
         model.put("limit", limit);
@@ -133,8 +135,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
             String nestedID = elementID.substring(elementID.lastIndexOf("_")+1);            
             applicationService.delete(modelClazz, Integer.parseInt(nestedID));            
         }    
-        
-        
+                
         String parentStringID = request.getParameter("parentID");
         String typeNestedStringID = request.getParameter("typeNestedID");
         String admin = request.getParameter("admin");
@@ -159,10 +160,8 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
             results = applicationService.getActiveNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, modelClazz, limit, page*limit);
             countAll = applicationService.countActiveNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, modelClazz);
         }
-        
-        
-        
-        
+               
+        Collections.sort(results);
         model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
         model.put("results", results);           
         model.put("limit", limit);

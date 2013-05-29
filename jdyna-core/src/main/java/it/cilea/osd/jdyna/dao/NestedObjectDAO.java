@@ -64,5 +64,9 @@ public interface NestedObjectDAO<P extends Property<TP>, TP extends PropertiesDe
     
     List<ANO> findNestedObjectsByTypoID(Integer typeId);
 
-    void deleteNestedObjectsByTypoID(Integer typeId);    
+    void deleteNestedObjectsByTypoID(Integer typeId);
+
+    Integer maxPositionNestedObjectsByTypoID(Integer tipologiaID);
+    
+    Integer maxPositionNestedObjects();
 }

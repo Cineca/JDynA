@@ -37,6 +37,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Formula;
+
 /**
  * 
  * @author pascarelli
@@ -55,9 +57,13 @@ import javax.persistence.SequenceGenerator;
         @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.countActiveNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.findNestedObjectsByTypoID", query = "from ANestedObject where typo.id = ?"),
-        @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?") })
+        @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.maxPositionNestedObjectsByTypoID", query = "select max(position) from ANestedObject where typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.maxPositionNestedObjects", query = "select max(position) from ANestedObject")
+})
 public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, PP extends Property<PTP>, PTP extends PropertiesDefinition>
-        extends AnagraficaObject<P, TP>
+        extends AnagraficaObject<P, TP> implements
+        Comparable<ANestedObject<P, TP, PP, PTP>>
 {
     /** DB Primary key */
     @Id
@@ -69,6 +75,8 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     private String uuid;
 
     private Boolean status = true;
+
+    private Integer position = 0;
 
     /** timestamp info for creation and last modify */
     @Embedded
@@ -119,5 +127,24 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     public void setStatus(Boolean status)
     {
         this.status = status;
+    }
+
+    public Integer getPosition()
+    {
+        return position;
+    }
+
+    public void setPosition(Integer position)
+    {
+        this.position = position;
+    }
+
+    public int compareTo(ANestedObject<P, TP, PP, PTP> o)
+    {
+        if (this.getPosition() > o.getPosition())
+            return 1;
+        if (this.getPosition() < o.getPosition())
+            return -1;
+        return 0;
     }
 }

@@ -36,10 +36,10 @@ import it.cilea.osd.jdyna.dao.PropertiesDefinitionDao;
 import it.cilea.osd.jdyna.dao.PropertyDao;
 import it.cilea.osd.jdyna.dao.TypeDaoSupport;
 import it.cilea.osd.jdyna.model.ANestedObject;
+import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
 import it.cilea.osd.jdyna.model.ATipologia;
-import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
@@ -557,8 +557,8 @@ public class PersistenceDynaService extends PersistenceService implements
             Integer dynamicFieldID, Integer typoID, Class<ANO> model)
     {
         NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
-        return modelDao.countActiveNestedObjectsByParentIDAndTypoID(dynamicFieldID,
-                typoID);
+        return modelDao.countActiveNestedObjectsByParentIDAndTypoID(
+                dynamicFieldID, typoID);
     }
 
     @Override
@@ -578,6 +578,31 @@ public class PersistenceDynaService extends PersistenceService implements
         NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
         modelDao.deleteNestedObjectsByTypoID(typeId);
 
+    }
+
+    @Override
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> Integer getNestedMaxPosition(
+            ANO object)
+    {
+        NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(object
+                .getClass());
+        Integer result = 0;
+
+        if (ANestedObjectWithTypeSupport.class.isAssignableFrom(object
+                .getClass()))
+        {
+
+            result = modelDao
+                    .maxPositionNestedObjectsByTypoID(((ANestedObjectWithTypeSupport) object)
+                            .getTypo().getId());
+
+        }
+        else
+        {
+            result = modelDao.maxPositionNestedObjects();
+        }
+        
+        return result==null?0:result;
     }
 
 }

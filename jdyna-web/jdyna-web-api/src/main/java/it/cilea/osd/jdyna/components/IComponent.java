@@ -30,20 +30,19 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public interface IComponent
+public interface IComponent<IBC extends IBeanSubComponent>
 {
-    void evalute(HttpServletRequest request, HttpServletResponse response) throws Exception;
+    void evalute(HttpServletRequest request, HttpServletResponse response)
+            throws Exception;
 
     List<String[]> sublinks(HttpServletRequest request,
             HttpServletResponse response) throws Exception;
-    
-    String getComponentIdentifier();
-    
-    Map<String, IBeanComponent> getTypes();
-    
+
+    Map<String, IBC> getTypes();
+
     long count(String type, Integer id);
 
     void setShortName(String shortName);
-    
+
     String getShortName();
 }
