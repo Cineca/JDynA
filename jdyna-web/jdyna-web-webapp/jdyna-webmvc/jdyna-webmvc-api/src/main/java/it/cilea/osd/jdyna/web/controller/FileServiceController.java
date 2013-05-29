@@ -48,38 +48,48 @@ public class FileServiceController implements Controller
         String folder = pathInfo[3];
         String fileName = request.getParameter("filename");
 
-        File image = new File(
-                getPath()
-                        + File.separatorChar + folder 
-                        + fileName);
-
-        InputStream is = null;
-        try
+        File dir = new File(getPath() + File.separatorChar + folder);
+        File image = new File(dir, fileName);
+                    
+        if (image.getParentFile().compareTo(dir) == 0)
         {
-            is = new FileInputStream(image);
-
-            response.setContentType(request.getSession().getServletContext().getMimeType(
-                    image.getName()));
-            Long len = image.length();
-            response.setContentLength(len.intValue());
-            response.setHeader("Content-Disposition", "attachment; filename="
-                    + image.getName());
-            FileCopyUtils.copy(is, response.getOutputStream());
-            response.getOutputStream().flush();
-        }
-        finally
-        {
-            if (is != null)
+            if (image.exists())
             {
-                is.close();
+                InputStream is = null;
+                try
+                {
+                    is = new FileInputStream(image);
+
+                    response.setContentType(request.getSession()
+                            .getServletContext().getMimeType(image.getName()));
+                    Long len = image.length();
+                    response.setContentLength(len.intValue());
+                    response.setHeader("Content-Disposition",
+                            "attachment; filename=" + image.getName());
+                    FileCopyUtils.copy(is, response.getOutputStream());
+                    response.getOutputStream().flush();
+                }
+                finally
+                {
+                    if (is != null)
+                    {
+                        is.close();
+                    }
+
+                }
             }
-            
+            else {
+                throw new RuntimeException("File doesn't exists!");
+            }
+        }
+        else {
+            throw new RuntimeException("No permission to download this file");
         }
         return null;
     }
 
     protected String getPath()
-    {       
+    {
         return "/var/jdyna/";
     }
 
