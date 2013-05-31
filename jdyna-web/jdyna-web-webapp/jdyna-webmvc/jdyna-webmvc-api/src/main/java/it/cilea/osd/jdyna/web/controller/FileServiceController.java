@@ -49,23 +49,23 @@ public class FileServiceController implements Controller
         String fileName = request.getParameter("filename");
 
         File dir = new File(getPath() + File.separatorChar + folder);
-        File image = new File(dir, fileName);
+        File file = new File(dir, fileName);
                     
-        if (image.getParentFile().compareTo(dir) == 0)
+        if (file.getCanonicalPath().replace("\\","/").startsWith(dir.getCanonicalPath().replace("\\","/")))
         {
-            if (image.exists())
+            if (file.exists())
             {
                 InputStream is = null;
                 try
                 {
-                    is = new FileInputStream(image);
+                    is = new FileInputStream(file);
 
                     response.setContentType(request.getSession()
-                            .getServletContext().getMimeType(image.getName()));
-                    Long len = image.length();
+                            .getServletContext().getMimeType(file.getName()));
+                    Long len = file.length();
                     response.setContentLength(len.intValue());
                     response.setHeader("Content-Disposition",
-                            "attachment; filename=" + image.getName());
+                            "attachment; filename=" + file.getName());
                     FileCopyUtils.copy(is, response.getOutputStream());
                     response.getOutputStream().flush();
                 }
