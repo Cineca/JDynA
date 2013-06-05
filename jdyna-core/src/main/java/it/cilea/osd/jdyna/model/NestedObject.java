@@ -45,7 +45,7 @@ import org.hibernate.annotations.OrderBy;
  *
  */
 @Entity
-@Table(name = "jdyna_nestedobject") 
+@Table(name = "jdyna_no") 
     //uniqueConstraints = {@UniqueConstraint(columnNames={"position","typo_id","parent_id"})})
 @NamedQueries( {
         @NamedQuery(name = "NestedObject.findAll", query = "from NestedObject order by id"),
@@ -66,7 +66,7 @@ public class NestedObject extends ANestedObjectWithTypeSupport<NestedProperty, N
     
     @OneToMany(mappedBy = "parent")
     @Cascade(value = { CascadeType.ALL, CascadeType.DELETE_ORPHAN })    
-    @OrderBy(clause="position asc")
+    @OrderBy(clause="positionDef asc")
     private List<NestedProperty> anagrafica;
 
     @ManyToOne

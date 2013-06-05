@@ -102,7 +102,7 @@ public class AnagraficaUtils
             writer.print("                     <property name=\"tipologia\" value=\""
                     + proprieta.getTypo().getShortName() + "\" />\n");
             writer.print("                     <property name=\"posizione\" value=\""
-                    + proprieta.getPosition() + "\" />\n");
+                    + proprieta.getPositionDef() + "\" />\n");
 
             Class valoreClass = proprieta.getTypo().getRendering()
                     .getValoreClass();
@@ -169,7 +169,7 @@ public class AnagraficaUtils
                 {
                     ValoreDTO avaloredto = new ValoreDTO(proprieta.getValue().getObject(),
                             (proprieta.getVisibility() == 0) ? false : true);
-                    avaloredto.setLock(proprieta.getLock() == 0 ? false : true);
+                    avaloredto.setLock(proprieta.getLockDef() == 0 ? false : true);
                     avalori.add(avaloredto);
 
                 }

@@ -34,7 +34,7 @@ public class DecoratorTypeNestedObject<PD extends ANestedPropertiesDefinition> e
 {
 
     @OneToOne(optional=true)
-    @JoinColumn(name="typenestedobject_fk")
+    @JoinColumn(name="jdyna_no_tp_fk")
     @Cascade(value = {CascadeType.ALL,CascadeType.DELETE_ORPHAN})
     private TypeNestedObject real;
     

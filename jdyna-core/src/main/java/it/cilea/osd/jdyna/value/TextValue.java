@@ -29,6 +29,7 @@ import it.cilea.osd.jdyna.model.AValue;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 import org.hibernate.annotations.Type;
@@ -36,7 +37,8 @@ import org.hibernate.annotations.Type;
 @Entity
 @DiscriminatorValue(value="testo")
 public class TextValue extends AValue<String> {	
-	@Type(type = "text")
+	
+	@Lob
 	@Column(name="testoValue")
 	private String real;
 	

@@ -41,12 +41,12 @@ import org.hibernate.annotations.Index;
  *
  */
 @Entity
-@Table(name="jdyna_nestedobject_prop", 
-        uniqueConstraints = {@UniqueConstraint(columnNames={"position","typo_id","parent_id"})})
+@Table(name="jdyna_no_prop", 
+        uniqueConstraints = {@UniqueConstraint(columnNames={"positionDef","typo_id","parent_id"})})
 @NamedQueries( {
-    @NamedQuery(name = "NestedProperty.findPropertyByPropertiesDefinition", query = "from NestedProperty where typo = ? order by position"),
-    @NamedQuery(name = "NestedProperty.findAll", query = "from NestedProperty order by id"),    
-    @NamedQuery(name = "NestedProperty.findPropertyByParentAndTypo", query = "from NestedProperty  where (parent.id = ? and typo.id = ?) order by position"),   
+    @NamedQuery(name = "NestedProperty.findPropertyByPropertiesDefinition", query = "from NestedProperty where typo = ? order by positionDef", hints = { @javax.persistence.QueryHint(name = "org.hibernate.cacheable", value = "true") }),
+    @NamedQuery(name = "NestedProperty.findAll", query = "from NestedProperty order by id", hints = { @javax.persistence.QueryHint(name = "org.hibernate.cacheable", value = "true") }),
+    @NamedQuery(name = "NestedProperty.findPropertyByParentAndTypo", query = "from NestedProperty  where (parent.id = ? and typo.id = ?) order by positionDef", hints = { @javax.persistence.QueryHint(name = "org.hibernate.cacheable", value = "true") }),
     @NamedQuery(name = "NestedProperty.deleteAllPropertyByPropertiesDefinition", query = "delete from NestedProperty property where typo = ?)")
 })
 public class NestedProperty extends ANestedProperty<NestedPropertiesDefinition>
@@ -59,7 +59,7 @@ public class NestedProperty extends ANestedProperty<NestedPropertiesDefinition>
     
     
     @ManyToOne  
-    @Index(name = "jdyna_nestedobject_prop_parent_id")
+    @Index(name = "jdyna_no_pprop_idx")
     private NestedObject parent;
 
     @Override

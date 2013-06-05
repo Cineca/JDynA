@@ -47,8 +47,8 @@ import org.hibernate.annotations.Index;
 public abstract class AValue<P> extends IdentifiableObject {
 	@Id
 	//@GeneratedValue
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "VALUES_SEQ")
-    @SequenceGenerator(name = "VALUES_SEQ", sequenceName = "VALUES_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_VALUES_SEQ")
+    @SequenceGenerator(name = "JDYNA_VALUES_SEQ", sequenceName = "JDYNA_VALUES_SEQ")
 	private Integer id;	
 	
 	@Basic

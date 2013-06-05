@@ -34,6 +34,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 
@@ -57,6 +58,7 @@ public abstract class WidgetFile extends AWidget {
 	/**
 	 * Percent size (this value is default for input size either link description and value)
 	 */
+	@Column(name="widgetSize")
 	private int size = 40;	
 	
 

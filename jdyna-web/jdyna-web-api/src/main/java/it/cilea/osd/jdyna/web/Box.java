@@ -59,8 +59,8 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOX_SEQ")
-    @SequenceGenerator(name = "BOX_SEQ", sequenceName = "BOX_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_BOX_SEQ")
+    @SequenceGenerator(name = "JDYNA_BOX_SEQ", sequenceName = "JDYNA_BOX_SEQ")
 	/** Primary key */
 	private Integer id;
 

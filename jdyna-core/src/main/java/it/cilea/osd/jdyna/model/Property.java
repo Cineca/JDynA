@@ -66,12 +66,12 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	/** chiave d'accesso primario */
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)	
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROPERTY_SEQ")
-    @SequenceGenerator(name = "PROPERTY_SEQ", sequenceName = "PROPERTY_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_PROP_SEQ")
+    @SequenceGenerator(name = "JDYNA_PROP_SEQ", sequenceName = "JDYNA_PROP_SEQ")
 	private Integer id;
 
-	/** Posizione */
-	private int position;
+	/** Position order */
+	private int positionDef;
 	
 	@OneToOne
 	@JoinColumn(unique = true)	
@@ -88,13 +88,16 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	/**
 	 * setting 1 to update property only with a batch procedure 
 	 */
-	private Integer lock;
+	private Integer lockDef;
 	
 	
 	/**
 	 * utility attribute, here you can set for example currency, language or name of subject or classification parent 
 	 */
-	private String scope;
+	@OneToOne
+	@Cascade (value = {CascadeType.ALL})
+	private ScopeDefinition scopeDef;
+	
 	/**
      * Getter method.
      *
@@ -122,17 +125,18 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 
 
 	/**
-	 * Restituisce la posizione della proprieta' all'interno della lista di proprieta' della medesima tipologia.
-	 * La prima proprieta' ha posizione 0.
-	 * 
-	 * @see AnagraficaSupport#getProprietaDellaTipologia(PropertiesDefinition)
-	 * @return la posizione della proprieta'
-	 */
-	public int getPosition() {
-		return position;
+     * Restituisce la posizione della proprieta' all'interno della lista di proprieta' della medesima tipologia.
+     * La prima proprieta' ha posizione 0.
+     * 
+     * @see AnagraficaSupport#getProprietaDellaTipologia(PropertiesDefinition)
+     * @return la posizione della proprieta'
+     */  
+	public int getPositionDef() {
+		return positionDef;
 	}
 
-	/**
+
+    /**
 	 * Imposta la posizione della proprieta' all'interno della lista di proprieta' della medesima tipologia<br>
 	 * <b>Attenzione</b> l'utilizzo di questo metodo potrebbe introdurre disallineamenti nella lista sopra citata.
 	 * Utilizzare solamente per implementare i metodi dell'interfaccia <code>AnagraficaSupport</code>
@@ -140,8 +144,8 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	 * @see AnagraficaSupport, AnagraficaSupport#getProprietaDellaTipologia(PropertiesDefinition)
 	 * @param posizione, la nuova posizione della proprieta'
 	 */
-	public void setPosition(int posizione) {
-		this.position = posizione;
+	public void setPositionDef(int posizione) {
+		this.positionDef = posizione;
 	}
 
 	public Integer getId() {
@@ -214,7 +218,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	 * di oggetti differenti, a questo punto si guarda l'attributo sortValue del valore.
 	 * 
 	 * @see PropertiesDefinition#compareTo
-	 * @see #getPosition()
+	 * @see #getPositionDef()
 	 * @param o la proprieta' da comparare
 	 * @return come disporre in modo ordinato le due proprieta'
 	 */
@@ -223,9 +227,9 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 		if(this.getTypo().compareTo(o.getTypo())==0) 
 		{
 			//compara sulla posizione
-			if (this.getPosition()>o.getPosition()) 
+			if (this.getPositionDef()>o.getPositionDef()) 
 				return 1;
-			if (this.getPosition()==o.getPosition())
+			if (this.getPositionDef()==o.getPositionDef())
 			{
 				if ((value == null || value.getSortValue() == null)
 						&& (o.value == null || o.value.getSortValue() == null))
@@ -237,7 +241,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 				return value.getSortValue().compareTo(
 						o.getValue().getSortValue());
 			}				
-			if (this.getPosition()<o.getPosition())
+			if (this.getPositionDef()<o.getPositionDef())
 				return -1;
 		}
 		
@@ -268,7 +272,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 		
 		if ((getTypo().getShortName().equals(propConfronto
 				.getTypo().getShortName()))			
-			&& (position == propConfronto.getPosition()))
+			&& (positionDef == propConfronto.getPositionDef()))
 		{
 			if (value != null && value.equals(propConfronto.value))
 				return true;		
@@ -311,27 +315,28 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	public abstract void setParent(AnagraficaSupport<? extends Property<TP>, TP> parent);
 	public abstract AnagraficaSupport<? extends Property<TP>, TP> getParent();
 
-    public Integer getLock()
+    public Integer getLockDef()
     {        
-        if(this.lock==null) {
+        if(this.lockDef==null) {
             return 0;
         }
-        return lock;
+        return lockDef;
+    }
+    
+    public void setLockDef(Integer lock)
+    {
+        this.lockDef = lock;
     }
 
-    public void setLock(Integer lock)
+    public ScopeDefinition getScopeDef()
     {
-        this.lock = lock;
+        return scopeDef;
     }
 
-    public String getScope()
+    public void setScopeDef(ScopeDefinition scopeDef)
     {
-        return scope;
+        this.scopeDef = scopeDef;
     }
 
-    public void setScope(String scope)
-    {
-        this.scope = scope;
-    }
-	
+
 }

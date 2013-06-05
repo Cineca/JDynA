@@ -53,9 +53,9 @@ public class WidgetLink extends AWidget {
 	private String triview;
 	
 	/**
-	 * Percent size (this value is default for input size either link description and value)
+	 * Percent widgetSize (this value is default for input widgetSize either link description and value)
 	 */
-	private int size = 40;		
+	private int widgetSize = 40;		
 
 	/**
 	 * Value to show label for value label as column header
@@ -97,11 +97,19 @@ public class WidgetLink extends AWidget {
 	}
 
 	public int getSize() {
-		return size;
+        return getWidgetSize();
+    }
+
+    public int getWidgetSize() {
+		return widgetSize;
 	}
 
 	public void setSize(int size) {
-		this.size = size;
+        setWidgetSize(size);
+    }
+
+    public void setWidgetSize(int size) {
+		this.widgetSize = size;
 	}
 
 	public void setLabelHeaderLabel(String labelHeaderLabel) {

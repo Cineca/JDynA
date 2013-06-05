@@ -51,7 +51,7 @@ public class DecoratorNestedPropertiesDefinition extends
 
     
     @OneToOne(optional=true)
-    @JoinColumn(name="propertiesdefinitionnestedobject_fk")
+    @JoinColumn(name="jdyna_no_pdef_fk")
     @Cascade(value = {CascadeType.ALL,CascadeType.DELETE_ORPHAN})
     private NestedPropertiesDefinition real;
     

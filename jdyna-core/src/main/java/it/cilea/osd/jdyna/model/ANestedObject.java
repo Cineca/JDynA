@@ -58,8 +58,8 @@ import org.hibernate.annotations.Formula;
         @NamedQuery(name = "ANestedObject.countActiveNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.findNestedObjectsByTypoID", query = "from ANestedObject where typo.id = ?"),
         @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?"),
-        @NamedQuery(name = "ANestedObject.maxPositionNestedObjectsByTypoID", query = "select max(position) from ANestedObject where typo.id = ?"),
-        @NamedQuery(name = "ANestedObject.maxPositionNestedObjects", query = "select max(position) from ANestedObject")
+        @NamedQuery(name = "ANestedObject.maxPositionNestedObjectsByTypoID", query = "select max(positionDef) from ANestedObject where typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.maxPositionNestedObjects", query = "select max(positionDef) from ANestedObject")
 })
 public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, PP extends Property<PTP>, PTP extends PropertiesDefinition>
         extends AnagraficaObject<P, TP> implements
@@ -76,7 +76,7 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
 
     private Boolean status = true;
 
-    private Integer position = 0;
+    private Integer positionDef = 0;
 
     /** timestamp info for creation and last modify */
     @Embedded
@@ -129,31 +129,31 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
         this.status = status;
     }
 
-    public Integer getPosition()
+    public Integer getPositionDef()
     {
-        return position;
+        return positionDef;
     }
 
-    public void setPosition(Integer position)
+    public void setPositionDef(Integer position)
     {
-        this.position = position;
+        this.positionDef = position;
     }
 
     public int compareTo(ANestedObject<P, TP, PP, PTP> o)
     {        
         if(o!=null) {
-            if(o.getPosition()!=null) {
-                if(this.getPosition()==null) {
+            if(o.getPositionDef()!=null) {
+                if(this.getPositionDef()==null) {
                     return 1;
                 }
-                if (this.getPosition() > o.getPosition())
+                if (this.getPositionDef() > o.getPositionDef())
                     return 1;
-                if (this.getPosition() < o.getPosition())
+                if (this.getPositionDef() < o.getPositionDef())
                     return -1;
                 return 0;                
             }
             else { 
-                if(this.getPosition()==null) {
+                if(this.getPositionDef()==null) {
                     return 0;
                 }
             }

@@ -61,7 +61,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         List<P> propList = getProprietaDellaTipologia(tipologiaProprieta);
         int numProp = propList.size();
         P proprieta = createProprietaWithoutPosizione(tipologiaProprieta);
-        proprieta.setPosition(numProp); // la dimensione di una lista e'
+        proprieta.setPositionDef(numProp); // la dimensione di una lista e'
                                         // esattamente la prima posizione
                                         // disponibile
                                         // lista vuota - 0; un elemento 1; etc.
@@ -81,13 +81,13 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
         int numProp = propList.size();
         for (int idx = posizione; idx < numProp; idx++)
         {
-            propList.get(idx).setPosition(idx + 1);
+            propList.get(idx).setPositionDef(idx + 1);
         }
         P proprieta = createProprietaWithoutPosizione(tipologiaProprieta);
         if (numProp < posizione)
-            proprieta.setPosition(numProp);
+            proprieta.setPositionDef(numProp);
         else
-            proprieta.setPosition(posizione);
+            proprieta.setPositionDef(posizione);
         Collections.sort(getAnagrafica());
         // aggiorno il contenuto della cache
         propList.add(posizione, proprieta);
@@ -174,14 +174,14 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
             }
         }
 
-        int pos = proprieta.getPosition();
+        int pos = proprieta.getPositionDef();
         int numProp = propList.size();
 
         // occorre partire esattamente da pos perche' la proprieta' e' gia'
         // stata rimossa dall'anagrafica
         for (int idx = pos; idx < numProp; idx++)
         {
-            propList.get(idx).setPosition(idx);
+            propList.get(idx).setPositionDef(idx);
         }
         // aggiorno il contenuto della cache
         // non e' necessario perche' il getProprietaDellaTipologia restituisce

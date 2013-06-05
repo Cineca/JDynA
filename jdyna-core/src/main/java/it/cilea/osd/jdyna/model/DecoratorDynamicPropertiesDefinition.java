@@ -51,7 +51,7 @@ public class DecoratorDynamicPropertiesDefinition extends
 
     
     @OneToOne(optional=true)
-    @JoinColumn(name="propertiesdefinitiondynamicobject_fk")
+    @JoinColumn(name="jdyna_do_pdef_fk")
     @Cascade(value = {CascadeType.ALL,CascadeType.DELETE_ORPHAN})
     private DynamicPropertiesDefinition real;
     

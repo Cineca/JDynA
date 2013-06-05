@@ -69,7 +69,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce nell'anagrafica dell'oggetto.
-     * La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) in coda alle altre eventuali 
+     * La nuova proprieta' sara' posizionata ({@link Property#setPositionDef(int)}) in coda alle altre eventuali 
      * proprieta' della medesima tipologia. 
      * 
      * @throws IllegalArgumentException se la tipologia di proprieta' specificata non e' di primo livello ({@link PropertiesDefinition#isTopLevel()} 
@@ -79,7 +79,7 @@ public interface AnagraficaSupport <P extends Property<TP>, TP extends Propertie
 	
 	/**
      * Crea una nuova proprieta, della tipologia specificata, e la inserisce nell'anagrafica dell'oggetto.
-     * La nuova proprieta' sara' posizionata ({@link Property#setPosition(int)}) nella posizione specificata
+     * La nuova proprieta' sara' posizionata ({@link Property#setPositionDef(int)}) nella posizione specificata
      * da <code>posizione</code> modificando coerentemente la posizione delle altre proprieta'. Nel caso in cui
      * la posizione specificata fosse superiore al numero di proprieta' della tipologia specificata 
      * ({@link #getProprietaDellaTipologia(PropertiesDefinition)}), la nuova proprieta' sara' inserita in ultima 

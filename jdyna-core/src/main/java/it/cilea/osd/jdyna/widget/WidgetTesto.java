@@ -36,6 +36,8 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.persistence.AttributeOverride;
+import javax.persistence.AttributeOverrides;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -68,6 +70,9 @@ public class WidgetTesto extends AWidget {
 	 *  e' il numero di righe.
 	 */
 	@Embedded 
+    @AttributeOverrides( {
+        @AttributeOverride(name = "row", column = @Column(name = "widgetrow")),
+        @AttributeOverride(name = "col", column = @Column(name = "widgetcol")) })
 	private Size dimensione;
 	
 	@Transient

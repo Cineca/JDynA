@@ -40,7 +40,7 @@ import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 
 @Entity
-@Table(name = "jdyna_containables")
+@Table(name = "jdyna_containable")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class Containable<P> extends IdentifiableObject implements
@@ -48,8 +48,8 @@ public abstract class Containable<P> extends IdentifiableObject implements
 {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "CONTAINABLE_SEQ")
-    @SequenceGenerator(name = "CONTAINABLE_SEQ", sequenceName = "CONTAINABLE_SEQ")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_CONTAINABLE_SEQ")
+    @SequenceGenerator(name = "JDYNA_CONTAINABLE_SEQ", sequenceName = "JDYNA_CONTAINABLE_SEQ")
     private Integer id;
 
     public abstract void setReal(P object);

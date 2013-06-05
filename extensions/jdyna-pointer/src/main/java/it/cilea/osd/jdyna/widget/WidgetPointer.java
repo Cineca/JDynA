@@ -33,7 +33,9 @@ import it.cilea.osd.jdyna.value.PointerValue;
 
 import java.beans.PropertyEditor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
@@ -66,19 +68,20 @@ public class WidgetPointer<AV extends PointerValue> extends AWidget {
 	 *  quindi non puo' essere nullo.
 	 * 
 	 */
-	@Type(type = "text")
+	@Lob
 	protected String display;
 
 	/**
 	 * filtro da utilizzare nell'autocompletamento per la ricerca. Ad es
 	 * (pointer -> ContattoFisico) +type.name:"cliente"
 	 */
-	@Type(type = "text")
+	@Lob
 	protected String filtro;
 	
 	protected String indexName;
 	
 	/** size of input box */
+	@Column(name="widgetSize")
 	protected int size = 20;
 	
 	public int getSize() {

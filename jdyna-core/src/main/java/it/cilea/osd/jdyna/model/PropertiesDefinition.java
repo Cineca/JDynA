@@ -71,8 +71,8 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	/** Primary key identifier*/
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PROPERTIESDEFINITION_SEQ")
-    @SequenceGenerator(name = "PROPERTIESDEFINITION_SEQ", sequenceName = "PROPERTIESDEFINITION_SEQ")
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_PDEF_SEQ")
+    @SequenceGenerator(name = "JDYNA_PDEF_SEQ", sequenceName = "JDYNA_PDEF_SEQ")
 	private Integer id;
 	
 	/** A unique textual identifier */
