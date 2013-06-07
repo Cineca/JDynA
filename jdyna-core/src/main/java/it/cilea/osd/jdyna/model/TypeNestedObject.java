@@ -27,6 +27,7 @@ package it.cilea.osd.jdyna.model;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.NamedQueries;
@@ -49,8 +50,10 @@ import org.hibernate.annotations.CacheConcurrencyStrategy;
 public class TypeNestedObject extends ATypeNestedObject<NestedPropertiesDefinition>
 {
     
-    @ManyToMany
-    @JoinTable(name = "jdyna_no_tp2pdef")
+    @ManyToMany    
+    @JoinTable(name = "jdyna_no_tp2pdef", joinColumns = { 
+            @JoinColumn(name = "jdyna_no_tp_id") }, 
+            inverseJoinColumns = { @JoinColumn(name = "jdyna_no_pdef_id") })    
     @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
     private List<NestedPropertiesDefinition> mask;
 

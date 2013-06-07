@@ -27,14 +27,10 @@ package it.cilea.osd.jdyna.value;
 import java.io.Serializable;
 
 import javax.persistence.Embeddable;
-import javax.persistence.Lob;
-
-import org.hibernate.annotations.Type;
 
 @Embeddable
 public class EmbeddedLinkValue implements Serializable {	
-	
-	@Lob
+		
 	private String valueLink;
 	
 	private String descriptionLink;

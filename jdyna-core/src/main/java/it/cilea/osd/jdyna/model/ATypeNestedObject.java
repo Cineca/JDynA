@@ -24,6 +24,7 @@
  */
 package it.cilea.osd.jdyna.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -64,7 +65,7 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
      **/
     private int priority;
     
-    @Type(type="text")
+    @Column(length = 4000)
     /**
      * Testo di help da mostrare durante l'editing di proprieta' di questa tipologia
      */

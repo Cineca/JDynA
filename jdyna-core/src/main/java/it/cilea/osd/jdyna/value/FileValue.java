@@ -42,7 +42,7 @@ public class FileValue extends AValue<EmbeddedFile> {
 
 	@Embedded
     @AttributeOverrides( {
-        @AttributeOverride(name = "valueFile", column = @Column(name = "filevalue")),
+        @AttributeOverride(name = "valueFile", column = @Column(name = "filename")),
         //@AttributeOverride(name = "descriptionFile", column = @Column(name = "filedescription")),
         @AttributeOverride(name = "mimeFile", column = @Column(name = "filemime")),
         @AttributeOverride(name = "extFile", column = @Column(name = "fileextension")),

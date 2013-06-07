@@ -35,8 +35,11 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.hibernate.annotations.Formula;
 
 /**
@@ -81,7 +84,18 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     /** timestamp info for creation and last modify */
     @Embedded
     private TimeStampInfo timeStampInfo;
+    
+    /**
+     * utility attribute, here you can set for example currency, language or name of subject or classification parent 
+     */
+    @OneToOne
+    @Cascade (value = {CascadeType.ALL})
+    private ScopeDefinition scopeDef;
 
+    /** timestamp info for start and end availability*/
+    @Embedded
+    private AvailabilityInfo availabilityInfo;
+    
     public Integer getId()
     {
         return id;
@@ -159,5 +173,25 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
             }
         }
         return -1;
+    }
+
+    public ScopeDefinition getScopeDef()
+    {
+        return scopeDef;
+    }
+
+    public void setScopeDef(ScopeDefinition scopeDef)
+    {
+        this.scopeDef = scopeDef;
+    }
+
+    public AvailabilityInfo getAvailabilityInfo()
+    {
+        return availabilityInfo;
+    }
+
+    public void setAvailabilityInfo(AvailabilityInfo availabilityInfo)
+    {
+        this.availabilityInfo = availabilityInfo;
     }
 }

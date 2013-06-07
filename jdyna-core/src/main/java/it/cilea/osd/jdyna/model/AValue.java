@@ -43,7 +43,7 @@ import org.hibernate.annotations.Index;
 @Entity
 @Table(name="jdyna_values")
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
-@org.hibernate.annotations.Table(appliesTo="jdyna_values", indexes={@Index(name="jdyna_values_idx_dtype", columnNames={"dtype"})})
+@org.hibernate.annotations.Table(appliesTo="jdyna_values", indexes={@Index(name="jdyna_values_dtype_idx", columnNames={"dtype"})})
 public abstract class AValue<P> extends IdentifiableObject {
 	@Id
 	//@GeneratedValue

@@ -26,6 +26,7 @@ package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.IdentifiableObject;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -98,6 +99,11 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	@Cascade (value = {CascadeType.ALL})
 	private ScopeDefinition scopeDef;
 	
+	
+    /** timestamp info for start and end availability*/
+    @Embedded
+    private AvailabilityInfo availabilityInfo;
+    
 	/**
      * Getter method.
      *
@@ -336,6 +342,16 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
     public void setScopeDef(ScopeDefinition scopeDef)
     {
         this.scopeDef = scopeDef;
+    }
+
+    public AvailabilityInfo getAvailabilityInfo()
+    {
+        return availabilityInfo;
+    }
+
+    public void setAvailabilityInfo(AvailabilityInfo availabilityInfo)
+    {
+        this.availabilityInfo = availabilityInfo;
     }
 
 
