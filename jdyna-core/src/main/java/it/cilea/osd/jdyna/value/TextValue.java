@@ -32,14 +32,12 @@ import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.Type;
-
 @Entity
-@DiscriminatorValue(value="testo")
+@DiscriminatorValue(value="text")
 public class TextValue extends AValue<String> {	
 	
 	@Lob
-	@Column(name="testoValue")
+	@Column(name="textValue")
 	private String real;
 	
 	//FIXME gestire le stopwords per l'ordinamento
