@@ -134,7 +134,8 @@ public class ExportUtils implements ApplicationContextAware {
 		Element prop = new Element(tag, root.getNamespacePrefix(), root.getNamespaceURI());
 		int i = 0;
 		for (String attribute : attributes) {
-			prop.setAttribute(attribute, valuesAttributes.get(i));
+		    String value = valuesAttributes.get(i);
+			prop.setAttribute(attribute, value==null?"":value);
 			i++;
 		}
 		root.addContent(prop);

@@ -54,15 +54,18 @@ import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 @Table(name="jdyna_widget_text")
 public class WidgetTesto extends AWidget {
 	/** segnalazione di corrispondenze*/
-	@Column (nullable=true)
+	
+    @Column (nullable=true)
 	private boolean collisioni;
 	
 	private String regex;
 	
 	@Transient
 	private String triview;
+	
 	/** se true in rendering viene mostrata come textarea */
 	private boolean multilinea;
+	
 	/** tipo di editor html da utilizzare: nessuno, FCKEditor completa o ridotta */
 	private String htmlToolbar;
 	

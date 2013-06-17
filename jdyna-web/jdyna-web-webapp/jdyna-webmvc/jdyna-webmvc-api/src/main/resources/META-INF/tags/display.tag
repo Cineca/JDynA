@@ -27,6 +27,8 @@
 <%@ attribute name="subElement" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="editMode" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="hideLabel" required="false" type="java.lang.Boolean"%>
+<%@ attribute name="admin" required="false"%>
+
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
@@ -129,13 +131,20 @@
 <c:choose>
 <c:when test="${editMode}">
 	<c:set var="showit" value="true" target="java.lang.Boolean"/>
+	<c:if test="${subElement}">
+		<c:if test="${!admin && tipologia.accessLevel == 1}">
+			<c:set var="showit" value="false" target="java.lang.Boolean"/>		
+		</c:if>
+	</c:if>
 </c:when>
 <c:otherwise>
-<c:forEach var="value" items="${values}" varStatus="valueStatus">		
-		<c:if test="${value.visibility==1}">
-			<c:set var="showit" value="true" target="java.lang.Boolean"/>
-		</c:if>
-</c:forEach>
+
+		<c:forEach var="value" items="${values}" varStatus="valueStatus">		
+				<c:if test="${value.visibility==1}">
+					<c:set var="showit" value="true" target="java.lang.Boolean"/>
+				</c:if>
+		</c:forEach>
+
 </c:otherwise>
 </c:choose>
 

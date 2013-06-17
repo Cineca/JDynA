@@ -3,7 +3,7 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>jdyna</groupId>
-    <version>3.0-beta</version>
+    <version>3.0</version>
   </parent>
   <groupId>jdyna-boolean</groupId>
   <artifactId>jdyna-boolean</artifactId>

@@ -11,6 +11,17 @@
 		<developerConnection>Pascarelli Luigi Andrea, Bollini Andrea</developerConnection>
 	</scm>
 
+	<distributionManagement>
+    	<repository>
+        	<id>repo</id>
+        	<url>https://github.com/CILEA/mvn-repo/raw/master/releases</url>
+    	</repository>
+    	<snapshotRepository>
+        	<id>snapshot-repo</id>
+        	<url>https://github.com/CILEA/mvn-repo/raw/master/snapshots</url>
+    	</snapshotRepository>
+	</distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -183,5 +194,5 @@
 		</dependencies>
 	</dependencyManagement>
 
-	<version>3.0-beta</version>
+	<version>3.0</version>
 </project>

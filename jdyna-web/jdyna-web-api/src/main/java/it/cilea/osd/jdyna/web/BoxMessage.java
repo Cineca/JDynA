@@ -1,9 +1,12 @@
 package it.cilea.osd.jdyna.web;
 
+import it.cilea.osd.jdyna.model.Containable;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -18,9 +21,12 @@ public class BoxMessage
     @SequenceGenerator(name = "JDYNA_MESSAGEBOX_SEQ", sequenceName = "JDYNA_MESSAGEBOX_SEQ")
     private Integer id;    
     
+    @Column(length=4000)
     private String body;
-
-    private String elementAfter;
+    
+    /** The message will be position after this containable element, if null place at the top */
+    @ManyToOne
+    private Containable elementAfter;
 
     private boolean showInPublicView;
 
@@ -50,12 +56,12 @@ public class BoxMessage
         this.body = body;
     }
 
-    public String getElementAfter()
+    public Containable getElementAfter()
     {
         return elementAfter;
     }
 
-    public void setElementAfter(String elementAfter)
+    public void setElementAfter(Containable elementAfter)
     {
         this.elementAfter = elementAfter;
     }

@@ -34,6 +34,7 @@ import java.beans.PropertyEditor;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -44,13 +45,13 @@ import org.springframework.beans.propertyeditors.CustomNumberEditor;
 
 
 /**
- * Oggetto WidgetEmail che rappresenta l'email di un soggetto
+ * Widget to manage double value
  * 
  * @author biondo,pascarelli
  * 
  */
 @Entity
-@Table(name="dyna_widget_numero")
+@Table(name="jdyna_widget_number")
 @NamedQueries( {  
 	@NamedQuery(name = "WidgetNumero.findAll", query = "from WidgetNumero order by id")
  } )
@@ -63,9 +64,10 @@ public class WidgetNumero extends AWidget {
 	private Double max;
 	
 	/** numero di cifre decimali*/
-	private int cifreDecimali;
+	private int precisionDef;
 	
 	/** size of input box */
+	@Column(name="widgetSize")
 	private int size = 20;
 	
 	public int getSize() {
@@ -79,11 +81,11 @@ public class WidgetNumero extends AWidget {
 	@Override
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {
 		String decimali = "";
-		for (int i = 0; i < cifreDecimali; i++)
+		for (int i = 0; i < precisionDef; i++)
 		{
 			decimali += "0";
 		}
-		String pattern = "0" + (cifreDecimali > 0?"."+decimali:"");
+		String pattern = "0" + (precisionDef > 0?"."+decimali:"");
 		NumberFormat formatter = new DecimalFormat(pattern);
 		
 		CustomNumberEditor propertyEditor = new CustomNumberEditor(Double.class, formatter, true);
@@ -112,16 +114,16 @@ public class WidgetNumero extends AWidget {
 //	
 	@Deprecated
 	public String getConfiguration() {
-		return "min:"+min+";max:"+max+";decimali:"+cifreDecimali;
+		return "min:"+min+";max:"+max+";decimali:"+precisionDef;
 	}
 
 
-	public int getCifreDecimali() {
-		return cifreDecimali;
+	public int getPrecisionDef() {
+		return precisionDef;
 	}
 
-	public void setCifreDecimali(int cifreDecimali) {
-		this.cifreDecimali = cifreDecimali;
+	public void setPrecisionDef(int cifreDecimali) {
+		this.precisionDef = cifreDecimali;
 	}
 
     public Double getMax()

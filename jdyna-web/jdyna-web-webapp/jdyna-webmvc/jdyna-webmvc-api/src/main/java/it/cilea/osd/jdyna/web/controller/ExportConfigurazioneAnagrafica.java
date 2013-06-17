@@ -365,7 +365,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
             }
 
             writer.print("                            <property name=\"cifreDecimali\" value=\""
-                    + widgetNumero.getCifreDecimali() + "\" />\n");
+                    + widgetNumero.getPrecisionDef() + "\" />\n");
             writer.print("                        </bean>\n\n");
 
         }
