@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>jdyna-webflow</artifactId>
-    <groupId>jdyna-webflow</groupId>
+    <groupId>org.jdyna</groupId>
     <version>0.1
   </parent>
-  <groupId>jdyna-webflow-api</groupId>
+  <groupId>org.jdyna</groupId>
   <artifactId>jdyna-webflow-api</artifactId>
   <version>0.1</versio0.1ncies>
   	<dependency>

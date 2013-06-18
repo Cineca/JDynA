@@ -3,10 +3,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
   	<artifactId>jdyna-web-webapp</artifactId>
-  	<groupId>jdyna-web-webapp</groupId>
+  	<groupId>org.jdyna</groupId>
     <version>3.0</version>
   </parent>
-  <groupId>jdyna-webmvc</groupId>
+  <groupId>org.jdyna</groupId>
   <artifactId>jdyna-webmvc</artifactId>
   <packaging>pom</packaging>
   <modules>

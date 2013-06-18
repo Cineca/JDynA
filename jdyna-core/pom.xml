@@ -3,11 +3,11 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>jdyna</artifactId>
-		<groupId>jdyna</groupId>
+		<groupId>org.jdyna</groupId>
 		<version>3.0</version>
 	</parent>
 
-	<groupId>jdyna-core</groupId>
+	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna-core</artifactId>
 	
 	<dependencies>

@@ -2,10 +2,10 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <artifactId>extensions</artifactId>
-    <groupId>jdyna</groupId>
+    <groupId>org.jdyna</groupId>
     <version>3.0</version>
   </parent>
-  <groupId>jdyna-formula</groupId>
+  <groupId>org.jdyna</groupId>
   <artifactId>jdyna-formula</artifactId>
   <dependencies>
   	<dependency>
