@@ -14,20 +14,36 @@
 	<distributionManagement>
     	<repository>
         	<id>repo</id>
+        	<name>CILEA Maven Repository</name>
         	<url>https://github.com/CILEA/mvn-repo/raw/master/releases</url>
     	</repository>
     	<snapshotRepository>
         	<id>snapshot-repo</id>
+        	<name>CILEA Maven Repository</name>
         	<url>https://github.com/CILEA/mvn-repo/raw/master/snapshots</url>
     	</snapshotRepository>
+    	<site>
+            <id>website</id>
+            <url>https://github.com/CILEA/JDynA/wiki</url>
+        </site>
 	</distributionManagement>
-
+	
 	<repositories>
-    	<repository>
-        	<id>cilea-snapshots</id>
-        	<url>https://github.com/CILEA/mvn-repo/raw/master/snapshots</url>
-    	</repository>
+		<repository>
+			<id>cilea-repo</id>
+			<name>CILEA Maven Repository</name>
+			<url>https://github.com/CILEA/mvn-repo/raw/master/</url>
+			<releases>
+				<enabled>false</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+		</repository>
 	</repositories>
+	
 
 	<build>
 		<plugins>
