@@ -9,13 +9,13 @@
   <artifactId>jdyna-pointer</artifactId>
   <dependencies>
   	<dependency>
-  		<groupId>jdyna-core</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-core</artifactId>
   		<version>${project.version}</version>  		
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>jdyna-formula</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-formula</artifactId>
   		<version>${project.version}</version>  		
   		<type>jar</type>

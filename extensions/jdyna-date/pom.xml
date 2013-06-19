@@ -9,7 +9,7 @@
   <artifactId>jdyna-date</artifactId>
   <dependencies>
   	<dependency>
-  		<groupId>jdyna-core</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-core</artifactId>
   		<version>${project.version}</version>
   		<type>jar</type>

@@ -9,7 +9,7 @@
   <artifactId>jdyna-webflow-api</artifactId>
   <version>0.1</versio0.1ncies>
   	<dependency>
-  		<groupId>jdyna-web-api</groupId>
+		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-web-api</artifactId>
   		<version>0.1</version>
   		<ty0.1
@@ -23,37 +23,37 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>jdyna-core</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-core</artifactId>
   		<version>0.1</version>
   		<type>jar</typ0.1dependency>
   	<dependency>
-  		<groupId>jdyna-classification</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-classification</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   	</dependency>
   	<dependency>
-  		<groupId>jdyna-formula</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-formula</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope></dependency>
   	<dependency>
-  		<groupId>jdyna-webmvc-api</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-webmvc-api</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope> 
   	<dependency>
-  		<groupId>jdyna-subject</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-subject</artifactId>
   		<version>0.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>jdyna-checkradio</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-checkradio</artifactId>
   		<version>0.1</version>
   		<type>jar</type>

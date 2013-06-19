@@ -21,13 +21,13 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>jdyna-classification</groupId>
+			<groupId>org.jdyna</groupId>
 			<artifactId>jdyna-classification</artifactId>
 			<version>${project.version}</version>
 
 		</dependency>
 		<dependency>
-			<groupId>jdyna-core</groupId>
+			<groupId>org.jdyna</groupId>
 			<artifactId>jdyna-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>

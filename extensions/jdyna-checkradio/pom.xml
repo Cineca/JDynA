@@ -9,14 +9,14 @@
   <artifactId>jdyna-checkradio</artifactId>
   <dependencies>
   	<dependency>
-  		<groupId>jdyna-classification</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-classification</artifactId>
   		<version>${project.version}</version>  		
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>jdyna-subject</groupId>
+  		<groupId>org.jdyna</groupId>
   		<artifactId>jdyna-subject</artifactId>
   		<version>${project.version}</version>  		
   		<type>jar</type>
