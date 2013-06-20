@@ -43,8 +43,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Transient;
 
-import org.directwebremoting.annotations.DataTransferObject;
-import org.directwebremoting.annotations.RemoteMethod;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -63,7 +61,6 @@ import org.hibernate.annotations.Type;
  */
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
-@DataTransferObject
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 public abstract class PropertiesDefinition extends IdentifiableObject implements Selectable, Comparable<PropertiesDefinition>, IPropertiesDefinition {
 	//FIXME aggiungere campi -valore di default e -valore di test (servono anche per creare il validatore delle formule)
@@ -216,8 +213,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 		this.showInList = mostraValore;
 	}
     
-	@Transient
-	@RemoteMethod
+	@Transient	
 	public String getDisplayValue() {
 		return shortName;
 	}
@@ -227,8 +223,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 		return super.toString()+":"+shortName;
 	}
 	
-	@Transient
-	@RemoteMethod
+	@Transient	
 	public String getIdentifyingValue() {
 		return getId().toString();
 	}

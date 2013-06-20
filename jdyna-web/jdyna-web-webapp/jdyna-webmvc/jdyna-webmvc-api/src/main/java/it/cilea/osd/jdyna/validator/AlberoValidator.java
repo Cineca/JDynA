@@ -32,12 +32,8 @@ import java.util.List;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.directwebremoting.annotations.Param;
-import org.directwebremoting.annotations.RemoteProxy;
-import org.directwebremoting.spring.SpringCreator;
 import org.springframework.validation.Errors;
 
-@RemoteProxy(creator = SpringCreator.class, creatorParams = @Param(name = "beanName", value = "classificazioneValidator"))
 public class AlberoValidator extends JDynaBaseValidator {
 	
 	protected final Log log = LogFactory.getLog(getClass());

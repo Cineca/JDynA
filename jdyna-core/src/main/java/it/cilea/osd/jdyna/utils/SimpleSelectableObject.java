@@ -30,16 +30,10 @@ import java.io.Serializable;
 
 import javax.persistence.Transient;
 
-import org.directwebremoting.annotations.DataTransferObject;
-import org.directwebremoting.annotations.RemoteMethod;
-import org.directwebremoting.annotations.RemoteProperty;
-@DataTransferObject
 public class SimpleSelectableObject implements Selectable, Serializable {
 	@Transient
-	@RemoteProperty
 	private String identifyingValue;
-	@Transient
-	@RemoteProperty
+	@Transient	
 	private String displayValue;
 	
 	public SimpleSelectableObject() {
@@ -50,16 +44,12 @@ public class SimpleSelectableObject implements Selectable, Serializable {
 		this.displayValue = displayValue;
 	}
 
-		
-	@RemoteMethod
 	public String getIdentifyingValue() {
 		if (identifyingValue == null)
 			return null;
 		return String.valueOf(identifyingValue);
 	}
-
-	
-	@RemoteMethod
+		
 	public String getDisplayValue() {
 		return displayValue;
 	}

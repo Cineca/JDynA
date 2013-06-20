@@ -36,11 +36,7 @@
 			<groupId>commons-io</groupId>
 			<artifactId>commons-io</artifactId>
 		</dependency>
-		
-		<dependency>
-			<groupId>org.directwebremoting</groupId>
-			<artifactId>dwr</artifactId>
-		</dependency>
+
 
 		<dependency>
 			<groupId>jdom</groupId>

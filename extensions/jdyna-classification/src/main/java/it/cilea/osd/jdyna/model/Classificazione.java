@@ -42,8 +42,6 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.persistence.UniqueConstraint;
 
-import org.directwebremoting.annotations.DataTransferObject;
-import org.directwebremoting.annotations.RemoteProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -74,7 +72,6 @@ import org.hibernate.annotations.FetchMode;
     @NamedQuery(name ="Classificazione.findCodiciInAlberoByName", query ="select codice from Classificazione where alberoClassificatorio.nome = ? and nome = ?")
     
 })
-@DataTransferObject
 public class Classificazione extends IdentifiableObject implements Selectable {
 	/** chiave primaria */
 	 @Id
@@ -127,7 +124,7 @@ public class Classificazione extends IdentifiableObject implements Selectable {
 		this.alberoClassificatorio = alberoClassificatorio;
 	}
 
-	@RemoteProperty()
+
 	public boolean isAttivo() {
 		return attivo;
 	}
@@ -136,7 +133,7 @@ public class Classificazione extends IdentifiableObject implements Selectable {
 		this.attivo = attivo;
 	}
 
-	@RemoteProperty()
+
 	public String getCodice() {
 		return codice;
 	}
@@ -145,7 +142,7 @@ public class Classificazione extends IdentifiableObject implements Selectable {
 		this.codice = codice;
 	}
 
-	@RemoteProperty()
+
 	public Integer getId() {
 		return id;
 	}
@@ -170,7 +167,7 @@ public class Classificazione extends IdentifiableObject implements Selectable {
 		this.padre = padre;
 	}
 
-	@RemoteProperty()
+
 	public boolean isSelezionabile() {
 		return selezionabile;
 	}
@@ -183,12 +180,12 @@ public class Classificazione extends IdentifiableObject implements Selectable {
 		return sottoCategorie;
 	}
 
-	@RemoteProperty()
+
 	public String getDisplayValue() {
 		return nome;
 	}
 
-	@RemoteProperty()
+
 	public String getIdentifyingValue() {
 		return this.alberoClassificatorio.getNome() + ":" + this.codice;
 		// return this.codice;

@@ -28,8 +28,6 @@ import it.cilea.osd.jdyna.model.Classificazione;
 
 import java.io.Serializable;
 
-import org.directwebremoting.annotations.RemoteProperty;
-
 
 public class DTOClassificazione implements Serializable {
 		
@@ -38,8 +36,7 @@ public class DTOClassificazione implements Serializable {
 	
 	/** padre della sottoarea */	
  	private Classificazione padre;
-	
-	@RemoteProperty
+		
 	/** se selezionabile o meno*/
 	private boolean selezionabile;
 	

@@ -40,7 +40,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import org.directwebremoting.annotations.RemoteProperty;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.Cascade;
@@ -143,12 +142,11 @@ public class AlberoClassificatorio extends IdentifiableObject implements
 		this.descrizione = descrizione;
 	}
 
-	@RemoteProperty()
+
 	public String getDisplayValue() {
 		return nome;
 	}
 
-	@RemoteProperty()
 	public String getIdentifyingValue() {
 		return id.toString();
 	}
