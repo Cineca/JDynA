@@ -15,7 +15,7 @@
 			<version>1.0.4</version>
 		</dependency>
 		<dependency>
-			<groupId>commons-cilea-webapi</groupId>
+			<groupId>it.cilea</groupId>
 			<artifactId>commons-cilea-webapi</artifactId>
 			<version>1.0</version>
 		</dependency>

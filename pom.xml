@@ -210,7 +210,7 @@
 			</dependency>
 
 			<dependency>
-				<groupId>commons-cilea-genericdao</groupId>
+				<groupId>it.cilea</groupId>
 				<artifactId>commons-cilea-genericdao</artifactId>
 				<version>1.0</version>
 			</dependency>
