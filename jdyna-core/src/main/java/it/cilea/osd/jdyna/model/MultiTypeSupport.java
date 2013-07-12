@@ -28,5 +28,5 @@ package it.cilea.osd.jdyna.model;
 import java.util.List;
 
 public interface MultiTypeSupport <P extends Property<TP>, TP extends PropertiesDefinition> extends AnagraficaSupport<P, TP> {
-	public List<? extends ATipologia<TP>> getTipologie();
+	public List<? extends AType<TP>> getTipologie();
 }

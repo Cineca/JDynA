@@ -25,7 +25,7 @@
 package it.cilea.osd.jdyna.web.controller;
 
 import it.cilea.osd.common.controller.BaseAbstractController;
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
@@ -40,7 +40,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class TypeController<P extends Property<TP>,TP extends PropertiesDefinition, A extends ATipologia<TP>> extends BaseAbstractController {
+public class TypeController<P extends Property<TP>,TP extends PropertiesDefinition, A extends AType<TP>> extends BaseAbstractController {
 
 	protected IPersistenceDynaService applicationService;
 
@@ -85,7 +85,7 @@ public class TypeController<P extends Property<TP>,TP extends PropertiesDefiniti
 		model.put("id", paramTypeObjectId);
 		model.put("tipologiaObject", tipologia);
 		model.put("addModeType", "display");
-		return new ModelAndView(detailsView, model);
+		return new ModelAndView(getDetailsView(), model);
 	
 	}
 
@@ -94,7 +94,7 @@ public class TypeController<P extends Property<TP>,TP extends PropertiesDefiniti
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<A> listaTipologie = applicationService.getList(tipologiaModel);		 
 		model.put("tipologiaList", listaTipologie);
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 	
 
@@ -109,6 +109,6 @@ public class TypeController<P extends Property<TP>,TP extends PropertiesDefiniti
 		catch (Exception e) {
 			saveMessage(request, getText("action.tipologia.deleted.noSuccess", request.getLocale()));			
 		}
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 }

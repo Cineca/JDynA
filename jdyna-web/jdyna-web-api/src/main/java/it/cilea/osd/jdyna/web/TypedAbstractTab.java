@@ -22,30 +22,18 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.web;
 
-public class DynamicPropertiesDefinition extends PropertiesDefinition
-{
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-    @Override
-    public Class getAnagraficaHolderClass()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+import javax.persistence.MappedSuperclass;
 
-    @Override
-    public Class getPropertyHolderClass()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public Class getDecoratorClass()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
+@MappedSuperclass
+public abstract class TypedAbstractTab<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition> extends AbstractTab<H> implements ITypedTab<H, A, PD> {
+    
+    public abstract A getTypeDef();
+    public abstract void setTypeDef(A typo);
+	
 }

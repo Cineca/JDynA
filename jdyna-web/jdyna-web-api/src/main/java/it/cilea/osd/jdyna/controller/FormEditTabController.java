@@ -28,6 +28,7 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -77,7 +78,7 @@ public class FormEditTabController<H extends IPropertyHolder<Containable>, T ext
         } else {
             map = super.referenceData(request);
         }
-
+        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         return map;
     }
 
@@ -136,7 +137,8 @@ public class FormEditTabController<H extends IPropertyHolder<Containable>, T ext
            applicationService.saveOrUpdate(tabEditClass,
                 object);
         }
-        return new ModelAndView(getSuccessView());
+        String shortName = Utils.getAdminSpecificPath(request, null);                
+        return new ModelAndView(getSuccessView() + "?path=" + shortName);
     }
 
 }

@@ -109,7 +109,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
         model.put("tipologiaProprieta", propertiesDefinition);
         model.put("addModeType", "display");
         
-        return new ModelAndView(detailsView, model);
+        return new ModelAndView(getDetailsView(), model);
     }
 
 	private ModelAndView handleDetails2(HttpServletRequest request) {
@@ -120,14 +120,14 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
         
         model.put("tipologiaProprieta", propertiesDefinition);
         model.put("addModeType", "display");
-        return new ModelAndView(detailsView, model);
+        return new ModelAndView(getDetailsView(), model);
     }
 
 	private ModelAndView handleList(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<TP> listTipologiaProprieta = applicationService.getList(targetModel);	 
 		model.put("tipologiaProprietaList", listTipologiaProprieta);		
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 	
 
@@ -146,7 +146,7 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 			applicationService.delete(targetModel, tipologiaProprietaId);
 		} catch (Exception ecc) {
 
-			return new ModelAndView(errorView, model);
+			return new ModelAndView(getErrorView(), model);
 		}
 		
 		
@@ -154,6 +154,6 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 				.getLocale()));
 		
 		
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 }

@@ -27,8 +27,15 @@ package it.cilea.osd.jdyna.controller;
 import it.cilea.osd.common.controller.BaseFormController;
 import it.cilea.osd.jdyna.model.ADecoratorTypeDefinition;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
+import it.cilea.osd.jdyna.model.ATypeWithTypeNestedObjectSupport;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.TypedBox;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,64 +46,81 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDefinition, TP extends ATypeNestedObject<PD>, ATN extends ADecoratorTypeDefinition<TP, PD>> extends BaseFormController
+public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition, NPD extends ANestedPropertiesDefinition, TNO extends ATypeNestedObject<NPD>, ATD extends ADecoratorTypeDefinition<TNO, NPD>>
+        extends BaseFormController
 {
 
     private final String TYPO_ADDTEXT = "text";
+
     private final String TYPO_ADDDATE = "date";
+
     private final String TYPO_ADDLINK = "link";
+
     private final String TYPO_ADDFILE = "file";
+
     private final String TYPO_ADDPOINTERRP = "pointerrp";
+
     private final String TYPO_ADDPOINTEROU = "pointerou";
+
     private final String TYPO_ADDPOINTERPJ = "pointerpj";
 
     private String addTextView;
+
     private String addDateView;
+
     private String addLinkView;
+
     private String addFileView;
+
     private String addPointerRPView;
+
     private String addPointerOUView;
+
     private String addPointerPJView;
 
     private ITabService applicationService;
 
-    private Class<TP> targetClass;
-    private Class<ATN> decoratorClass;
+    private Class<TNO> targetClass;
+
+    private Class<ATD> decoratorClass;
+
+    private Class<H> boxModel;
+
+    private Class<AType<PD>> typoModel;
 
     private String specificPartPath;
 
-    
     @Override
-    protected Map referenceData(HttpServletRequest request) throws Exception {
+    protected Map referenceData(HttpServletRequest request) throws Exception
+    {
         Map<String, Object> map = new HashMap<String, Object>();
         String paramBoxId = request.getParameter("boxId");
         String paramTabId = request.getParameter("tabId");
-        
-        map.put("specificPartPath", getSpecificPartPath());
+
+        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         map.put("tabId", paramTabId);
         map.put("boxId", paramBoxId);
         return map;
     }
-    
+
     @Override
     protected Object formBackingObject(HttpServletRequest request)
             throws Exception
     {
-        ATN decorator = null;
-        TP object = null;
+        ATD decorator = null;
+        TNO object = null;
         String paramId = request.getParameter("pDId");
         if (paramId == null || paramId.isEmpty())
         {
-            decorator = (ATN) (super
-                    .formBackingObject(request));
+            decorator = (ATD) (super.formBackingObject(request));
             object = targetClass.newInstance();
             decorator.setReal(object);
         }
         else
         {
             Integer id = Integer.parseInt(paramId);
-            decorator = (ATN) applicationService
-                    .findContainableByDecorable(getCommandClass(), id);
+            decorator = (ATD) applicationService.findContainableByDecorable(
+                    getCommandClass(), id);
         }
         return decorator;
     }
@@ -107,60 +131,84 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
     {
         String boxId = request.getParameter("boxId");
         String tabId = request.getParameter("tabId");
-        ATN object = (ATN) command;
-        getApplicationService().saveOrUpdate(decoratorClass,
-                object);
+        ATD object = (ATD) command;
+        getApplicationService().saveOrUpdate(decoratorClass, object);
+        if (boxId != null && !boxId.isEmpty())
+        {
+            if (boxModel != null)
+            {
+                H box = getApplicationService().get(boxModel,
+                        Integer.parseInt(boxId));
+                if(!(box.getMask().contains(object))) {
+                    box.getMask().add(object);
+                    getApplicationService().saveOrUpdate(boxModel, box);
+                }
+                if (TypedBox.class.isAssignableFrom(boxModel))
+                {
+                    TypedBox tbox = (TypedBox) box;
+                    ATypeWithTypeNestedObjectSupport<PD, TNO, NPD> typo = (ATypeWithTypeNestedObjectSupport<PD, TNO, NPD>) tbox
+                            .getTypeDef();
+                    if(!(typo.getTypeNestedDefinitionMask().contains(object.getReal()))) {
+                        typo.getTypeNestedDefinitionMask().add(object.getReal());
+                        getApplicationService().saveOrUpdate(typoModel, typo);
+                    }
+                }
+            }   
 
+        }
         Map<String, String> maprequest = request.getParameterMap();
 
         if (maprequest.containsKey(TYPO_ADDTEXT))
         {
             return new ModelAndView(addTextView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDDATE))
         {
             return new ModelAndView(addDateView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDLINK))
         {
             return new ModelAndView(addLinkView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDFILE))
         {
             return new ModelAndView(addFileView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDPOINTERRP))
         {
-            return new ModelAndView(addPointerRPView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+            return new ModelAndView(addPointerRPView.trim()
+                    + "?renderingparent=" + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId + "&path="
+                    + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDPOINTERPJ))
         {
-            return new ModelAndView(addPointerPJView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+            return new ModelAndView(addPointerPJView.trim()
+                    + "?renderingparent=" + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId + "&path="
+                    + Utils.getAdminSpecificPath(request, null));
         }
         if (maprequest.containsKey(TYPO_ADDPOINTEROU))
         {
-            return new ModelAndView(addPointerOUView.trim() + "?renderingparent="
-                    + object.getId() + "&boxId=" + boxId
-                    + "&tabId=" + tabId);
+            return new ModelAndView(addPointerOUView.trim()
+                    + "?renderingparent=" + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId + "&path="
+                    + Utils.getAdminSpecificPath(request, null));
         }
 
         return new ModelAndView(getSuccessView() + "?id=" + boxId + "&tabId="
-                + tabId);
+                + tabId + "&path=" + Utils.getAdminSpecificPath(request, null));
 
     }
-   
+
     public Class getTargetClass()
     {
         return targetClass;
@@ -231,12 +279,12 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
         this.applicationService = applicationService;
     }
 
-    public Class<ATN> getDecoratorClass()
+    public Class<ATD> getDecoratorClass()
     {
         return decoratorClass;
     }
 
-    public void setDecoratorClass(Class<ATN> decoratorClass)
+    public void setDecoratorClass(Class<ATD> decoratorClass)
     {
         this.decoratorClass = decoratorClass;
     }
@@ -271,5 +319,24 @@ public class FormNestedObjectDefinitionController<PD extends ANestedPropertiesDe
         this.addPointerPJView = addPointerPJView;
     }
 
- 
+    public Class<H> getBoxModel()
+    {
+        return boxModel;
+    }
+
+    public void setBoxModel(Class<H> boxModel)
+    {
+        this.boxModel = boxModel;
+    }
+
+    public Class<AType<PD>> getTypoModel()
+    {
+        return typoModel;
+    }
+
+    public void setTypoModel(Class<AType<PD>> typoModel)
+    {
+        this.typoModel = typoModel;
+    }
+
 }

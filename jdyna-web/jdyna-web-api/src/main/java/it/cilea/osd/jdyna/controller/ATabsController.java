@@ -29,6 +29,7 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -39,6 +40,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.view.RedirectView;
 
 /**
  * Abstract SpringMVC controller is used to list, delete and view detail of tab
@@ -85,12 +88,12 @@ public class ATabsController<H extends IPropertyHolder<Containable>, T extends T
 		model.put("id", paramTypeTabId);
 		model.put("tab", tab);
 		model.put("containerList", containerList);
-		model.put("specificPartPath", getSpecificPartPath());
-		return new ModelAndView(detailsView, model);
+		String specificPartPath = Utils.getAdminSpecificPath(request, null);
+		model.put("specificPartPath", specificPartPath);
+		return new ModelAndView(getDetailsView()+"?path=" + specificPartPath, model);
 
 	}
-	
-
+ 
 	protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		String tabId = request.getParameter("id");
@@ -102,7 +105,7 @@ public class ATabsController<H extends IPropertyHolder<Containable>, T extends T
 		catch (Exception e) {
 			saveMessage(request, getText("action.tab.deleted.noSuccess", request.getLocale()));			
 		}
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView()+"?path=" + Utils.getAdminSpecificPath(request, null), model);
 	}
 
 
@@ -112,7 +115,7 @@ public class ATabsController<H extends IPropertyHolder<Containable>, T extends T
 		tabs = applicationService.getList(tabsClass);
 		model.put("listTab", tabs);
 		model.put("specificPartPath", getSpecificPartPath());
-		return new ModelAndView(listView,model);
+		return new ModelAndView(getListView(),model);
 	}
 
 
@@ -133,4 +136,8 @@ public class ATabsController<H extends IPropertyHolder<Containable>, T extends T
         this.specificPartPath = specificPartPath;
     }
 
+    public Class<T> getTabsClass()
+    {
+        return tabsClass;
+    }        
 }

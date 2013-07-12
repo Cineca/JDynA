@@ -26,12 +26,15 @@ package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
 import it.cilea.osd.jdyna.model.ADecoratorPropertiesDefinition;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.TypedBox;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -53,6 +56,8 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
     private Class<W> renderingModel;
     
     private Class<H> boxModel;
+    
+    private Class<AType<TP>> typoModel;
 
     private String specificPartPath;
 
@@ -72,7 +77,7 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
         String paramTabId = request.getParameter("tabId");
         map.put("tabId", paramTabId);
         map.put("boxId", paramBoxId);
-        map.put("specificPartPath", getSpecificPartPath());
+        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         return map;
     }
 
@@ -116,10 +121,23 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
                 
         if(boxId!=null && !boxId.isEmpty()) {
             H box = getApplicationService().get(boxModel, Integer.parseInt(boxId));
-            box.getMask().add(object);
-            getApplicationService().saveOrUpdate(boxModel, box);    
+            if(!(box.getMask().contains(object))) {
+                box.getMask().add(object);
+                getApplicationService().saveOrUpdate(boxModel, box);
+            }            
+            getApplicationService().saveOrUpdate(boxModel, box);
+            if(TypedBox.class.isAssignableFrom(boxModel)) {
+                TypedBox tbox = (TypedBox)box;
+                AType<TP> typo = tbox.getTypeDef();                
+                if(!(typo.getMask().contains(object.getReal()))) {
+                    typo.getMask().add(object.getReal());
+                    getApplicationService().saveOrUpdate(typoModel, typo);
+                }
+                getApplicationService().saveOrUpdate(typoModel, typo);
+            }
+            
         }        
-        return new ModelAndView(getSuccessView()+"?id="+boxId+"&tabId="+tabId);
+        return new ModelAndView(getSuccessView()+"?id="+boxId+"&tabId="+tabId+"&path="+Utils.getAdminSpecificPath(request, null));
     }
 
     public void setApplicationService(ITabService applicationService)
@@ -156,4 +174,15 @@ public class FormDecoratorPropertiesDefinitionController<W extends AWidget, TP e
     {
         return boxModel;
     }
+
+    public void setTypoModel(Class<AType<TP>> typoModel)
+    {
+        this.typoModel = typoModel;
+    }
+
+    public Class<AType<TP>> getTypoModel()
+    {
+        return typoModel;
+    }
+  
 }

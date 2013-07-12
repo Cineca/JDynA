@@ -157,10 +157,6 @@ public class FormBoxController<TP extends PropertiesDefinition, H extends IPrope
         this.applicationService = applicationService;
     }
 
-    public void setboxClass(Class<H> boxClass)
-    {
-        this.boxClass = boxClass;
-    }
 
     public void setTpClass(Class<TP> tpClass)
     {
@@ -185,4 +181,21 @@ public class FormBoxController<TP extends PropertiesDefinition, H extends IPrope
     public void setSpecificPartPath(String specificPartPath) {
         this.specificPartPath = specificPartPath;
     }
+
+    public Class<H> getBoxClass()
+    {
+        return boxClass;
+    }
+
+    public void setBoxClass(Class<H> boxClass)
+    {
+        this.boxClass = boxClass;
+    }
+
+    public Class<TP> getTpClass()
+    {
+        return tpClass;
+    }
+   
+ 
 }
