@@ -63,6 +63,8 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
     private final String TYPO_ADDPOINTEROU = "pointerou";
 
     private final String TYPO_ADDPOINTERPJ = "pointerpj";
+    
+    private final String TYPO_ADDPOINTERDO = "pointerdo";
 
     private String addTextView;
 
@@ -78,6 +80,8 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
 
     private String addPointerPJView;
 
+    private String addPointerDOView;
+    
     private ITabService applicationService;
 
     private Class<TNO> targetClass;
@@ -203,6 +207,14 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
                     + "&tabId=" + tabId + "&path="
                     + Utils.getAdminSpecificPath(request, null));
         }
+        if (maprequest.containsKey(TYPO_ADDPOINTERDO))
+        {
+            return new ModelAndView(addPointerOUView.trim()
+                    + "?renderingparent=" + object.getId() + "&boxId=" + boxId
+                    + "&tabId=" + tabId + "&path="
+                    + Utils.getAdminSpecificPath(request, null));
+        }
+        
 
         return new ModelAndView(getSuccessView() + "?id=" + boxId + "&tabId="
                 + tabId + "&path=" + Utils.getAdminSpecificPath(request, null));
@@ -337,6 +349,16 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
     public void setTypoModel(Class<AType<PD>> typoModel)
     {
         this.typoModel = typoModel;
+    }
+
+    public String getAddPointerDOView()
+    {
+        return addPointerDOView;
+    }
+
+    public void setAddPointerDOView(String addPointerDOView)
+    {
+        this.addPointerDOView = addPointerDOView;
     }
 
 }
