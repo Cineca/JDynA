@@ -103,7 +103,7 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
 
         map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         map.put("tabId", paramTabId);
-        map.put("boxId", paramBoxId);
+        map.put("boxId", paramBoxId);        
         return map;
     }
 
@@ -209,7 +209,7 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
         }
         if (maprequest.containsKey(TYPO_ADDPOINTERDO))
         {
-            return new ModelAndView(addPointerOUView.trim()
+            return new ModelAndView(addPointerDOView.trim()
                     + "?renderingparent=" + object.getId() + "&boxId=" + boxId
                     + "&tabId=" + tabId + "&path="
                     + Utils.getAdminSpecificPath(request, null));

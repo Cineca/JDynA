@@ -34,7 +34,11 @@ import it.cilea.osd.jdyna.value.PointerValue;
 import java.beans.PropertyEditor;
 
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
+import javax.persistence.DiscriminatorType;
 import javax.persistence.Entity;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -50,12 +54,7 @@ import org.hibernate.annotations.Type;
  * 
  */
 @Entity
-@Table(name="jdyna_widget_pointer")
-@NamedQueries( {
-		@NamedQuery(name = "WidgetPointer.findAll", query = "from WidgetPointer order by id"),
-		@NamedQuery(name = "WidgetPointer.findWidgetByTarget", query = "from WidgetPointer where target = ?") 
-})
-public class WidgetPointer<AV extends PointerValue> extends AWidget {
+public abstract class WidgetPointer<AV extends PointerValue> extends AWidget {
 	
 	protected String target;
 		

@@ -178,6 +178,8 @@ public interface ITabService extends IPersistenceDynaService {
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> List<DA> findEditTabByType(Class<DA> tabClass, A typo);
 
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> List<DA> getEditTabsByVisibilityAndType(Class<DA> model, Boolean isAdmin, A typo);
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByVisibilityAndTypo(Class<D> model, Boolean isAdmin, A typo);
+    
       
             
 }

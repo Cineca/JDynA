@@ -411,5 +411,33 @@ public abstract class TabService extends PersistenceDynaService implements
         return tabs;
 
     }
+    
+    @Override
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByVisibilityAndTypo(
+            Class<D> model, Boolean isAdmin, A typo)
+    {
+
+        TypedTabDao<H, A, PD, D> dao = (TypedTabDao<H, A, PD, D>) getDaoByModel(model);
+        List<D> tabs = new LinkedList<D>();
+        if (isAdmin == null)
+        {
+            tabs.addAll(dao.findByAnonimousAndTypoDef(typo));
+        }
+        else
+        {
+            if (isAdmin)
+            {
+                tabs.addAll(dao.findByAdminAndTypoDef(typo));
+            }
+            else
+            {
+                tabs.addAll(dao.findByOwnerAndTypoDef(typo));
+            }
+        }
+
+        Collections.sort(tabs);
+        return tabs;
+
+    }
         
 }
