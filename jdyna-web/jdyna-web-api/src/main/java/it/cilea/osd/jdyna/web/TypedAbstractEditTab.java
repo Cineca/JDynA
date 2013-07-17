@@ -22,53 +22,24 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.web;
 
-import java.util.List;
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-public class DynamicObject extends AnagraficaObject<DynamicProperty, DynamicPropertiesDefinition> implements TypeSupport<DynamicProperty, DynamicPropertiesDefinition>
-{
+import javax.persistence.MappedSuperclass;
 
-    @Override
-    public List<DynamicProperty> getAnagrafica()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+@MappedSuperclass
+public abstract class TypedAbstractEditTab<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends AbstractEditTab<H, D> implements ITypedTab<H, A, PD> {
 
-    @Override
-    public Class<DynamicProperty> getClassProperty()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    public abstract A getTypeDef();
+    public abstract void setTypeDef(A typo);
+    
+	public abstract Tab<H> getDisplayTab();
 
-    @Override
-    public Class<DynamicPropertiesDefinition> getClassPropertiesDefinition()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+	public abstract void setDisplayTab(D tab);
 
-    @Override
-    public Integer getId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public TypeDynamicObject getTypo()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void setTypo(ATipologia<DynamicPropertiesDefinition> typo)
-    {
-        // TODO Auto-generated method stub
-        
-    }
-
+	public abstract Class<D> getDisplayTabClass();
+		
 }

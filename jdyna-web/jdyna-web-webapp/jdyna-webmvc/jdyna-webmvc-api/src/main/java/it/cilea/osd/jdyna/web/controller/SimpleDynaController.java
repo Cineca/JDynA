@@ -27,7 +27,7 @@ package it.cilea.osd.jdyna.web.controller;
 import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.common.util.displaytag.DisplayTagData;
 import it.cilea.osd.jdyna.components.IComponent;
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
@@ -36,6 +36,7 @@ import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -62,7 +63,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	
 	protected Class<TP> tpClass;
 	
-	protected Class<? extends ATipologia<TP>> typeClass;
+	protected Class<? extends AType<TP>> typeClass;
 	
 	protected Class<T> tabClass;
 	
@@ -82,7 +83,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
     }
 
     
-	public void setTypeClass(Class<? extends ATipologia<TP>> typeClass) {
+	public void setTypeClass(Class<? extends AType<TP>> typeClass) {
 		this.typeClass = typeClass;
 	}
 	
@@ -254,7 +255,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         model.put("anagraficaObject", jdynaObject);
         model.put("addModeType", "display");
         model.put("specificPartPath", getSpecificPartPath());        
-		return new ModelAndView(detailsView, model);
+		return new ModelAndView(getDetailsView(), model);
 	}
 
 	
@@ -311,7 +312,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		model.put("objectList", displayList);
 		model.put("showInColumnList", listTipologieShowInColumn);
 				
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 	
 	
@@ -329,10 +330,11 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 					.getLocale()));
 		}
 		catch (Exception e){
+		    String path = Utils.getAdminSpecificPath(request, null);
 			log.error("Non e' stato possibile eliminare l'oggetto " + e);
 			saveMessage(request, getText(i18nPrefix + ".notdeleted", request
 					.getLocale()));		
-			return new ModelAndView(detailsView+"?id="+epiobjectID, model);
+			return new ModelAndView(getDetailsView()+"?id="+epiobjectID+"&path="+path, model);
 		}
 				
 		return redirect(a,request);		
@@ -340,7 +342,8 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
 	/** Redirige sulla pagina del dettaglio */
 	public ModelAndView redirect(AnagraficaSupport<P, TP> epi,HttpServletRequest request) {
-		return new ModelAndView(listView, null);
+	    String path = Utils.getAdminSpecificPath(request, null);
+		return new ModelAndView(getListView()+"?path="+path, null);
 	}
 	
 	public String getI18nPrefix() {

@@ -34,11 +34,8 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.web.ITabService;
 
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -124,7 +121,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         if(externalJSP!=null && !externalJSP.isEmpty()) {
         	return new ModelAndView(externalJSP, model);
         }
-        return new ModelAndView(detailsView, model);
+        return new ModelAndView(getDetailsView(), model);
     }
 
     private ModelAndView handleDelete(HttpServletRequest request)
@@ -174,7 +171,7 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         model.put("specificPartPath", specificPartPath);
         model.put("specificContextPath", specificContextPath);
         model.put("admin", admin);
-        return new ModelAndView(detailsView, model);
+        return new ModelAndView(getDetailsView(), model);
     }
 
     public void setApplicationService(ITabService applicationService)

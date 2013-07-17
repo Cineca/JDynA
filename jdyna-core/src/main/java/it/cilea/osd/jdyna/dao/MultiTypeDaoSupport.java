@@ -24,12 +24,12 @@
  */
 package it.cilea.osd.jdyna.dao;
 
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
 import java.util.List;
 
-public interface MultiTypeDaoSupport <A extends ATipologia<TP>, TP extends PropertiesDefinition> {
+public interface MultiTypeDaoSupport <A extends AType<TP>, TP extends PropertiesDefinition> {
 	/**
 	 * Restituisce la lista di tipologie proprieta' ammissibili per l'insieme di tipologie individuate da 
 	 * <code>listaTipologie</code>.
@@ -43,7 +43,7 @@ public interface MultiTypeDaoSupport <A extends ATipologia<TP>, TP extends Prope
 	 * 
 	 * @return lista di tipologieproprieta' ammesse dal type
 	 */
-	public List<TP> findTipologieProprietaAssegnabiliPerMultiType(List<? extends ATipologia<TP>> listaTipologie, long sizeList);
-	public List<TP> findTipologieProprietaAssegnabiliPerMultiTypeAndArea(List<? extends ATipologia<TP>> listaTipologie, long sizeList, Integer area);
+	public List<TP> findTipologieProprietaAssegnabiliPerMultiType(List<? extends AType<TP>> listaTipologie, long sizeList);
+	public List<TP> findTipologieProprietaAssegnabiliPerMultiTypeAndArea(List<? extends AType<TP>> listaTipologie, long sizeList, Integer area);
 
 }

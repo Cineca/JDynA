@@ -29,6 +29,7 @@ import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.Map;
 
@@ -50,7 +51,7 @@ public class FormTabController<H extends IPropertyHolder<Containable>, T extends
     {
         super(clazzT, clazzB, clazzET);
     }
-
+        
     @Override
     protected Map referenceData(HttpServletRequest request) throws Exception
     {
@@ -106,32 +107,40 @@ public class FormTabController<H extends IPropertyHolder<Containable>, T extends
         }
         if (createEditTab)
         {
-            String name = ITabService.PREFIX_SHORTNAME_EDIT_TAB
-                    + object.getShortName();
-            String title = ITabService.PREFIX_TITLE_EDIT_TAB
-                    + object.getTitle();
-            ET e = applicationService
-                    .getTabByShortName(tabEditClass,
-                            name);
-            if (e == null)
+            createEditTab(object);
+        }
+         
+        String shortName = Utils.getAdminSpecificPath(request, null);                
+        return new ModelAndView(getSuccessView() + "?path=" + shortName);
+    }
+
+    protected void createEditTab(T object) throws InstantiationException,
+            IllegalAccessException
+    {
+        String name = ITabService.PREFIX_SHORTNAME_EDIT_TAB
+                + object.getShortName();
+        String title = ITabService.PREFIX_TITLE_EDIT_TAB
+                + object.getTitle();
+        ET e = applicationService
+                .getTabByShortName(tabEditClass,
+                        name);
+        if (e == null)
+        {
+            e = tabEditClass.newInstance();
+            e.setDisplayTab(object);
+            e.setTitle(title);
+            e.setShortName(name);
+            applicationService.saveOrUpdate(
+                    tabEditClass, e);
+        }
+        else
+        {
+            if (e.getDisplayTab() == null)
             {
-                e = tabEditClass.newInstance();
                 e.setDisplayTab(object);
-                e.setTitle(title);
-                e.setShortName(name);
                 applicationService.saveOrUpdate(
                         tabEditClass, e);
             }
-            else
-            {
-                if (e.getDisplayTab() == null)
-                {
-                    e.setDisplayTab(object);
-                    applicationService.saveOrUpdate(
-                            tabEditClass, e);
-                }
-            }
         }
-        return new ModelAndView(getSuccessView());
     }
 }

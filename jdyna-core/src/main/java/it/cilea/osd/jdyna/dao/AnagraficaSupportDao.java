@@ -52,7 +52,7 @@ public interface AnagraficaSupportDao<T, PK extends Serializable> extends Pagina
 
 	/**
 	 * Metodo di paginazione/ordinamento in base al nome della tipologia
-	 * (ATipologia) di oggetto
+	 * (AType) di oggetto
 	 */
 	public List<T> paginateByTipologia(String sort, boolean inverse, int firstResult,
 			int maxResults);

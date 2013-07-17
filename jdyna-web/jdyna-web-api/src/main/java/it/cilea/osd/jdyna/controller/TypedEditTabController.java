@@ -24,40 +24,48 @@
  */
 package it.cilea.osd.jdyna.controller;
 
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.web.AbstractEditTab;
-import it.cilea.osd.jdyna.web.AbstractTab;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.TypedAbstractEditTab;
+import it.cilea.osd.jdyna.web.TypedAbstractTab;
+import it.cilea.osd.jdyna.web.Utils;
+
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class TabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>> extends ATabsController<H, T>
+public class TypedEditTabController<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, T extends TypedAbstractTab<H, A, PD>, ET extends TypedAbstractEditTab<H, A, PD, T>> extends EditTabController<H, T, ET>
 {
-
-    private Class<ET> editTabClass;
     
-    public TabController(Class<T> tabsClass, Class<ET> editTabsClass)
+    private Class<A> typoClass; 
+
+    public TypedEditTabController(Class<ET> tabsClass, Class<A> typoClass)
     {
         super(tabsClass);
-        this.editTabClass = editTabsClass;
+        this.typoClass = typoClass;
     }
+
+       
     
     @Override
-    protected ModelAndView handleDelete(HttpServletRequest request) {
+    protected ModelAndView handleList(HttpServletRequest request) throws Exception {
+        Map<String, Object> model = new HashMap<String, Object>();
+        List<ET> tabs = new LinkedList<ET>();
         
-        String tabId = request.getParameter("id");
-        Integer paramIntegerId = Integer.parseInt(tabId);
-        getApplicationService().decoupleEditTabByDisplayTab(paramIntegerId,editTabClass);
-        return super.handleDelete(request);
+        String shortName = Utils.getAdminSpecificPath(request, null);     
         
-        
+        A dot = getApplicationService().findTypoByShortName(typoClass, shortName);
+        tabs = getApplicationService().findEditTabByType(getTabsClass(), dot);
+        model.put("listTab", tabs);
+        model.put("specificPartPath", shortName);
+        return new ModelAndView(getListView(),model);
     }
-
-    public Class<ET> getEditTabClass()
-    {
-        return editTabClass;
-    }
-
 }

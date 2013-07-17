@@ -24,7 +24,6 @@
  */
 package it.cilea.osd.jdyna.controller;
 
-import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.Containable;
@@ -33,17 +32,17 @@ import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public class DecoratorNestedPropertiesDefinitionController<NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends BaseAbstractController {
+public class DecoratorNestedPropertiesDefinitionController<NTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<NTP>, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends ADecoratorController {
 
     private Class<TTP> holderModel;
     private Class<NTP> targetModel;
@@ -61,20 +60,7 @@ public class DecoratorNestedPropertiesDefinitionController<NTP extends ANestedPr
 		this.applicationService = applicationService;
 	}
 
-	@Override
-	protected ModelAndView handleRequestInternal(HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
-		ModelAndView retValue = null;
-		if ("details".equals(method))
-			retValue = handleDetails(request);
-		else if ("delete".equals(method))
-			retValue = handleDelete(request);
-		else if ("list".equals(method))
-			retValue = handleList(request);
-		return retValue;
-	}
-
-	private ModelAndView handleDetails(HttpServletRequest request) {
+    protected ModelAndView handleDetails(HttpServletRequest request) {
         Map<String, Object> model = new HashMap<String, Object>();
         String paramTipologiaProprietaId = request.getParameter("id");
         Integer tipologiaProprietaId = Integer.valueOf(paramTipologiaProprietaId);
@@ -82,18 +68,18 @@ public class DecoratorNestedPropertiesDefinitionController<NTP extends ANestedPr
         
         model.put("tipologiaProprieta", propertiesDefinition);
         model.put("addModeType", "display");
-        return new ModelAndView(detailsView, model);
+        return new ModelAndView(getDetailsView()+"?path="+ Utils.getAdminSpecificPath(request, null), model);
     }
 
-	private ModelAndView handleList(HttpServletRequest request) {
+    protected ModelAndView handleList(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		List<? extends PropertiesDefinition> listTipologiaProprieta = applicationService.getList(targetModel);	 
 		model.put("tipologiaProprietaList", listTipologiaProprieta);		
-		return new ModelAndView(listView, model);
+		return new ModelAndView(getListView(), model);
 	}
 	
 
-	private ModelAndView handleDelete(HttpServletRequest request) {
+    protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
 		String paramOTipologiaProprietaId = request.getParameter("pDId");
 		String parentOTipologiaProprietaId = request.getParameter("parentId");
@@ -121,7 +107,7 @@ public class DecoratorNestedPropertiesDefinitionController<NTP extends ANestedPr
 					.getLocale()));			
 		}
 		
-		return new ModelAndView(listView+"?id="+boxId+"&tabId="+tabId, model);
+		return new ModelAndView(getListView()+"?id="+boxId+"&tabId="+tabId+"&path="+Utils.getAdminSpecificPath(request, null), model);
 	}
 }
 

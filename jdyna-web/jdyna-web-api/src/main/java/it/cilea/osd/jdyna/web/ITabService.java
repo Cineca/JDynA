@@ -24,6 +24,7 @@
  */
 package it.cilea.osd.jdyna.web;
 
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -171,4 +172,14 @@ public interface ITabService extends IPersistenceDynaService {
             Integer displayTabId, Class<T> clazz);
     
     public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> T getEditTabByDisplayTab(Integer tabId, Class<T> clazz);
+    
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition> List<H> findBoxByType(Class<H> boxClass, A typo);
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> findTabByType(Class<D> tabClass, A typo);
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> List<DA> findEditTabByType(Class<DA> tabClass, A typo);
+
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> List<DA> getEditTabsByVisibilityAndType(Class<DA> model, Boolean isAdmin, A typo);
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByVisibilityAndTypo(Class<D> model, Boolean isAdmin, A typo);
+    
+      
+            
 }

@@ -24,14 +24,21 @@
  */
 package it.cilea.osd.jdyna.model;
 
+import java.util.List;
 
 import javax.persistence.MappedSuperclass;
-/**
-*
-* @author pascarelli
-*
-*/
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
+
 @MappedSuperclass
-public abstract class ADecoratorTypeDefinition<TP extends ATypeNestedObject<PD>, PD extends ANestedPropertiesDefinition> extends Containable<TP> {
-    
+@Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
+public abstract class ATypeWithTypeNestedObjectSupport<PD extends PropertiesDefinition, TNO extends ATypeNestedObject<NPD>, NPD extends ANestedPropertiesDefinition> extends AType<PD> {
+	
+    @Transient
+    public abstract List<TNO> getTypeNestedDefinitionMask();
+
+    public abstract Class<TNO> getClassTypeNestedObject();
+	public abstract Class<NPD> getClassNestedPropertyDefinition();
 }

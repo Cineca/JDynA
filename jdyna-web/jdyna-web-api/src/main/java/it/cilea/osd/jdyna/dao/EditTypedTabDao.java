@@ -22,16 +22,22 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.dao;
 
+import java.util.List;
 
-import javax.persistence.MappedSuperclass;
-/**
-*
-* @author pascarelli
-*
-*/
-@MappedSuperclass
-public abstract class ADecoratorTypeDefinition<TP extends ATypeNestedObject<PD>, PD extends ANestedPropertiesDefinition> extends Containable<TP> {
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.TypedAbstractEditTab;
+import it.cilea.osd.jdyna.web.TypedAbstractTab;
+
+public interface EditTypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> extends EditTabDao<H, D, DA> {
+
+    List<DA> findTabByType(A typo);
     
+    List<DA> findByAnonimousAndTypoDef(A typo);
+    List<DA> findByAdminAndTypoDef(A typo);
+    List<DA> findByOwnerAndTypoDef(A typo);
 }

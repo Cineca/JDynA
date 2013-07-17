@@ -63,10 +63,9 @@ public abstract class SearchPointerController<PD extends PropertiesDefinition, T
 
         PD pd = applicationService.get(clazzPD, Integer.parseInt(elementID));
         WidgetPointer widgetPointer = (WidgetPointer) pd.getRendering();
-        String filtro = widgetPointer.getFiltro();
-        Class target = widgetPointer.getTargetValoreClass();
-        List results = getResult(target, filtro, query,
-                widgetPointer.getDisplay());
+        String[] filter = getFilter(widgetPointer);        
+        List results = getResult(query,
+                widgetPointer.getDisplay(), filter);
 
         JSONSerializer serializer = new JSONSerializer();
         serializer.rootName("pointers");
@@ -78,8 +77,10 @@ public abstract class SearchPointerController<PD extends PropertiesDefinition, T
 
     }
 
-    protected abstract List<SelectableDTO> getResult(Class<T> target, String filtro,
-            String query, String expression);
+    protected abstract String[] getFilter(WidgetPointer widgetPointer);
+    
+
+    protected abstract List<SelectableDTO> getResult(String query, String expression, String... filtro);
     
 
     public void setApplicationService(ITabService applicationService)
