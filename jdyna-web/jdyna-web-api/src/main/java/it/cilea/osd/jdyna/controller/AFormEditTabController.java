@@ -30,6 +30,7 @@ import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -100,7 +101,7 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
         }
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
-        map.put("specificPartPath", getSpecificPartPath());
+        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         return map;
     }
 
@@ -185,5 +186,6 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
         tab.setExt(null);
         tab.setMime(null);
     }
-
+    
+  
 }

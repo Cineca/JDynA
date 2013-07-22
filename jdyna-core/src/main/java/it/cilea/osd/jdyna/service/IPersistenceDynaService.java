@@ -33,7 +33,7 @@ import it.cilea.osd.jdyna.model.ANestedObject;
 import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
@@ -95,32 +95,8 @@ public interface IPersistenceDynaService extends IPersistenceService
     public <T extends PropertiesDefinition> T findPropertiesDefinitionByShortName(
             Class<T> clazz, String shortName);
 
-    /**
-     * Restituisce la lista di tipologie proprieta associabili
-     * 
-     * @see TypeDaoSupport#findTipologieProprietaInTipologia(ATipologia)
-     * @param TypeSupport
-     *            , oggetto che supporta una singola tipologia
-     * @return lista Tipologie di Prope
-     */
-    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabili(
-            TypeSupport<P, TP> anagraficaObjectWithTypeSupport);
-
-    /**
-     * Restituisce la lista di tipologie proprieta che sono assegnabili alla
-     * tipologia passata come area e visibili (showInList = true)
-     * 
-     * @param <P>
-     * @param <TP>
-     * @param <A>
-     * @param tipProprieta
-     * @param tipologia
-     * @return
-     */
-    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliAndShowInList(
-            Class<? extends PropertiesDefinition> tipProprieta,
-            ATipologia<TP> tipologia);
-
+       
+        
     /**
      * @see MultiTypeDaoSupport
      * @param <P>
@@ -158,15 +134,15 @@ public interface IPersistenceDynaService extends IPersistenceService
 
     /**
      * 
-     * @see TypeDaoSupport#uniqueByNome(String)
+     * @see TypeDaoSupport#uniqueByShortName(String)
      * @param <TY>
      * @param <TP>
      * @param clazz
      * @param nome
      * @return
      */
-    public <TY extends ATipologia<TP>, TP extends PropertiesDefinition> TY findTipologiaByNome(
-            Class<TY> clazz, String nome);
+    public <TY extends AType<TP>, TP extends PropertiesDefinition> TY findTypoByShortName(
+            Class<TY> clazz, String shortName);
 
     /**
      * Restituisce la lista ordinata di tipologia di proprieta richieste in

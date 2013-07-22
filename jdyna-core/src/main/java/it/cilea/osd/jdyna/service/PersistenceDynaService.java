@@ -39,7 +39,7 @@ import it.cilea.osd.jdyna.model.ANestedObject;
 import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.AnagraficaSupport;
 import it.cilea.osd.jdyna.model.MultiTypeSupport;
@@ -147,41 +147,8 @@ public class PersistenceDynaService extends PersistenceService implements
                 .uniqueByShortName(shortName);
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabili(
-            TypeSupport<P, TP> epiObjectWithTypeSupport)
-    {
-        TypeDaoSupport<?, TP> tipologiaProprietaDao = (TypeDaoSupport<?, TP>) getDaoByModel(epiObjectWithTypeSupport
-                .getClassPropertiesDefinition());
-
-        if (epiObjectWithTypeSupport.getTypo() == null)
-            throw new IllegalArgumentException(
-                    "La tipologia non puo' essere NULL");
-
-        List<TP> results = tipologiaProprietaDao
-                .findTipologieProprietaInTipologia(epiObjectWithTypeSupport
-                        .getTypo());
-        Collections.sort(results);
-        return results;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> findTipologieProprietaAssegnabiliAndShowInList(
-            Class<? extends PropertiesDefinition> tipProprieta,
-            ATipologia<TP> tipologia)
-    {
-        TypeDaoSupport<?, TP> tipologiaProprietaDao = (TypeDaoSupport<?, TP>) getDaoByModel(tipProprieta);
-
-        List<TP> results = tipologiaProprietaDao
-                .findTipologieProprietaInTipologiaAndShowInList(tipologia);
-        Collections.sort(results);
-        return results;
-    }
-
+ 
+        
     /**
      * {@inheritDoc}
      */
@@ -190,10 +157,10 @@ public class PersistenceDynaService extends PersistenceService implements
     {
         log.debug("Sono dentro MULTiTYPE");
 
-        MultiTypeDaoSupport<? extends ATipologia<TP>, TP> tipologiaProprietaDao = (MultiTypeDaoSupport<? extends ATipologia<TP>, TP>) getDaoByModel(objectWithMultiTypeSupport
+        MultiTypeDaoSupport<? extends AType<TP>, TP> tipologiaProprietaDao = (MultiTypeDaoSupport<? extends AType<TP>, TP>) getDaoByModel(objectWithMultiTypeSupport
                 .getClassPropertiesDefinition());
 
-        List<? extends ATipologia<TP>> listaTipologie = objectWithMultiTypeSupport
+        List<? extends AType<TP>> listaTipologie = objectWithMultiTypeSupport
                 .getTipologie();
 
         // si potrebbe sparare una query per ogni tipologia e poi mettere
@@ -273,11 +240,11 @@ public class PersistenceDynaService extends PersistenceService implements
     /**
      * {@inheritDoc}
      */
-    public <TY extends ATipologia<TP>, TP extends PropertiesDefinition> TY findTipologiaByNome(
+    public <TY extends AType<TP>, TP extends PropertiesDefinition> TY findTypoByShortName(
             Class<TY> clazz, String nome)
     {
         return ((TypeDaoSupport<TY, TP>) getDaoByModel(clazz))
-                .uniqueByNome(nome);
+                .uniqueByShortName(nome);
     }
 
     /**
@@ -389,7 +356,7 @@ public class PersistenceDynaService extends PersistenceService implements
     {
         log.debug("Predispongo le proprieta' per la tipologia: "
                 + oggetto.getTypo());
-        List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
+        List<TP> tpoList = oggetto.getTypo().getMask();
         fitAnagrafica(oggetto, tpoList, false);
     }
 
@@ -401,7 +368,7 @@ public class PersistenceDynaService extends PersistenceService implements
     {
         log.debug("Predispongo le proprieta' per la tipologia: "
                 + oggetto.getTypo());
-        List<TP> tpoList = findTipologieProprietaAssegnabili(oggetto);
+        List<TP> tpoList = oggetto.getTypo().getMask();
         fitAnagrafica(oggetto, tpoList, true);
     }
 

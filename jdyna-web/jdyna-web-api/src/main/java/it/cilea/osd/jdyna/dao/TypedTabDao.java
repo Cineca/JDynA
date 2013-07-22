@@ -22,27 +22,23 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.dao;
+
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.TypedAbstractTab;
 
 import java.util.List;
 
-public class TypeDynamicObject extends ATipologia<DynamicPropertiesDefinition>
-{
+public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D> {
 
-    @Override
-    public List<DynamicPropertiesDefinition> getMask()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    List<D> findTabByType(A typo);
 
-    @Override
-    public Integer getId()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-  
-
+    List<D> findByAnonimousAndTypoDef(A typo);
+    List<D> findByAdminAndTypoDef(A typo);
+    List<D> findByOwnerAndTypoDef(A typo);
+    
+    
 }

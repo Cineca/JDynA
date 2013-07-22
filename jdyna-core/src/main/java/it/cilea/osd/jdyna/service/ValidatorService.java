@@ -116,7 +116,7 @@ public class ValidatorService implements IValidatorDynaService {
      */
     public ValidationResult checkShortName(Class clazz,ATypeNestedObject metadato) {
         if(metadato.getId()==null || !applicationService.exist(metadato.getClass(), metadato.getId())) {
-            if(applicationService.findTipologiaByNome(clazz, metadato.getShortName())!=null)
+            if(applicationService.findTypoByShortName(clazz, metadato.getShortName())!=null)
                 return new ValidationResult("error.message.validation.shortname",false,"Error");
         }
         return new ValidationResult();

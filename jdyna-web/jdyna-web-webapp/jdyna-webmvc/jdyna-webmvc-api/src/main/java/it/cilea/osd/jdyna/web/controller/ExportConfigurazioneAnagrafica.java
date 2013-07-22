@@ -25,7 +25,7 @@
 package it.cilea.osd.jdyna.web.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -69,7 +69,7 @@ import org.springframework.web.servlet.ModelAndView;
  * @param <TY>
  *            la tipologia dell'oggetto
  */
-public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>>
+public class ExportConfigurazioneAnagrafica<TY extends AType<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>>
         extends BaseFormController
 {
 
@@ -531,7 +531,7 @@ public class ExportConfigurazioneAnagrafica<TY extends ATipologia<TP>, TP extend
         // writer
         // .print("                            <property name=\"tipologiePubblAssoc\">\n"
         // + "                                  <list>\n");
-        // for (ATipologia tipologia :
+        // for (AType tipologia :
         // ((TipologiaProgetto)type).getTipologiePubblAssoc()) {
         //
         // writer

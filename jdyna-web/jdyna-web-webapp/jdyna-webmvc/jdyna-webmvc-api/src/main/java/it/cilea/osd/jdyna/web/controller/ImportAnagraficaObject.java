@@ -93,7 +93,7 @@ public class ImportAnagraficaObject<P extends Property<TP>,TP extends Properties
 				saveMessage(request, getText(
 						"action.file.nosuccess.upload", new Object[]{exc.getMessage()}, request
 								.getLocale()));		
-				return new ModelAndView(errorView);
+				return new ModelAndView(getErrorView());
 			}
 			//cancello il file dalla directory temporanea
 			a.delete();
@@ -134,7 +134,7 @@ public class ImportAnagraficaObject<P extends Property<TP>,TP extends Properties
 								+ " fallito caricamento]") }, request
 						.getLocale()));
 		
-		return new ModelAndView(detailsView);
+		return new ModelAndView(getDetailsView());
 	}
 
 

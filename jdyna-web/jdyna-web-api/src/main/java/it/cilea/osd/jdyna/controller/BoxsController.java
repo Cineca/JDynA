@@ -30,6 +30,7 @@ import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -89,8 +90,9 @@ public class BoxsController<H extends IPropertyHolder<Containable>, T extends Ta
 
         model.put("box", box);
         model.put("containableList", containableList);
-        model.put("specificPartPath", getSpecificPartPath());
-        return new ModelAndView(detailsView, model);
+        String specificPartPath = Utils.getAdminSpecificPath(request, null);
+        model.put("specificPartPath", specificPartPath);
+        return new ModelAndView(getDetailsView()+"?path=" + specificPartPath, model);
 
     }
 
@@ -108,7 +110,7 @@ public class BoxsController<H extends IPropertyHolder<Containable>, T extends Ta
         {
             saveMessage(request, getText("action.box.deleted.noSuccess"));
         }
-        return new ModelAndView(listView, model);
+        return new ModelAndView(getListView()+"?path=" + Utils.getAdminSpecificPath(request, null), model);
     }
 
     protected ModelAndView handleList(HttpServletRequest arg0) throws Exception
@@ -118,7 +120,7 @@ public class BoxsController<H extends IPropertyHolder<Containable>, T extends Ta
         boxs = applicationService.getList(boxClass);
         model.put("listBox", boxs);
         model.put("specificPartPath", getSpecificPartPath());
-        return new ModelAndView(listView, model);
+        return new ModelAndView(getListView(), model);
     }
 
     public void setApplicationService(ITabService applicationService)
@@ -138,6 +140,9 @@ public class BoxsController<H extends IPropertyHolder<Containable>, T extends Ta
     public void setSpecificPartPath(String specificPartPath) {
         this.specificPartPath = specificPartPath;
     }
-
-
+   
+    public Class<H> getBoxClass()
+    {
+        return boxClass;
+    }
 }

@@ -22,37 +22,17 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.dao;
 
-public class DynamicProperty extends Property<DynamicPropertiesDefinition>
-{
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
 
-    @Override
-    public DynamicPropertiesDefinition getTypo()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+import java.util.List;
 
-    @Override
-    public void setTypo(DynamicPropertiesDefinition propertyDefinition)
-    {
-        // TODO Auto-generated method stub
-        
-    }
+public interface TypedBoxDao<H extends IPropertyHolder, A extends AType<PD>, PD extends PropertiesDefinition> extends PropertyHolderDao<H> {
 
-    @Override
-    public void setParent(
-            AnagraficaSupport<? extends Property<DynamicPropertiesDefinition>, DynamicPropertiesDefinition> parent)
-    {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public AnagraficaSupport<? extends Property<DynamicPropertiesDefinition>, DynamicPropertiesDefinition> getParent()
-    {
-        // TODO Auto-generated method stub
-        return null;
-    }
+    List<H> findBoxByType(A typo);
+    
 }

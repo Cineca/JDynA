@@ -30,6 +30,7 @@ import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Utils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -46,6 +47,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
 public abstract class AFormTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
         extends BaseFormController
@@ -100,7 +102,7 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
         }
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
-        map.put("specificPartPath", getSpecificPartPath());
+        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
         return map;
     }
 
@@ -124,7 +126,7 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
             HttpServletResponse response, Object command, BindException errors)
             throws Exception {
         T object = (T)command;      
-        applicationService.saveOrUpdate(tabClass, object);
+        applicationService.saveOrUpdate(tabClass, object);        
         return new ModelAndView(getSuccessView());
     }
     
@@ -185,4 +187,6 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
         tab.setExt(null);
         tab.setMime(null);
     }
+ 
+ 
 }

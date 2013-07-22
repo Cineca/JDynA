@@ -197,7 +197,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
 
         if (request.getParameter("cancel") != null)
         {
-            return new ModelAndView(listView);
+            return new ModelAndView(getListView());
         }
 
         EO anagraficaObject;
@@ -225,7 +225,7 @@ public class FormAnagraficaWithoutAreeController<P extends Property<TP>, TP exte
         saveMessage(request,
                 getText("action.anagrafica.edited", request.getLocale()));
 
-        return new ModelAndView(detailsView, "id", anagraficaObject.getId());
+        return new ModelAndView(getDetailsView(), "id", anagraficaObject.getId());
     }
 
     @Override

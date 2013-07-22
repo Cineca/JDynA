@@ -24,22 +24,13 @@
  */
 package it.cilea.osd.jdyna.dao;
 
-import it.cilea.osd.jdyna.model.ATipologia;
+import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
 import java.util.List;
 
-public interface TypeDaoSupport <A extends ATipologia<TP>, TP extends PropertiesDefinition> {
-	/**
-	 * Restituisce la lista di tipologie proprieta' ammissibili per la sottotipologia individuata da 
-	 * <code>tipologiaOggetto</code> ({@link ATipologia}).
-	 * 
-	 * @param tipologiaOggetto, la Tipologia
-	 * @return lista di proprieta' ammesse dal type
-	 */
-	public List<TP> findTipologieProprietaInTipologia(ATipologia<TP> tipologiaOggetto);
-	public List<TP> findTipologieProprietaInTipologiaAndShowInList(ATipologia<TP> tipologiaOggetto);
-	public List<TP> findTipologieProprietaInTipologiaAndArea(ATipologia<TP> tipologiaOggetto,Integer area);
-	public A uniqueByNome(String nome);
+public interface TypeDaoSupport <A extends AType<TP>, TP extends PropertiesDefinition> {
+		
+	public A uniqueByShortName(String shortname);
 	
 }

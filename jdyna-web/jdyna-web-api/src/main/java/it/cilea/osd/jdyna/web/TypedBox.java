@@ -22,16 +22,14 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.model;
+package it.cilea.osd.jdyna.web;
 
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 
-import javax.persistence.MappedSuperclass;
-/**
-*
-* @author pascarelli
-*
-*/
-@MappedSuperclass
-public abstract class ADecoratorTypeDefinition<TP extends ATypeNestedObject<PD>, PD extends ANestedPropertiesDefinition> extends Containable<TP> {
-    
+public abstract class TypedBox<C extends IContainable, A extends AType<PD>, PD extends PropertiesDefinition> extends Box<C> {
+
+    public abstract A getTypeDef();
+    public abstract void setTypeDef(A typo);
 }
