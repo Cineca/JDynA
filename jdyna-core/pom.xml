@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>jdyna</artifactId>
 		<groupId>org.jdyna</groupId>
-		<version>4.0</version>
+		<version>4.1</version>
 	</parent>
 
 	<groupId>org.jdyna</groupId>
@@ -18,10 +18,20 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.hibernate</groupId>
+		  <groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
 		</dependency>
-
+		
+		<dependency>
+			 <groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+		</dependency>		
+		
+		<dependency>
+		  <groupId>org.hibernate</groupId>
+			<artifactId>hibernate-annotations</artifactId>
+		</dependency>	
+		
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
