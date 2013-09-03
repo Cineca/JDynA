@@ -410,8 +410,7 @@
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			<!-- TODO change spring:message with a custom tld (here the trick http://www.mindedsecurity.com/fileshare/ExpressionLanguageInjection.pdf) -->
-			<spring:message text="${tipologia.rendering.display}" var="displayPointer"/>
+			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />			
 			${displayPointer}
 			<c:if test="${editMode}">
   				<c:choose>
