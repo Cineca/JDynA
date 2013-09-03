@@ -3,7 +3,7 @@
   <parent>
     <artifactId>jdyna-webmvc</artifactId>
     <groupId>org.jdyna</groupId>
-    <version>4.2-SNAPSHOT</version>
+    <version>4.2</version>
   </parent>
   <groupId>org.jdyna</groupId>
   <artifactId>jdyna-webmvc-api</artifactId>
