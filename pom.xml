@@ -11,9 +11,9 @@
 
 	
 	<scm>
-      <connection>scm:git:git@github.com:CILEA/JDynA.git</connection>
-      <developerConnection>scm:git:git@github.com:CILEA/JDynA.git</developerConnection>
-      <url>git@github.com:CILEA/JDynA.git</url>
+      <connection>scm:git:https://github.com/CILEA/JDynA.git</connection>
+      <developerConnection>scm:git:https://github.com/CILEA/JDynA.git</developerConnection>
+      <url>https://github.com/CILEA/JDynA.git</url>
       <tag>HEAD</tag>
     </scm>
    
