@@ -396,8 +396,15 @@
 					<br />
 				</c:if>		
 				<c:set var="displayObject" value="${subValue.value.real}" />						
-				<spring:message text="${subtip.rendering.display}" var="displayPointer"/>
-				${displayPointer}
+				<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,subtip.rendering.display)}" />
+				<c:choose>
+				<c:when test="${!empty subtip.rendering.urlPath}">						
+					<a href="${root}/${dyna:getDisplayValue(displayObject,subtip.rendering.urlPath)}">${displayPointer}</a>
+				</c:when>
+				<c:otherwise>
+					${displayPointer}
+				</c:otherwise>
+				</c:choose>
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">

@@ -83,6 +83,8 @@ public abstract class WidgetPointer<AV extends PointerValue> extends AWidget {
 	@Column(name="widgetSize")
 	protected int size = 20;
 	
+	protected String urlPath;
+		
 	public int getSize() {
 		return size;
 	}
@@ -203,4 +205,12 @@ public abstract class WidgetPointer<AV extends PointerValue> extends AWidget {
     {
         this.indexName = indexName;
     }
+
+	public String getUrlPath() {
+		return urlPath;
+	}
+
+	public void setUrlPath(String urlPath) {
+		this.urlPath = urlPath;
+	}
 }

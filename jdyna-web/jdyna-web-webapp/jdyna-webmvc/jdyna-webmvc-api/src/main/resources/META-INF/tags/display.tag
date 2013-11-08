@@ -410,8 +410,15 @@
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />			
-			${displayPointer}
+			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
+			<c:choose>
+				<c:when test="${!empty tipologia.rendering.urlPath}">						
+					<a href="${root}/${dyna:getDisplayValue(displayObject,tipologia.rendering.urlPath)}">${displayPointer}</a>
+				</c:when>
+				<c:otherwise>
+					${displayPointer}
+				</c:otherwise>
+			</c:choose>
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">
