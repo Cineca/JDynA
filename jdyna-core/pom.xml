@@ -27,8 +27,8 @@
 		</dependency>		
 		
 		<dependency>
-		  <groupId>org.hibernate</groupId>
-			<artifactId>hibernate-annotations</artifactId>
+		  <groupId>org.hibernate.common</groupId>
+			<artifactId>hibernate-commons-annotations</artifactId>
 		</dependency>	
 		
 		<dependency>
