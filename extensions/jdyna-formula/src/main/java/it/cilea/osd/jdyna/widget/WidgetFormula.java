@@ -31,13 +31,13 @@ import it.cilea.osd.jdyna.util.ValidationMessage;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.JoinTable;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Transient;
 
-import org.hibernate.annotations.CollectionOfElements;
 import org.hibernate.annotations.Type;
 
 /**
@@ -69,7 +69,7 @@ public abstract class WidgetFormula extends AWidget {
 	@Type(type = "text")
 	private String resultNumber;
 	
-	@CollectionOfElements	
+	@ElementCollection	
 	@JoinTable(name="dyna_widget_formula2variabili")
 	protected List<String> variabili;
 
