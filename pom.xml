@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna</artifactId>
-	<version>4.3-SNAPSHOT</version>
+	<version>5.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>JDynA</name>
 	<description>Dynamic Metadata Management for Java Domain Object</description>
 
 	
 	<scm>
-      <connection>scm:git:https://github.com/CILEA/JDynA.git</connection>
-      <developerConnection>scm:git:https://github.com/CILEA/JDynA.git</developerConnection>
-      <url>https://github.com/CILEA/JDynA.git</url>
+      <connection>scm:git:https://github.com/Cineca/JDynA.git</connection>
+      <developerConnection>scm:git:https://github.com/Cineca/JDynA.git</developerConnection>
+      <url>https://github.com/Cineca/JDynA.git</url>
       <tag>HEAD</tag>
     </scm>
    
@@ -22,22 +22,22 @@
 		<!-- <org.hibernate.version>3.6.10.Final</org.hibernate.version> -->
 		<org.hibernate.version>4.1.8.Final</org.hibernate.version>
 		<org.spring.version>3.1.1.RELEASE</org.spring.version>
-		<it.cilea.ccommons.version>1.3-SNAPSHOT</it.cilea.ccommons.version>
+		<it.cilea.ccommons.version>2.0</it.cilea.ccommons.version>
 	</properties>
 	<distributionManagement>
     	<repository>
         	<id>repo</id>
         	<name>CILEA Maven Repository</name>
-        	<url>https://github.com/CILEA/mvn-repo/raw/master/releases</url>
+        	<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
     	</repository>
     	<snapshotRepository>
         	<id>snapshot-repo</id>
         	<name>CILEA Maven Repository</name>
-        	<url>https://github.com/CILEA/mvn-repo/raw/master/snapshots</url>
+        	<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
     	</snapshotRepository>
     	<site>
             <id>website</id>
-            <url>https://github.com/CILEA/JDynA/wiki</url>
+            <url>https://github.com/Cineca/JDynA/wiki</url>
         </site>
 	</distributionManagement>
 	
@@ -45,7 +45,7 @@
 		<repository>
 			<id>cilea-repo</id>
 			<name>CILEA Maven Repository</name>
-			<url>https://github.com/CILEA/mvn-repo/raw/master/releases</url>
+			<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
 			<releases>
 				<enabled>true</enabled>
 				<checksumPolicy>never</checksumPolicy>
