@@ -68,7 +68,7 @@ public abstract class Property <TP extends PropertiesDefinition> extends Identif
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)	
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_PROP_SEQ")
-    @SequenceGenerator(name = "JDYNA_PROP_SEQ", sequenceName = "JDYNA_PROP_SEQ")
+    @SequenceGenerator(name = "JDYNA_PROP_SEQ", sequenceName = "JDYNA_PROP_SEQ", allocationSize = 1)
 	private Integer id;
 
 	/** Position order */

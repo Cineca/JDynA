@@ -49,7 +49,7 @@ public abstract class Containable<P> extends IdentifiableObject implements
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_CONTAINABLE_SEQ")
-    @SequenceGenerator(name = "JDYNA_CONTAINABLE_SEQ", sequenceName = "JDYNA_CONTAINABLE_SEQ")
+    @SequenceGenerator(name = "JDYNA_CONTAINABLE_SEQ", sequenceName = "JDYNA_CONTAINABLE_SEQ", allocationSize = 1)
     private Integer id;
 
     public abstract void setReal(P object);

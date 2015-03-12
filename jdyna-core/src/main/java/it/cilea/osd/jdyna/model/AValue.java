@@ -48,7 +48,7 @@ public abstract class AValue<P> extends IdentifiableObject {
 	@Id
 	//@GeneratedValue
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_VALUES_SEQ")
-    @SequenceGenerator(name = "JDYNA_VALUES_SEQ", sequenceName = "JDYNA_VALUES_SEQ")
+    @SequenceGenerator(name = "JDYNA_VALUES_SEQ", sequenceName = "JDYNA_VALUES_SEQ", allocationSize = 1)
 	private Integer id;	
 	
 	@Basic

@@ -50,7 +50,7 @@ public abstract class ATypeNestedObject<TP extends ANestedPropertiesDefinition> 
     /** DB Primary key */
     @Id
     @GeneratedValue(generator = "JDYNA_TYPONESTEDOBJECT_SEQ")
-    @SequenceGenerator(name = "JDYNA_TYPONESTEDOBJECT_SEQ", sequenceName = "JDYNA_TYPONESTEDOBJECT_SEQ")    
+    @SequenceGenerator(name = "JDYNA_TYPONESTEDOBJECT_SEQ", sequenceName = "JDYNA_TYPONESTEDOBJECT_SEQ", allocationSize = 1)    
     private Integer id;
     
     /** The fact of being field obligatory */

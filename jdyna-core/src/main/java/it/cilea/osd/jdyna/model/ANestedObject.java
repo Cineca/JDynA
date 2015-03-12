@@ -71,7 +71,7 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     /** DB Primary key */
     @Id
     @GeneratedValue(generator = "JDYNA_NESTEDOBJECT_SEQ")
-    @SequenceGenerator(name = "JDYNA_NESTEDOBJECT_SEQ", sequenceName = "JDYNA_NESTEDOBJECT_SEQ")
+    @SequenceGenerator(name = "JDYNA_NESTEDOBJECT_SEQ", sequenceName = "JDYNA_NESTEDOBJECT_SEQ", allocationSize = 1)
     private Integer id;
 
     @Column(nullable = false, unique = true)

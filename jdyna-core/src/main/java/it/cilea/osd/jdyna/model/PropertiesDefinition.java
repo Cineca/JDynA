@@ -69,7 +69,7 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	@Id
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_PDEF_SEQ")
-    @SequenceGenerator(name = "JDYNA_PDEF_SEQ", sequenceName = "JDYNA_PDEF_SEQ")
+    @SequenceGenerator(name = "JDYNA_PDEF_SEQ", sequenceName = "JDYNA_PDEF_SEQ", allocationSize = 1)
 	private Integer id;
 	
 	/** A unique textual identifier */

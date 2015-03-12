@@ -14,7 +14,7 @@ public class ScopeDefinition extends IdentifiableObject
 {
     @Id
     @GeneratedValue(generator = "JDYNA_SCOPEDEF_SEQ")
-    @SequenceGenerator(name = "JDYNA_SCOPEDEF_SEQ", sequenceName = "JDYNA_SCOPEDEF_SEQ")
+    @SequenceGenerator(name = "JDYNA_SCOPEDEF_SEQ", sequenceName = "JDYNA_SCOPEDEF_SEQ", allocationSize = 1)
     private Integer id;
     
     private String label;

@@ -57,7 +57,7 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	@Id	
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_TAB_SEQ")
-    @SequenceGenerator(name = "JDYNA_TAB_SEQ", sequenceName = "JDYNA_TAB_SEQ")
+    @SequenceGenerator(name = "JDYNA_TAB_SEQ", sequenceName = "JDYNA_TAB_SEQ", allocationSize = 1)
     /** Id primary key */
 	private Integer id;
 	

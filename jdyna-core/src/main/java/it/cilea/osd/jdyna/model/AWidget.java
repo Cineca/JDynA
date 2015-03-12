@@ -62,7 +62,7 @@ public abstract class AWidget<AV extends AValue> extends IdentifiableObject {
 	@Id	
 	//@GeneratedValue(strategy = GenerationType.TABLE)
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_WIDGET_SEQ")
-    @SequenceGenerator(name = "JDYNA_WIDGET_SEQ", sequenceName = "JDYNA_WIDGET_SEQ")
+    @SequenceGenerator(name = "JDYNA_WIDGET_SEQ", sequenceName = "JDYNA_WIDGET_SEQ", allocationSize = 1)
     private Integer id;
 	
 	@Deprecated

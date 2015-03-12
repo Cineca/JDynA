@@ -18,7 +18,7 @@ public class BoxMessage
     /** DB Primary key */
     @Id
     @GeneratedValue(generator = "JDYNA_MESSAGEBOX_SEQ")
-    @SequenceGenerator(name = "JDYNA_MESSAGEBOX_SEQ", sequenceName = "JDYNA_MESSAGEBOX_SEQ")
+    @SequenceGenerator(name = "JDYNA_MESSAGEBOX_SEQ", sequenceName = "JDYNA_MESSAGEBOX_SEQ", allocationSize = 1)
     private Integer id;    
     
     @Column(length=4000)
