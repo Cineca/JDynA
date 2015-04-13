@@ -32,7 +32,9 @@ import it.cilea.osd.jdyna.dao.PropertyHolderDao;
 import it.cilea.osd.jdyna.dao.TabDao;
 import it.cilea.osd.jdyna.dao.TypedBoxDao;
 import it.cilea.osd.jdyna.dao.TypedTabDao;
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -439,5 +441,31 @@ public abstract class TabService extends PersistenceDynaService implements
         return tabs;
 
     }
-        
+ 
+    
+    public <TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>> List<H> findBoxesByTTP(Class<H> clazzH, Class<TTP> clazzTTP, String decorable) {
+        List<TTP> ttps = getList(clazzTTP);
+
+        for (TTP ttp : ttps)
+        {
+            IContainable ic = findContainableByDecorable(ttp.getDecoratorClass(), decorable);
+            if (ic != null)
+            {
+              PropertyHolderDao<H> modelDao = (PropertyHolderDao<H>) getDaoByModel(clazzH);
+              return modelDao.findHolderByContainable(ic);
+            }
+        }
+        return null;
+    }
+    
+    
+    @Override
+    public IContainable findContainableByDecorable(Class decoratorClass,
+            String decorable)
+    {
+        ContainableDao modelDao = (ContainableDao) getDaoByModel(decoratorClass);
+        IContainable result = modelDao.uniqueContainableByShortName(decorable);
+        return result;
+    }
+
 }

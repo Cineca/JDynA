@@ -30,6 +30,11 @@
 <%@ attribute name="admin" required="false"%>
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
+
+<%@tag import="java.text.MessageFormat"%>
+<%@tag import="it.cilea.osd.jdyna.widget.WidgetTesto"%>
+<%@tag import="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
+
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
 
@@ -323,7 +328,14 @@
 				<c:set var="style" value="style=\"${minwidth}\"" />
 			</c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			<span ${style}>${displayObject}</span>
+			<c:choose>
+			<c:when test="${!empty tipologia.rendering.displayFormat}">						
+				${dyna:messageFormat(tipologia.rendering.displayFormat, displayObject)}
+			</c:when>
+			<c:otherwise>
+				<span ${style}>${displayObject}</span>
+			</c:otherwise>
+			</c:choose>			
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">

@@ -24,7 +24,9 @@
  */
 package it.cilea.osd.jdyna.web;
 
+import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.ATypeNestedObject;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -123,8 +125,6 @@ public interface ITabService extends IPersistenceDynaService {
 	public <IC> IC findContainableByDecorable(Class decoratorClass,
 			Integer decorable);
 
-
-
 	/**
 	 * Find a tab by shortname
 	 * 
@@ -179,7 +179,9 @@ public interface ITabService extends IPersistenceDynaService {
 
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> List<DA> getEditTabsByVisibilityAndType(Class<DA> model, Boolean isAdmin, A typo);
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByVisibilityAndTypo(Class<D> model, Boolean isAdmin, A typo);
-    
-      
+
+	public <IC> IC findContainableByDecorable(Class decoratorClass, String shortname);
+	
+	public <TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>> List<H> findBoxesByTTP(Class<H> clazzH, Class<TTP> clazzTTP, String decorable);
             
 }

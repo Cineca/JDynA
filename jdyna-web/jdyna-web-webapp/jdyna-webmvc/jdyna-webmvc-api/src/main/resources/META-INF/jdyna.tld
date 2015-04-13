@@ -344,4 +344,11 @@
 	<function-signature>String absolutePropertyPath(java.lang.String)</function-signature>
 </function>
 
+
+<function>
+	<description>Format message</description>
+	<name>messageFormat</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String messageFormat(java.lang.String,java.lang.String)</function-signature>
+</function>
 </taglib>

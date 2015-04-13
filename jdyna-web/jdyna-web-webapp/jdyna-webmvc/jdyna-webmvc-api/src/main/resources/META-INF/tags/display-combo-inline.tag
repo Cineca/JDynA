@@ -31,6 +31,10 @@
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
+<%@tag import="it.cilea.osd.jdyna.model.AValue"%>
+<%@tag import="java.text.MessageFormat"%>
+<%@tag import="it.cilea.osd.jdyna.widget.WidgetTesto"%>
+<%@tag import="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%-- //FIXME Copia incolla da display.tag... --%>
 
 <c:if
@@ -317,7 +321,14 @@
 				<c:if test="${!empty minwidth && !subElement}">
 					<c:set var="style" value="style=\" ${minwidth}\"" />
 				</c:if>
-				<span ${style}>${subValue.object}</span>
+				<c:choose>
+				<c:when test="${!empty subtip.rendering.displayFormat}">
+					${dyna:messageFormat(subtip.rendering.displayFormat, subValue.object)}
+				</c:when>
+				<c:otherwise>
+					<span ${style}>${subValue.object}</span>
+				</c:otherwise>
+				</c:choose>					
 				<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${subValue.visibility==1}">

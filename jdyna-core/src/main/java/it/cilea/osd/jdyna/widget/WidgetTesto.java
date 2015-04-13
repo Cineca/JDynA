@@ -78,6 +78,8 @@ public class WidgetTesto extends AWidget {
         @AttributeOverride(name = "col", column = @Column(name = "widgetcol")) })
 	private Size dimensione;
 	
+	private String displayFormat;
+	
 	@Transient
 	/** la stringa di configurazione per il widget testo contiene in prima posizione, quindi nella posizione dedicata al
 	 *  display (al momento la struttura della stringa di configurazione e' a 3 parametri divisi da un punto e virgola,
@@ -187,6 +189,14 @@ public class WidgetTesto extends AWidget {
 			return new ValidationMessage("testo.regexerror",new Object[]{regex}); 
 		}
 		return null;
+	}
+
+	public String getDisplayFormat() {
+		return displayFormat;
+	}
+
+	public void setDisplayFormat(String showAsLink) {
+		this.displayFormat = showAsLink;
 	}
 	
     

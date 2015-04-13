@@ -31,6 +31,7 @@ import it.cilea.osd.jdyna.widget.WidgetPointer;
 
 import java.beans.PropertyEditor;
 import java.io.IOException;
+import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
@@ -526,4 +527,9 @@ public class JDynATagLibraryFunctions
         int index = pp.indexOf(".");
         return pp.substring(index+1);
     }
+    
+    public static String messageFormat(String message, String param) {
+        return MessageFormat.format(message, param);
+    }
+    
 }
