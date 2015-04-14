@@ -3,7 +3,7 @@
   <parent>
     <artifactId>extensions</artifactId>
     <groupId>org.jdyna</groupId>
-    <version>5.2</version>
+    <version>5.3-SNAPSHOT</version>
   </parent>
   <groupId>org.jdyna</groupId>
   <artifactId>jdyna-date</artifactId>
