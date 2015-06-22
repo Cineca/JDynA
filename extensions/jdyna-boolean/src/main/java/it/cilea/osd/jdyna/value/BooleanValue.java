@@ -57,7 +57,7 @@ public class BooleanValue extends AValue<Boolean>{
 	
 	@Override
 	public String[] getTokenizedValue() {
-		return real!=null&&real.booleanValue()?new String[]{"si"}:new String[]{"no"};
+		return real!=null&&real.booleanValue()?new String[]{"yes"}:new String[]{"no"};
 	}
 	
 	@Override

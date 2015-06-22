@@ -46,7 +46,7 @@ function makeSelection(inputId, labelId, selectId, treeName, idxSelectedItem) {
 	// nella tendina delle classificazioni scelgo quello con indice =
 	// indiceClassificazioneScelta e prendo il testo associato all'option della
 	// select
-	// che mi servirà per aggiornare la label
+	// che mi servirï¿½ per aggiornare la label
 	var selectedElement = element.options[idxSelectedItem].text;
 
 	var element2 = document.getElementById(labelId);

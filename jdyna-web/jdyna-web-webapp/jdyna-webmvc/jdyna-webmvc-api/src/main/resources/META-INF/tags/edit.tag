@@ -231,15 +231,15 @@
 				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>		
 	</c:when>
 	<c:when test="${isCheckbox}">
-		<dyna:checkbox propertyPath="${propertyPath}" 
-				collection="${tipologia.rendering.alberoClassificatorio.topClassificazioni}" 
+		<dyna:checkbox propertyPath="${propertyPath}" id="${tipologia.id}"
+				collection="${dyna:getResultsFromWidgetCheckRadio(tipologia.rendering.staticValues)}" 
 				required="${required}" option4row="${tipologia.rendering.option4row}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isRadio}">
-		<dyna:radio propertyPath="${propertyPath}"
-				collection="${tipologia.rendering.alberoClassificatorio.topClassificazioni}" 
+		<dyna:radio propertyPath="${propertyPath}" id="${tipologia.id}"
+				collection="${dyna:getResultsFromWidgetCheckRadio(tipologia.rendering.staticValues)}" 
 				required="${required}" option4row="${tipologia.rendering.option4row}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
 				validationParams="${validationParams}"/>
@@ -247,7 +247,7 @@
 	<c:when test="${isBoolean}">
 		<dyna:boolean propertyPath="${propertyPath}" required="${required}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" checkedAsDefault="${tipologia.rendering.checked}"/>
 	</c:when>
 	<c:when test="${isFormula}">
 		<dyna:formula propertyPath="${propertyPath}" tipologia="${tipologia}" />

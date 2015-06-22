@@ -24,6 +24,11 @@
  */
 package it.cilea.osd.jdyna.service;
 
+import java.io.Serializable;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import it.cilea.osd.common.dao.GenericDao;
 import it.cilea.osd.common.dao.IApplicationDao;
 import it.cilea.osd.common.dao.PaginableObjectDao;
@@ -46,11 +51,6 @@ import it.cilea.osd.jdyna.model.MultiTypeSupport;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.model.Property;
 import it.cilea.osd.jdyna.model.TypeSupport;
-
-import java.io.Serializable;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * 
@@ -572,4 +572,8 @@ public class PersistenceDynaService extends PersistenceService implements
         return result==null?0:result;
     }
 
+    @Override
+	public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> likePropertiesDefinitionsByShortName(Class<TP> modelClass, String shortName) {
+		return propertiesDefinitionDao.likeByShortName(shortName);
+	}
 }

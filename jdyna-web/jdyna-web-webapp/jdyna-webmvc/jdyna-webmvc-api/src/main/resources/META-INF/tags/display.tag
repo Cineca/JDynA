@@ -449,7 +449,16 @@
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			${displayObject?'Si':'No'}
+			<c:choose>
+  				<c:when test="${displayObject}">
+  					<div class="label label-success">${tipologia.label}</div>
+				</c:when>
+				<c:otherwise>
+					<c:if test="${!tipologia.rendering.hideWhenFalse}">
+						<div class="label label-default">${tipologia.label}</div>
+					</c:if>
+				</c:otherwise>
+			</c:choose>
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">

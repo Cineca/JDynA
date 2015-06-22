@@ -201,22 +201,6 @@ public class ExportConfigurazioneAnagrafica<TY extends AType<TP>, TP extends Pro
             writer.print("                        <bean class=\"it.cilea.osd.jdyna.widget.WidgetCheckRadio\">\n");
             writer.print("                            <property name=\"option4row\" value=\""
                     + ((WidgetCheckRadio) widget).getOption4row() + "\" />\n");
-
-            if (((WidgetCheckRadio) widget).getAlberoClassificatorio() != null)
-            {
-                writer.print("                            <property name=\"alberoClassificatorio\" value=\""
-                        + ((WidgetCheckRadio) widget)
-                                .getAlberoClassificatorio().getNome()
-                        + "\" />\n" + "                        </bean>\n\n");
-            }
-            else
-            {
-                writer.print("                            <property name=\"soggettario\" value=\""
-                        + ((WidgetCheckRadio) widget).getSoggettario()
-                                .getNome()
-                        + "\" />\n"
-                        + "                        </bean>\n\n");
-            }
         }
         else if (widget instanceof WidgetClassificazione)
         {

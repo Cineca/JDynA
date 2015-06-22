@@ -39,20 +39,34 @@ import javax.persistence.Table;
 
 import org.springframework.beans.propertyeditors.CustomBooleanEditor;
 
-
-
 /**
- * Oggetto WidgetBoolean che rappresenta un valore boolean
  * 
- * @author pascarelli
+ * WidgetBoolean
  * 
+ * @author l.pascarelli
+ *
  */
 @Entity
-@Table(name="dyna_widget_boolean")
+@Table(name="jdyna_widget_boolean")
 @NamedQueries( {  
 	@NamedQuery(name = "WidgetBoolean.findAll", query = "from WidgetBoolean order by id")
  } )
 public class WidgetBoolean extends AWidget {
+	
+	/**
+	 * NOT USED. In the future this field could be use for custom rendering
+	 */
+	private String showAsType;
+	
+	/**
+	 * If true render the checkbox "checked"
+	 */
+	private boolean checked;
+	
+	/**
+	 * If true the element is hide
+	 */
+	private boolean hideWhenFalse;
 	
 	@Override
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {
@@ -79,4 +93,29 @@ public class WidgetBoolean extends AWidget {
 	public ValidationMessage valida(Object valore) {
 		return null;
 	}
+
+	public String getShowAsType() {
+		return showAsType;
+	}
+
+	public void setShowAsType(String showAsType) {
+		this.showAsType = showAsType;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public boolean isHideWhenFalse() {
+		return hideWhenFalse;
+	}
+
+	public void setHideWhenFalse(boolean hideWhenFalse) {
+		this.hideWhenFalse = hideWhenFalse;
+	}
+
 }

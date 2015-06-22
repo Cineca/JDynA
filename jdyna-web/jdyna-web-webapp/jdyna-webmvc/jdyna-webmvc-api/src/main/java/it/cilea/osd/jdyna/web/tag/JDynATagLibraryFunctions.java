@@ -24,9 +24,11 @@
  */
 package it.cilea.osd.jdyna.web.tag;
 
+import it.cilea.osd.common.model.Selectable;
 import it.cilea.osd.jdyna.dto.ValoreDTO;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.utils.HashUtil;
+import it.cilea.osd.jdyna.utils.SimpleSelectableObject;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 
 import java.beans.PropertyEditor;
@@ -34,9 +36,12 @@ import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashSet;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -532,4 +537,21 @@ public class JDynATagLibraryFunctions
         return MessageFormat.format(message, param);
     }
     
+    public static List<Selectable> getResultsFromWidgetCheckRadio(String values) {
+    	String[] resultTmp = values.split("\\|\\|\\|");
+    	List<Selectable> result = new LinkedList<Selectable>(); 
+    	for(String rr : resultTmp) {
+    		SimpleSelectableObject rrr = new SimpleSelectableObject();
+    		String displayValue = rr;
+    		String identifyingValue = rr;
+    		if(rr.contains("###")) {
+    			identifyingValue = rr.split("###")[0];
+    			displayValue = rr.split("###")[1];
+    		}   
+    		rrr.setDisplayValue(displayValue);
+    		rrr.setIdentifyingValue(identifyingValue);
+    		result.add(rrr);
+    	}
+    	return result;
+    }
 }

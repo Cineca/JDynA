@@ -23,6 +23,7 @@
 -  Boston, MA  02110-1301  USA
 --%>
 <%@ attribute name="propertyPath" required="true"%>
+<%@ attribute name="id" required="false"%>
 <%@ attribute name="label" required="false"%>
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
@@ -56,7 +57,7 @@
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
 <c:if test="${option4row == null || option4row == 0}">
-	<c:set var="option4row" value="5" />
+	<c:set var="option4row" value="3" />
 </c:if>
 
 <c:if test="${label != null || labelKey != null}">
@@ -88,18 +89,15 @@
 </spring:bind>
 <c:forEach var="option" items="${collection}" varStatus="optionStatus">
 	<c:set var="checked" value="false" />
-	<spring:bind path="${propertyPath}[0].object">
-		<spring:transform value="${option}" var="optionToCompare" />
-	</spring:bind>
 	
-	<c:if test="${optionToCompare == value}">
+	<c:if test="${option.identifyingValue == value}">
 		<c:set var="checked" value="true" />	
 	</c:if>
 	
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 	<input id="${inputName}" name="${inputName}" type="radio" 
-		value="${optionToCompare}" <c:if test="${checked == true}">checked="checked"</c:if> onchange="${functionValidation};${onchange}">${option.displayValue}</input>
+		value="${option.identifyingValue}" <c:if test="${checked == true}">checked="checked"</c:if> onchange="${functionValidation};${onchange}">${option.displayValue}</input>
 <%--	count: ${optionStatus.count} - o4v: ${option4row} - div: ${optionStatus.count mod option4row == 0} --%>
 
 	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />

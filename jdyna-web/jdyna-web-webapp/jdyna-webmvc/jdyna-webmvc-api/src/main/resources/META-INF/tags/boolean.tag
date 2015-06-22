@@ -31,6 +31,7 @@
 <%@ attribute name="required" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
+<%@ attribute name="checkedAsDefault" required="false"%>
 
 <%@ attribute name="onchange" required="false"%>
 <%@ attribute name="onclick" required="false"%>
@@ -95,20 +96,21 @@
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 		<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
-		<c:if test="${inputValue}">
+		<c:if test="${inputValue or checkedAsDefault}">
 			<c:set var="checked" value="checked=\"checked\"" />
 		</c:if>
 		
 		<input id="_${inputName}" name="_${inputName}" type="hidden" />
-		
+		<input id="${inputName}" name="${inputName}" type="hidden" value="${empty inputValue?'false':inputValue}"  />
+						
 		<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 		<c:set var="functionValidation" value="" />
 		<c:if test="${!empty ajaxValidation}">
 			<c:set var="functionValidation" value="${ajaxValidation}('${inputName}'${!empty parametersValidation?',':''}${!empty parametersValidation?parametersValidation:''});" />
 		</c:if>
 		<c:set var="onchangeJS" value="cambiaBoolean('${inputName}');${functionValidation};${onchange}" />
-		<input id="${inputName}" name="${inputName}" type="hidden" value="${empty inputValue?'false':inputValue}"  />
-		<input id="check${inputName}" type="checkbox" value="${inputValue}" ${checked} <dyna:javascriptEvents onchange="${onchangeJS}"/> <dyna:javascriptEvents onclick="${onclick}"/>/>
+		<input id="check${inputName}" type="checkbox" value="${inputValue}" ${checked} <dyna:javascriptEvents onchange="${onchangeJS}"/> <dyna:javascriptEvents onclick="${onclick}"/>/>		
+		
 	</spring:bind>	
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
 </c:forEach>
@@ -120,7 +122,7 @@
 			<spring:bind path="${propertyPath}[0]">			
 				<c:set var="inputValue" ><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 				<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
-				<c:if test="${inputValue}">
+				<c:if test="${inputValue or checkedAsDefault}">
 					<c:set var="checked" value="checked=\"checked\"" />
 				</c:if>
 			</spring:bind>
@@ -131,7 +133,7 @@
 		<spring:bind path="${propertyPath}">
 			<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 			<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
-			<c:if test="${inputValue}">
+			<c:if test="${inputValue or checkedAsDefault}">
 				<c:set var="checked" value="checked=\"checked\"" />
 			</c:if>
 		</spring:bind>
@@ -143,10 +145,12 @@
 		<c:if test="${!empty ajaxValidation}">
 			<c:set var="functionValidation" value="${ajaxValidation}('${inputName}'${!empty parametersValidation?',':''}${!empty parametersValidation?parametersValidation:''});" />
 		</c:if>
-		<c:set var="onchangeJS" value="cambiaBoolean('${inputName}');${functionValidation};${onchange}" />
+		
 		<input id="_${inputName}" name="_${inputName}" type="hidden"  />
 		<input id="${inputName}" name="${inputName}" type="hidden" value="${empty inputValue?'false':inputValue}"  />
-		<input id="check${inputName}" type="checkbox" value="${inputValue}" ${checked} <dyna:javascriptEvents onchange="${onchangeJS}"/> <dyna:javascriptEvents onclick="${onclick}"/>/>
+			
+		<c:set var="onchangeJS" value="cambiaBoolean('${inputName}');${functionValidation};${onchange}" />
+		<input id="check${inputName}" type="checkbox" value="${inputValue}" ${checked} <dyna:javascriptEvents onchange="${onchangeJS}"/> <dyna:javascriptEvents onclick="${onclick}"/>/>		
 		<dyna:validation propertyPath="${validation}" />
 </c:if>
  <c:if test='${!empty helpKey || !empty help}'>
