@@ -102,12 +102,16 @@
 	<c:set var="isSubClassificazione" value="true" />
 </c:if>
 
-<c:if test="${subtip.rendering.triview eq 'checkradio' && repetable}">
+<c:if test="${subtip.rendering.triview eq 'checkradio' && (empty subtip.rendering.dropdown || subtip.rendering.dropdown == false) && repetable}">
 	<c:set var="isSubCheckbox" value="true" />
 </c:if>
 
-<c:if test="${subtip.rendering.triview eq 'checkradio' && !repetable}">
+<c:if test="${subtip.rendering.triview eq 'checkradio' && (empty subtip.rendering.dropdown || subtip.rendering.dropdown == false) && !repetable}">
 	<c:set var="isSubRadio" value="true" />
+</c:if>
+
+<c:if test="${subtip.rendering.triview eq 'checkradio' && !empty subtip.rendering.dropdown && subtip.rendering.dropdown}">
+	<c:set var="isSubDropdown" value="true" />
 </c:if>
 
 <c:if test="${subtip.rendering.triview eq 'pointer'}">
@@ -378,7 +382,30 @@
 			</c:forEach>
 		</c:when>
 		<c:when
-			test="${isSubClassificazione|| isSubSoggettario || isSubRadio || isSubCheckbox}">
+			test="${isSubRadio || isSubCheckbox || isSubDropdown}">
+			<c:forEach var="subValue" items="${subValues}"
+				varStatus="valueStatus">
+				<c:if test="${subValue.visibility==1 || editMode}">
+				<c:if test="${valueStatus.count != 1}">
+					<br />
+				</c:if>
+				<c:set var="displayObject" value="${dyna:getCheckRadioDisplayValue(tipologia.rendering.staticValues, value.value.real)}" />
+				${displayObject}
+				<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${subValue.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
+				</c:otherwise>
+				</c:choose>
+				</c:if>
+				</c:if>
+			</c:forEach>
+		</c:when>
+		<c:when
+			test="${isSubClassificazione}">
 			<c:forEach var="subValue" items="${subValues}"
 				varStatus="valueStatus">
 				<c:if test="${subValue.visibility==1 || editMode}">

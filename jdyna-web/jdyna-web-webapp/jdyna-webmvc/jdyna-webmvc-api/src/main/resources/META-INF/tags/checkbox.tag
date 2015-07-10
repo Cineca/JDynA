@@ -94,20 +94,22 @@
 
 
 <c:forEach var="option" items="${collection}" varStatus="optionStatus">
-	<c:set var="checked" value="false" />
+	<c:set var="checked" value="" />
 	<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<spring:bind path="${propertyPath}[${valueStatus.count-1}].object">
 			<c:set var="currValue" value="${status.value}" />
 			<c:if test="${option.identifyingValue == currValue}">
-				<c:set var="checked" value="true" />	
+				<c:set var="checked" value=" checked=\"checked\"" />	
 			</c:if>
 		</spring:bind>		
 	</c:forEach>
-	
+	<c:if test="${empty values && optionStatus.count == 1}">
+		<c:set var="checked" value=" checked=\"checked\"" />
+	</c:if>
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 	<input id="${inputName}" name="${inputName}" type="checkbox" 
-		value="${option.identifyingValue}" <c:if test="${checked == true}">checked="checked"</c:if> onchange="${functionValidation};${onchange}">${option.displayValue}</input>
+		value="${option.identifyingValue}" ${checked} onchange="${functionValidation};${onchange}">${option.displayValue}</input>
 	<c:if test="${optionStatus.count mod option4row == 0}">
 		<br/>
 	</c:if>

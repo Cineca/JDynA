@@ -155,7 +155,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		else {
 			jdynaObject = objectClass.newInstance();
 		}
-			
+				
 	    // this map contains key-values pairs, key = box shortname and values =
         // collection of metadata
         Map<String, List<IContainable>> mapBoxToContainables = new HashMap<String, List<IContainable>>();

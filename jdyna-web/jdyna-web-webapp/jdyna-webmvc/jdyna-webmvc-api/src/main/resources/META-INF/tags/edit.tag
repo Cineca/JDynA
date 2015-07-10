@@ -78,13 +78,18 @@
 	<c:set var="isClassificazione" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'checkradio' && repetable}">
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && (empty tipologia.rendering.dropdown || tipologia.rendering.dropdown==false) && repetable}">
 	<c:set var="isCheckbox" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'checkradio' && !repetable}">
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && (empty tipologia.rendering.dropdown || tipologia.rendering.dropdown==false) && !repetable}">
 	<c:set var="isRadio" value="true" />
 </c:if>
+
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && !empty tipologia.rendering.dropdown && tipologia.rendering.dropdown && !repetable}">
+	<c:set var="isDropdown" value="true" />
+</c:if>
+
 
 <c:if test="${tipologia.rendering.triview eq 'formula'}">
 	<c:set var="isFormula" value="true" />
@@ -239,6 +244,13 @@
 	</c:when>
 	<c:when test="${isRadio}">
 		<dyna:radio propertyPath="${propertyPath}" id="${tipologia.id}"
+				collection="${dyna:getResultsFromWidgetCheckRadio(tipologia.rendering.staticValues)}" 
+				required="${required}" option4row="${tipologia.rendering.option4row}" 
+				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
+				validationParams="${validationParams}"/>
+	</c:when>
+	<c:when test="${isDropdown}">
+		<dyna:dropdown propertyPath="${propertyPath}" id="${tipologia.id}"
 				collection="${dyna:getResultsFromWidgetCheckRadio(tipologia.rendering.staticValues)}" 
 				required="${required}" option4row="${tipologia.rendering.option4row}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 

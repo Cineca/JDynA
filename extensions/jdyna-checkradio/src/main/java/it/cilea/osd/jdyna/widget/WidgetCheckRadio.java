@@ -38,7 +38,7 @@ import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.value.TextValue;
 
 /**
- * Perform a html radio or checkbox. Retrieve element from persistence layer or use staticValues for fast use.
+ * Perform a html radio or checkbox or dropdown. Retrieve element from persistence layer or use staticValues for fast use.
  * 
  * @author l.pascarelli
  *
@@ -56,10 +56,7 @@ public class WidgetCheckRadio extends AWidget {
 	 */
 	private String staticValues; // e.g OPTION_ID###OPTION_LABEL|||OPTION_ID###OPTION_LABEL|||OPTION_ID###OPTION_LABEL
 		
-	/**
-	 * Query to perform (depend on application persistence layer)
-	 */
-	private String query;
+	private Boolean dropdown;
 	
 	public Integer getOption4row() {
 		return option4row;
@@ -109,12 +106,16 @@ public class WidgetCheckRadio extends AWidget {
 		this.staticValues = staticValues;
 	}
 
-	public String getQuery() {
-		return query;
+	public Boolean isDropdown() {
+		return dropdown;
 	}
 
-	public void setQuery(String query) {
-		this.query = query;
+	public Boolean getDropdown() {
+		return dropdown;
+	}
+	
+	public void setDropdown(Boolean dropdown) {
+		this.dropdown = dropdown;
 	}
 
 }

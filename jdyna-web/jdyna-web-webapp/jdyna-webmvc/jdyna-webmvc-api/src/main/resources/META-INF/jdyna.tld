@@ -113,6 +113,11 @@
 </tag-file>
 
 <tag-file>
+	<name>dropdown</name>
+	<path>/META-INF/tags/dropdown.tag</path>
+</tag-file>
+
+<tag-file>
 	<name>boolean</name>
 	<path>/META-INF/tags/boolean.tag</path>
 </tag-file>
@@ -357,4 +362,11 @@
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>List getResultsFromWidgetCheckRadio(java.lang.String)</function-signature>
 </function>
+<function>
+	<description>Get value to display into WidgetCheckRadio "staticValue" property from identifierValue</description>
+	<name>getCheckRadioDisplayValue</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getCheckRadioDisplayValue(java.lang.String, java.lang.String)</function-signature>
+</function>
+
 </taglib>

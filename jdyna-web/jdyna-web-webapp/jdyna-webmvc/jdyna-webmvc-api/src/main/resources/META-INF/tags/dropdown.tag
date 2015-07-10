@@ -28,17 +28,16 @@
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
 <%@ attribute name="helpKey" required="false"%>
-<%@ attribute name="option4row" required="false" type="java.lang.Integer" %>
 <%@ attribute name="collection" required="true" type="java.util.Collection" %>
 <%@ attribute name="required" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
 <%@ attribute name="validationParams" required="false" type="java.util.Collection" description="parameters of javascript function for ajax validation"%>
-
+<%@ attribute name="option4row" required="false" type="java.lang.Integer" %>
 <%@ attribute name="onchange" required="false"%>
 <%-- eventi js non gestiti 
 <%@ attribute name="onclick" required="false"%>
 <%@ attribute name="onblur" required="false"%> 
-<%@ attribute name="onchange" required="false"%>
+
 <%@ attribute name="ondblclick" required="false"%>
 <%@ attribute name="onkeydown" required="false"%>
 <%@ attribute name="onkeyup" required="false"%>
@@ -55,10 +54,6 @@
 
 <%@ taglib uri="jdynatags" prefix="dyna"%>
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
-
-<c:if test="${option4row == null || option4row == 0}">
-	<c:set var="option4row" value="3" />
-</c:if>
 
 <c:if test="${label != null || labelKey != null}">
 	<dyna:label label="${label}" labelKey="${labelKey}" 
@@ -87,25 +82,34 @@
 	<c:set var="value" value="${status.value}" />
 	<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
 </spring:bind>
-<c:forEach var="option" items="${collection}" varStatus="optionStatus">
-	<c:set var="checked" value="" />
-	
-	<c:if test="${option.identifyingValue == value}">
-		<c:set var="checked" value=" checked=\"checked\"" />
-	</c:if>
-	<c:if test="${empty value && optionStatus.count == 1}">
-		<c:set var="checked" value=" checked=\"checked\"" />
-	</c:if>
-	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
-	<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
-	<input id="${inputName}" name="${inputName}" type="radio" 
-		value="${option.identifyingValue}" ${checked} onchange="${functionValidation};${onchange}">${option.displayValue}</input>
-<%--	count: ${optionStatus.count} - o4v: ${option4row} - div: ${optionStatus.count mod option4row == 0} --%>
 
-	<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+<c:set var="onchangeValidation" value=""/>
+<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
+<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
+<c:if test="${!empty parametersValidation || !empty onchange}">
+	<c:choose>
+	<c:when test="${empty onchange}">
+		<c:set var="onchangeValidation" value=" onchange=\"${functionValidation}\""/>
+	</c:when>
+	<c:otherwise>
+		<c:choose>
+		<c:when test="${empty parametersValidation}">
+			<c:set var="onchangeValidation" value=" onchange=\"${onchange}\""/>
+		</c:when>
+		<c:otherwise>
+			<c:set var="onchangeValidation" value=" onchange=\"${functionValidation};${onchange}\""/>
+		</c:otherwise>
+		</c:choose>
+	</c:otherwise>
 	
-	<c:if test="${optionStatus.count mod option4row == 0}">
-		<br/>
-	</c:if>
-</c:forEach>
-	<dyna:validation propertyPath="${propertyPath}" />
+	</c:choose>
+		
+</c:if>
+
+<select class="jdynadropdown" id="${inputName}" name="${inputName}" ${onchangeValidation}>
+	    <c:forEach var="option" items="${collection}" varStatus="loop">	    	
+            <option value="${option.identifyingValue}"<c:if test="${!empty value && option.identifyingValue == value}"> selected="selected"</c:if>>${option.displayValue}</option>     	
+        </c:forEach>
+</select>
+
+<dyna:validation propertyPath="${propertyPath}" />

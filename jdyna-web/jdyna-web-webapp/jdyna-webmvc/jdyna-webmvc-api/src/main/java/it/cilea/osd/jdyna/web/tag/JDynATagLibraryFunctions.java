@@ -554,4 +554,20 @@ public class JDynATagLibraryFunctions
     	}
     	return result;
     }
+    
+    public static String getCheckRadioDisplayValue(String staticValues, String identifierValue) {
+    	String[] resultTmp = staticValues.split("\\|\\|\\|");
+    	for(String rr : resultTmp) {
+    		String displayValue = rr;
+    		String identifyingValue = rr;
+    		if(rr.contains("###")) {
+    			identifyingValue = rr.split("###")[0];
+    			displayValue = rr.split("###")[1];
+    		}
+    		if(identifyingValue.equals(identifierValue)) {
+    			return displayValue;
+    		}
+    	}
+    	return null;
+    }
 }

@@ -108,12 +108,17 @@
 	<c:set var="isClassificazione" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'checkradio' && repetable}">
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && (empty tipologia.rendering.dropdown || tipologia.rendering.dropdown == false) && repetable}">
 	<c:set var="isCheckbox" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'checkradio' && !repetable}">
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && (empty tipologia.rendering.dropdown || tipologia.rendering.dropdown == false) && !repetable}">
 	<c:set var="isRadio" value="true" />
+</c:if>
+
+
+<c:if test="${tipologia.rendering.triview eq 'checkradio' && !empty tipologia.rendering.dropdown && tipologia.rendering.dropdown && !repetable}">
+	<c:set var="isDropdown" value="true" />
 </c:if>
 
 <c:if test="${tipologia.rendering.triview eq 'pointer'}">
@@ -379,11 +384,30 @@
 		</c:if>
 		</c:forEach>
 	</c:when>	
-	<c:when test="${isClassificazione || isRadio || isCheckbox}">
+	<c:when test="${isClassificazione}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real.nome}" />
+			${displayObject}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>
+		</c:if>
+		</c:forEach>
+	</c:when>
+	<c:when test="${isRadio || isCheckbox || isDropdown}">
+		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1 || editMode}">
+			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+			<c:set var="displayObject" value="${dyna:getCheckRadioDisplayValue(tipologia.rendering.staticValues, value.value.real)}" />
 			${displayObject}
 			<c:if test="${editMode}">
   				<c:choose>
