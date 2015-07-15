@@ -573,7 +573,8 @@ public class PersistenceDynaService extends PersistenceService implements
     }
 
     @Override
-	public <P extends Property<TP>, TP extends PropertiesDefinition> List<TP> likePropertiesDefinitionsByShortName(Class<TP> modelClass, String shortName) {
-		return propertiesDefinitionDao.likeByShortName(shortName);
+	public <TP extends PropertiesDefinition> List<TP> likePropertiesDefinitionsByShortName(Class<TP> modelClass, String shortName) {
+    	PropertiesDefinitionDao<TP> modelDao = (PropertiesDefinitionDao<TP>) getDaoByModel(modelClass);
+    	return modelDao.likeByShortName(shortName);
 	}
 }
