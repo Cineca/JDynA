@@ -27,12 +27,12 @@
 	<distributionManagement>
     	<repository>
         	<id>repo</id>
-        	<name>CILEA Maven Repository</name>
+        	<name>CINECA Maven Repository</name>
         	<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
     	</repository>
     	<snapshotRepository>
         	<id>snapshot-repo</id>
-        	<name>CILEA Maven Repository</name>
+        	<name>CINECA Maven Repository</name>
         	<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
     	</snapshotRepository>
     	<site>
@@ -41,10 +41,10 @@
         </site>
 	</distributionManagement>
 	
-	<repositories>
-		<repository>
-			<id>cilea-repo</id>
-			<name>CILEA Maven Repository</name>
+   <repositories>
+       <repository>
+			<id>cineca-repo</id>
+			<name>Cineca Maven Repository</name>
 			<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
 			<releases>
 				<enabled>true</enabled>
@@ -55,7 +55,23 @@
 				<checksumPolicy>never</checksumPolicy>
 			</snapshots>
 		</repository>
-	</repositories>
+		
+		<repository>
+			<id>cineca-repo-snapshot</id>
+			<name>Cineca Maven Repository</name>
+			<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
+			<releases>
+				<enabled>false</enabled>
+				<checksumPolicy>never</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<checksumPolicy>never</checksumPolicy>
+			</snapshots>
+		</repository>
+		
+   </repositories>
+
 
 
 	<build>
