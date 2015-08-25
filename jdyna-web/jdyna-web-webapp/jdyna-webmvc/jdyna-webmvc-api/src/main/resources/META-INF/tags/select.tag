@@ -28,6 +28,7 @@
 <%@ attribute name="width" required="false" type="java.lang.Integer"%>
 <%@ attribute name="required" required="false" type="java.lang.Boolean"%>
 <%@ attribute name="labelKey" required="false"%>
+<%@ attribute name="helpKey" required="false"%>
 <%@ attribute name="mode" required="false" type="java.lang.String"%>
 <%@ attribute name="addModeType" required="false" type="java.lang.String"%>
 <%@ attribute name="editModeType" required="false" type="java.lang.String"%>

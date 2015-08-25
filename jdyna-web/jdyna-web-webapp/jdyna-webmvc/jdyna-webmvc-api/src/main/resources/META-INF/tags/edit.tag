@@ -74,7 +74,7 @@
 	<c:set var="isSoggettario" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'alberoClassificatorio'}">	
+<c:if test="${tipologia.rendering.triview eq 'classificationTree'}">	
 	<c:set var="isClassificazione" value="true" />
 </c:if>
 
@@ -218,11 +218,15 @@
 				validationParams="${validationParams}"/>
 	</c:when>
 	<c:when test="${isClassificazione}">
-		<dyna:classificazione propertyPath="${propertyPath}" 
+		<dyna:classificationtree propertyPath="${propertyPath}" 
 				required="${required}" repeatable="${repetable}"
-				tree="${tipologia.rendering.alberoClassificatorio}" 
+				treeObjectType="${tipologia.rendering.treeObjectType}"
+				rootResearchObject="${tipologia.rendering.rootResearchObject.id}"
+				metadataBuilderTree="${tipologia.rendering.metadataBuilderTree.id}"
+				chooseOnlyLeaves="${tipologia.rendering.chooseOnlyLeaves}"
+				display="${tipologia.rendering.display}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" id="${tipologia.id}"/>
 	</c:when>
 	<c:when test="${isSoggettario}">
 		<dyna:subject propertyPath="${propertyPath}" 

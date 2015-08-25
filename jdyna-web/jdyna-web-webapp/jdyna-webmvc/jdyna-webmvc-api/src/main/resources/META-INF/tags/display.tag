@@ -85,7 +85,7 @@
 	<c:if test="${tipologia.rendering.resultTriview eq 'testo' && (tipologia.rendering.dimensione.row gt 1)}">
 		<c:set var="isTextArea" value="true" />
 	</c:if>
-	<c:if test="${tipologia.rendering.resultTriview eq 'alberoClassificatorio'}">	
+	<c:if test="${tipologia.rendering.resultTriview eq 'classificationTree'}">	
 		<c:set var="isClassificazione" value="true" />
 	</c:if>
 	<c:if
@@ -104,7 +104,7 @@
 	<c:set var="isSoggettario" value="true" />
 </c:if>
 
-<c:if test="${tipologia.rendering.triview eq 'alberoClassificatorio'}">	
+<c:if test="${tipologia.rendering.triview eq 'classificationTree'}">	
 	<c:set var="isClassificazione" value="true" />
 </c:if>
 
@@ -229,7 +229,7 @@
 												
 				</c:when>				
 				<c:otherwise>
-					<a target="_blank" href="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
+					<a target="_blank" href="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}">
 						<span ${style}>${tipologia.rendering.labelAnchor}</span>
 					</a>
 				</c:otherwise>
@@ -388,8 +388,9 @@
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
-			<c:set var="displayObject" value="${value.value.real.nome}" />
-			${displayObject}
+			<c:set var="displayObject" value="${value.value.real}" />
+			<c:set var="displayClassification" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
+			${displayClassification}
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">

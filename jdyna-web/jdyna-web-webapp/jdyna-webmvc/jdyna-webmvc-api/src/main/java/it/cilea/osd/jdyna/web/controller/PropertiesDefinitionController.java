@@ -24,15 +24,6 @@
  */
 package it.cilea.osd.jdyna.web.controller;
 
-import it.cilea.osd.common.controller.BaseAbstractController;
-import it.cilea.osd.jdyna.model.AlberoClassificatorio;
-import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.model.Soggettario;
-import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-import it.cilea.osd.jdyna.web.IPropertyHolder;
-import it.cilea.osd.jdyna.web.Tab;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -41,6 +32,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
+
+import it.cilea.osd.common.controller.BaseAbstractController;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.service.IPersistenceDynaService;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.Tab;
 
 public class PropertiesDefinitionController<TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>> extends BaseAbstractController {
 
@@ -90,22 +88,6 @@ public class PropertiesDefinitionController<TP extends PropertiesDefinition, H e
 
         TP propertiesDefinition = applicationService.get(targetModel, tipologiaProprietaId);
        
-        /*Se si e' voluto creare un soggettario come particolare widget testo, porto con me l'id
-         * del soggettario per potere procedere alla scelta di un nome e voce per il soggettario*/
-        String paramId = request.getParameter("soggettarioId");
-        if (paramId != null){
-        	Integer Id= Integer.valueOf(paramId);
-        	Soggettario soggettario = applicationService.get(Soggettario.class, Id);
-        	model.put("soggettarioId", soggettario.getId());
-        }
-        
-        paramId = request.getParameter("alberoId");
-        if (paramId != null){
-        	Integer Id = Integer.valueOf(paramId);
-        	AlberoClassificatorio albero = applicationService.get(AlberoClassificatorio.class, Id);
-        	model.put("alberoId", albero.getId());
-        }
-        
         model.put("tipologiaProprieta", propertiesDefinition);
         model.put("addModeType", "display");
         

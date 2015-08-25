@@ -57,6 +57,12 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
     private final String TYPO_ADDLINK = "link";
 
     private final String TYPO_ADDFILE = "file";
+    
+    private final String TYPO_ADDBOOLEAN = "boolean";
+    
+    private final String TYPO_ADDCHECKRADIO = "checkradio";
+    
+    private final String TYPO_ADDCLASSIFICATIONTREE = "classificationtree";
 
     private final String TYPO_ADDPOINTERRP = "pointerrp";
 
@@ -73,6 +79,12 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
     private String addLinkView;
 
     private String addFileView;
+    
+    private String addBooleanView;
+    
+    private String addCheckradioView;
+    
+    private String addClassificationtreeView;
 
     private String addPointerRPView;
 
@@ -183,6 +195,24 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
         if (maprequest.containsKey(TYPO_ADDFILE))
         {
             return new ModelAndView(addFileView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
+        }
+        if (maprequest.containsKey(TYPO_ADDBOOLEAN))
+        {
+            return new ModelAndView(addBooleanView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
+        }
+        if (maprequest.containsKey(TYPO_ADDCHECKRADIO))
+        {
+            return new ModelAndView(addCheckradioView.trim() + "?renderingparent="
+                    + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
+                    + "&path=" + Utils.getAdminSpecificPath(request, null));
+        }
+        if (maprequest.containsKey(TYPO_ADDCLASSIFICATIONTREE))
+        {
+            return new ModelAndView(addClassificationtreeView.trim() + "?renderingparent="
                     + object.getId() + "&boxId=" + boxId + "&tabId=" + tabId
                     + "&path=" + Utils.getAdminSpecificPath(request, null));
         }
@@ -360,5 +390,29 @@ public class FormNestedObjectDefinitionController<H extends IPropertyHolder<Cont
     {
         this.addPointerDOView = addPointerDOView;
     }
+
+	public String getAddBooleanView() {
+		return addBooleanView;
+	}
+
+	public void setAddBooleanView(String addBooleanView) {
+		this.addBooleanView = addBooleanView;
+	}
+
+	public String getAddCheckradioView() {
+		return addCheckradioView;
+	}
+
+	public void setAddCheckradioView(String addCheckradioView) {
+		this.addCheckradioView = addCheckradioView;
+	}
+
+	public String getAddClassificationtreeView() {
+		return addClassificationtreeView;
+	}
+
+	public void setAddClassificationtreeView(String addClassificationtreeView) {
+		this.addClassificationtreeView = addClassificationtreeView;
+	}
 
 }

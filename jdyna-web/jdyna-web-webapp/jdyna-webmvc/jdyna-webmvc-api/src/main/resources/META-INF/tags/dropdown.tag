@@ -78,11 +78,18 @@
 <%-- FINE CODICE COMUNE A TUTTI I TAG... --%>
 
 <!-- we need an indexed property -->
+<c:catch var="exNoIndexedValue">
 <spring:bind path="${propertyPath}[0]">
 	<c:set var="value" value="${status.value}" />
 	<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
 </spring:bind>
-
+</c:catch>
+<c:if test="${exNoIndexedValue != null}">
+<spring:bind path="${propertyPath}">
+	<c:set var="value" value="${status.value}" />
+	<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>		
+</spring:bind>
+</c:if>
 <c:set var="onchangeValidation" value=""/>
 <c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 <c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
@@ -106,10 +113,12 @@
 		
 </c:if>
 
-<select class="jdynadropdown" id="${inputName}" name="${inputName}" ${onchangeValidation}>
+<select class="jdynadropdown" id="${!empty id?id:inputName}" name="${!empty inputName?inputName:propertyPath}" ${onchangeValidation}>
+	<c:if test="${!empty collection}">
 	    <c:forEach var="option" items="${collection}" varStatus="loop">	    	
             <option value="${option.identifyingValue}"<c:if test="${!empty value && option.identifyingValue == value}"> selected="selected"</c:if>>${option.displayValue}</option>     	
-        </c:forEach>
+        </c:forEach>        
+    </c:if>
 </select>
 
 <dyna:validation propertyPath="${propertyPath}" />

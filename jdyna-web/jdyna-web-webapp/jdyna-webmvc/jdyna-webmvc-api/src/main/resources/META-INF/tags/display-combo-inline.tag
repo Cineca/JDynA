@@ -87,7 +87,7 @@
 		<c:set var="isSubRadio" value="true" />
 	</c:if>
 	<c:if
-		test="${tipologia.rendering.resultTriview eq 'alberoClassificatorio'}">
+		test="${tipologia.rendering.resultTriview eq 'classificationTree'}">
 		<c:set var="isClassificazione" value="true" />
 	</c:if>
 	<c:set var="isSubFormula" value="true" />
@@ -98,7 +98,7 @@
 	<c:set var="isSubSoggettario" value="true" />
 </c:if>
 
-<c:if test="${subtip.rendering.triview eq 'alberoClassificatorio'}">
+<c:if test="${subtip.rendering.triview eq 'classificationTree'}">
 	<c:set var="isSubClassificazione" value="true" />
 </c:if>
 
@@ -214,7 +214,7 @@
 												
 				</c:when>				
 				<c:otherwise>
-					<a target="_blank" href="<%=request.getContextPath()%>/${subtip.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
+					<a target="_blank" href="<%=request.getContextPath()%>/${subtip.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}">
 						<span ${style}>${subtip.rendering.labelAnchor}</span>
 					</a>
 				</c:otherwise>

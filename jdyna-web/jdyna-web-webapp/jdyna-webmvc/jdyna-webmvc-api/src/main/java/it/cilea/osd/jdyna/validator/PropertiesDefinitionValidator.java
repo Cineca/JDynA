@@ -24,13 +24,17 @@
  */
 package it.cilea.osd.jdyna.validator;
 
+import java.util.List;
+
+import org.springframework.validation.Errors;
+import org.springframework.validation.ValidationUtils;
+
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.service.IValidatorClassificationService;
 import it.cilea.osd.jdyna.service.IValidatorDynaService;
 import it.cilea.osd.jdyna.service.ValidatorService.ValidationResult;
+import it.cilea.osd.jdyna.widget.AWidgetClassificationTree;
 import it.cilea.osd.jdyna.widget.WidgetBoolean;
-import it.cilea.osd.jdyna.widget.WidgetClassificazione;
 import it.cilea.osd.jdyna.widget.WidgetDate;
 import it.cilea.osd.jdyna.widget.WidgetEmail;
 import it.cilea.osd.jdyna.widget.WidgetFormula;
@@ -38,11 +42,6 @@ import it.cilea.osd.jdyna.widget.WidgetNumero;
 import it.cilea.osd.jdyna.widget.WidgetPointer;
 import it.cilea.osd.jdyna.widget.WidgetSoggettario;
 import it.cilea.osd.jdyna.widget.WidgetTesto;
-
-import java.util.List;
-
-import org.springframework.validation.Errors;
-import org.springframework.validation.ValidationUtils;
 
 public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 	
@@ -119,8 +118,8 @@ public class PropertiesDefinitionValidator extends JDynaBaseValidator {
 			WidgetEmail widgetEmail = (WidgetEmail) aWidget;
 
 		}
-		if (aWidget instanceof WidgetClassificazione) {
-			WidgetClassificazione widgetClassificazione = (WidgetClassificazione) aWidget;
+		if (aWidget instanceof AWidgetClassificationTree) {
+			AWidgetClassificationTree widgetClassificazione = (AWidgetClassificationTree) aWidget;
 
 		}
 		if (aWidget instanceof WidgetSoggettario) {
