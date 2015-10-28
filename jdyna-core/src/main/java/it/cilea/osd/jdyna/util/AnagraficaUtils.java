@@ -30,6 +30,7 @@ import it.cilea.osd.jdyna.dto.AnagraficaObjectWithTypeDTO;
 import it.cilea.osd.jdyna.dto.IAnagraficaObjectDTO;
 import it.cilea.osd.jdyna.dto.IAnagraficaObjectWithTypeDTO;
 import it.cilea.osd.jdyna.dto.ValoreDTO;
+import it.cilea.osd.jdyna.editor.AdvancedPropertyEditorSupport;
 import it.cilea.osd.jdyna.model.ANestedObjectWithTypeSupport;
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.ANestedProperty;
@@ -354,7 +355,7 @@ public class AnagraficaUtils
         }
         // recupero dal widget il property editor per l'import
         PropertyEditor pe = tipologiaDaImportare.getRendering()
-                .getImportPropertyEditor(applicationService);
+                .getImportPropertyEditor(applicationService, AdvancedPropertyEditorSupport.MODE_VIEW);
 
         P proprieta = null;
 
@@ -419,7 +420,7 @@ public class AnagraficaUtils
         TP tipologiaDaImportareInCombo = (TP) applicationService
                 .findPropertiesDefinitionByShortName(clazzTP, shortName);
         PropertyEditor pe = tipologiaDaImportareInCombo.getRendering()
-                .getImportPropertyEditor(applicationService);
+                .getImportPropertyEditor(applicationService, AdvancedPropertyEditorSupport.MODE_VIEW);
 
         P proprieta = null;
 

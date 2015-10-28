@@ -24,18 +24,19 @@
  */
 package it.cilea.osd.jdyna.widget;
 
+import java.beans.PropertyEditor;
+
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+import it.cilea.osd.jdyna.editor.AdvancedPropertyEditorSupport;
 import it.cilea.osd.jdyna.editor.LinkPropertyEditor;
 import it.cilea.osd.jdyna.model.AValue;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.value.LinkValue;
-
-import java.beans.PropertyEditor;
-
-import javax.persistence.Entity;
-import javax.persistence.Table;
-import javax.persistence.Transient;
 
 /** 
  * 
@@ -73,12 +74,17 @@ public class WidgetLink extends AWidget {
 	
 	@Override
 	/**
-	 * Restituisce lo StringTrimmer editor configurato per la conversione delle stringhe vuote in null
+	 * Return LinkPropertyEditor to manage view
 	 */
 	public PropertyEditor getPropertyEditor(IPersistenceDynaService applicationService) {	
-		return new LinkPropertyEditor();
+		return new LinkPropertyEditor(AdvancedPropertyEditorSupport.MODE_VIEW);
 	}
 	
+    @Override
+    public PropertyEditor getImportPropertyEditor(
+            IPersistenceDynaService applicationService, String service) {
+        return new LinkPropertyEditor(service);
+    }
 
 	@Override
 	public AValue getInstanceValore() {		

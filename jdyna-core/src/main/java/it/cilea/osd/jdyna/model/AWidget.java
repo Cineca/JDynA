@@ -25,6 +25,7 @@
 package it.cilea.osd.jdyna.model;
 
 import it.cilea.osd.common.model.IdentifiableObject;
+import it.cilea.osd.jdyna.editor.FilePropertyEditor;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 
@@ -119,8 +120,8 @@ public abstract class AWidget<AV extends AValue> extends IdentifiableObject {
 	public abstract ValidationMessage valida(Object valore);
 	
 	@Transient
-	public PropertyEditor getImportPropertyEditor(IPersistenceDynaService applicationService) {
-		return getPropertyEditor(applicationService);
+	public PropertyEditor getImportPropertyEditor(IPersistenceDynaService applicationService, String service) {
+		return getPropertyEditor(applicationService);		
 	}	
 
 }

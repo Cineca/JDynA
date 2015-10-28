@@ -30,7 +30,7 @@ import it.cilea.osd.common.service.IPersistenceService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class ModelPropertyEditor extends java.beans.PropertyEditorSupport {
+public class ModelPropertyEditor extends AdvancedPropertyEditorSupport {
 	/** My gateway to business logic */
 	private IPersistenceService applicationService;
 	

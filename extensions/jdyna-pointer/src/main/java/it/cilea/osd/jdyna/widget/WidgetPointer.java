@@ -101,7 +101,10 @@ public abstract class WidgetPointer<AV extends PointerValue> extends AWidget {
 		return propertyEditor;
 	}
 	
-	
+    @Override
+    public abstract PropertyEditor getImportPropertyEditor(
+            IPersistenceDynaService applicationService, String service);
+	   
 	@Override
 	public PointerValue<?> getInstanceValore() {
 		try {

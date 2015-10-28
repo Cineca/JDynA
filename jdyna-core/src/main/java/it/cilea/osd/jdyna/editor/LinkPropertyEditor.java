@@ -30,10 +30,15 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
+public class LinkPropertyEditor extends AdvancedPropertyEditorSupport {
 	
 	/** The logger */
 	private final static Log log = LogFactory.getLog(LinkPropertyEditor.class);
+		
+    public LinkPropertyEditor(String service)
+    {
+        setMode(service);
+    }
 	
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
@@ -62,6 +67,10 @@ public class LinkPropertyEditor extends java.beans.PropertyEditorSupport {
 		if (valore == null) return "";
 		log.debug("value = "+valore.getValueLink());
 		log.debug("description = "+valore.getDescriptionLink());
+	    if(MODE_CSV.equals(getMode())) {
+	           return valore == null ? "": "[URL="+(valore.getValueLink() != null ? valore
+	                   .getValueLink() : "")+"]"+valore.getDescriptionLink();
+	    }
 		return valore==null?"|||":
 		    (valore.getDescriptionLink()!=null?valore.getDescriptionLink():"")
 			+"|||"+
