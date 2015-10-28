@@ -510,6 +510,14 @@ public class PersistenceDynaService extends PersistenceService implements
         return modelList;
     }
 
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO getNestedObjectsByParentIdAndTypoIDAndNestedSourceReference(
+            Integer parentId, Integer typeNestedId, String nestedSourceRef,
+            String nestedSourceID, Class<ANO> model)
+    {
+        NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
+        return modelDao.uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference(parentId, typeNestedId, nestedSourceRef, nestedSourceID);
+    }
+    
     @Override
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model)

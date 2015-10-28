@@ -69,4 +69,6 @@ public interface NestedObjectDAO<P extends Property<TP>, TP extends PropertiesDe
     Integer maxPositionNestedObjectsByTypoID(Integer tipologiaID);
     
     Integer maxPositionNestedObjects();
+               
+    public ANO uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference(Integer dynamicFieldID, Integer typoID, String sourceRef, String sourceID);
 }
