@@ -247,6 +247,20 @@ public class PersistenceDynaService extends PersistenceService implements
                 .uniqueByShortName(nome);
     }
 
+    public <TY extends AType<TP>, TP extends PropertiesDefinition> List<TP> findMaskByShortName(
+            Class<TY> clazz, String nome)
+    {
+        return ((TypeDaoSupport<TY, TP>) getDaoByModel(clazz))
+                .findMaskByShortName(nome);
+    }
+    
+    public <TY extends AType<TP>, TP extends PropertiesDefinition> List<TP> findMaskById(
+            Class<TY> clazz, String nome)
+    {
+        return ((TypeDaoSupport<TY, TP>) getDaoByModel(clazz))
+                .findMaskById(nome);
+    }
+    
     /**
      * {@inheritDoc}
      */
