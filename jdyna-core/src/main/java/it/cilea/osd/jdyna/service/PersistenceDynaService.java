@@ -255,10 +255,10 @@ public class PersistenceDynaService extends PersistenceService implements
     }
     
     public <TY extends AType<TP>, TP extends PropertiesDefinition> List<TP> findMaskById(
-            Class<TY> clazz, String nome)
+            Class<TY> clazz, Integer id)
     {
         return ((TypeDaoSupport<TY, TP>) getDaoByModel(clazz))
-                .findMaskById(nome);
+                .findMaskById(id);
     }
     
     /**
@@ -569,6 +569,16 @@ public class PersistenceDynaService extends PersistenceService implements
 
     }
 
+    @Override
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO findNestedObjectByUUID(
+            Class<ANO> model, String uuid)
+    {
+
+        NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
+        return modelDao.uniqueByUUID(uuid);
+
+    }
+    
     @Override
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> Integer getNestedMaxPosition(
             ANO object)

@@ -43,7 +43,7 @@ public interface NestedObjectDAO<P extends Property<TP>, TP extends PropertiesDe
     List<ANO> findNestedObjectsByParentIDAndTypoShortname(Integer dynamicFieldID,
             String typoShortname);
     
-    public List<ANO> paginateNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+    List<ANO> paginateNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
             Integer typoID, String sort, boolean inverse, int firstResult,
             int maxResults);
 
@@ -54,7 +54,7 @@ public interface NestedObjectDAO<P extends Property<TP>, TP extends PropertiesDe
     List<ANO> findActiveNestedObjectsByParentIDAndTypoShortname(Integer dynamicFieldID,
             String typoShortname);
     
-    public List<ANO> paginateActiveNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
+    List<ANO> paginateActiveNestedObjectsByParentIDAndTypoID(Integer dynamicFieldID,
             Integer typoID, String sort, boolean inverse, int firstResult,
             int maxResults);
 
@@ -70,5 +70,7 @@ public interface NestedObjectDAO<P extends Property<TP>, TP extends PropertiesDe
     
     Integer maxPositionNestedObjects();
                
-    public ANO uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference(Integer dynamicFieldID, Integer typoID, String sourceRef, String sourceID);
+    ANO uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference(Integer dynamicFieldID, Integer typoID, String sourceRef, String sourceID);
+    
+    ANO uniqueByUUID(String uuid);
 }

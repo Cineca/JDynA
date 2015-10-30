@@ -297,5 +297,7 @@ public interface IPersistenceDynaService extends IPersistenceService
     
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> Integer getNestedMaxPosition(ANO model);
 
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> ANO findNestedObjectByUUID(Class<ANO> model, String uuid);
+    
     public <TP extends PropertiesDefinition> List<TP> likePropertiesDefinitionsByShortName(Class<TP> modelClass, String shortName);
 }

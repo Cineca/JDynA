@@ -63,7 +63,8 @@ import org.hibernate.annotations.Formula;
         @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?"),
         @NamedQuery(name = "ANestedObject.maxPositionNestedObjectsByTypoID", query = "select max(positionDef) from ANestedObject where typo.id = ?"),
         @NamedQuery(name = "ANestedObject.maxPositionNestedObjects", query = "select max(positionDef) from ANestedObject"),        
-        @NamedQuery(name = "ANestedObject.uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference", query = "from ANestedObject where parent.id = ? and typo.id = ? and sourceReference.sourceRef = ? and sourceReference.sourceID = ?")
+        @NamedQuery(name = "ANestedObject.uniqueNestedObjectsByParentIdAndTypoIDAndSourceReference", query = "from ANestedObject where parent.id = ? and typo.id = ? and sourceReference.sourceRef = ? and sourceReference.sourceID = ?"),
+        @NamedQuery(name = "ANestedObject.uniqueByUUID", query = "from ANestedObject where uuid = ?")
 })
 public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends ANestedPropertiesDefinition, PP extends Property<PTP>, PTP extends PropertiesDefinition>
         extends AnagraficaObject<P, TP> implements

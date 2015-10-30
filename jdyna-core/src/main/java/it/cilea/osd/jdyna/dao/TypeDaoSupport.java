@@ -35,6 +35,6 @@ public interface TypeDaoSupport <A extends AType<TP>, TP extends PropertiesDefin
 	
 	public List<TP> findMaskByShortName(String shortname);
 	
-	public List<TP> findMaskById(String id);
+	public List<TP> findMaskById(Integer id);
 	
 }
