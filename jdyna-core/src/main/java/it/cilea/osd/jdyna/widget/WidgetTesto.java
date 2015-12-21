@@ -44,6 +44,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.hibernate.annotations.Type;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 
 /** Classe Testo
@@ -58,6 +59,7 @@ public class WidgetTesto extends AWidget {
     @Column (nullable=true)
 	private boolean collisioni;
 	
+    @Type(type="org.hibernate.type.StringClobType")
 	private String regex;
 	
 	@Transient
@@ -78,6 +80,7 @@ public class WidgetTesto extends AWidget {
         @AttributeOverride(name = "col", column = @Column(name = "widgetcol")) })
 	private Size dimensione;
 	
+	@Type(type="org.hibernate.type.StringClobType")
 	private String displayFormat;
 	
 	@Transient
