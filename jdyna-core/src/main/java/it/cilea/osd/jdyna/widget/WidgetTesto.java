@@ -59,7 +59,7 @@ public class WidgetTesto extends AWidget {
     @Column (nullable=true)
 	private boolean collisioni;
 	
-    @Type(type="org.hibernate.type.StringClobType")
+    @Column(length=4000)
 	private String regex;
 	
 	@Transient
@@ -80,7 +80,7 @@ public class WidgetTesto extends AWidget {
         @AttributeOverride(name = "col", column = @Column(name = "widgetcol")) })
 	private Size dimensione;
 	
-	@Type(type="org.hibernate.type.StringClobType")
+	@Column(length=4000)
 	private String displayFormat;
 	
 	@Transient
