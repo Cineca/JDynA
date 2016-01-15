@@ -183,7 +183,7 @@
 	<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 </c:if>
 <c:if test="${!empty tipologia.label && !hideLabel}">
-<span class="dynaLabel" ${labelStyle}>${tipologia.label}:</span>
+<span class="dynaLabel" ${labelStyle}>${tipologia.label}</span>
 </c:if>
 
 <div id="${tipologia.shortName}Div" class="dynaFieldValue">
