@@ -40,7 +40,7 @@ public interface IComponent<IBC extends IBeanSubComponent>
 
     Map<String, IBC> getTypes();
 
-    long count(String type, Integer id);
+    long count(HttpServletRequest request, String type, Integer id);
 
     void setShortName(String shortName);
 
