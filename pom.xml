@@ -13,7 +13,7 @@
       <connection>scm:git:https://github.com/Cineca/JDynA.git</connection>
       <developerConnection>scm:git:https://github.com/Cineca/JDynA.git</developerConnection>
       <url>https://github.com/Cineca/JDynA.git</url>
-      <tag>5.2</tag>
+      <tag>5.6</tag>
     </scm>
    
 	<properties>
