@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna</artifactId>
-	<version>5.6-SNAPSHOT</version>
+	<version>5.6</version>
 	<packaging>pom</packaging>
 	<name>JDynA</name>
 	<description>Dynamic Metadata Management for Java Domain Object</description>
