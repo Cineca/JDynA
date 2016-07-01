@@ -98,6 +98,8 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     @Embedded
     private AvailabilityInfo availabilityInfo;
     
+    private Boolean preferred;
+    
     public Integer getId()
     {
         return id;
@@ -195,5 +197,13 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     public void setAvailabilityInfo(AvailabilityInfo availabilityInfo)
     {
         this.availabilityInfo = availabilityInfo;
+    }
+    
+    public Boolean getPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(Boolean preferred) {
+        this.preferred = preferred;
     }
 }
