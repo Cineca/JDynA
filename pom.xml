@@ -10,9 +10,9 @@
 
 	
 	<scm>
-      <connection>scm:git:https://github.com/Cineca/JDynA.git</connection>
-      <developerConnection>scm:git:https://github.com/Cineca/JDynA.git</developerConnection>
-      <url>https://github.com/Cineca/JDynA.git</url>
+      <connection>scm:git:https://github.com/4Science/JDynA.git</connection>
+      <developerConnection>scm:git:https://github.com/4Science/JDynA.git</developerConnection>
+      <url>https://github.com/4Science/JDynA.git</url>
       <tag>5.6</tag>
     </scm>
    
@@ -27,25 +27,25 @@
 	<distributionManagement>
     	<repository>
         	<id>repo</id>
-        	<name>CINECA Maven Repository</name>
-        	<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
+        	<name>4Science Maven Repository</name>
+        	<url>https://github.com/4Science/mvn-repo/raw/master/releases</url>
     	</repository>
     	<snapshotRepository>
         	<id>snapshot-repo</id>
-        	<name>CINECA Maven Repository</name>
-        	<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
+        	<name>4Science Maven Repository</name>
+        	<url>https://github.com/4Science/mvn-repo/raw/master/snapshots</url>
     	</snapshotRepository>
     	<site>
             <id>website</id>
-            <url>https://github.com/Cineca/JDynA/wiki</url>
+            <url>https://github.com/4Science/JDynA/wiki</url>
         </site>
 	</distributionManagement>
 	
    <repositories>
        <repository>
-			<id>cineca-repo</id>
-			<name>Cineca Maven Repository</name>
-			<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
+			<id>4Science-repo</id>
+			<name>4Science Maven Repository</name>
+			<url>https://github.com/4Science/mvn-repo/raw/master/releases</url>
 			<releases>
 				<enabled>true</enabled>
 				<checksumPolicy>never</checksumPolicy>
@@ -57,9 +57,9 @@
 		</repository>
 		
 		<repository>
-			<id>cineca-repo-snapshot</id>
-			<name>Cineca Maven Repository</name>
-			<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
+			<id>4Science-repo-snapshot</id>
+			<name>4Science Maven Repository</name>
+			<url>https://github.com/4Science/mvn-repo/raw/master/snapshots</url>
 			<releases>
 				<enabled>false</enabled>
 				<checksumPolicy>never</checksumPolicy>
