@@ -87,6 +87,8 @@ public class ATabsController<H extends IPropertyHolder<Containable>, T extends T
 		
 		model.put("id", paramTypeTabId);
 		model.put("tab", tab);
+		model.put("metadataWithPolicySingle", tab.getMetadataWithPolicySingle(applicationService));
+		model.put("metadataWithPolicyGroup", tab.getMetadataWithPolicyGroup(applicationService));
 		model.put("containerList", containerList);
 		String specificPartPath = Utils.getAdminSpecificPath(request, null);
 		model.put("specificPartPath", specificPartPath);

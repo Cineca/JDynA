@@ -81,9 +81,6 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	 */
 	public Integer visibility;
 	
-	
-
-	
 	private String ext;
 	
 	private String mime;
@@ -203,4 +200,22 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	public String getMime() {
 		return mime;
 	}
+	
+    @Transient
+    public abstract List<String> getAuthorizedSingle();
+
+    @Transient
+    public abstract void setAuthorizedSingle(List<String> authorizedSingle);
+
+    @Transient
+    public abstract List<String> getAuthorizedGroup();
+
+    @Transient
+    public abstract void setAuthorizedGroup(List<String> authorizedGroup);
+    
+    @Transient
+    public abstract List<String> getMetadataWithPolicySingle(ITabService tabService);
+    
+    @Transient
+    public abstract List<String> getMetadataWithPolicyGroup(ITabService tabService);
 }

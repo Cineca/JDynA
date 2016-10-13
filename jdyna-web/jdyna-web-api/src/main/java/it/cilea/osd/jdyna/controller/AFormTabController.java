@@ -103,6 +103,8 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
         map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
+        map.put("metadataWithPolicySingle", tabClass.newInstance().getMetadataWithPolicySingle(applicationService));
+        map.put("metadataWithPolicyGroup", tabClass.newInstance().getMetadataWithPolicyGroup(applicationService));
         return map;
     }
 
