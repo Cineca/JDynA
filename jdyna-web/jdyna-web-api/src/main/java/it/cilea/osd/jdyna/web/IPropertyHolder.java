@@ -29,6 +29,8 @@ import it.cilea.osd.jdyna.model.IContainable;
 
 import java.util.List;
 
+import javax.persistence.Transient;
+
 
 public interface IPropertyHolder<C extends IContainable> extends Identifiable, Comparable<IPropertyHolder<C>> {
 	
@@ -46,4 +48,8 @@ public interface IPropertyHolder<C extends IContainable> extends Identifiable, C
 	public void setCollapsed(boolean collapsed);
 	
 	public String getExternalJSP();
+	
+    public List<String> getMetadataWithPolicySingle(ITabService tabService);
+    
+    public List<String> getMetadataWithPolicyGroup(ITabService tabService);
 }

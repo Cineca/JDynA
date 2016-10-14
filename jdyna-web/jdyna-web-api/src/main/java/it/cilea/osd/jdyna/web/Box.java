@@ -235,4 +235,9 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
         return messages;
     }
 
+    @Transient
+    public abstract List<String> getMetadataWithPolicySingle(ITabService tabService);
+    
+    @Transient
+    public abstract List<String> getMetadataWithPolicyGroup(ITabService tabService);
 }

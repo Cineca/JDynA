@@ -38,6 +38,8 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.hibernate.annotations.Index;
 
 @Entity
@@ -45,6 +47,10 @@ import org.hibernate.annotations.Index;
 @Inheritance (strategy = InheritanceType.SINGLE_TABLE)
 @org.hibernate.annotations.Table(appliesTo="jdyna_values", indexes={@Index(name="jdyna_values_dtype_idx", columnNames={"dtype"})})
 public abstract class AValue<P> extends IdentifiableObject {
+    
+    @Transient
+    protected Log log = LogFactory.getLog(getClass());
+    
 	@Id
 	//@GeneratedValue
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "JDYNA_VALUES_SEQ")

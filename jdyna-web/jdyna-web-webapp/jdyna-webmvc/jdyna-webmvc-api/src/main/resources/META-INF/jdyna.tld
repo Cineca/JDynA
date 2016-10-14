@@ -72,6 +72,11 @@
 </tag-file>
 
 <tag-file>
+	<name>custompointer</name>
+	<path>/META-INF/tags/custompointer.tag</path>
+</tag-file>
+
+<tag-file>
 	<name>classificationtree</name>
 	<path>/META-INF/tags/classificationtree.tag</path>
 </tag-file>

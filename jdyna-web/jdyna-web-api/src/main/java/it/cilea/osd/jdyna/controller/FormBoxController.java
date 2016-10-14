@@ -113,6 +113,8 @@ public class FormBoxController<TP extends PropertiesDefinition, H extends IPrope
         map.put("containablesList", containables);
         map.put("owneredContainables", owneredContainables);
         map.put("specificPartPath", getSpecificPartPath());
+        map.put("metadataWithPolicySingle", boxClass.newInstance().getMetadataWithPolicySingle(applicationService));
+        map.put("metadataWithPolicyGroup", boxClass.newInstance().getMetadataWithPolicyGroup(applicationService));
         return map;
 
     }
