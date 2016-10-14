@@ -32,7 +32,7 @@
 <%@ attribute name="size" required="false" type="java.lang.Integer" %>
 <%@ attribute name="filtro" required="false"%>
 <%@ attribute name="display" required="true"%>
-<%@ attribute name="type" required="true"%>
+<%@ attribute name="propertydefinition" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%@ attribute name="repeatable" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="required" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="ajaxValidation" required="false" description="javascript function name to make for validation ajax"%>
@@ -103,7 +103,7 @@
 						<input type="hidden" name="${inputName}" 
 								id="${inputName}" value="${inputValue}" />			
 					
-						<span>${dyna:getDisplayValue(value,"name")}</span>
+						<span>${dyna:displayAdvanced(propertydefinition, inputValue)}</span>
 						<img src="${root}/image/jdyna/delete_icon.gif" class="jdyna-icon jdyna-icon-action jdyna-delete-button"/>
 					</div>
 				</spring:bind>

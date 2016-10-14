@@ -478,7 +478,7 @@
 		<c:if test="${value.visibility == 1 || editMode}">
 			<c:if test="${valueStatus.count != 1}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
+			<c:set var="displayPointer" value="${dyna:displayAdvanced(displayObject,value.value.real)}" />
 			${displayPointer}
 			<c:if test="${editMode}">
   				<c:choose>

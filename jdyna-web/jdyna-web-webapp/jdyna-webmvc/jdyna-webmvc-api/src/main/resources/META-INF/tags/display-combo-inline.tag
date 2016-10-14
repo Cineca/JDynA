@@ -468,7 +468,7 @@
 					<br />
 				</c:if>		
 				<c:set var="displayObject" value="${subValue.value.real}" />						
-				<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,subtip.rendering.display)}" />
+				<c:set var="displayPointer" value="${dyna:displayAdvanced(displayObject,subValue.value.real)}" />
 				${displayPointer}
 				<c:if test="${editMode}">
   				<c:choose>

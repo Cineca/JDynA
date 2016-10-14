@@ -46,9 +46,6 @@ public abstract class WidgetCustomPointer<AV extends AValue> extends AWidget<AV>
 	@Type(type="org.hibernate.type.StringClobType")
 	protected String filter;
 	
-	@Transient
-	protected String display = "name";
-	
     @Override
     public String getTriview()
     {
@@ -69,13 +66,4 @@ public abstract class WidgetCustomPointer<AV extends AValue> extends AWidget<AV>
 
     public abstract List<Selectable> search(String query, String expression, String... filtro);
 
-    public String getDisplay()
-    {
-        return display;
-    }
-
-    public void setDisplay(String display)
-    {
-        this.display = display;
-    }
 }

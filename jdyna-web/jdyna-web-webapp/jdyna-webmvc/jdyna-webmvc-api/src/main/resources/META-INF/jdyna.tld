@@ -231,6 +231,13 @@
 	<function-signature>String display(it.cilea.osd.jdyna.model.PropertiesDefinition, java.lang.Object)</function-signature>
 </function>
 
+<function>
+	<description></description>
+	<name>displayAdvanced</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String displayAdvanced(it.cilea.osd.jdyna.model.PropertiesDefinition, java.lang.Object)</function-signature>
+</function>
+
 <!-- <function>
 	<description>Verifica se nella stringa di configurazione e' specificata l'utilizzo dell'ora nel calendario js</description>
 	<name>isTimeEnableInConfiguration</name>

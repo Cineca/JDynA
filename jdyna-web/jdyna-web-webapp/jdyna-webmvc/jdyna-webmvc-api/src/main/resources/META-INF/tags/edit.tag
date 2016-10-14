@@ -225,7 +225,7 @@
 		<dyna:custompointer propertyPath="${propertyPath}" 
 				id="${tipologia.id}" display="${tipologia.rendering.display}"
 				required="${required}" repeatable="${repetable}"
-				validationParams="${validationParams}" type="${tipologia.rendering.type}"/>
+				validationParams="${validationParams}" propertydefinition="${tipologia}"/>
 	</c:when>	
 	<c:when test="${isClassificazione}">
 		<dyna:classificationtree propertyPath="${propertyPath}" 
