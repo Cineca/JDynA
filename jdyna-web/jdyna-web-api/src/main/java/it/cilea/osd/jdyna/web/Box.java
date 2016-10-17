@@ -30,7 +30,9 @@ import it.cilea.osd.jdyna.model.IContainable;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.persistence.CollectionTable;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -221,5 +223,4 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
         return messages;
     }
 
-	
 }

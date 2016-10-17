@@ -468,4 +468,18 @@ public abstract class TabService extends PersistenceDynaService implements
         return result;
     }
 
+    @Override
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByAccessLevel(Class<T> modelClass, Integer level) { 
+        TabDao<H, T> dao = (TabDao<H, T>) getDaoByModel(modelClass);
+        return dao.findByAccessLevel(level);
+    }
+    
+    @Override
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByTypoAndAccessLevel(
+            Class<D> model, Integer level, A typo)
+    {
+        TypedTabDao<H, A, PD, D> dao = (TypedTabDao<H, A, PD, D>) getDaoByModel(model);
+        return dao.findByTypeAndAccessLevel(typo, level);        
+    }
+    
 }

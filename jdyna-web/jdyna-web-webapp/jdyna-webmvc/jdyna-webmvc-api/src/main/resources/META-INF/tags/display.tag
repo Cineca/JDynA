@@ -125,6 +125,10 @@
 	<c:set var="isPuntatore" value="true" />
 </c:if>
 
+<c:if test="${tipologia.rendering.triview eq 'custompointer'}">
+	<c:set var="isCustomPointer" value="true" />
+</c:if>
+
 <c:if test="${tipologia.rendering.triview eq 'boolean'}">
 	<c:set var="isBoolean" value="true" />
 </c:if>
@@ -469,6 +473,26 @@
 		</c:if>
 		</c:forEach>
 	</c:when>
+	<c:when test="${isCustomPointer}">
+		<c:forEach var="value" items="${values}" varStatus="valueStatus">
+		<c:if test="${value.visibility == 1 || editMode}">
+			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+			<c:set var="displayObject" value="${value.value.real}" />
+			<c:set var="displayPointer" value="${dyna:displayAdvanced(displayObject,value.value.real)}" />
+			${displayPointer}
+			<c:if test="${editMode}">
+  				<c:choose>
+  				<c:when test="${value.visibility==1}">
+  					<img src="${root}/image/jdyna/checkbox.png" class="jdyna-icon"/>
+				</c:when>
+				<c:otherwise>
+					<img src="${root}/image/jdyna/checkbox_unchecked.png" class="jdyna-icon"/>
+				</c:otherwise>
+				</c:choose>
+			</c:if>		
+		</c:if>
+		</c:forEach>
+	</c:when>	
 	<c:when test="${isBoolean}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		<c:if test="${value.visibility == 1 || editMode}">

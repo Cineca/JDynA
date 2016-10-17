@@ -72,6 +72,11 @@
 </tag-file>
 
 <tag-file>
+	<name>custompointer</name>
+	<path>/META-INF/tags/custompointer.tag</path>
+</tag-file>
+
+<tag-file>
 	<name>classificationtree</name>
 	<path>/META-INF/tags/classificationtree.tag</path>
 </tag-file>
@@ -224,6 +229,13 @@
 	<name>display</name>
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
 	<function-signature>String display(it.cilea.osd.jdyna.model.PropertiesDefinition, java.lang.Object)</function-signature>
+</function>
+
+<function>
+	<description></description>
+	<name>displayAdvanced</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String displayAdvanced(it.cilea.osd.jdyna.model.PropertiesDefinition, java.lang.Object)</function-signature>
 </function>
 
 <!-- <function>

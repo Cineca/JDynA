@@ -109,6 +109,9 @@ public class TypedFormBoxController<TP extends PropertiesDefinition, H extends I
         map.put("containablesList", containables);
         map.put("owneredContainables", owneredContainables);
         map.put("specificPartPath", shortName);
+        String adminSpecificPath = Utils.getAdminSpecificPath(request, null);
+        map.put("metadataWithPolicySingle", getBoxClass().newInstance().getMetadataWithPolicySingle(applicationService, adminSpecificPath));
+        map.put("metadataWithPolicyGroup", getBoxClass().newInstance().getMetadataWithPolicyGroup(applicationService, adminSpecificPath));
         return map;
 
     }

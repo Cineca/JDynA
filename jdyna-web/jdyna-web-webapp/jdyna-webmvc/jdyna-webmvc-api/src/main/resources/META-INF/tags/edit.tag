@@ -99,6 +99,10 @@
 	<c:set var="isPuntatore" value="true" />
 </c:if>
 
+<c:if test="${tipologia.rendering.triview eq 'custompointer'}">
+	<c:set var="isCustomPointer" value="true" />
+</c:if>
+
 <c:if test="${tipologia.rendering.triview eq 'boolean'}">
 	<c:set var="isBoolean" value="true" />
 </c:if>
@@ -217,6 +221,12 @@
 				required="${required}" repeatable="${repetable}"
 				validationParams="${validationParams}"/>
 	</c:when>
+	<c:when test="${isCustomPointer}">
+		<dyna:custompointer propertyPath="${propertyPath}" 
+				id="${tipologia.id}"
+				required="${required}" repeatable="${repetable}"
+				validationParams="${validationParams}" propertydefinition="${tipologia}"/>
+	</c:when>	
 	<c:when test="${isClassificazione}">
 		<dyna:classificationtree propertyPath="${propertyPath}" 
 				required="${required}" repeatable="${repetable}"

@@ -183,8 +183,8 @@ public class PersistenceDynaService extends PersistenceService implements
         List<TP> modelList = modelTipologiaProprietaDao
                 .findAllWithWidgetFormula();
         return modelList;
-    }
-
+    }    
+    
     /**
      * {@inheritDoc}
      */
@@ -609,4 +609,31 @@ public class PersistenceDynaService extends PersistenceService implements
     	PropertiesDefinitionDao<TP> modelDao = (PropertiesDefinitionDao<TP>) getDaoByModel(modelClass);
     	return modelDao.likeByShortName(shortName);
 	}
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicySingle(
+            Class<TP> classTipologiaProprieta)
+    {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .findAllWithPolicySingle();
+        return modelList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicyGroup(
+            Class<TP> classTipologiaProprieta)
+    {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .findAllWithPolicyGroup();
+        return modelList;
+    }
+
 }
