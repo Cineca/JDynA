@@ -14,9 +14,9 @@ public interface AuthorizationContext
 
     public void setAuthorizedGroup(List<String> authorizedGroup);
     
-    public <AS extends IPersistenceService> List<String> getMetadataWithPolicySingle(AS tabService);
+    public <AS extends IPersistenceService> List<String> getMetadataWithPolicySingle(AS tabService, String adminSpecificPath);
     
-    public <AS extends IPersistenceService> List<String> getMetadataWithPolicyGroup(AS tabService);
+    public <AS extends IPersistenceService> List<String> getMetadataWithPolicyGroup(AS tabService, String adminSpecificPath);
     
     public Integer getVisibility();
 }
