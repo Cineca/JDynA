@@ -144,18 +144,6 @@ public abstract class Box<C extends IContainable> implements IPropertyHolder<C> 
 	@Transient
 	public abstract void setMask(List<C> mask);
 
-    @Transient
-	public abstract List<String> getAuthorizedSingle();
-
-    @Transient
-    public abstract void setAuthorizedSingle(List<String> authorizedSingle);
-
-    @Transient
-    public abstract List<String> getAuthorizedGroup();
-
-    @Transient
-    public abstract void setAuthorizedGroup(List<String> authorizedGroup);
-    
 	public void setShortName(String shortName) {
 		this.shortName = shortName;
 	}
