@@ -223,7 +223,7 @@
 	</c:when>
 	<c:when test="${isCustomPointer}">
 		<dyna:custompointer propertyPath="${propertyPath}" 
-				id="${tipologia.id}" display="${tipologia.rendering.display}"
+				id="${tipologia.id}"
 				required="${required}" repeatable="${repetable}"
 				validationParams="${validationParams}" propertydefinition="${tipologia}"/>
 	</c:when>	

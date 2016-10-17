@@ -31,7 +31,6 @@
 <%@ attribute name="helpKey" required="false"%>
 <%@ attribute name="size" required="false" type="java.lang.Integer" %>
 <%@ attribute name="filtro" required="false"%>
-<%@ attribute name="display" required="true"%>
 <%@ attribute name="propertydefinition" required="true" type="it.cilea.osd.jdyna.model.PropertiesDefinition"%>
 <%@ attribute name="repeatable" required="false" type="java.lang.Boolean" %>
 <%@ attribute name="required" required="false" type="java.lang.Boolean" %>

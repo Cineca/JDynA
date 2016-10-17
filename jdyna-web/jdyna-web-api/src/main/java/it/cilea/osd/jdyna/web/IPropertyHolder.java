@@ -24,15 +24,14 @@
  */
 package it.cilea.osd.jdyna.web;
 
-import it.cilea.osd.common.model.Identifiable;
-import it.cilea.osd.jdyna.model.IContainable;
-
 import java.util.List;
 
-import javax.persistence.Transient;
+import it.cilea.osd.common.model.Identifiable;
+import it.cilea.osd.jdyna.model.AuthorizationContext;
+import it.cilea.osd.jdyna.model.IContainable;
 
 
-public interface IPropertyHolder<C extends IContainable> extends Identifiable, Comparable<IPropertyHolder<C>> {
+public interface IPropertyHolder<C extends IContainable> extends Identifiable, Comparable<IPropertyHolder<C>>, AuthorizationContext {
 	
 	public String getTitle();
 		
@@ -49,7 +48,5 @@ public interface IPropertyHolder<C extends IContainable> extends Identifiable, C
 	
 	public String getExternalJSP();
 	
-    public List<String> getMetadataWithPolicySingle(ITabService tabService);
-    
-    public List<String> getMetadataWithPolicyGroup(ITabService tabService);
+	public Integer getVisibility();
 }

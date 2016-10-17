@@ -35,7 +35,8 @@ import java.util.List;
 public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D> {
 
     List<D> findTabByType(A typo);
-
+    public List<D> findByTypeAndAccessLevel(A typo, Integer level);
+    
     List<D> findByAnonimousAndTypoDef(A typo);
     List<D> findByAdminAndTypoDef(A typo);
     List<D> findByOwnerAndTypoDef(A typo);

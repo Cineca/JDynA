@@ -162,6 +162,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
         List<IContainable> pDInTab = new LinkedList<IContainable>();
         List<H> propertyHolders = new LinkedList<H>();
+        List<H> authorizedPropertyHolders = new LinkedList<H>();
         List<T> tabs = findTabsWithVisibility(request, model, response);
         Integer tabId = getTabId(request);
         try
@@ -196,13 +197,22 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
             // collection of boxs
             propertyHolders = t.getMask();
+            for(H hh : propertyHolders) {
+                if(authorize(request, hh)) {
+                    authorizedPropertyHolders.add(hh);
+                }
+            }
 
+            if(authorizedPropertyHolders.isEmpty()) {
+                throw new RuntimeException(
+                        "You have permission to see this tab but all box are hidden, maybe it is a wrong configuration. Contact administrator");
+            }
+            
             String openbox = extractAnchorId(request);
             // this piece of code get containables object from boxs and put them
             // on map
-            for (H box : propertyHolders)
+            for (H box : authorizedPropertyHolders)
             {
-
                 String boxExternalPage = box.getExternalJSP();
                 List<IContainable> temp = applicationService
                 .<H, T>findContainableInPropertyHolder(propertyHolderClass,
@@ -246,7 +256,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
         
         Collections.sort(propertyHolders);
-        model.put("propertiesHolders", propertyHolders);
+        model.put("propertiesHolders", authorizedPropertyHolders);
         model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
         model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
         model.put("tabList", tabs);
@@ -259,7 +269,10 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	}
 
 	
-	protected abstract String extractAnchorId(HttpServletRequest request);
+	protected abstract boolean authorize(HttpServletRequest request, H box) throws SQLException;
+
+
+    protected abstract String extractAnchorId(HttpServletRequest request);
 	protected abstract Integer getRealPersistentIdentifier(String persistentIdentifier);
 	
     protected Integer extractEntityId(HttpServletRequest request)
