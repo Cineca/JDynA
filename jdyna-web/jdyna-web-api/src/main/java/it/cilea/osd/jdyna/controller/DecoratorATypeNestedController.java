@@ -104,7 +104,7 @@ public class DecoratorATypeNestedController<P extends Property<TP>, TP extends P
 			applicationService.deleteNestedObjectByTypeID(objectModel, tipologiaProprietaId);			
 			
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
-            applicationService.<H, T>deleteContainableInPropertyHolder(holderModel,containable);
+            applicationService.<H, T, TP>deleteContainableInPropertyHolder(holderModel,containable);
 			applicationService.delete(tip.getDecoratorClass(), containable.getId());
 						
 			saveMessage(request, getText("action.propertiesdefinition.deleted", request

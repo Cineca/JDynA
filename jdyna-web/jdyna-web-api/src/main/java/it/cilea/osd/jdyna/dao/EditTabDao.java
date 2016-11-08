@@ -25,14 +25,14 @@
 package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
-import it.cilea.osd.jdyna.web.Box;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 
 
 
-public interface EditTabDao<H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> extends TabDao<H,T> {
+public interface EditTabDao<H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>, PD extends PropertiesDefinition> extends TabDao<H,T,PD> {
 
 	public T uniqueByDisplayTab(int tabId);
 	

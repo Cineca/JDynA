@@ -31,7 +31,7 @@ import it.cilea.osd.jdyna.web.IPropertyHolder;
 
 import java.util.List;
 
-public interface TypedBoxDao<H extends IPropertyHolder, A extends AType<PD>, PD extends PropertiesDefinition> extends PropertyHolderDao<H> {
+public interface TypedBoxDao<H extends IPropertyHolder, A extends AType<PD>, PD extends PropertiesDefinition> extends PropertyHolderDao<H, PD> {
 
     List<H> findBoxByType(A typo);
     

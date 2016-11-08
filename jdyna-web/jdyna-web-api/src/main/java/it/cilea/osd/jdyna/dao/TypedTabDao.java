@@ -32,7 +32,7 @@ import it.cilea.osd.jdyna.web.TypedAbstractTab;
 
 import java.util.List;
 
-public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D> {
+public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D, PD> {
 
     List<D> findTabByType(A typo);
     public List<D> findByTypeAndAccessLevel(A typo, Integer level);

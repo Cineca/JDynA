@@ -25,6 +25,7 @@
 package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
@@ -42,17 +43,17 @@ import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormEditTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
-        extends AFormEditTabController<H, T, ET>
+public class FormEditTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>, PD extends PropertiesDefinition>
+        extends AFormEditTabController<H, T, ET, PD>
 {
 
     public final static String SUBMIT_DECOUPLE = "dehookupit";
     public final static String SUBMIT_HOOKUP = "hookupit";
     
     
-    public FormEditTabController(Class<T> tabClass, Class<H> clazzB, Class<ET> editTabClass)
+    public FormEditTabController(Class<T> tabClass, Class<H> clazzB, Class<ET> editTabClass, Class<PD> pdClass)
     {
-        super(tabClass, clazzB, editTabClass);        
+        super(tabClass, clazzB, editTabClass, pdClass);        
 
     }
 

@@ -614,6 +614,32 @@ public class PersistenceDynaService extends PersistenceService implements
      * {@inheritDoc}
      */
     @Override
+    public <TP extends PropertiesDefinition> List<TP> likeAllPropertiesDefinitionWithPolicySingle(
+            Class<TP> classTipologiaProprieta, String specificPart)
+    {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .likeAllWithPolicySingle(specificPart);
+        return modelList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <TP extends PropertiesDefinition> List<TP> likeAllPropertiesDefinitionWithPolicyGroup(
+            Class<TP> classTipologiaProprieta, String specificPart)
+    {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .likeAllWithPolicyGroup(specificPart);
+        return modelList;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
     public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicySingle(
             Class<TP> classTipologiaProprieta)
     {

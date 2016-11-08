@@ -201,5 +201,4 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	public String getMime() {
 		return mime;
 	}
-	
 }

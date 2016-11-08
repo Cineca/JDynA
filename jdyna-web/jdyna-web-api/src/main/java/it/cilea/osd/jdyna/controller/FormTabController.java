@@ -25,6 +25,7 @@
 package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
@@ -40,16 +41,16 @@ import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-public class FormTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
+public class FormTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>, PD extends PropertiesDefinition>
         extends
-        AFormTabController<H, T, ET>
+        AFormTabController<H, T, ET, PD>
 {
     
 
     public FormTabController(Class<T> clazzT,
-            Class<H> clazzB, Class<ET> clazzET)
+            Class<H> clazzB, Class<ET> clazzET, Class<PD> clazzPD)
     {
-        super(clazzT, clazzB, clazzET);
+        super(clazzT, clazzB, clazzET, clazzPD);
     }
         
     @Override

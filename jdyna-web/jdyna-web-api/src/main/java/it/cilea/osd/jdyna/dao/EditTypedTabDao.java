@@ -33,7 +33,7 @@ import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.TypedAbstractEditTab;
 import it.cilea.osd.jdyna.web.TypedAbstractTab;
 
-public interface EditTypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> extends EditTabDao<H, D, DA> {
+public interface EditTypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>, DA extends TypedAbstractEditTab<H, A, PD, D>> extends EditTabDao<H, D, DA, PD> {
 
     List<DA> findTabByType(A typo);
     

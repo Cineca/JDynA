@@ -305,6 +305,18 @@ public interface IPersistenceDynaService extends IPersistenceService
     /**
      * Return all properties definition that got type of single policy (single vs group is a concept defined into higher layer)
      */
+    public <TP extends PropertiesDefinition> List<TP> likeAllPropertiesDefinitionWithPolicySingle(
+            Class<TP> classTipologiaProprieta, String specificPart);
+
+    /**
+     * Return all properties definition that got type of group policy (single vs group is a concept defined into higher layer)
+     */
+    public <TP extends PropertiesDefinition> List<TP> likeAllPropertiesDefinitionWithPolicyGroup(
+            Class<TP> classTipologiaProprieta, String specificPart);
+    
+    /**
+     * Return all properties definition that got type of single policy (single vs group is a concept defined into higher layer)
+     */
     public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicySingle(
             Class<TP> classTipologiaProprieta);
 
@@ -313,5 +325,4 @@ public interface IPersistenceDynaService extends IPersistenceService
      */
     public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicyGroup(
             Class<TP> classTipologiaProprieta);
-    
 }

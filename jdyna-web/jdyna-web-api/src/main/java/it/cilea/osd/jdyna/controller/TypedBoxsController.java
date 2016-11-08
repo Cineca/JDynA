@@ -48,15 +48,15 @@ import org.springframework.web.servlet.ModelAndView;
  * 
  */
 public class TypedBoxsController<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, T extends TypedAbstractTab<H, A, PD>>
-        extends BoxsController<H, T>
+        extends BoxsController<H, T, PD>
 {
 
     
     private Class<A> typoClass; 
 
-    public TypedBoxsController(Class<H> boxClass,Class<A> typoClass)
+    public TypedBoxsController(Class<H> boxClass, Class<PD> pdClass,Class<A> typoClass)
     {        
-        super(boxClass);
+        super(boxClass,pdClass);
         this.typoClass = typoClass;
     }
 

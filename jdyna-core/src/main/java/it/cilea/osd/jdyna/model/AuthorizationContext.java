@@ -6,17 +6,9 @@ import it.cilea.osd.common.service.IPersistenceService;
 
 public interface AuthorizationContext
 {
-    public List<String> getAuthorizedSingle();
+    public <PD extends PropertiesDefinition> List<PD> getAuthorizedSingle();
 
-    public void setAuthorizedSingle(List<String> authorizedSingle);
-
-    public List<String> getAuthorizedGroup();
-
-    public void setAuthorizedGroup(List<String> authorizedGroup);
-    
-    public <AS extends IPersistenceService> List<String> getMetadataWithPolicySingle(AS tabService, String adminSpecificPath);
-    
-    public <AS extends IPersistenceService> List<String> getMetadataWithPolicyGroup(AS tabService, String adminSpecificPath);
+    public <PD extends PropertiesDefinition> List<PD> getAuthorizedGroup();
     
     public Integer getVisibility();
 }

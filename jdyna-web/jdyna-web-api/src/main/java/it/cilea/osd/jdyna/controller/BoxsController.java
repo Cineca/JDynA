@@ -27,6 +27,7 @@ package it.cilea.osd.jdyna.controller;
 import it.cilea.osd.common.controller.BaseAbstractController;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
@@ -48,19 +49,22 @@ import org.springframework.web.servlet.ModelAndView;
  * @author pascarelli
  * 
  */
-public class BoxsController<H extends IPropertyHolder<Containable>, T extends Tab<H>>
+public class BoxsController<H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition>
         extends BaseAbstractController
 {
 
     private Class<H> boxClass;
+    
+    private Class<PD> pdClass;
 
     private ITabService applicationService;
 
     private String specificPartPath;
 
-    public BoxsController(Class<H> boxClass)
+    public BoxsController(Class<H> boxClass, Class<PD> pdClass)
     {
         this.boxClass = boxClass;
+        this.pdClass = pdClass;
     }
 
     @Override
@@ -86,7 +90,7 @@ public class BoxsController<H extends IPropertyHolder<Containable>, T extends Ta
         H box = applicationService.get(boxClass, paramTypeBoxId);
 
         List<IContainable> containableList = applicationService
-                .<H, T> findContainableInPropertyHolder(boxClass, box.getId());
+                .<H, T, PD> findContainableInPropertyHolder(boxClass, box.getId());
 
         model.put("box", box);
         model.put("containableList", containableList);

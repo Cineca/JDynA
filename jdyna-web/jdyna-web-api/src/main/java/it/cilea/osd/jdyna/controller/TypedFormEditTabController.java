@@ -24,6 +24,10 @@
  */
 package it.cilea.osd.jdyna.controller;
 
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
 import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
@@ -32,19 +36,15 @@ import it.cilea.osd.jdyna.web.TypedAbstractEditTab;
 import it.cilea.osd.jdyna.web.TypedAbstractTab;
 import it.cilea.osd.jdyna.web.Utils;
 
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 public class TypedFormEditTabController<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition,  T extends TypedAbstractTab<H, A, PD>, ET extends TypedAbstractEditTab<H, A, PD, T>>
-        extends FormEditTabController<H, T, ET>
+        extends FormEditTabController<H, T, ET, PD>
 {
     
     private Class<A> typoClass; 
     
-    public TypedFormEditTabController(Class<T> tabClass, Class<H> clazzB, Class<ET> editTabClass, Class<A> typoClass)
+    public TypedFormEditTabController(Class<T> tabClass, Class<H> clazzB, Class<ET> editTabClass, Class<A> typoClass, Class<PD> classPD)
     {
-        super(tabClass, clazzB, editTabClass);        
+        super(tabClass, clazzB, editTabClass, classPD);        
         this.typoClass = typoClass;
     }
 

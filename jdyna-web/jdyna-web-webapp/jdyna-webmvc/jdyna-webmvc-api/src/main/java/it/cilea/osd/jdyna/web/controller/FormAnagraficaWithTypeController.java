@@ -157,7 +157,7 @@ public class FormAnagraficaWithTypeController<P extends Property<TP>, TP extends
         for (IPropertyHolder<Containable> iph : propertyHolders)
         {
             tipProprietaInArea = applicationService
-                    .<H, T> findContainableInPropertyHolder(clazzBox,
+                    .<H, T, TP> findContainableInPropertyHolder(clazzBox,
                             iph.getId());
         }
         map.put("propertiesHolders", propertyHolders);
@@ -203,7 +203,7 @@ public class FormAnagraficaWithTypeController<P extends Property<TP>, TP extends
         for (IPropertyHolder<Containable> iph : propertyHolders)
         {
             tipProprietaInArea = applicationService
-                    .<H, T> findContainableInPropertyHolder(clazzBox,
+                    .<H, T, TP> findContainableInPropertyHolder(clazzBox,
                             iph.getId());
         }
         AnagraficaObjectAreaDTO anagraficaObjectDTO = new AnagraficaObjectAreaDTO();
@@ -248,7 +248,7 @@ public class FormAnagraficaWithTypeController<P extends Property<TP>, TP extends
         for (IPropertyHolder<Containable> iph : propertyHolders)
         {
             tipProprietaInArea = applicationService
-                    .<H, T> findContainableInPropertyHolder(clazzBox,
+                    .<H, T, TP> findContainableInPropertyHolder(clazzBox,
                             iph.getId());
         }
 
@@ -300,7 +300,7 @@ public class FormAnagraficaWithTypeController<P extends Property<TP>, TP extends
         for (IPropertyHolder<Containable> iph : propertyHolders)
         {
             tipProprietaInArea = applicationService
-                    .<H, T> findContainableInPropertyHolder(clazzBox,
+                    .<H, T, TP> findContainableInPropertyHolder(clazzBox,
                             iph.getId());
         }
         List<TP> realTPS = new LinkedList<TP>();

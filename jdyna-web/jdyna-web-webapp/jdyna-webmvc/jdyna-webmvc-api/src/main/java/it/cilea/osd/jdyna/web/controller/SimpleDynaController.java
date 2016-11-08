@@ -215,7 +215,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
             {
                 String boxExternalPage = box.getExternalJSP();
                 List<IContainable> temp = applicationService
-                .<H, T>findContainableInPropertyHolder(propertyHolderClass,
+                .<H, T, TP>findContainableInPropertyHolder(propertyHolderClass,
                         box.getId());       
                 Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
                 
