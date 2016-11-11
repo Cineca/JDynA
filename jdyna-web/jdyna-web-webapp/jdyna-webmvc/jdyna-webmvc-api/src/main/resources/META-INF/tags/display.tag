@@ -194,13 +194,14 @@
 </c:if>
 </c:if>
 
+<c:set var="appendPreviousBR" value="true" target="java.lang.Boolean"/>
 <c:if test="${showit}">
 <c:choose>
 	<c:when test="${isFile}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -258,14 +259,19 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isLink}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
 		
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -314,13 +320,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isText}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<%--<c:set var="minheight" value="" />--%>
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -355,12 +366,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isTextArea}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="minheight" value="" />
 			<c:set var="minwidth" value="" />
 			<c:set var="style" value="" />
@@ -385,13 +402,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>	
 	<c:when test="${isClassificazione}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			<c:set var="displayClassification" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
 			${displayClassification}
@@ -405,13 +427,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isRadio || isCheckbox || isDropdown}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${dyna:getCheckRadioDisplayValue(tipologia.rendering.staticValues, value.value.real)}" />
 			${displayObject}
 			<c:if test="${editMode}">
@@ -424,13 +451,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isSoggettario}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real.voce}" />
 			${displayObject}
 			<c:if test="${editMode}">
@@ -443,13 +475,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>	
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>	
 		</c:forEach>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
 			<c:choose>
@@ -470,13 +507,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>		
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isCustomPointer}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="propertydefinition" value="${value.typo}" />
 			<c:set var="displayPointer" value="${dyna:displayAdvanced(propertydefinition,value.value.real)}" />
 			${displayPointer}
@@ -490,13 +532,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>		
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>	
 	<c:when test="${isBoolean}">
 		<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			<c:choose>
   				<c:when test="${displayObject}">
@@ -518,7 +565,11 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:when test="${isNumero}">
@@ -532,8 +583,9 @@
 		</c:if>			
 	
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-	  	<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<div class="number" ${style}>${dyna:display(tipologia,value.value.real)}</div>
 			<c:if test="${editMode}">
   				<c:choose>
@@ -545,13 +597,18 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>		
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:when>
 	<c:otherwise>
 	  	<c:forEach var="value" items="${values}" varStatus="valueStatus">
-		<c:if test="${value.visibility == 1 || editMode}">
-			<c:if test="${valueStatus.count != 1}"><br/></c:if>
+		<c:choose>
+		<c:when test="${value.visibility == 1 || editMode}">
+			<c:if test="${(valueStatus.count != 1 && appendPreviousBR)}"><br/></c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
 			${dyna:display(tipologia,displayObject)}
 			<c:if test="${editMode}">
@@ -564,7 +621,11 @@
 				</c:otherwise>
 				</c:choose>
 			</c:if>
-		</c:if>
+		</c:when>
+		<c:otherwise>
+			<c:set var="appendPreviousBR" value="false" target="java.lang.Boolean"/>
+		</c:otherwise>
+		</c:choose>
 		</c:forEach>
 	</c:otherwise>
 	</c:choose>
