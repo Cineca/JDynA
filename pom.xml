@@ -22,7 +22,7 @@
 		<!-- <org.hibernate.version>3.6.10.Final</org.hibernate.version> -->
 		<org.hibernate.version>4.1.8.Final</org.hibernate.version>
 		<org.spring.version>3.1.1.RELEASE</org.spring.version>
-		<it.cilea.ccommons.version>2.2-SNAPSHOT</it.cilea.ccommons.version>
+		<it.cilea.ccommons.version>2.2</it.cilea.ccommons.version>
 	</properties>
 	<distributionManagement>
     	<repository>
@@ -87,7 +87,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.5</version>
+				<version>2.5.2</version>
 				<configuration>
 					<!-- During release:perform, enable the "release" profile (see below) -->
 					<releaseProfiles>release</releaseProfiles>
