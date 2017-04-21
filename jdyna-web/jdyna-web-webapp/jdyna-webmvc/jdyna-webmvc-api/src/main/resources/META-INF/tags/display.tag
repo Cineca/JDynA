@@ -186,7 +186,7 @@
 <c:if test="${!empty labelMinWidth}">
 	<c:set var="labelStyle" value="style=\"${labelMinWidth}\"" />
 </c:if>
-<c:if test="${!empty tipologia.label && !hideLabel}">
+<c:if test="${!empty tipologia.label && !hideLabel && !isBoolean}">
 <span class="dynaLabel" ${labelStyle}>${tipologia.label}</span>
 </c:if>
 
