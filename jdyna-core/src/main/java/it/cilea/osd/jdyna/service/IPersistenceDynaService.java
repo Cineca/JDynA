@@ -325,4 +325,10 @@ public interface IPersistenceDynaService extends IPersistenceService
      */
     public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithPolicyGroup(
             Class<TP> classTipologiaProprieta);
+
+    /**
+     * Return all properties definition that got type of {@link WidgetCheckRadio}
+     */
+    public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithRadioCheckDropdown(
+            Class<TP> classTipologiaProprieta);
 }

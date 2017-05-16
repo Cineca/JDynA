@@ -662,4 +662,16 @@ public class PersistenceDynaService extends PersistenceService implements
         return modelList;
     }
 
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public <TP extends PropertiesDefinition> List<TP> getAllPropertiesDefinitionWithRadioCheckDropdown(
+            Class<TP> classTipologiaProprieta)
+    {
+        PropertiesDefinitionDao<TP> modelTipologiaProprietaDao = (PropertiesDefinitionDao<TP>) getDaoByModel(classTipologiaProprieta);
+        List<TP> modelList = modelTipologiaProprietaDao
+                .findAllWithCheckRadioDropdown();
+        return modelList;
+    }
 }

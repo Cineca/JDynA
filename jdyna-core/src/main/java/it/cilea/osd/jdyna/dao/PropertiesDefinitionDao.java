@@ -45,4 +45,5 @@ public interface PropertiesDefinitionDao<T extends PropertiesDefinition> extends
 	public List<T> findAdvancedSearchAndBoolean();
 	public T findPropertiesDefinitionByWidget(AWidget widget);
 	public List<T> likeByShortName(String shortName);
+	public List<T> findAllWithCheckRadioDropdown();
 }
