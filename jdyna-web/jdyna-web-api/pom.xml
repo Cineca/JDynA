@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>jdyna-web</artifactId>
 		<groupId>org.jdyna</groupId>
-		<version>5.8-SNAPSHOT</version>
+		<version>5.8</version>
 	</parent>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna-web-api</artifactId>
@@ -16,7 +16,7 @@
 		<dependency>
 			<groupId>it.cilea</groupId>
 			<artifactId>commons-cilea-webapi</artifactId>
-			<version>${it.cilea.ccommons.version}</version>
+			<version>2.3</version>
 		</dependency>
 		<dependency>
 			 <groupId>org.jdyna</groupId>
