@@ -256,6 +256,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
         
         Collections.sort(propertyHolders);
+        Collections.sort(authorizedPropertyHolders);
         model.put("propertiesHolders", authorizedPropertyHolders);
         model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
         model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
