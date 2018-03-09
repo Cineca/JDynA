@@ -32,6 +32,6 @@ import javax.persistence.MappedSuperclass;
 *
 */
 @MappedSuperclass
-public abstract class ADecoratorTypeDefinition<TP extends ATypeNestedObject<PD>, PD extends ANestedPropertiesDefinition> extends Containable<TP> {
+public abstract class ADecoratorTypeDefinition<TP extends ATypeNestedObject<PD>, PD extends ANestedPropertiesDefinition> extends Containable<TP> implements IPropertiesDefinition {
     
 }
