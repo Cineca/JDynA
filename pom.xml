@@ -26,7 +26,7 @@
 		<org.hibernate.annotations.version>4.0.2.Final</org.hibernate.annotations.version>
 		<org.hibernate.jpa.version>1.0.1.Final</org.hibernate.jpa.version>
 		<org.spring.version>3.2.16.RELEASE</org.spring.version>
-		<it.cilea.ccommons.version>2.3-SNAPSHOT</it.cilea.ccommons.version>
+		<it.cilea.ccommons.version>2.4-SNAPSHOT</it.cilea.ccommons.version>
 	</properties>
 	<distributionManagement>
     	<repository>
@@ -282,7 +282,7 @@
 			<dependency>
 				<groupId>it.cilea</groupId>
 				<artifactId>commons-cilea-genericdao</artifactId>
-				<version>2.3</version>
+				<version>${it.cilea.ccommons.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
