@@ -106,6 +106,8 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
         map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
+        map.put("metadataWithPolicySingle", applicationService.getAllPropertiesDefinitionWithPolicySingle(pdClass));
+        map.put("metadataWithPolicyGroup", applicationService.getAllPropertiesDefinitionWithPolicyGroup(pdClass));
         return map;
     }
 
