@@ -50,7 +50,7 @@
        <repository>
 			<id>4Science-repo</id>
 			<name>4Science Maven Repository</name>
-			<url>https://nexus.4science.it/repository/maven-releases</url>
+			<url>https://nexus.4science.it/repository/maven-releases/</url>
 			<releases>
 				<enabled>true</enabled>
 				<checksumPolicy>never</checksumPolicy>
@@ -64,7 +64,7 @@
 		<repository>
 			<id>4Science-repo-snapshot</id>
 			<name>4Science Maven Repository</name>
-			<url>https://nexus.4science.it/repository/maven-snapshots</url>
+			<url>https://nexus.4science.it/repository/maven-snapshots/</url>
 			<releases>
 				<enabled>false</enabled>
 				<checksumPolicy>never</checksumPolicy>
