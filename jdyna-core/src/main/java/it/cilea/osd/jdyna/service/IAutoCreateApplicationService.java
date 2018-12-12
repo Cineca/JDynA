@@ -13,9 +13,10 @@ public interface IAutoCreateApplicationService {
 	 * Cache a candidate of a new Object
 	 * 
 	 * @param name The cached value	
+	 * @param tag Used to highlight new objects
 	 * @return true if auto created is enabled
 	 */
-	public Integer cache(String name);
+	public Integer cache(String name, String tag);
 	
 	/***
 	 * Check if auto create is enabled for class c
