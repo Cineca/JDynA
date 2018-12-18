@@ -26,7 +26,6 @@ package it.cilea.osd.jdyna.editor;
 
 import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.common.service.IPersistenceService;
-import it.cilea.osd.jdyna.model.IAutoCreableObject;
 import it.cilea.osd.jdyna.service.IAutoCreateApplicationService;
 
 import org.apache.commons.logging.Log;
@@ -55,15 +54,16 @@ public class ModelPropertyEditor extends AdvancedPropertyEditorSupport {
 		}
 		else
 		{
-			// autocreate
-			if (applicationService instanceof IAutoCreateApplicationService  && IAutoCreableObject.class.isAssignableFrom(clazz)
-					&& ((IAutoCreateApplicationService)applicationService).canSave(clazz)) {
-				
-				Integer id = ((IAutoCreateApplicationService)applicationService).saveObject(clazz, Integer.parseInt(text));
-				if (id != null)
-					text = Integer.toString(id);
+			int id = Integer.parseInt(text);
+			Object object = applicationService.get(clazz, id);
+			if (object == null && applicationService instanceof IAutoCreateApplicationService) {
+				Integer newId = ((IAutoCreateApplicationService) applicationService)
+						.persistTemporaryPointerCandidate(id);
+				if (newId != null) {
+					object = applicationService.get(clazz, newId);
+				}
 			}
-			setValue(applicationService.get(clazz, Integer.parseInt(text)));
+			setValue(object);
 		}
 	}
 
