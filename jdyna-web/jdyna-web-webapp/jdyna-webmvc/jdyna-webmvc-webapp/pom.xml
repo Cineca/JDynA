@@ -4,7 +4,7 @@
 	<parent>
 		<artifactId>jdyna-webmvc</artifactId>
 		<groupId>org.jdyna</groupId>
-		<version>5.12</version>
+		<version>5.13-SNAPSHOT</version>
 	</parent>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna-webmvc-webapp</artifactId>
