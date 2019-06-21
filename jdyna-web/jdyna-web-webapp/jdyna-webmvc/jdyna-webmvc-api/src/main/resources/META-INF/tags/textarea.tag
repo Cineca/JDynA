@@ -104,11 +104,11 @@
 	
 		<c:choose>
 	<c:when test="${iterationStatus.count == fn:length(values)}">
-	<img src="${root}/images/main_plus.gif" class="addButton"
+	<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 		onclick="${dynajs_var}.create()" />
 	</c:when>
 	<c:otherwise>
-	<img src="${root}/images/icons/delete_icon.gif" class="deleteButton"
+	<img src="${root}/image/jdyna/delete_icon.gif" class="deleteButton"
 		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
 	</c:otherwise>
 	</c:choose>
@@ -157,7 +157,7 @@
 										'${cols}','${rows}','${toolbar}');
 		</script>
 		
-		<img src="${root}/images/main_plus.gif" class="addButton"
+		<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 			onclick="${dynajs_var}.create()" />
 		</c:if>
 	

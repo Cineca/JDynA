@@ -152,10 +152,10 @@
 </c:if>
 <c:if test="${!empty tipologia.help}">
 	<c:set var="help">
-	&nbsp;<img class="help" src="${root}/images/help.gif" onclick="showHelp('help${tipologia.shortName}')" />
+	&nbsp;<img class="help" src="${root}/image/jdyna/help.gif" onclick="showHelp('help${tipologia.shortName}')" />
 	</c:set>
 	<div class="helpTip" id="help${tipologia.shortName}">
-	<img class="close" src="${root}/images/delete.gif" onclick="hideHelp('help${tipologia.shortName}')" />
+	<img class="close" src="${root}/image/jdyna/delete_icon.gif" onclick="hideHelp('help${tipologia.shortName}')" />
 	${tipologia.help}
 	</div>
 </c:if>	
