@@ -357,7 +357,7 @@ function DynaTextAreaInput(contextRoot, jsvar, propertyPath, startIdx, cols,
 
 		createSpanError(jQuery(inputValue).next().get(0), name);
 		this.idx++;
-		if (this.toolbar != 'nessuna') {
+		if (this.toolbar && this.toolbar != 'nessuna') {
 			var oFCKeditor = new FCKeditor(name);
 			oFCKeditor.BasePath = this.contextRoot + '/fckeditor/';
 			oFCKeditor.ToolbarSet = this.toolbar;
@@ -367,7 +367,7 @@ function DynaTextAreaInput(contextRoot, jsvar, propertyPath, startIdx, cols,
 
 	this.remove = function(deleteId, buttonImg) {
 		var name = this.propertyPath + '[' + deleteId + ']';
-		if (this.toolbar != 'nessuna') {
+		if (this.toolbar && this.toolbar != 'nessuna') {
 			var fckeditor = FCKeditorAPI.GetInstance(name).EditorWindow.parent.frameElement;
 			removeElement(fckeditor);
 		}

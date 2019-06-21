@@ -82,7 +82,7 @@
 		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}"
 			onchange="${onchange}">${inputValue}</textarea>
 				
-		<c:if test="${toolbar ne 'nessuna'}">  														
+		<c:if test="${!empty toolbar && toolbar ne 'nessuna'}">  														
 			<script type="text/javascript">
 				var oFCKeditor = new FCKeditor('${inputName}') ;
 				oFCKeditor.BasePath = '${pageContext.request.contextPath}/fckeditor/';								
@@ -140,7 +140,7 @@
 		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}"
 			onchange="${onchange}">${inputValue}</textarea>
 		
-		<c:if test="${toolbar ne 'nessuna'}">  														
+		<c:if test="${!empty toolbar && toolbar ne 'nessuna'}">  														
 			<script type="text/javascript">
 				var oFCKeditor = new FCKeditor('${inputName}') ;
 				oFCKeditor.BasePath = '${pageContext.request.contextPath}/fckeditor/';								

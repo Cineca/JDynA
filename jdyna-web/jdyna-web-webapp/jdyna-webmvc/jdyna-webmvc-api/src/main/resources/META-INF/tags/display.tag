@@ -391,7 +391,7 @@
 				<c:set var="style" value="style=\"${minheight}${minwidth}\"" />
 			</c:if>
 			<c:set var="displayObject" value="${value.value.real}" />
-			<div ${style}>${empty tipologia.rendering.htmlToolbar or tipologia.rendering.htmlToolbar eq 'nessuna'?dyna:nl2br(displayObject):displayObject}</div>
+			<div ${style}>${(empty tipologia.rendering.htmlToolbar or tipologia.rendering.htmlToolbar eq 'nessuna'?(dyna:nl2br(displayObject)):displayObject)}</div>
 			<c:if test="${editMode}">
   				<c:choose>
   				<c:when test="${value.visibility==1}">
