@@ -49,9 +49,9 @@ public class LinkPropertyEditor extends AdvancedPropertyEditorSupport {
 		else
 		{
 		    String[] splitted = text.split("\\|\\|\\|");
-		    if (splitted.length > 2)
+		    if (splitted.length != 2 || StringUtils.isBlank(splitted[1]))
 		    {
-		        throw new IllegalArgumentException("Invalid text string for link: "+text);
+		        throw new IllegalArgumentException("the URL is required");
 		    }
 		    EmbeddedLinkValue link = new EmbeddedLinkValue();
 		    link.setDescriptionLink(splitted.length > 0?splitted[0]:null);
