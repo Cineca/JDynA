@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna</artifactId>
-	<version>5.15-SNAPSHOT</version>
+	<version>5.15</version>
 	<packaging>pom</packaging>
 	<name>JDynA</name>
 	<description>Dynamic Metadata Management for Java Domain Object</description>
@@ -13,7 +13,7 @@
       <connection>scm:git:https://github.com/4Science/JDynA.git</connection>
       <developerConnection>scm:git:https://github.com/4Science/JDynA.git</developerConnection>
       <url>https://github.com/4Science/JDynA.git</url>
-      <tag>5.6</tag>
+      <tag>5.15</tag>
     </scm>
    
 	<properties>
