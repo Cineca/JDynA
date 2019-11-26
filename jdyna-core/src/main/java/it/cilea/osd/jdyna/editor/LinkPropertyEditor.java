@@ -44,7 +44,7 @@ public class LinkPropertyEditor extends AdvancedPropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException {
 		log.debug("LinkPropertyEditor - setAsText: "+text);
 		// text: 'description|||link'
-		if (StringUtils.isEmpty(text))
+		if (StringUtils.isBlank(text) || StringUtils.equals(text, "|||"))
 		    setValue(null);
 		else
 		{
