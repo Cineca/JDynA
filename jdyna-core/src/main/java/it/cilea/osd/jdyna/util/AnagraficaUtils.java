@@ -237,6 +237,8 @@ public class AnagraficaUtils
             }
 
             avaloriDTO = dto.getAnagraficaProperties().get(tipProprieta.getShortName());
+            proprieta = anagraficaSupport
+                    .getProprietaDellaTipologia(tipProprieta);
                 int i = 0;
                 for (ValoreDTO valoreDTO : avaloriDTO)
                 {
