@@ -490,7 +490,7 @@
 			<c:set var="displayObject" value="${value.value.real}" />
 			<c:set var="displayPointer" value="${dyna:getDisplayValue(displayObject,tipologia.rendering.display)}" />
 			<c:choose>
-				<c:when test="${!empty tipologia.rendering.urlPath and displayObject.status}">
+				<c:when test="${!empty tipologia.rendering.urlPath and (admin or displayObject.status)}">
 					<a href="${root}/${dyna:getDisplayValue(displayObject,tipologia.rendering.urlPath)}">${displayPointer}</a>
 				</c:when>
 				<c:otherwise>
