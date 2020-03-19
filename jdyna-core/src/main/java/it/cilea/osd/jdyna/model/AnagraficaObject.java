@@ -49,9 +49,6 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
     @Transient
     private Log log = LogFactory.getLog(getClass());
 
-    @Transient
-    private Anagrafica4View<P, TP> cacheAnagr4View = null;
-
     /**
      * {@inheritDoc}
      */
@@ -198,17 +195,11 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
     @Transient
     public Anagrafica4View<P, TP> getAnagrafica4view()
     {
-        // verifico se ho gia' disponibile una cache
-        if (cacheAnagr4View != null)
-        {
-            return cacheAnagr4View;
-        }
-
         // genero una nuova cache di anagrafica organizzata come mappa di tp
         // (utile per la view)
         log.debug("Genero una nuova cache di a4v per l'oggetto " + this);
 
-        cacheAnagr4View = new Anagrafica4View<P, TP>(this);
+        Anagrafica4View<P, TP> cacheAnagr4View = new Anagrafica4View<P, TP>(this);
 
         for (P property : getAnagrafica())
         {
@@ -357,11 +348,7 @@ public abstract class AnagraficaObject<P extends Property<TP>, TP extends Proper
      */
     public void invalidateAnagraficaCache()
     {
-        if (cacheAnagr4View != null)
-        {
-            cacheAnagr4View.clear();
-            cacheAnagr4View = null;
-        }
+        // cache is always regenerated - do nothing
     }
 
     public String getIdentifyingValue()
