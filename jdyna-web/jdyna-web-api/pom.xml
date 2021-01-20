@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>jdyna-web</artifactId>
 		<groupId>org.jdyna</groupId>
-		<version>5.19</version>
+		<version>5.20-SNAPSHOT</version>
 	</parent>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna-web-api</artifactId>
