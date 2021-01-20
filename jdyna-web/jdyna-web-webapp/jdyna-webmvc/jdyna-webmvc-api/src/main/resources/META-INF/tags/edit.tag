@@ -219,7 +219,7 @@
 		<dyna:puntatore propertyPath="${propertyPath}" 
 				id="${tipologia.id}" display="${tipologia.rendering.display}"
 				required="${required}" repeatable="${repetable}"
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 	</c:when>
 	<c:when test="${isCustomPointer}">
 		<dyna:custompointer propertyPath="${propertyPath}" 

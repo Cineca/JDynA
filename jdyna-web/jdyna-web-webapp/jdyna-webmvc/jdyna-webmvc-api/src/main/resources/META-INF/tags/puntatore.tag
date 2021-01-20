@@ -23,6 +23,8 @@
 -  Boston, MA  02110-1301  USA
 --%>
 <%@ attribute name="propertyPath" required="true"%>
+<%@ attribute name="visibility" required="true"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="id" required="true"%>
 <%@ attribute name="controllerURL" required="false" description="change method or controller call from ajaxtag autocomplete, use this for specific search"%>
 <%@ attribute name="label" required="false"%>
@@ -87,7 +89,7 @@
 		<span id="pointer_${id}_path" class="spandatabind">${propertyName}</span>
 		<span id="pointer_${id}_tot" class="spandatabind">${fn:length(values)}</span>
 		<span class="spandatabind pointerinfo">${id}</span>
-		<input class="searchboxpointer" id="searchboxpointer_${id}" />
+		<input class="searchboxpointer" id="searchboxpointer_${id}" ${disabled} />
 		
 		<div id="pointer_${id}_selected">	
 			<c:forEach var="value" items="${values}" varStatus="iterationStatus">	
@@ -96,13 +98,21 @@
 					<c:set var="inputShowed" value="true" />
 					<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 					<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
-					<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />	
+					<c:if test="${empty disabled}">
+						<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+					</c:if>
 					<div id="pointer_${id}_selected_${iterationStatus.count - 1}">
 						<input type="hidden" name="${inputName}" 
 								id="${inputName}" value="${inputValue}" />			
 					
 						<span>${dyna:getDisplayValue(value,display)}</span>
-						<img src="${root}/image/jdyna/delete_icon.gif" class="jdyna-icon jdyna-icon-action jdyna-delete-button"/>
+						<c:if test="${visibility}">
+							<dyna:boolean propertyPath="${inputName}.visibility"/>
+						</c:if>
+						<c:if test="${empty disabled}">
+							<img src="${root}/image/jdyna/delete_icon.gif" class="jdyna-icon jdyna-icon-action jdyna-delete-button"/>
+						</c:if>
+
 					</div>
 				</spring:bind>
 				<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
