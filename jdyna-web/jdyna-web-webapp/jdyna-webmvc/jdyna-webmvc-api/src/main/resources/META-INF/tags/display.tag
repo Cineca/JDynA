@@ -223,13 +223,31 @@
 				
 				<c:choose>
 				<c:when test="${tipologia.rendering.showPreview}">
-				
-					<div class="image">
-						<img id="picture" name="picture"
-							alt="${dyna:getFileName(displayObject)} picture"
-							src="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
-							title="A preview ${dyna:getFileName(displayObject)} picture" />
-					</div>
+
+					<c:choose>
+					<c:when test="${dyna:thumbnailExists(displayObject)}">
+
+						<div class="image">
+							<a target="_blank" href="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}">
+								<img id="picture" name="picture"
+									alt="${dyna:getFileName(displayObject)} picture"
+									src="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getThumbnailFileName(displayObject)}"
+									title="A preview ${dyna:getFileName(displayObject)} picture" />
+							</a>
+						</div>
+
+					</c:when>
+					<c:otherwise>
+
+						<div class="image">
+							<img id="picture" name="picture"
+								alt="${dyna:getFileName(displayObject)} picture"
+								src="<%=request.getContextPath()%>/${tipologia.rendering.servletPath}/${dyna:getFileFolder(displayObject)}?filename=${dyna:getFileName(displayObject)}"
+								title="A preview ${dyna:getFileName(displayObject)} picture" />
+						</div>
+
+					</c:otherwise>
+					</c:choose>
 					
 												
 				</c:when>				

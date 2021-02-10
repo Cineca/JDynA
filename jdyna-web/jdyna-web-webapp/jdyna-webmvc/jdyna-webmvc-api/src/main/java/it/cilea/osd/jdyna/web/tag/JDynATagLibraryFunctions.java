@@ -25,6 +25,7 @@
 package it.cilea.osd.jdyna.web.tag;
 
 import java.beans.PropertyEditor;
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
@@ -518,6 +519,40 @@ public class JDynATagLibraryFunctions
         {
             return "";
         }
+    }
+
+    /**
+     * Return the thumbnail name
+     * 
+     * @param inputValue
+     * @return
+     */
+    public static String getThumbnailFileName(String inputValue) {
+        if (inputValue != null) {
+            String[] result = inputValue.split("\\|\\|\\|");
+            return result.length > 4 ? result[3]
+                    + ((result[4] != null && !result[4].isEmpty()) ? "_thumb."
+                            + result[4] : "_thumb") : "";
+        }
+
+        return "";
+    }
+
+    /**
+     * Return if the thumbnail exists
+     * 
+     * @param inputValue
+     * @return
+     */
+    public static boolean thumbnailExists(String inputValue) {
+        if (inputValue != null) {
+            String[] result = inputValue.split("\\|\\|\\|");
+            String filePath = result[1] + "/" + getFileFolder(inputValue) + getThumbnailFileName(inputValue);
+            File file = new File(filePath);
+            return file.exists();
+        }
+
+        return false;
     }
 
     /**

@@ -348,6 +348,20 @@
 </function>
 
 <function>
+	<description>Return the thumbnail name</description>
+	<name>getThumbnailFileName</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>String getThumbnailFileName(java.lang.String)</function-signature>
+</function>
+
+<function>
+	<description>Return if the thumbnail exists</description>
+	<name>thumbnailExists</name>
+	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
+	<function-signature>boolean thumbnailExists(java.lang.String)</function-signature>
+</function>
+
+<function>
 	<description>Return the folder from the "file" string existOnServer|||valueFile|||ext|||mime|||folder|||deleteOnServer</description>
 	<name>getFileFolder</name>
 	<function-class>it.cilea.osd.jdyna.web.tag.JDynATagLibraryFunctions</function-class>
