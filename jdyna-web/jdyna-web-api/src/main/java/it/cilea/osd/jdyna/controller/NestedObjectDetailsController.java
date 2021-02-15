@@ -73,6 +73,8 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
             retValue = handleList(request);
         else if ("misc".equals(method))
             retValue = handleMisc(request);        
+        else if ("reorder".equals(method))
+            retValue = handleReorder(request);
         return retValue;
     }
 
@@ -231,6 +233,64 @@ public class NestedObjectDetailsController<SP extends Property<STP>, STP extends
         model.put("admin", admin);
         return new ModelAndView(getDetailsView(), model);
         
+    }
+
+    private ModelAndView handleReorder(HttpServletRequest request) {
+        Map<String, Object> model = new HashMap<String, Object>();
+        String sTargetID = request.getParameter("targetID");
+        String sContentID = request.getParameter("contentID");
+
+        if(StringUtils.isNotBlank(sTargetID) && StringUtils.isNotBlank(sContentID)) {
+            // switch positiondef between two nesteds
+            Integer targetID = Integer.parseInt(StringUtils.substringAfterLast(sTargetID, "_"));
+            Integer contentID = Integer.parseInt(StringUtils.substringAfterLast(sContentID, "_"));
+            T target = getApplicationService().get(getModelClazz(), targetID);
+            T content = getApplicationService().get(getModelClazz(), contentID);
+            Integer targetPositionDef = target.getPositionDef();
+            target.setPositionDef(content.getPositionDef());
+            content.setPositionDef(targetPositionDef);
+            getApplicationService().saveOrUpdate(getModelClazz(), target);
+            getApplicationService().saveOrUpdate(getModelClazz(), content);
+        }
+
+        String parentStringID = request.getParameter("parentID");
+        String typeNestedStringID = request.getParameter("typeNestedID");
+        String admin = request.getParameter("admin");
+        String editmode = request.getParameter("editmode");
+        Boolean edit = false;
+        if(editmode != null && !editmode.isEmpty()) {
+            edit = Boolean.parseBoolean(editmode);
+        }
+
+        Integer parentID = Integer.parseInt(parentStringID);
+        Integer typeNestedID = Integer.parseInt(typeNestedStringID);
+        Integer limit = 5;
+        Integer page = 0;
+
+        List<T> results = null;
+        long countAll = 0;
+        if(edit) {
+            results = applicationService.getNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, modelClazz, limit, page*limit);
+            countAll = applicationService.countNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, modelClazz);
+        }
+        else {
+            results = applicationService.getActiveNestedObjectsByParentIDAndTypoIDLimitAt(parentID, typeNestedID, modelClazz, limit, page*limit);
+            countAll = applicationService.countActiveNestedObjectsByParentIDAndTypoID(parentID, typeNestedID, modelClazz);
+        }
+
+        Collections.sort(results);
+        model.put("decoratorPropertyDefinition", applicationService.findContainableByDecorable(decoratorClazz, typeNestedID));
+        model.put("results", results);
+        model.put("limit", limit);
+        model.put("pageCurrent", page);
+        model.put("editmode", edit);
+        model.put("parentID", parentID);
+        model.put("totalHit", (int)countAll);
+        model.put("hitPageSize", results.size());
+        model.put("specificPartPath", specificPartPath);
+        model.put("specificContextPath", specificContextPath);
+        model.put("admin", admin);
+        return new ModelAndView(getDetailsView(), model);
     }
 
     public void setApplicationService(ITabService applicationService)

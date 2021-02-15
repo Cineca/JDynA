@@ -279,12 +279,20 @@ public interface IPersistenceDynaService extends IPersistenceService
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset);
 
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset, String sort, String order);
+
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model);
 
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset);
+
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset, String sort, String order);
 
     public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> long countActiveNestedObjectsByParentIDAndTypoID(
             Integer dynamicFieldID, Integer typoID, Class<ANO> model);
