@@ -494,10 +494,18 @@ public class PersistenceDynaService extends PersistenceService implements
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset)
     {
+        return getNestedObjectsByParentIDAndTypoIDLimitAt(dynamicFieldID, typoID, model, limit, offset, "positiondef", "asc");
+    }
+
+    @Override
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset, String sort, String order)
+    {
         NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao
                 .paginateNestedObjectsByParentIDAndTypoID(dynamicFieldID,
-                        typoID, "asc", false, offset, limit);
+                        typoID, sort, "desc".equals(order), offset, limit);
         return modelList;
     }
 
@@ -506,10 +514,18 @@ public class PersistenceDynaService extends PersistenceService implements
             Integer dynamicFieldID, Integer typoID, Class<ANO> model,
             int limit, int offset)
     {
+        return getActiveNestedObjectsByParentIDAndTypoIDLimitAt(dynamicFieldID, typoID, model, limit, offset, "positiondef", "asc");
+    }
+
+    @Override
+    public <P extends Property<TP>, TP extends PropertiesDefinition, ANO extends ANestedObject<NP, NTP, P, TP>, NP extends ANestedProperty<NTP>, NTP extends ANestedPropertiesDefinition> List<ANO> getActiveNestedObjectsByParentIDAndTypoIDLimitAt(
+            Integer dynamicFieldID, Integer typoID, Class<ANO> model,
+            int limit, int offset, String sort, String order)
+    {
         NestedObjectDAO<P, TP, ANO, NP, NTP, ?> modelDao = (NestedObjectDAO<P, TP, ANO, NP, NTP, ?>) getDaoByModel(model);
         List<ANO> modelList = modelDao
                 .paginateActiveNestedObjectsByParentIDAndTypoID(dynamicFieldID,
-                        typoID, "asc", false, offset, limit);
+                        typoID, sort, "desc".equals(order), offset, limit);
         return modelList;
     }
 
