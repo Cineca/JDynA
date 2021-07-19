@@ -226,14 +226,11 @@ public class AnagraficaUtils
             {
                 anagraficaSupport.createProprieta(tipProprieta);
             }
+            int deleteIdx = proprieta.size() - 1;
             for (int i = 0; i < propDaEliminare; i++)
             {
-                // devo eliminare sempre l'ultima proprieta' perche' la lista e'
-                // una referenza
-                // alla lista mantenuta dalla cache a4v che viene alterata dal
-                // removeProprieta
-                anagraficaSupport.removeProprieta(proprieta.get(proprieta
-                        .size() - 1));
+                anagraficaSupport.removeProprieta(proprieta.get(deleteIdx));
+                deleteIdx--;
             }
 
             avaloriDTO = dto.getAnagraficaProperties().get(tipProprieta.getShortName());
