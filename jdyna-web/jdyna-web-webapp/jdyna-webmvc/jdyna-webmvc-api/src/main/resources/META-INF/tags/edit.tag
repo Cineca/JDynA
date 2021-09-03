@@ -213,7 +213,7 @@
 				rows="${tipologia.rendering.dimensione.row}" cols="${tipologia.rendering.dimensione.col}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<dyna:puntatore propertyPath="${propertyPath}" 
