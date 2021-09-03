@@ -99,6 +99,10 @@
 	<c:set var="isPuntatore" value="true" />
 </c:if>
 
+<c:if test="${tipologia.rendering.triview eq 'custompointer'}">
+	<c:set var="isCustomPointer" value="true" />
+</c:if>
+
 <c:if test="${tipologia.rendering.triview eq 'boolean'}">
 	<c:set var="isBoolean" value="true" />
 </c:if>
@@ -148,10 +152,10 @@
 </c:if>
 <c:if test="${!empty tipologia.help}">
 	<c:set var="help">
-	&nbsp;<img class="help" src="${root}/images/help.gif" onclick="showHelp('help${tipologia.shortName}')" />
+	&nbsp;<img class="help" src="${root}/image/jdyna/help.gif" onclick="showHelp('help${tipologia.shortName}')" />
 	</c:set>
 	<div class="helpTip" id="help${tipologia.shortName}">
-	<img class="close" src="${root}/images/delete.gif" onclick="hideHelp('help${tipologia.shortName}')" />
+	<img class="close" src="${root}/image/jdyna/delete_icon.gif" onclick="hideHelp('help${tipologia.shortName}')" />
 	${tipologia.help}
 	</div>
 </c:if>	
@@ -209,14 +213,20 @@
 				rows="${tipologia.rendering.dimensione.row}" cols="${tipologia.rendering.dimensione.col}"
 				required="${required}" repeatable="${repetable}" 
 				onchange="${onchange}" ajaxValidation="${ajaxValidation}" 
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 	</c:when>
 	<c:when test="${isPuntatore}">
 		<dyna:puntatore propertyPath="${propertyPath}" 
 				id="${tipologia.id}" display="${tipologia.rendering.display}"
 				required="${required}" repeatable="${repetable}"
-				validationParams="${validationParams}"/>
+				validationParams="${validationParams}" visibility="${visibility}" disabled="${disabled}"/>
 	</c:when>
+	<c:when test="${isCustomPointer}">
+		<dyna:custompointer propertyPath="${propertyPath}" 
+				id="${tipologia.id}"
+				required="${required}" repeatable="${repetable}"
+				validationParams="${validationParams}" propertydefinition="${tipologia}"/>
+	</c:when>	
 	<c:when test="${isClassificazione}">
 		<dyna:classificationtree propertyPath="${propertyPath}" 
 				required="${required}" repeatable="${repetable}"

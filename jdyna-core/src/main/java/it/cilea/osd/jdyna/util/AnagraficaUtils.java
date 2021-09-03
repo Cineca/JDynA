@@ -193,7 +193,7 @@ public class AnagraficaUtils
     {
         for (TP tipProprieta : tipologie)
         {
-            List<ValoreDTO> avaloriDTO = dto.getAnagraficaProperties().get(
+        	List<ValoreDTO> avaloriDTO = dto.getAnagraficaProperties().get(
                     tipProprieta.getShortName());
             // List<Object> avaloriDTO = anagraficaObjectDTO
             // .getAnagraficaProperties().get(tipProprieta.getShortName());
@@ -226,20 +226,18 @@ public class AnagraficaUtils
             {
                 anagraficaSupport.createProprieta(tipProprieta);
             }
+            int deleteIdx = proprieta.size() - 1;
             for (int i = 0; i < propDaEliminare; i++)
             {
-                // devo eliminare sempre l'ultima proprieta' perche' la lista e'
-                // una referenza
-                // alla lista mantenuta dalla cache a4v che viene alterata dal
-                // removeProprieta
-                anagraficaSupport.removeProprieta(proprieta.get(proprieta
-                        .size() - 1));
+                anagraficaSupport.removeProprieta(proprieta.get(deleteIdx));
+                deleteIdx--;
             }
 
-            if (avaloriDTOsize > 0)
-            {
-
-                int i = 0;
+            avaloriDTO = dto.getAnagraficaProperties().get(tipProprieta.getShortName());
+            proprieta = anagraficaSupport
+                    .getProprietaDellaTipologia(tipProprieta);
+            int i = 0;
+            if (avaloriDTO != null)
                 for (ValoreDTO valoreDTO : avaloriDTO)
                 {
                     if (valoreDTO != null && valoreDTO.getObject() != null)
@@ -252,8 +250,6 @@ public class AnagraficaUtils
                         i++;
                     }
                 }
-
-            }
         }
          
        

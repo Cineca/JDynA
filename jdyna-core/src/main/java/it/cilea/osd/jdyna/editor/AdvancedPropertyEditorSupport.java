@@ -20,4 +20,8 @@ public class AdvancedPropertyEditorSupport extends PropertyEditorSupport
         this.mode = mode;
     }
     
+    public String getCustomText() {
+        return getAsText();
+    }
+    
 }

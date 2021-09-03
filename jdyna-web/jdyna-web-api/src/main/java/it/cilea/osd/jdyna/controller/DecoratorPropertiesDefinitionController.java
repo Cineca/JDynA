@@ -94,7 +94,7 @@ public class DecoratorPropertiesDefinitionController<TP extends PropertiesDefini
 			applicationService.<it.cilea.osd.jdyna.model.Property<TP>, TP>deleteAllProprietaByTipologiaProprieta(tip.getPropertyHolderClass(), tip);
 			//cancello se fanno parte di qualche property holder		
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
-			applicationService.<H, T>deleteContainableInPropertyHolder(holderModel,containable);
+			applicationService.<H, T, TP>deleteContainableInPropertyHolder(holderModel,containable);
 			if(TypedBox.class.isAssignableFrom(holderModel)) {
 			    TypedBox box = (TypedBox)applicationService.get(holderModel, Integer.parseInt(boxId));
 			    box.getTypeDef().getMask().remove(tip);

@@ -26,15 +26,18 @@ package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
 import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 
 import java.util.List;
 
-public interface PropertyHolderDao<H extends IPropertyHolder> extends PaginableObjectDao<H,Integer> {
+public interface PropertyHolderDao<H extends IPropertyHolder, PD extends PropertiesDefinition> extends PaginableObjectDao<H,Integer> {
 	public List<IContainable> findContainableByHolder(Integer boxID);
 	public List<IContainable> findContainableOnCreation(Integer boxID);
 	public List<H> findHolderByContainable(IContainable tip);
 	public List<IContainable> findValoriOnCreation();
 	public List<IContainable> findContainableWithRenderingFormula(Integer boxID);
-	public H uniqueBoxByShortName(String title);	
+	public H uniqueBoxByShortName(String title);
+    public List<PD> findAuthorizedSingleById(Integer id);
+    public List<PD> findAuthorizedGroupById(Integer id);
 }

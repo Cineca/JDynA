@@ -26,6 +26,7 @@ package it.cilea.osd.jdyna.controller;
 
 import it.cilea.osd.common.controller.BaseFormController;
 import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.AbstractEditTab;
 import it.cilea.osd.jdyna.web.AbstractTab;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
@@ -48,7 +49,7 @@ import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-public abstract class AFormEditTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
+public abstract class AFormEditTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>, PD extends PropertiesDefinition>
         extends BaseFormController
 {
 
@@ -68,13 +69,16 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
 
     protected Class<ET> tabEditClass;
     
+    protected Class<PD> pdClass;
+    
     private String specificPartPath;
 
-    public AFormEditTabController(Class<T> clazzT, Class<H> clazzB, Class<ET> clazzET)
+    public AFormEditTabController(Class<T> clazzT, Class<H> clazzB, Class<ET> clazzET, Class<PD> clazzPD)
     {
         this.tabClass = clazzT;
         this.boxClass = clazzB;
         this.tabEditClass = clazzET;
+        this.pdClass = clazzPD;
     }
 
     public String getSpecificPartPath()
@@ -102,6 +106,8 @@ public abstract class AFormEditTabController<H extends IPropertyHolder<Containab
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
         map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
+        map.put("metadataWithPolicySingle", applicationService.getAllPropertiesDefinitionWithPolicySingle(pdClass));
+        map.put("metadataWithPolicyGroup", applicationService.getAllPropertiesDefinitionWithPolicyGroup(pdClass));
         return map;
     }
 

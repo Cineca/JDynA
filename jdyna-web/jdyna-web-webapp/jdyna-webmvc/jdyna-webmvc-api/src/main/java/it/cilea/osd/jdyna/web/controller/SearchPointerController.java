@@ -24,13 +24,6 @@
  */
 package it.cilea.osd.jdyna.web.controller;
 
-import flexjson.JSONSerializer;
-import it.cilea.osd.common.model.Selectable;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.web.ITabService;
-import it.cilea.osd.jdyna.widget.WidgetPointer;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,9 +33,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.slf4j.Logger;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.ParameterizableViewController;
+
+import flexjson.JSONSerializer;
+import it.cilea.osd.common.model.Selectable;
+import it.cilea.osd.jdyna.model.AWidget;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.utils.SelectableDTO;
+import it.cilea.osd.jdyna.web.ITabService;
 
 public abstract class SearchPointerController<PD extends PropertiesDefinition, T extends Selectable>
         extends ParameterizableViewController
@@ -62,10 +61,10 @@ public abstract class SearchPointerController<PD extends PropertiesDefinition, T
         String query = request.getParameter("query");
 
         PD pd = applicationService.get(clazzPD, Integer.parseInt(elementID));
-        WidgetPointer widgetPointer = (WidgetPointer) pd.getRendering();
-        String[] filter = getFilter(widgetPointer);        
-        List results = getResult(query,
-                widgetPointer.getDisplay(), filter);
+        String[] filter = getFilter(pd.getRendering());
+        String display = getDisplay(pd.getRendering());
+        List results = getResult(pd.getRendering(), query,
+                display, filter);
 
         JSONSerializer serializer = new JSONSerializer();
         serializer.rootName("pointers");
@@ -77,10 +76,11 @@ public abstract class SearchPointerController<PD extends PropertiesDefinition, T
 
     }
 
-    protected abstract String[] getFilter(WidgetPointer widgetPointer);
+    protected abstract String[] getFilter(AWidget widget);
+    protected abstract String getDisplay(AWidget widget);
     
 
-    protected abstract List<SelectableDTO> getResult(String query, String expression, String... filtro);
+    protected abstract List<SelectableDTO> getResult(AWidget widget, String query, String expression, String... filtro);
     
 
     public void setApplicationService(ITabService applicationService)
@@ -101,59 +101,6 @@ public abstract class SearchPointerController<PD extends PropertiesDefinition, T
     public void setClazzPD(Class<PD> clazzPD)
     {
         this.clazzPD = clazzPD;
-    }
-
-    public class SelectableDTO implements Selectable
-    {
-
-        private Integer id;
-
-        private String display;
-
-        public SelectableDTO(Integer id, String display)
-        {
-            this.id = id;
-            this.display = display;
-        }
-
-        public SelectableDTO(String id, String display)
-        {
-            this.id = Integer.valueOf(id);
-            this.display = display;
-        }
-
-        @Override
-        public String getIdentifyingValue()
-        {
-            return String.valueOf(id);
-        }
-
-        @Override
-        public String getDisplayValue()
-        {
-            return display;
-        }
-
-        public void setId(Integer id)
-        {
-            this.id = id;
-        }
-
-        public Integer getId()
-        {
-            return id;
-        }
-
-        public void setDisplay(String display)
-        {
-            this.display = display;
-        }
-
-        public String getDisplay()
-        {
-            return display;
-        }
-
     }
 
 }

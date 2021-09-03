@@ -103,9 +103,6 @@
 			</c:if>
 		</spring:bind>		
 	</c:forEach>
-	<c:if test="${empty values && optionStatus.count == 1}">
-		<c:set var="checked" value=" checked=\"checked\"" />
-	</c:if>
 	<c:set var="parametersValidation" value="${dyna:extractParameters(validationParams)}"/>
 	<c:set var="functionValidation" value="${ajaxValidation}('${inputName}',${parametersValidation})" />
 	<input id="${inputName}" name="${inputName}" type="checkbox" 

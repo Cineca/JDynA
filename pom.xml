@@ -3,16 +3,16 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.jdyna</groupId>
 	<artifactId>jdyna</artifactId>
-	<version>5.7-SNAPSHOT</version>
+	<version>5.24-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>JDynA</name>
 	<description>Dynamic Metadata Management for Java Domain Object</description>
 
 	
 	<scm>
-      <connection>scm:git:https://github.com/Cineca/JDynA.git</connection>
-      <developerConnection>scm:git:https://github.com/Cineca/JDynA.git</developerConnection>
-      <url>https://github.com/Cineca/JDynA.git</url>
+      <connection>scm:git:https://github.com/4Science/JDynA.git</connection>
+      <developerConnection>scm:git:https://github.com/4Science/JDynA.git</developerConnection>
+      <url>https://github.com/4Science/JDynA.git</url>
       <tag>5.6</tag>
     </scm>
    
@@ -20,60 +20,40 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<!-- Warning hibernate core point to 3.3.2.GA to be compliant with hibernate-annotation 3.4.0.GA (required by spring ORM 3.1.1.RELEASE)-->
 		<!-- <org.hibernate.version>3.6.10.Final</org.hibernate.version> -->
-		<org.hibernate.version>4.1.8.Final</org.hibernate.version>
-		<org.spring.version>3.1.1.RELEASE</org.spring.version>
-		<it.cilea.ccommons.version>2.1</it.cilea.ccommons.version>
+	    <org.hibernate.version>4.2.21.Final</org.hibernate.version>
+		<org.hibernate.ehcache.version>4.2.21.Final</org.hibernate.ehcache.version>
+		<org.hibernate.entitymanager.version>4.2.21.Final</org.hibernate.entitymanager.version>
+		<org.hibernate.annotations.version>4.0.2.Final</org.hibernate.annotations.version>
+		<org.hibernate.jpa.version>1.0.1.Final</org.hibernate.jpa.version>
+		<org.spring.version>3.2.16.RELEASE</org.spring.version>
+		<it.cilea.ccommons.version>2.5</it.cilea.ccommons.version>
 	</properties>
+	
 	<distributionManagement>
-    	<repository>
-        	<id>repo</id>
-        	<name>CINECA Maven Repository</name>
-        	<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
-    	</repository>
+		<repository>
+			<id>4science-nexus</id>
+			<name>4Science Public Releases</name>
+			<url>https://nexus.4science.it/repository/maven-releases/</url>
+		</repository>
     	<snapshotRepository>
-        	<id>snapshot-repo</id>
-        	<name>CINECA Maven Repository</name>
-        	<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
+        	<id>4science-snapshot</id>
+        	<name>4Science Public Snapshot</name>
+        	<url>https://nexus.4science.it/repository/maven-snapshots/</url>
     	</snapshotRepository>
     	<site>
             <id>website</id>
-            <url>https://github.com/Cineca/JDynA/wiki</url>
-        </site>
+            <url>https://github.com/4Science/JDynA/wiki</url>
+        </site>		
 	</distributionManagement>
-	
+
    <repositories>
        <repository>
-			<id>cineca-repo</id>
-			<name>Cineca Maven Repository</name>
-			<url>https://github.com/Cineca/mvn-repo/raw/master/releases</url>
-			<releases>
-				<enabled>true</enabled>
-				<checksumPolicy>never</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>false</enabled>
-				<checksumPolicy>never</checksumPolicy>
-			</snapshots>
+			<id>4science-repo</id>
+			<name>4Science Maven Repository</name>
+			<url>https://nexus.4science.it/repository/maven-public/</url>
 		</repository>
-		
-		<repository>
-			<id>cineca-repo-snapshot</id>
-			<name>Cineca Maven Repository</name>
-			<url>https://github.com/Cineca/mvn-repo/raw/master/snapshots</url>
-			<releases>
-				<enabled>false</enabled>
-				<checksumPolicy>never</checksumPolicy>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-				<checksumPolicy>never</checksumPolicy>
-			</snapshots>
-		</repository>
-		
    </repositories>
-
-
-
+   
 	<build>
 		<plugins>
 			<plugin>
@@ -87,11 +67,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
-				<version>2.4.1</version>
+				<version>2.5.2</version>
 				<configuration>
 					<!-- During release:perform, enable the "release" profile (see below) -->
 					<releaseProfiles>release</releaseProfiles>
-					<goals>deploy</goals>
+					<goals>clean deploy</goals>
 					<!-- Suggest tagging the release in SCM as "dspace-[version]" -->
 					<tagNameFormat>@{project.version}</tagNameFormat>
 					<!-- Auto-Version all modules the same as the parent module -->
@@ -156,7 +136,7 @@
 			<dependency>
 				<groupId>org.hibernate</groupId>
 				<artifactId>hibernate-ehcache</artifactId>
-				<version>4.0.1.Final</version>
+				<version>${org.hibernate.ehcache.version}</version>
 			</dependency>
 		
 			<dependency>
@@ -168,7 +148,7 @@
 			<dependency>
 				<groupId>org.hibernate.common</groupId>
 				<artifactId>hibernate-commons-annotations</artifactId>
-				<version>4.0.1.Final</version>
+				<version>${org.hibernate.annotations.version}</version>
 			</dependency>
 	
 					
@@ -286,12 +266,12 @@
 	<developers>
 		<developer>
 			<name>Andrea Bollini</name>
-			<email>a.bollini@cineca.it</email>
+			<email>andrea.bollini@4science.it</email>
 			<timezone>GMT +1</timezone>
 		</developer>
 		<developer>
 			<name>Luigi Andrea Pascarelli</name>
-			<email>luigiandrea.pascarelli@cineca.it</email>
+			<email>luigiandrea.pascarelli@4science.it</email>
 			<timezone>GMT +1</timezone>
 		</developer>
 	</developers>	

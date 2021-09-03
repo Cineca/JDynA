@@ -24,9 +24,6 @@
  */
 package it.cilea.osd.jdyna.web;
 
-import it.cilea.osd.common.model.IdentifiableObject;
-import it.cilea.osd.common.util.Utils;
-
 import java.util.List;
 
 import javax.persistence.Column;
@@ -45,6 +42,10 @@ import org.hibernate.annotations.Sort;
 import org.hibernate.annotations.SortType;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.cilea.osd.common.model.IdentifiableObject;
+import it.cilea.osd.common.util.Utils;
+import it.cilea.osd.jdyna.model.AuthorizationContext;
+
 /** Classe che gestisce un'area dell'Anagrafica 
  * @author pascarelli
  *
@@ -52,7 +53,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 @Inheritance (strategy = InheritanceType.TABLE_PER_CLASS)
 @Cache(usage=CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
-public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject implements Comparable<Tab<H>> {
+public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject implements Comparable<Tab<H>>, AuthorizationContext {
 	
 	@Id	
 	//@GeneratedValue(strategy = GenerationType.TABLE)		
@@ -80,9 +81,6 @@ public abstract class Tab<H extends IPropertyHolder> extends IdentifiableObject 
 	 * Level of visibility 
 	 */
 	public Integer visibility;
-	
-	
-
 	
 	private String ext;
 	

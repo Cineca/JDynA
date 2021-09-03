@@ -24,6 +24,17 @@ public class Utils
         }
         return candidate;
     }
+
+    public static String getOriginalURL(HttpServletRequest request)
+    {
+        String fullURL = request.getRequestURL().toString();
+
+        if (request.getQueryString() != null)
+        {
+            fullURL = fullURL + "?" + request.getQueryString();
+        }
+        return fullURL;
+    }
     
     
 }

@@ -24,20 +24,6 @@
  */
 package it.cilea.osd.jdyna.web.controller;
 
-import it.cilea.osd.common.controller.BaseAbstractController;
-import it.cilea.osd.common.util.displaytag.DisplayTagData;
-import it.cilea.osd.jdyna.components.IComponent;
-import it.cilea.osd.jdyna.model.AType;
-import it.cilea.osd.jdyna.model.AnagraficaSupport;
-import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.model.IContainable;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.model.Property;
-import it.cilea.osd.jdyna.web.IPropertyHolder;
-import it.cilea.osd.jdyna.web.ITabService;
-import it.cilea.osd.jdyna.web.Tab;
-import it.cilea.osd.jdyna.web.Utils;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Collections;
@@ -52,14 +38,28 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.web.servlet.ModelAndView;
 
-public abstract class SimpleDynaController <P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>>
+import it.cilea.osd.common.controller.BaseAbstractController;
+import it.cilea.osd.common.util.displaytag.DisplayTagData;
+import it.cilea.osd.jdyna.components.IComponent;
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.AnagraficaSupport;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.IContainable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Tab;
+import it.cilea.osd.jdyna.web.Utils;
+
+public abstract class SimpleDynaController <A extends AnagraficaSupport<P, TP>, P extends Property<TP>, TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>>
 	extends BaseAbstractController {
 
 	private final int PAGE_SIZE = 20;
 	
 	protected ITabService applicationService;
 	
-	protected Class<? extends AnagraficaSupport<P, TP>> objectClass;
+	protected Class<A> objectClass;
 	
 	protected Class<TP> tpClass;
 	
@@ -87,17 +87,17 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		this.typeClass = typeClass;
 	}
 	
-	public SimpleDynaController(Class<? extends AnagraficaSupport<P, TP>> anagraficaObjectClass) throws InstantiationException, IllegalAccessException {
+	public SimpleDynaController(Class<A> anagraficaObjectClass) throws InstantiationException, IllegalAccessException {
 		objectClass = anagraficaObjectClass;
 		tpClass = objectClass.newInstance().getClassPropertiesDefinition();		
 	}
 	
-	public SimpleDynaController(Class<? extends AnagraficaSupport<P, TP>> anagraficaObjectClass, Class<TP> classTP) throws InstantiationException, IllegalAccessException {
+	public SimpleDynaController(Class<A> anagraficaObjectClass, Class<TP> classTP) throws InstantiationException, IllegalAccessException {
 		objectClass = anagraficaObjectClass;
 		tpClass = classTP;		
 	}
 
-	public SimpleDynaController(Class<? extends AnagraficaSupport<P, TP>> anagraficaObjectClass, Class<TP> classTP, Class<T> classT, Class<H> classH) throws InstantiationException, IllegalAccessException {
+	public SimpleDynaController(Class<A> anagraficaObjectClass, Class<TP> classTP, Class<T> classT, Class<H> classH) throws InstantiationException, IllegalAccessException {
 		objectClass = anagraficaObjectClass;
 		tpClass = classTP;		
 		tabClass = classT;
@@ -132,7 +132,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
     }
 
-    protected Integer getAnagraficaId(HttpServletRequest request)
+    protected Integer getAnagraficaId(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
         String param = request.getParameter("id");
         try {
@@ -146,7 +146,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 	protected ModelAndView handleDetails(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
 		Map<String, Object> model = new HashMap<String, Object>();
-		Integer objectId = getAnagraficaId(request);
+		Integer objectId = getAnagraficaId(request, response);
 		
 		AnagraficaSupport<P,TP> jdynaObject = null;
 		if(objectId!=null) {
@@ -162,8 +162,10 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         Map<String, Map<String,IContainable>> mapBoxToMapContainables = new HashMap<String, Map<String,IContainable>>();
         List<IContainable> pDInTab = new LinkedList<IContainable>();
         List<H> propertyHolders = new LinkedList<H>();
+        List<H> authorizedPropertyHolders = new LinkedList<H>();
         List<T> tabs = findTabsWithVisibility(request, model, response);
         Integer tabId = getTabId(request);
+        boolean showError = false;
         try
         {
             
@@ -183,29 +185,47 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 
             if (tabId == null)
             {
-                throw new RuntimeException(
+                Exception ex = new RuntimeException(
                         "No tabs to display contact administrator");
+                showError = true;
+                showInvalidIDError(request, response, ""+objectId);
+                throw ex;
             }
 
-      
             if (!tabs.contains(t))
             {
-                throw new RuntimeException(
+                Exception ex = new RuntimeException(
                         "You not have needed authorization level to display this tab");
+                showAuthorizeError(request, response, ex, ""+objectId);
+                showError = true;
+                throw ex;
             }
 
             // collection of boxs
             propertyHolders = t.getMask();
+            for(H hh : propertyHolders) {
+                if(authorize(request, response, hh)) {
+                    authorizedPropertyHolders.add(hh);
+                }
+            }
 
+            if(authorizedPropertyHolders.isEmpty()) {
+                Exception ex = new RuntimeException(
+                        "You have permission to see this tab but all box are hidden, maybe it is a wrong configuration. Contact administrator");
+                showAuthorizeError(request, response, ex,
+                        "" + objectId);
+                showError = true;
+                throw ex;
+            }
+            
             String openbox = extractAnchorId(request);
             // this piece of code get containables object from boxs and put them
             // on map
-            for (H box : propertyHolders)
+            for (H box : authorizedPropertyHolders)
             {
-
                 String boxExternalPage = box.getExternalJSP();
                 List<IContainable> temp = applicationService
-                .<H, T>findContainableInPropertyHolder(propertyHolderClass,
+                .<H, T, TP>findContainableInPropertyHolder(propertyHolderClass,
                         box.getId());       
                 Map<String, IContainable> tempMap = new HashMap<String, IContainable>();
                 
@@ -240,13 +260,16 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         }
         catch (Exception e)
         {
-            log.error(e.getMessage(), e);           
-            sendRedirect(request, response, e, ""+objectId);
+            log.error("Original URL:" + Utils.getOriginalURL(request), e);
+            if(!showError) {
+                showInternalError(request, response, e, ""+objectId);
+            }
             throw new RuntimeException(e);
         }
         
         Collections.sort(propertyHolders);
-        model.put("propertiesHolders", propertyHolders);
+        Collections.sort(authorizedPropertyHolders);
+        model.put("propertiesHolders", authorizedPropertyHolders);
         model.put("propertiesDefinitionsInHolder", mapBoxToContainables);
         model.put("mapPropertiesDefinitionsInHolder", mapBoxToMapContainables);
         model.put("tabList", tabs);
@@ -257,27 +280,64 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
         model.put("specificPartPath", getSpecificPartPath());        
 		return new ModelAndView(getDetailsView(), model);
 	}
-
 	
-	protected abstract String extractAnchorId(HttpServletRequest request);
+	protected abstract boolean authorize(HttpServletRequest request, HttpServletResponse response, H box) throws Exception;
+
+    protected abstract String extractAnchorId(HttpServletRequest request);
 	protected abstract Integer getRealPersistentIdentifier(String persistentIdentifier);
 	
-    protected Integer extractEntityId(HttpServletRequest request)
+    protected Integer extractEntityId(HttpServletRequest request, HttpServletResponse response) throws Exception
     {
-        String path = request.getPathInfo().substring(1); // remove first /
-        String[] splitted = path.split("/");
-        request.setAttribute("authority", splitted[1]);
-        Integer id = getRealPersistentIdentifier(splitted[1]);
-        request.setAttribute("entityID", id);
-        return id;
+        Integer entityId = -1;
+        //try to manage bad request, catch all generic Exception
+        try {
+            String path = request.getPathInfo().substring(1); // remove first /
+            String[] splitted = path.split("/");
+            request.setAttribute("authority", splitted[1]);
+            entityId = getRealPersistentIdentifier(splitted[1]);
+            request.setAttribute("entityID", entityId);
+        }
+        catch(Exception ex) {
+            log.warn(ex.getMessage() + ":"+ Utils.getOriginalURL(request));
+            showIntegrityError(request, response, ex, ""+entityId);
+            throw new RuntimeException("Entity page not found:"+ Utils.getOriginalURL(request));
+        }
+        
+        if (entityId == -1)
+        {
+            log.warn("Entity page not found:"+ Utils.getOriginalURL(request));
+            showInvalidIDError(request, response, ""+entityId);
+            throw new RuntimeException("Entity page not found:"+ Utils.getOriginalURL(request));
+        }  
+        
+        return entityId;
     }
 
-    protected abstract void sendRedirect(HttpServletRequest request, HttpServletResponse response, Exception ex, String objectId) throws IOException, ServletException;
+    protected void showIntegrityError(HttpServletRequest request,
+            HttpServletResponse response, Exception ex, String objectId)
+            throws IOException, ServletException
+    {
+        response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Indicating the request sent by the client was syntactically incorrect");
+    }
     
+    protected void showInternalError(HttpServletRequest request,
+            HttpServletResponse response, Exception ex, String objectId)
+            throws IOException, ServletException
+    {
+        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "Indicating an error inside the HTTP server");
+    }
+    
+    protected void showInvalidIDError(HttpServletRequest request,
+            HttpServletResponse response, String objectId)
+            throws IOException, ServletException
+    {
+        response.sendError(HttpServletResponse.SC_NOT_FOUND, "Indicating that the requested resource is not available");
+    } 
+    
+    protected abstract void showAuthorizeError(HttpServletRequest request, HttpServletResponse response, Exception ex, String objectId) throws IOException, ServletException;
 
     protected abstract List<T> findTabsWithVisibility(HttpServletRequest request, Map<String, Object> model, HttpServletResponse response) throws SQLException, Exception;
 		
-
 	protected ModelAndView handleList(HttpServletRequest request) {
 		String paramSort = request.getParameter("sort");
 		String paramPage = request.getParameter("page");
@@ -314,8 +374,6 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 				
 		return new ModelAndView(getListView(), model);
 	}
-	
-	
 
 	protected ModelAndView handleDelete(HttpServletRequest request) {
 		Map<String, Object> model = new HashMap<String, Object>();
@@ -331,7 +389,7 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		}
 		catch (Exception e){
 		    String path = Utils.getAdminSpecificPath(request, null);
-			log.error("Non e' stato possibile eliminare l'oggetto " + e);
+			log.error("Delete failed " + e);
 			saveMessage(request, getText(i18nPrefix + ".notdeleted", request
 					.getLocale()));		
 			return new ModelAndView(getDetailsView()+"?id="+epiobjectID+"&path="+path, model);
@@ -340,12 +398,36 @@ public abstract class SimpleDynaController <P extends Property<TP>, TP extends P
 		return redirect(a,request);		
 	}
 
-	/** Redirige sulla pagina del dettaglio */
+	/** Redirect to the details page */
 	public ModelAndView redirect(AnagraficaSupport<P, TP> epi,HttpServletRequest request) {
 	    String path = Utils.getAdminSpecificPath(request, null);
 		return new ModelAndView(getListView()+"?path="+path, null);
 	}
 	
+    protected A extractObject(HttpServletRequest request, HttpServletResponse response) throws Exception
+    {
+
+        Integer objectId = extractEntityId(request, response);
+
+        A dyn = null;
+        try
+        {
+            dyn = applicationService.get(objectClass,
+                    objectId);
+        }
+        catch (NumberFormatException e)
+        {
+        }
+
+        if (dyn == null)
+        {
+            showInvalidIDError(request, response, ""+objectId);
+            throw new RuntimeException(Utils.getOriginalURL(request));
+        }
+        
+        return dyn;
+    }
+    
 	public String getI18nPrefix() {
 		return i18nPrefix;
 	}

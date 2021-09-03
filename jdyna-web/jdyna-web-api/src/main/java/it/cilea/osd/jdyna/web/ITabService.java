@@ -24,6 +24,8 @@
  */
 package it.cilea.osd.jdyna.web;
 
+import java.util.List;
+
 import it.cilea.osd.jdyna.model.ANestedPropertiesDefinition;
 import it.cilea.osd.jdyna.model.AType;
 import it.cilea.osd.jdyna.model.ATypeNestedObject;
@@ -31,8 +33,6 @@ import it.cilea.osd.jdyna.model.Containable;
 import it.cilea.osd.jdyna.model.IContainable;
 import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
-
-import java.util.List;
 
 /**
  * 
@@ -58,7 +58,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param id
 	 * @return
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<H> findPropertyHolderInTab(Class<T> tabClass,
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<H> findPropertyHolderInTab(Class<T> tabClass,
 			Integer id);
 
 	/**
@@ -69,7 +69,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param tabClass
 	 * @param propertyHolder
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deletePropertyHolderInTabs(Class<T> tabClass,
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> void deletePropertyHolderInTabs(Class<T> tabClass,
 			H propertyHolder);
 
 	/**
@@ -81,7 +81,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param id
 	 * @return
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<IContainable> findContainableInPropertyHolder(Class<H> boxClass, Integer id);
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<IContainable> findContainableInPropertyHolder(Class<H> boxClass, Integer id);
 
 	/**
 	 * Find all containables, this method internally send a call to customization method
@@ -113,7 +113,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param clazzH
 	 * @param containable
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deleteContainableInPropertyHolder(Class<H> clazzH, IContainable containable);
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> void deleteContainableInPropertyHolder(Class<H> clazzH, IContainable containable);
 
 	/**
 	 * Find containable by real object that is a decorable for it
@@ -134,7 +134,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param title
 	 * @return
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByShortName(Class<T> clazzTab,String title);
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> T getTabByShortName(Class<T> clazzTab,String title);
 
 	/**
 	 * Find a box by shortname
@@ -144,7 +144,7 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param title
 	 * @return
 	 */
-	public <H extends IPropertyHolder<Containable>> H getBoxByShortName(Class<H> clazzBox, String title);
+	public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> H getBoxByShortName(Class<H> clazzBox, String title);
 
 	/**
 	 * Find containables with decorable on creation state, internally send a call to customization method
@@ -164,14 +164,14 @@ public interface ITabService extends IPersistenceDynaService {
 	 * @param isAdmin
 	 * @return
 	 */
-	public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByVisibility(Class<T> model, Boolean isAdmin);
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<T> getTabsByVisibility(Class<T> model, Boolean isAdmin);
 
     public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void decoupleEditTabByDisplayTab(int tabId, Class<T> clazz);
     
     public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> void hookUpEditTabToDisplayTab(Integer editTabId,
             Integer displayTabId, Class<T> clazz);
     
-    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>> T getEditTabByDisplayTab(Integer tabId, Class<T> clazz);
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H,D>, PD extends PropertiesDefinition> T getEditTabByDisplayTab(Integer tabId, Class<T> clazz);
     
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition> List<H> findBoxByType(Class<H> boxClass, A typo);
     public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> findTabByType(Class<D> tabClass, A typo);
@@ -183,5 +183,13 @@ public interface ITabService extends IPersistenceDynaService {
 	public <IC> IC findContainableByDecorable(Class decoratorClass, String shortname);
 	
 	public <TP extends PropertiesDefinition, H extends IPropertyHolder<Containable>, T extends Tab<H>, ATTP extends ANestedPropertiesDefinition, TTP extends ATypeNestedObject<ATTP>> List<H> findBoxesByTTP(Class<H> clazzH, Class<TTP> clazzTTP, String decorable);
-            
+	
+	public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<T> getTabsByAccessLevel(Class<T> modelClass, Integer level);
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByTypoAndAccessLevel(
+            Class<D> model, Integer level, A typo);
+
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationGroupInTab(Class<T> tabClass, Integer id);
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationSingleInTab(Class<T> tabClass, Integer id);
+    public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationGroupInBox(Class<H> boxClass, Integer id);
+    public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationSingleInBox(Class<H> boxClass, Integer id);
 }

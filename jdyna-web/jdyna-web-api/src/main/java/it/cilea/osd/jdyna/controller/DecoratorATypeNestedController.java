@@ -37,6 +37,7 @@ import it.cilea.osd.jdyna.web.ITabService;
 import it.cilea.osd.jdyna.web.Tab;
 import it.cilea.osd.jdyna.web.Utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -98,13 +99,28 @@ public class DecoratorATypeNestedController<P extends Property<TP>, TP extends P
 		Integer tipologiaProprietaId = Integer.decode(paramOTipologiaProprietaId);
 		
 		try {
-
+		    //find the nestedobject type
 			A tip = applicationService.get(targetModel, tipologiaProprietaId);
-						
-			applicationService.deleteNestedObjectByTypeID(objectModel, tipologiaProprietaId);			
 			
+			List<NTP> nestedPropertiesDefinitionMask =  tip.getMask();
+			List<NTP> todelete = new ArrayList<NTP>();
+			//try to delete all metadata definition 
+			for(NTP nestedPropertiesDefinition : nestedPropertiesDefinitionMask) {
+			    applicationService.deleteAllProprietaByTipologiaProprieta(nestedPropertiesDefinition.getPropertyHolderClass(), nestedPropertiesDefinition);
+			    todelete.add(nestedPropertiesDefinition);
+			}
+			tip.getMask().clear();
+			for(NTP nestedPropertiesDefinition : todelete) {
+			    IContainable containable = applicationService.findContainableByDecorable(nestedPropertiesDefinition.getDecoratorClass(),nestedPropertiesDefinition.getId());
+			    applicationService.delete(nestedPropertiesDefinition.getDecoratorClass(), containable.getId());
+			}
+
+	         //remove all instance of nestedobject
+            applicationService.deleteNestedObjectByTypeID(objectModel, tipologiaProprietaId);
+            
+			//try to remove the nestedobject type from the box
 			IContainable containable = applicationService.findContainableByDecorable(tip.getDecoratorClass(),tipologiaProprietaId);
-            applicationService.<H, T>deleteContainableInPropertyHolder(holderModel,containable);
+            applicationService.<H, T, TP>deleteContainableInPropertyHolder(holderModel,containable);
 			applicationService.delete(tip.getDecoratorClass(), containable.getId());
 						
 			saveMessage(request, getText("action.propertiesdefinition.deleted", request

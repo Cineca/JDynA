@@ -54,10 +54,12 @@ import org.hibernate.annotations.Formula;
         @NamedQuery(name = "ANestedObject.paginate.id.asc", query = "from ANestedObject order by id asc"),
         @NamedQuery(name = "ANestedObject.paginate.id.desc", query = "from ANestedObject order by id desc"),
         @NamedQuery(name = "ANestedObject.findNestedObjectsByParentIDAndTypoID", query = "from ANestedObject where parent.id = ? and typo.id = ?"),
-        @NamedQuery(name = "ANestedObject.paginateNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ?"),
+        @NamedQuery(name = "ANestedObject.paginateNestedObjectsByParentIDAndTypoID.positiondef.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? order by positiondef asc"),
+        @NamedQuery(name = "ANestedObject.paginateNestedObjectsByParentIDAndTypoID.positiondef.desc", query = "from ANestedObject where parent.id = ? and typo.id = ? order by positiondef desc"),
         @NamedQuery(name = "ANestedObject.countNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ?"),
         @NamedQuery(name = "ANestedObject.findActiveNestedObjectsByParentIDAndTypoID", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
-        @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.asc.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
+        @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.positiondef.asc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true order by positiondef asc"),
+        @NamedQuery(name = "ANestedObject.paginateActiveNestedObjectsByParentIDAndTypoID.positiondef.desc", query = "from ANestedObject where parent.id = ? and typo.id = ? and status = true order by positiondef desc"),
         @NamedQuery(name = "ANestedObject.countActiveNestedObjectsByParentIDAndTypoID", query = "select count(*) from ANestedObject where parent.id = ? and typo.id = ? and status = true"),
         @NamedQuery(name = "ANestedObject.findNestedObjectsByTypoID", query = "from ANestedObject where typo.id = ?"),
         @NamedQuery(name = "ANestedObject.deleteNestedObjectsByTypoID", query = "delete from ANestedObject where typo.id = ?"),
@@ -97,6 +99,8 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     /** timestamp info for start and end availability*/
     @Embedded
     private AvailabilityInfo availabilityInfo;
+    
+    private Boolean preferred;
     
     public Integer getId()
     {
@@ -195,5 +199,13 @@ public abstract class ANestedObject<P extends ANestedProperty<TP>, TP extends AN
     public void setAvailabilityInfo(AvailabilityInfo availabilityInfo)
     {
         this.availabilityInfo = availabilityInfo;
+    }
+    
+    public Boolean getPreferred() {
+        return preferred;
+    }
+
+    public void setPreferred(Boolean preferred) {
+        this.preferred = preferred;
     }
 }

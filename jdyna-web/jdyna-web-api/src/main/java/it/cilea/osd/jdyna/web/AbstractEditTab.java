@@ -24,9 +24,9 @@
  */
 package it.cilea.osd.jdyna.web;
 
-import it.cilea.osd.jdyna.model.Containable;
-
 import javax.persistence.MappedSuperclass;
+
+import it.cilea.osd.jdyna.model.Containable;
 
 @MappedSuperclass
 public abstract class AbstractEditTab<H extends IPropertyHolder<Containable>, D extends AbstractTab<H>> extends Tab<H> {

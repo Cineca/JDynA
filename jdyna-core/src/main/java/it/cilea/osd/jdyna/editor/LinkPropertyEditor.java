@@ -44,14 +44,14 @@ public class LinkPropertyEditor extends AdvancedPropertyEditorSupport {
 	public void setAsText(String text) throws IllegalArgumentException {
 		log.debug("LinkPropertyEditor - setAsText: "+text);
 		// text: 'description|||link'
-		if (StringUtils.isEmpty(text))
+		if (StringUtils.isBlank(text) || StringUtils.equals(text, "|||"))
 		    setValue(null);
 		else
 		{
 		    String[] splitted = text.split("\\|\\|\\|");
-		    if (splitted.length > 2)
+		    if (splitted.length != 2 || StringUtils.isBlank(splitted[1]))
 		    {
-		        throw new IllegalArgumentException("Invalid text string for link: "+text);
+		        throw new IllegalArgumentException("the URL is required");
 		    }
 		    EmbeddedLinkValue link = new EmbeddedLinkValue();
 		    link.setDescriptionLink(splitted.length > 0?splitted[0]:null);

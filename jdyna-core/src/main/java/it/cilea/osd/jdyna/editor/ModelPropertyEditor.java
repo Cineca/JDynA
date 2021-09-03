@@ -26,6 +26,7 @@ package it.cilea.osd.jdyna.editor;
 
 import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.common.service.IPersistenceService;
+import it.cilea.osd.jdyna.service.IAutoCreateApplicationService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -53,7 +54,16 @@ public class ModelPropertyEditor extends AdvancedPropertyEditorSupport {
 		}
 		else
 		{
-			setValue(applicationService.get(clazz, Integer.parseInt(text)));
+			int id = Integer.parseInt(text);
+			Object object = applicationService.get(clazz, id);
+			if (object == null && applicationService instanceof IAutoCreateApplicationService) {
+				Integer newId = ((IAutoCreateApplicationService) applicationService)
+						.persistTemporaryPointerCandidate(id);
+				if (newId != null) {
+					object = applicationService.get(clazz, newId);
+				}
+			}
+			setValue(object);
 		}
 	}
 

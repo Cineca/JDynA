@@ -24,14 +24,6 @@
  */
 package it.cilea.osd.jdyna.controller;
 
-import it.cilea.osd.common.controller.BaseFormController;
-import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.web.AbstractEditTab;
-import it.cilea.osd.jdyna.web.AbstractTab;
-import it.cilea.osd.jdyna.web.IPropertyHolder;
-import it.cilea.osd.jdyna.web.ITabService;
-import it.cilea.osd.jdyna.web.Utils;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -47,9 +39,17 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.validation.BindException;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.view.RedirectView;
 
-public abstract class AFormTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>>
+import it.cilea.osd.common.controller.BaseFormController;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.web.AbstractEditTab;
+import it.cilea.osd.jdyna.web.AbstractTab;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.ITabService;
+import it.cilea.osd.jdyna.web.Utils;
+
+public abstract class AFormTabController<H extends IPropertyHolder<Containable>, T extends AbstractTab<H>, ET extends AbstractEditTab<H, T>, PD extends PropertiesDefinition>
         extends BaseFormController
 {
 
@@ -69,13 +69,16 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
 
     protected Class<ET> tabEditClass;
     
+    protected Class<PD> pdClass;
+    
     private String specificPartPath;
 
-    public AFormTabController(Class<T> clazzT, Class<H> clazzB, Class<ET> clazzET)
+    public AFormTabController(Class<T> clazzT, Class<H> clazzB, Class<ET> clazzET, Class<PD> clazzPD)
     {
         this.tabClass = clazzT;
         this.boxClass = clazzB;
         this.tabEditClass = clazzET;
+        this.pdClass = clazzPD;
     }
 
     public String getSpecificPartPath()
@@ -102,7 +105,10 @@ public abstract class AFormTabController<H extends IPropertyHolder<Containable>,
         }
         map.put("boxsList", containers);
         map.put("owneredBoxs", owneredContainers);
-        map.put("specificPartPath", Utils.getAdminSpecificPath(request, null));
+        String adminSpecificPath = Utils.getAdminSpecificPath(request, null);
+        map.put("specificPartPath", adminSpecificPath);
+        map.put("metadataWithPolicySingle", applicationService.getAllPropertiesDefinitionWithPolicySingle(pdClass));
+        map.put("metadataWithPolicyGroup", applicationService.getAllPropertiesDefinitionWithPolicyGroup(pdClass));
         return map;
     }
 

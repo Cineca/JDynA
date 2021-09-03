@@ -597,7 +597,7 @@ img.jdyna-icon-action
 	cursor: pointer;	
 }
 
-img.addButton,img.deleteButton,img.warn, img.nested_add_button,img.nested_delete_button, img.nested_edit_button 
+img.addButton,img.deleteButton,img.warn, img.nested_add_button,img.nested_delete_button, img.nested_edit_button, img.nested_preferred_button, img.nested_notpreferred_button 
 {
 	width: 16px;
 	padding: 0px;

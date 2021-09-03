@@ -22,24 +22,40 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.dao;
-
-import it.cilea.osd.jdyna.model.AType;
-import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.web.IPropertyHolder;
-import it.cilea.osd.jdyna.web.TypedAbstractTab;
+package it.cilea.osd.jdyna.validator;
 
 import java.util.List;
 
-public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D, PD> {
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.springframework.validation.Errors;
 
-    List<D> findTabByType(A typo);
-    public List<D> findByTypeAndAccessLevel(A typo, Integer level);
-    
-    List<D> findByAnonimousAndTypoDef(A typo);
-    List<D> findByAdminAndTypoDef(A typo);
-    List<D> findByOwnerAndTypoDef(A typo);
-    
-    
+import it.cilea.osd.jdyna.dto.AnagraficaObjectWithTypeDTO;
+import it.cilea.osd.jdyna.model.AType;
+import it.cilea.osd.jdyna.model.AnagraficaObject;
+import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.model.Property;
+import it.cilea.osd.jdyna.web.IPropertyHolder;
+import it.cilea.osd.jdyna.web.Tab;
+
+public class NestedAnagraficaObjectDTOAreaValidator <P extends Property<TP>, TP extends PropertiesDefinition, I extends IPropertyHolder<Containable>, T extends Tab<I>, EO extends AnagraficaObject<P, TP>, TN extends AType<PropertiesDefinition>>
+		extends AnagraficaObjectDTOValidator<P, TP, I, EO> {
+
+	private static Log log = LogFactory.getLog(NestedAnagraficaObjectDTOAreaValidator.class);
+
+	protected Class<TN> clazzTypeNestedObject;
+
+	public void validate(Object commandObject, Errors errors) {
+		AnagraficaObjectWithTypeDTO dto = (AnagraficaObjectWithTypeDTO) commandObject;
+		List tp = applicationService.get(clazzTypeNestedObject, dto.getTipologiaId())
+				.getMask();
+
+		validate(dto, errors, tp, "");
+	}
+
+	public void setClazzTypeNestedObject(Class<TN> clazzTypeNestedObject) {
+		this.clazzTypeNestedObject = clazzTypeNestedObject;
+	}
+
 }

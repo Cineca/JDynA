@@ -24,29 +24,29 @@
  */
 package it.cilea.osd.jdyna.web.tag;
 
-import it.cilea.osd.common.model.Selectable;
-import it.cilea.osd.jdyna.dto.ValoreDTO;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.utils.HashUtil;
-import it.cilea.osd.jdyna.utils.SimpleSelectableObject;
-import it.cilea.osd.jdyna.widget.WidgetPointer;
-
 import java.beans.PropertyEditor;
+import java.io.File;
 import java.io.IOException;
 import java.text.MessageFormat;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
+import it.cilea.osd.common.model.Selectable;
+import it.cilea.osd.jdyna.dto.ValoreDTO;
+import it.cilea.osd.jdyna.editor.AdvancedPropertyEditorSupport;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
+import it.cilea.osd.jdyna.utils.HashUtil;
+import it.cilea.osd.jdyna.utils.SimpleSelectableObject;
+import it.cilea.osd.jdyna.widget.WidgetPointer;
 
 public class JDynATagLibraryFunctions
 {
@@ -233,6 +233,20 @@ public class JDynATagLibraryFunctions
         return propertyEditor.getAsText();
     }
 
+    public static String displayAdvanced(PropertiesDefinition tp, Object object)
+    {
+        if (object == null)
+        {
+            return "";
+        }
+        // Passiamo un application service null ma il property editor lo usa
+        // solo per il passaggio da text -> object e non viceversa
+        AdvancedPropertyEditorSupport propertyEditor = (AdvancedPropertyEditorSupport)tp.getRendering().getPropertyEditor(
+                null);
+        propertyEditor.setValue(object);
+        return propertyEditor.getCustomText();
+    }
+    
     /**
      * Estrae da una collection i suoi elementi, restituendo una stringa con gli
      * elementi separati da una virgola
@@ -505,6 +519,40 @@ public class JDynATagLibraryFunctions
         {
             return "";
         }
+    }
+
+    /**
+     * Return the thumbnail name
+     * 
+     * @param inputValue
+     * @return
+     */
+    public static String getThumbnailFileName(String inputValue) {
+        if (inputValue != null) {
+            String[] result = inputValue.split("\\|\\|\\|");
+            return result.length > 4 ? result[3]
+                    + ((result[4] != null && !result[4].isEmpty()) ? "_thumb."
+                            + result[4] : "_thumb") : "";
+        }
+
+        return "";
+    }
+
+    /**
+     * Return if the thumbnail exists
+     * 
+     * @param inputValue
+     * @return
+     */
+    public static boolean thumbnailExists(String inputValue) {
+        if (inputValue != null) {
+            String[] result = inputValue.split("\\|\\|\\|");
+            String filePath = result[1] + "/" + getFileFolder(inputValue) + getThumbnailFileName(inputValue);
+            File file = new File(filePath);
+            return file.exists();
+        }
+
+        return false;
     }
 
     /**

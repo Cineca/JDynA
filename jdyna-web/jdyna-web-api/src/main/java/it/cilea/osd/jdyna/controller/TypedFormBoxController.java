@@ -51,8 +51,6 @@ public class TypedFormBoxController<TP extends PropertiesDefinition, H extends I
         extends FormBoxController<TP, H, T, ATTP, TTP>
 {
 
-    
-    
     private Class<A> typoClass;
    
     public TypedFormBoxController(Class<H> clazzH, Class<TP> clazzTP,
@@ -109,6 +107,9 @@ public class TypedFormBoxController<TP extends PropertiesDefinition, H extends I
         map.put("containablesList", containables);
         map.put("owneredContainables", owneredContainables);
         map.put("specificPartPath", shortName);
+        String adminSpecificPath = Utils.getAdminSpecificPath(request, null);
+        map.put("metadataWithPolicySingle", applicationService.likeAllPropertiesDefinitionWithPolicySingle(getTpClass(), adminSpecificPath));
+        map.put("metadataWithPolicyGroup", applicationService.likeAllPropertiesDefinitionWithPolicyGroup(getTpClass(), adminSpecificPath));
         return map;
 
     }

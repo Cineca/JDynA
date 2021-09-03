@@ -22,24 +22,48 @@
  *   51 Franklin Street, Fifth Floor
  *   Boston, MA  02110-1301  USA
  */
-package it.cilea.osd.jdyna.dao;
-
-import it.cilea.osd.jdyna.model.AType;
-import it.cilea.osd.jdyna.model.Containable;
-import it.cilea.osd.jdyna.model.PropertiesDefinition;
-import it.cilea.osd.jdyna.web.IPropertyHolder;
-import it.cilea.osd.jdyna.web.TypedAbstractTab;
+package it.cilea.osd.jdyna.widget;
 
 import java.util.List;
 
-public interface TypedTabDao<H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> extends TabDao<H, D, PD> {
+import javax.persistence.Entity;
+import javax.persistence.Transient;
 
-    List<D> findTabByType(A typo);
-    public List<D> findByTypeAndAccessLevel(A typo, Integer level);
+import org.hibernate.annotations.Type;
+
+import it.cilea.osd.common.model.Selectable;
+import it.cilea.osd.jdyna.model.AValue;
+import it.cilea.osd.jdyna.model.AWidget;
+
+
+/**
+ * @author Pascarelli
+ *
+ */
+@Entity
+public abstract class WidgetCustomPointer<AV extends AValue> extends AWidget<AV> {
+	
+	@Type(type="org.hibernate.type.StringClobType")
+	protected String filter;
+	
+    @Override
+    public String getTriview()
+    {
+        return "custompointer";
+    }
     
-    List<D> findByAnonimousAndTypoDef(A typo);
-    List<D> findByAdminAndTypoDef(A typo);
-    List<D> findByOwnerAndTypoDef(A typo);
-    
-    
+    public String getFilter()
+    {
+        return filter;
+    }
+
+    public void setFilter(String filter)
+    {
+        this.filter = filter;
+    }
+
+    public abstract Integer getType();
+
+    public abstract List<Selectable> search(String query, String expression, String... filtro);
+
 }

@@ -252,12 +252,12 @@ public abstract class PropertiesDefinition extends IdentifiableObject implements
 	 * @return l'ordinamento in base alla priorita'
 	 * @see PropertiesDefinition#priority
 	 */	
-	public int compareTo(PropertiesDefinition secondTip) {		
-		if (secondTip == null) return -1;
-		if (priority < secondTip.priority) return 1;
-		else if (priority > secondTip.priority) return -1;
-			 else return shortName.compareTo(secondTip.getShortName());
-	}
+    public int compareTo(PropertiesDefinition secondTip) {      
+        if (secondTip == null) return -1;
+        if (getPriority() < secondTip.getPriority()) return 1;
+        else if (getPriority() > secondTip.getPriority()) return -1;
+             else return shortName.compareTo(secondTip.getShortName());
+    }
 
 	public boolean isSimpleSearch() {
 		return simpleSearch;

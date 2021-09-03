@@ -57,7 +57,7 @@ public abstract class TabService extends PersistenceDynaService implements
     /**
      * {@inheritDoc}
      */
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<H> findPropertyHolderInTab(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<H> findPropertyHolderInTab(
             Class<T> classTab, Integer tabId)
     {
         log.debug("Call findPropertyHolderInTab with id " + tabId);
@@ -67,7 +67,7 @@ public abstract class TabService extends PersistenceDynaService implements
             tabId = getList(classTab).get(0).getId();
         }
         T area = get(classTab, tabId);
-        TabDao<H, T> tabDao = (TabDao<H, T>) getDaoByModel(classTab);
+        TabDao<H, T, PD> tabDao = (TabDao<H, T, PD>) getDaoByModel(classTab);
         if (area == null)
         {
             tabId = getList(classTab).get(0).getId();
@@ -79,10 +79,10 @@ public abstract class TabService extends PersistenceDynaService implements
     /**
      * {@inheritDoc}
      */
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deletePropertyHolderInTabs(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> void deletePropertyHolderInTabs(
             Class<T> classTab, H holder)
     {
-        TabDao<H, T> tabDao = (TabDao<H, T>) getDaoByModel(classTab);
+        TabDao<H, T, PD> tabDao = (TabDao<H, T, PD>) getDaoByModel(classTab);
         // trovo le aree dove e' mascherata la tipologia di proprieta' e rompo
         // l'associazione
         List<T> tabs = tabDao.findTabsByHolder(holder);
@@ -95,7 +95,7 @@ public abstract class TabService extends PersistenceDynaService implements
     /**
      * {@inheritDoc}
      */
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<IContainable> findContainableInPropertyHolder(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<IContainable> findContainableInPropertyHolder(
             Class<H> boxClass, Integer boxID)
     {
         log.debug("Chiamato findContainable in box con arg: " + boxClass + "  "
@@ -106,7 +106,7 @@ public abstract class TabService extends PersistenceDynaService implements
             boxID = getList(boxClass).get(0).getId();
         }
         H area = get(boxClass, boxID);
-        PropertyHolderDao<H> boxDao = (PropertyHolderDao<H>) getDaoByModel(boxClass);
+        PropertyHolderDao<H, PD> boxDao = (PropertyHolderDao<H, PD>) getDaoByModel(boxClass);
         if (area == null)
         {
             boxID = getList(boxClass).get(0).getId();
@@ -192,10 +192,10 @@ public abstract class TabService extends PersistenceDynaService implements
     /**
      * {@inheritDoc}
      */
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> void deleteContainableInPropertyHolder(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> void deleteContainableInPropertyHolder(
             Class<H> clazzH, IContainable containable)
     {
-        PropertyHolderDao<H> modelDao = (PropertyHolderDao<H>) getDaoByModel(clazzH);
+        PropertyHolderDao<H, PD> modelDao = (PropertyHolderDao<H, PD>) getDaoByModel(clazzH);
         List<H> boxs = modelDao.findHolderByContainable(containable);
         for (H box : boxs)
         {
@@ -219,10 +219,10 @@ public abstract class TabService extends PersistenceDynaService implements
      * {@inheritDoc}
      */
     @Override
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> T getTabByShortName(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> T getTabByShortName(
             Class<T> clazzTab, String title)
     {
-        TabDao<H, T> tabDao = (TabDao<H, T>) getDaoByModel(clazzTab);
+        TabDao<H, T, PD> tabDao = (TabDao<H, T, PD>) getDaoByModel(clazzTab);
         return tabDao.uniqueTabByShortName(title);
     }
 
@@ -230,10 +230,10 @@ public abstract class TabService extends PersistenceDynaService implements
      * {@inheritDoc}
      */
     @Override
-    public <H extends IPropertyHolder<Containable>> H getBoxByShortName(
+    public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> H getBoxByShortName(
             Class<H> clazzBox, String title)
     {
-        PropertyHolderDao<H> boxDao = (PropertyHolderDao<H>) getDaoByModel(clazzBox);
+        PropertyHolderDao<H, PD> boxDao = (PropertyHolderDao<H, PD>) getDaoByModel(clazzBox);
         return boxDao.uniqueBoxByShortName(title);
     }
 
@@ -306,10 +306,10 @@ public abstract class TabService extends PersistenceDynaService implements
      * @param tabId
      * @return
      */
-    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H, D>> T getEditTabByDisplayTab(
+    public <H extends IPropertyHolder<Containable>, D extends AbstractTab<H>, T extends AbstractEditTab<H, D>, PD extends PropertiesDefinition> T getEditTabByDisplayTab(
             Integer tabId, Class<T> clazz)
     {
-        EditTabDao<H, D, T> dao = (EditTabDao<H, D, T>) getDaoByModel(clazz);
+        EditTabDao<H, D, T, PD> dao = (EditTabDao<H, D, T, PD>) getDaoByModel(clazz);
         T editTab = dao.uniqueByDisplayTab(tabId);
         return editTab;
     }
@@ -326,11 +326,11 @@ public abstract class TabService extends PersistenceDynaService implements
      * @return
      */
     @Override
-    public <H extends IPropertyHolder<Containable>, T extends Tab<H>> List<T> getTabsByVisibility(
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<T> getTabsByVisibility(
             Class<T> model, Boolean isAdmin)
     {
 
-        TabDao<H, T> dao = (TabDao<H, T>) getDaoByModel(model);
+        TabDao<H, T, PD> dao = (TabDao<H, T, PD>) getDaoByModel(model);
         List<T> tabs = new LinkedList<T>();
         if (isAdmin == null)
         {
@@ -451,7 +451,7 @@ public abstract class TabService extends PersistenceDynaService implements
             IContainable ic = findContainableByDecorable(ttp.getDecoratorClass(), decorable);
             if (ic != null)
             {
-              PropertyHolderDao<H> modelDao = (PropertyHolderDao<H>) getDaoByModel(clazzH);
+              PropertyHolderDao<H, TP> modelDao = (PropertyHolderDao<H, TP>) getDaoByModel(clazzH);
               return modelDao.findHolderByContainable(ic);
             }
         }
@@ -468,4 +468,35 @@ public abstract class TabService extends PersistenceDynaService implements
         return result;
     }
 
+    @Override
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<T> getTabsByAccessLevel(Class<T> modelClass, Integer level) { 
+        TabDao<H, T, PD> dao = (TabDao<H, T, PD>) getDaoByModel(modelClass);
+        return dao.findByAccessLevel(level);
+    }
+    
+    @Override
+    public <H extends IPropertyHolder<Containable>, A extends AType<PD>, PD extends PropertiesDefinition, D extends TypedAbstractTab<H, A, PD>> List<D> getTabsByTypoAndAccessLevel(
+            Class<D> model, Integer level, A typo)
+    {
+        TypedTabDao<H, A, PD, D> dao = (TypedTabDao<H, A, PD, D>) getDaoByModel(model);
+        return dao.findByTypeAndAccessLevel(typo, level);        
+    }
+
+    
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationGroupInTab(Class<T> tabClass, Integer id) {
+        TabDao<H, T, PD> dao = (TabDao<H, T, PD>) getDaoByModel(tabClass);
+        return dao.findAuthorizedGroupById(id);
+    }
+    public <H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationSingleInTab(Class<T> tabClass, Integer id) {
+        TabDao<H, T, PD> dao = (TabDao<H, T, PD>) getDaoByModel(tabClass);
+        return dao.findAuthorizedSingleById(id);
+    }    
+    public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationGroupInBox(Class<H> boxClass, Integer id) {
+        PropertyHolderDao<H, PD> modelDao = (PropertyHolderDao<H, PD>) getDaoByModel(boxClass);
+        return modelDao.findAuthorizedGroupById(id);
+    }
+    public <H extends IPropertyHolder<Containable>, PD extends PropertiesDefinition> List<PD> findPDAuthorizationSingleInBox(Class<H> boxClass, Integer id) {
+        PropertyHolderDao<H, PD> modelDao = (PropertyHolderDao<H, PD>) getDaoByModel(boxClass);
+        return modelDao.findAuthorizedSingleById(id);
+    }
 }

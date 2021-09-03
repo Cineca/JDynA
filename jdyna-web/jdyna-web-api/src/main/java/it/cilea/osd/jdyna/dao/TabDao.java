@@ -26,18 +26,23 @@ package it.cilea.osd.jdyna.dao;
 
 import it.cilea.osd.common.dao.PaginableObjectDao;
 import it.cilea.osd.jdyna.model.Containable;
+import it.cilea.osd.jdyna.model.PropertiesDefinition;
 import it.cilea.osd.jdyna.web.IPropertyHolder;
 import it.cilea.osd.jdyna.web.Tab;
 
 import java.util.Collection;
 import java.util.List;
 
-public interface TabDao<H extends IPropertyHolder<Containable>, T extends Tab<H>> extends PaginableObjectDao<T,Integer> {
+public interface TabDao<H extends IPropertyHolder<Containable>, T extends Tab<H>, PD extends PropertiesDefinition> extends PaginableObjectDao<T,Integer> {
 	public List<H> findPropertyHolderInTab(Integer tabId);
 	public List<T> findTabsByHolder(H holder);
 	public T uniqueTabByShortName(String title);
-	public List<T> findByAccessLevel(Integer admin);
+	public List<T> findByAccessLevel(Integer level);
     public List<T> findByAnonimous();
     public List<T> findByAdmin();
     public List<T> findByOwner();
+    public List<PD> findAuthorizedGroupById(Integer id);
+    public List<PD> findAuthorizedSingleById(Integer id);
+    public List<PD> findAuthorizedGroupByShortName(String shortName);
+    public List<PD> findAuthorizedSingleByShortName(String shortName);    
 }

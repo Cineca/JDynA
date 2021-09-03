@@ -33,8 +33,12 @@
 <%@ include file="/META-INF/taglibs4dynatag.jsp"%>
 
 <c:set var="subTypesSortered" value="${dyna:sortList(typeDefinition.real.mask)}" />																			
-<c:set var="showeditbutton" value="false" target="java.lang.Boolean" />										
-<c:set var="count" value="0" />	
+<c:set var="showeditbutton" value="false" target="java.lang.Boolean" />
+<c:set var="count" value="0" />
+
+<%-- TODO not used showpreferredbutton/showstatusbutton: use to control whetever show or not the visibility checkbox and the preferred button--%>
+<c:set var="showpreferredbutton" value="true" target="java.lang.Boolean" />
+<c:set var="showstatusbutton" value="false" target="java.lang.Boolean" />	
 
 <c:choose>								  						
 	<c:when test="${!typeDefinition.real.inline}">													
@@ -90,7 +94,15 @@
 	</c:forEach>
 	<c:if test="${editmode}">
 	
-		<display:column>		
+		<display:column>
+			<c:choose>
+				<c:when test="${values[numriga].preferred != null && values[numriga].preferred}">
+					<img id="nested_${typeDefinition.real.id}_notpreferred_${values[numriga].id}" src="${root}/image/jdyna/preferred.png" class="nested_notpreferred_button nested_notpreferred_button_${typeDefinition.real.id} nested_notpreferred_button_${typeDefinition.shortName}"/>
+				</c:when>
+				<c:otherwise>
+					<img id="nested_${typeDefinition.real.id}_preferred_${values[numriga].id}" src="${root}/image/jdyna/notpreferred.png" class="nested_preferred_button nested_preferred_button_${typeDefinition.real.id} nested_preferred_button_${typeDefinition.shortName}"/>
+				</c:otherwise>
+			</c:choose>	
 		<c:if test="${admin || showeditbutton}">
 			<img id="nested_${typeDefinition.real.id}_edit_${values[numriga].id}" src="${root}/image/jdyna/edit.gif" class="nested_edit_button nested_edit_button_${typeDefinition.real.id} nested_edit_button_${typeDefinition.shortName}"/>
 		</c:if>	
@@ -139,15 +151,21 @@
 			<%-- FINE DEL COPIA INCOLLA --%>
 		</c:forEach>
 		<c:if test="${editmode}">
-		<div class="nested_actions">		
-						
+		<div class="nested_actions">
+			<c:choose>
+				<c:when test="${value.preferred != null && value.preferred}">
+					<img id="nested_${typeDefinition.real.id}_notpreferred_${value.id}" src="${root}/image/jdyna/preferred.png" class="nested_notpreferred_button nested_notpreferred_button_${typeDefinition.real.id} nested_notpreferred_button_${typeDefinition.shortName}"/>
+				</c:when>
+				<c:otherwise>
+					<img id="nested_${typeDefinition.real.id}_preferred_${value.id}" src="${root}/image/jdyna/notpreferred.png" class="nested_preferred_button nested_preferred_button_${typeDefinition.real.id} nested_preferred_button_${typeDefinition.shortName}"/>
+				</c:otherwise>
+			</c:choose>
 			<c:if test="${admin || showeditbutton}">
 				<img id="nested_${typeDefinition.real.id}_edit_${value.id}" src="${root}/image/jdyna/edit.gif" class="nested_edit_button nested_edit_button_${typeDefinition.real.id} nested_edit_button_${typeDefinition.shortName}"/>
 			</c:if>	
 			<c:if test="${admin || (typeDefinition.accessLevel==3)}">				
 				<img id="nested_${typeDefinition.real.id}_delete_${value.id}" src="${root}/image/jdyna/delete_icon.gif" class="nested_delete_button nested_delete_button_${typeDefinition.real.id} nested_delete_button_${typeDefinition.shortName}"/>
 			</c:if>					
-		
 		</div>
 		</c:if>
 	</div>

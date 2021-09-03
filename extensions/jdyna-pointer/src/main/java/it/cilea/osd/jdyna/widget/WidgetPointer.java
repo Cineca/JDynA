@@ -24,28 +24,20 @@
  */
 package it.cilea.osd.jdyna.widget;
 
+import java.beans.PropertyEditor;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Transient;
+
+import org.hibernate.annotations.Type;
+
 import it.cilea.osd.common.model.Identifiable;
 import it.cilea.osd.jdyna.editor.ModelPropertyEditor;
 import it.cilea.osd.jdyna.model.AWidget;
 import it.cilea.osd.jdyna.service.IPersistenceDynaService;
 import it.cilea.osd.jdyna.util.ValidationMessage;
 import it.cilea.osd.jdyna.value.PointerValue;
-
-import java.beans.PropertyEditor;
-
-import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
-import javax.persistence.DiscriminatorType;
-import javax.persistence.Entity;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
-import javax.persistence.Lob;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.Table;
-import javax.persistence.Transient;
-
-import org.hibernate.annotations.Type;
 
 /**
  * Classe puntatore
