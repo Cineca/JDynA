@@ -23,6 +23,8 @@
 -  Boston, MA  02110-1301  USA
 --%>
 <%@ attribute name="propertyPath" required="true"%>
+<%@ attribute name="visibility" required="false"%>
+<%@ attribute name="disabled" required="false"%>
 <%@ attribute name="label" required="false"%>
 <%@ attribute name="labelKey" required="false"%>
 <%@ attribute name="help" required="false"%>
@@ -76,10 +78,12 @@
 		<c:set var="inputShowed" value="true" />
 		<c:set var="inputValue"><c:out value="${status.value}" escapeXml="true"></c:out></c:set>
 		<c:set var="inputName"><c:out value="${status.expression}" escapeXml="false"></c:out></c:set>
-		
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+
+		<c:if test="${disabled}">
+			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		</c:if>
 			
-		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}"
+		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}" ${disabled}
 			onchange="${onchange}">${inputValue}</textarea>
 				
 		<c:if test="${!empty toolbar && toolbar ne 'nessuna'}">  														
@@ -90,8 +94,13 @@
 				oFCKeditor.ReplaceTextarea();
 			</script>
 		</c:if>
+
+		<c:if test="${visibility}">
+			<dyna:boolean propertyPath="${inputName}.visibility"/>
+		</c:if>
 	</spring:bind>
 	
+	<c:if test="${empty disabled}">
 	<c:if test="${repeatable}">
 	<c:if test="${iterationStatus.count == 1}">
 	<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
@@ -112,6 +121,7 @@
 		onclick="${dynajs_var}.remove(${iterationStatus.count - 1},this)" />
 	</c:otherwise>
 	</c:choose>
+	</c:if>
 	</c:if>
 	
 	<dyna:validation propertyPath="${propertyPath}[${iterationStatus.count - 1}]" />
@@ -135,9 +145,11 @@
 		<c:set var="validation" value="${propertyPath}"/>	
 	</c:if>
 		
-		<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		<c:if test="${disabled}">
+			<input name="_${inputName}" id="_${inputName}" value="true" type="hidden" />
+		</c:if>
 
-		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}"
+		<textarea name="${inputName}" id="${inputName}" rows="${rows}" cols="${cols}" ${disabled}
 			onchange="${onchange}">${inputValue}</textarea>
 		
 		<c:if test="${!empty toolbar && toolbar ne 'nessuna'}">  														
@@ -149,6 +161,11 @@
 			</script>
 		</c:if>
 
+		<c:if test="${visibility}">
+			<dyna:boolean propertyPath="${inputName}.visibility"/>
+		</c:if>
+
+		<c:if test="${empty disabled}">
 		<c:if test="${repeatable}">
 		<c:set var="dynajs_var" value="_dyna_${dyna:md5(propertyPath)}" />
 		<script type="text/javascript">
@@ -159,6 +176,7 @@
 		
 		<img src="${root}/image/jdyna/main_plus.gif" class="addButton"
 			onclick="${dynajs_var}.create()" />
+		</c:if>
 		</c:if>
 	
 		<dyna:validation propertyPath="${validation}" />
